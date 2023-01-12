@@ -11,11 +11,9 @@ enum Protocol {
     HTTPS = 1;
 }
 
-
 message Space {
 
-
-    string name = 1 [(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
