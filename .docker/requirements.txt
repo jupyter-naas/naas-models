@@ -1,0 +1,5 @@
+protobuf-to-pydantic==0.1.6
+protobuf-to-pydantic[mypy-protobuf]==0.1.6
+protobuf==3.19.*
+protobuf2pydantic==2021.11.25
+grpcio-tools<=1.49.1
