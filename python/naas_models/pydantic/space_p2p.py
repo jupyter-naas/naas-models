@@ -25,7 +25,7 @@ class Protocol(IntEnum):
 
 class Space(BaseModel):
 
-    _one_of_dict = {"Space._cpu": {"fields": {"cpu"}}, "Space._created_at": {"fields": {"created_at"}}, "Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._image": {"fields": {"image"}}, "Space._memory": {"fields": {"memory"}}, "Space._meta": {"fields": {"meta"}}, "Space._min_count": {"fields": {"min_count"}}, "Space._namespace": {"fields": {"namespace"}}, "Space._url": {"fields": {"url"}}, "Space._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"Space._cpu": {"fields": {"cpu"}}, "Space._created_at": {"fields": {"created_at"}}, "Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._image": {"fields": {"image"}}, "Space._memory": {"fields": {"memory"}}, "Space._min_count": {"fields": {"min_count"}}, "Space._namespace": {"fields": {"namespace"}}, "Space._url": {"fields": {"url"}}, "Space._user_id": {"fields": {"user_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
@@ -37,8 +37,7 @@ class Space(BaseModel):
     memory: float = FieldInfo(default=0.0, gt=0) 
     min_count: int = FieldInfo(default=0, ge=0) 
     domain: UriRefStr = FieldInfo(default="") 
-    image: str = FieldInfo(default="") 
-    meta: str = FieldInfo(default="", max_length=5) 
+    image: str = FieldInfo(default="", regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
     url: AnyUrl = FieldInfo(default="") 
     protocols: typing.List[Protocol] = FieldInfo(default_factory=list) 
 

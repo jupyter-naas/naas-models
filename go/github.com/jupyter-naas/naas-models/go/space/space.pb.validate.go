@@ -206,24 +206,16 @@ func (m *Space) validate(all bool) error {
 	}
 
 	if m.Image != nil {
-		// no validation rules for Image
-	}
 
-	if m.Meta != nil {
-
-		if m.GetMeta() != "" {
-
-			if utf8.RuneCountInString(m.GetMeta()) > 5 {
-				err := SpaceValidationError{
-					field:  "Meta",
-					reason: "value length must be at most 5 runes",
-				}
-				if !all {
-					return err
-				}
-				errors = append(errors, err)
+		if !_Space_Image_Pattern.MatchString(m.GetImage()) {
+			err := SpaceValidationError{
+				field:  "Image",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:][a-zA-Z0-9\\\\.\\\\/-]*)?$\"",
 			}
-
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
 
 	}
@@ -369,3 +361,5 @@ var _ interface {
 } = SpaceValidationError{}
 
 var _Space_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+var _Space_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
