@@ -11,11 +11,9 @@ enum Protocol {
     HTTPS = 1;
 }
 
-
 message Space {
 
-
-    string name = 1 [(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
@@ -31,9 +29,6 @@ message Space {
     optional uint32 min_count = 8 [(validate.rules).uint32.gte = 0];
     optional string domain = 9 [(validate.rules).string.uri_ref = true];
     optional string image = 10;
-    optional string meta = 11 [(validate.rules).string = {ignore_empty: true, max_len: 5}];
-    optional string url = 12 [(validate.rules).string.uri = true];
-    repeated Protocol protocols = 13;
+    optional string url = 11 [(validate.rules).string.uri = true];
+    repeated Protocol protocols = 12;
 }
-
-// pattern: "`^(?P<repository>[\\w.\\-_]+((?::\\d+|)(?=/[a-z0-9._-]+/[a-z0-9._-]+))|)(?:/|)(?P<image>[a-z0-9.\\-_]+(?:/[a-z0-9.\\-_]+|))(:(?P<tag>[\\w.\\-_]{1,127})|)$",
