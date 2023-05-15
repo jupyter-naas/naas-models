@@ -59,26 +59,30 @@ func (m *Space) validate(all bool) error {
 
 	var errors []error
 
-	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
-		err := SpaceValidationError{
-			field:  "Name",
-			reason: "value length must be between 1 and 63 runes, inclusive",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
+	if m.Name != nil {
 
-	if !_Space_Name_Pattern.MatchString(m.GetName()) {
-		err := SpaceValidationError{
-			field:  "Name",
-			reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+			err := SpaceValidationError{
+				field:  "Name",
+				reason: "value length must be between 1 and 63 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
+
+		if !_Space_Name_Pattern.MatchString(m.GetName()) {
+			err := SpaceValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		errors = append(errors, err)
+
 	}
 
 	if m.UserId != nil {

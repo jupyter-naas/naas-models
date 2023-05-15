@@ -25,7 +25,7 @@ class Protocol(IntEnum):
 
 class Space(BaseModel):
 
-    _one_of_dict = {"Space._cpu": {"fields": {"cpu"}}, "Space._created_at": {"fields": {"created_at"}}, "Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._image": {"fields": {"image"}}, "Space._memory": {"fields": {"memory"}}, "Space._min_count": {"fields": {"min_count"}}, "Space._namespace": {"fields": {"namespace"}}, "Space._url": {"fields": {"url"}}, "Space._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"Space._cpu": {"fields": {"cpu"}}, "Space._created_at": {"fields": {"created_at"}}, "Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._image": {"fields": {"image"}}, "Space._memory": {"fields": {"memory"}}, "Space._min_count": {"fields": {"min_count"}}, "Space._name": {"fields": {"name"}}, "Space._namespace": {"fields": {"namespace"}}, "Space._url": {"fields": {"url"}}, "Space._user_id": {"fields": {"user_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
