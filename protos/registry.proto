@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package registry;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/registry";
+
+import "validate.proto";
+
+message Registry {
+
+    optional string name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+
+    }];
+    optional string owner = 2 [(validate.rules).string.email = true];
+    optional string uri = 3;
+}
+
+/**
+*   Errors
+*/
+
+enum RegistryError {
+    REGISTRY_ALREADY_EXISTS = 0;
+    REGISTRY_NOT_FOUND = 1;
+    NOT_AUTHORIZED = 2;
+}
+
+/**
+*   RegistryCreation
+*/
+
+message RegistryCreationRequest {
+    optional string name = 1[(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+    optional string owner = 2[(validate.rules).string.email = true];
+}
+
+message RegistryCreationResponse {
+    optional Registry registry = 1;
+}
+
+message RegistryCreationResponseError {
+    optional RegistryError error = 1;
+    optional string error_message = 2;
+}
+
+
+/**
+*   RegistryList
+*/
+
+message RegistryListRequest {
+    optional string owner = 1;
+    optional int32 page_size = 2;
+    optional int32 page_number = 3;
+}
+
+message RegistryListResponse {
+    repeated Registry registries = 1;
+}
+
+/**
+*   RegistryGet
+*/
+
+message RegistryGetRequest {
+    optional string name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+    optional string owner = 2;
+}
+
+message RegistryGetResponse {
+    optional Registry registry = 1;
+}
+
+message RegistryGetResponseError {
+    optional RegistryError error = 2;
+    optional string error_message = 3;
+}
+
+/**
+*   Credentials
+*/
+
+message RegistryCredentialsRequest {
+    optional string registry_name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+
+    }];
+}
+
+message RegistryCredentialsResponse {
+    optional string registry_name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+
+    }];
+    optional string username = 2;
+    optional string password = 3;
+    optional RegistryError error = 4;
+    optional string error_message = 5;
+}
