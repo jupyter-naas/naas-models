@@ -21,12 +21,11 @@ message Space {
     }];
     optional string user_id = 2 [(validate.rules).string.uuid = true];
     optional string id = 3 [(validate.rules).string.uuid = true];
-    optional uint64 created_at = 4 [(validate.rules).uint64.gt = 1673364229281];
-
-    optional string namespace = 5 [(validate.rules).string.hostname = true];
-    optional float cpu = 6 [(validate.rules).float.gt = 0];
-    optional float memory = 7 [(validate.rules).float.gt = 0];
-    optional uint32 min_count = 8 [(validate.rules).uint32.gte = 0];
+    optional string created_at = 4 [(validate.rules).string = {
+        pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$";
+    }];
+    map<string, string> resources = 6;
+    optional string namespace = 5;
     optional string domain = 9 [(validate.rules).string.uri_ref = true];
     optional string image = 10 [(validate.rules).string = {
         pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
@@ -35,3 +34,86 @@ message Space {
     repeated Protocol protocols = 12;
 }
 
+/**
+*   Errors
+*/
+
+enum SpaceError {
+    SPACE_ALREADY_EXISTS = 0;
+    SPACE_NOT_FOUND = 1;
+}
+
+message SpaceResponseError {
+    optional SpaceError code = 1;
+    optional string status = 2;
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+/**
+*   SpaceCreation
+*/
+
+message SpaceCreationRequest {
+    optional string name = 1[(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+    optional string user_id = 2[(validate.rules).string.uuid = true];
+    optional string namespace = 3;
+    optional string image = 4[(validate.rules).string = {
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+    }];
+}
+
+message SpaceCreationResponse {
+    optional Space space = 1;
+    optional string status = 2;
+}
+
+/**
+*   SpaceGet
+*/
+
+message SpaceGetRequest {
+    optional string name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+}
+
+message SpaceGetResponse {
+    optional Space space = 1;
+    optional string status = 2;
+}
+
+
+/**
+*   SpaceDeletion
+*/
+
+message SpaceDeletionRequest {
+    optional string name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+}
+
+message SpaceDeletionResponse {
+    optional string status = 1;
+}
+
+/**
+*   SpaceList
+*/
+
+message SpaceListRequest {
+    optional string user_id = 1[(validate.rules).string.uuid = true];
+}
+
+message SpaceListResponse {
+    repeated Space spaces = 1;
+}
