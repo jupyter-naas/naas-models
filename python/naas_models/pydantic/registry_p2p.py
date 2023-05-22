@@ -8,7 +8,6 @@ from protobuf_to_pydantic.customer_validator import check_one_of
 from pydantic import BaseModel
 from pydantic import root_validator
 from pydantic.fields import FieldInfo
-from pydantic.networks import EmailStr
 import typing
 
 
@@ -23,23 +22,33 @@ class RegistryError(IntEnum):
 
 class Registry(BaseModel):
 
-    _one_of_dict = {"Registry._name": {"fields": {"name"}}, "Registry._owner": {"fields": {"owner"}}, "Registry._uri": {"fields": {"uri"}}}
+    _one_of_dict = {"Registry._name": {"fields": {"name"}}, "Registry._uri": {"fields": {"uri"}}, "Registry._user_id": {"fields": {"user_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    owner: EmailStr = FieldInfo(default="") 
+    user_id: str = FieldInfo(default="") 
     uri: str = FieldInfo(default="") 
+
+
+
+
+class RegistryCredentials(BaseModel):
+
+    _one_of_dict = {"RegistryCredentials._password": {"fields": {"password"}}, "RegistryCredentials._username": {"fields": {"username"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    username: str = FieldInfo(default="") 
+    password: str = FieldInfo(default="") 
 
 
 
 
 class RegistryCreationRequest(BaseModel):
 
-    _one_of_dict = {"RegistryCreationRequest._name": {"fields": {"name"}}, "RegistryCreationRequest._owner": {"fields": {"owner"}}}
+    _one_of_dict = {"RegistryCreationRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    owner: EmailStr = FieldInfo(default="") 
 
 
 
@@ -67,10 +76,9 @@ class RegistryCreationResponseError(BaseModel):
 
 class RegistryListRequest(BaseModel):
 
-    _one_of_dict = {"RegistryListRequest._owner": {"fields": {"owner"}}, "RegistryListRequest._page_number": {"fields": {"page_number"}}, "RegistryListRequest._page_size": {"fields": {"page_size"}}}
+    _one_of_dict = {"RegistryListRequest._page_number": {"fields": {"page_number"}}, "RegistryListRequest._page_size": {"fields": {"page_size"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    owner: str = FieldInfo(default="") 
     page_size: int = FieldInfo(default=0) 
     page_number: int = FieldInfo(default=0) 
 
@@ -86,11 +94,10 @@ class RegistryListResponse(BaseModel):
 
 class RegistryGetRequest(BaseModel):
 
-    _one_of_dict = {"RegistryGetRequest._name": {"fields": {"name"}}, "RegistryGetRequest._owner": {"fields": {"owner"}}}
+    _one_of_dict = {"RegistryGetRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    owner: str = FieldInfo(default="") 
 
 
 
@@ -116,24 +123,53 @@ class RegistryGetResponseError(BaseModel):
 
 
 
-class RegistryCredentialsRequest(BaseModel):
+class RegistryDeleteRequest(BaseModel):
 
-    _one_of_dict = {"RegistryCredentialsRequest._registry_name": {"fields": {"registry_name"}}}
+    _one_of_dict = {"RegistryDeleteRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    registry_name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
+    name: str = FieldInfo(default="") 
+
+
+
+
+class RegistryDeleteResponseError(BaseModel):
+
+    _one_of_dict = {"RegistryDeleteResponseError._error": {"fields": {"error"}}, "RegistryDeleteResponseError._error_message": {"fields": {"error_message"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: RegistryError = FieldInfo(default=0) 
+    error_message: str = FieldInfo(default="") 
+
+
+
+
+class RegistryCredentialsRequest(BaseModel):
+
+    _one_of_dict = {"RegistryCredentialsRequest._name": {"fields": {"name"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
 
 
 
 
 class RegistryCredentialsResponse(BaseModel):
 
-    _one_of_dict = {"RegistryCredentialsResponse._error": {"fields": {"error"}}, "RegistryCredentialsResponse._error_message": {"fields": {"error_message"}}, "RegistryCredentialsResponse._password": {"fields": {"password"}}, "RegistryCredentialsResponse._registry_name": {"fields": {"registry_name"}}, "RegistryCredentialsResponse._username": {"fields": {"username"}}}
+    _one_of_dict = {"RegistryCredentialsResponse._credentials": {"fields": {"credentials"}}, "RegistryCredentialsResponse._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    registry_name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    username: str = FieldInfo(default="") 
-    password: str = FieldInfo(default="") 
+    name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
+    credentials: RegistryCredentials = FieldInfo() 
+
+
+
+
+class RegistryCredentialsResponseError(BaseModel):
+
+    _one_of_dict = {"RegistryCredentialsResponseError._error": {"fields": {"error"}}, "RegistryCredentialsResponseError._error_message": {"fields": {"error_message"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
     error: RegistryError = FieldInfo(default=0) 
     error_message: str = FieldInfo(default="") 
 

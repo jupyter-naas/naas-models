@@ -7,15 +7,19 @@ option go_package = "github.com/jupyter-naas/naas-models/go/registry";
 import "validate.proto";
 
 message Registry {
-
     optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
 
     }];
-    optional string owner = 2 [(validate.rules).string.email = true];
+    optional string user_id = 2;
     optional string uri = 3;
+}
+
+message RegistryCredentials {
+    optional string username = 2;
+    optional string password = 3;
 }
 
 /**
@@ -33,12 +37,11 @@ enum RegistryError {
 */
 
 message RegistryCreationRequest {
-    optional string name = 1[(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
     }];
-    optional string owner = 2[(validate.rules).string.email = true];
 }
 
 message RegistryCreationResponse {
@@ -56,9 +59,8 @@ message RegistryCreationResponseError {
 */
 
 message RegistryListRequest {
-    optional string owner = 1;
-    optional int32 page_size = 2;
-    optional int32 page_number = 3;
+    optional int32 page_size = 1;
+    optional int32 page_number = 2;
 }
 
 message RegistryListResponse {
@@ -75,7 +77,6 @@ message RegistryGetRequest {
         min_len: 1,
         max_len: 63,
     }];
-    optional string owner = 2;
 }
 
 message RegistryGetResponse {
@@ -83,8 +84,21 @@ message RegistryGetResponse {
 }
 
 message RegistryGetResponseError {
-    optional RegistryError error = 2;
-    optional string error_message = 3;
+    optional RegistryError error = 1;
+    optional string error_message = 2;
+}
+
+/**
+*   RegistryDelete
+*/
+
+message RegistryDeleteRequest {
+    optional string name = 1;
+}
+
+message RegistryDeleteResponseError {
+    optional RegistryError error = 1;
+    optional string error_message = 2;
 }
 
 /**
@@ -92,7 +106,7 @@ message RegistryGetResponseError {
 */
 
 message RegistryCredentialsRequest {
-    optional string registry_name = 1 [(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
@@ -101,14 +115,16 @@ message RegistryCredentialsRequest {
 }
 
 message RegistryCredentialsResponse {
-    optional string registry_name = 1 [(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
 
     }];
-    optional string username = 2;
-    optional string password = 3;
-    optional RegistryError error = 4;
-    optional string error_message = 5;
+    optional RegistryCredentials credentials = 2;
+}
+
+message RegistryCredentialsResponseError {
+    optional RegistryError error = 1;
+    optional string error_message = 2;
 }
