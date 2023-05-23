@@ -83,20 +83,8 @@ func (m *Registry) validate(all bool) error {
 
 	}
 
-	if m.Owner != nil {
-
-		if err := m._validateEmail(m.GetOwner()); err != nil {
-			err = RegistryValidationError{
-				field:  "Owner",
-				reason: "value must be a valid email address",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
+	if m.UserId != nil {
+		// no validation rules for UserId
 	}
 
 	if m.Uri != nil {
@@ -108,56 +96,6 @@ func (m *Registry) validate(all bool) error {
 	}
 
 	return nil
-}
-
-func (m *Registry) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
-	}
-
-	return nil
-}
-
-func (m *Registry) _validateEmail(addr string) error {
-	a, err := mail.ParseAddress(addr)
-	if err != nil {
-		return err
-	}
-	addr = a.Address
-
-	if len(addr) > 254 {
-		return errors.New("email addresses cannot exceed 254 characters")
-	}
-
-	parts := strings.SplitN(addr, "@", 2)
-
-	if len(parts[0]) > 64 {
-		return errors.New("email address local phrase cannot exceed 64 characters")
-	}
-
-	return m._validateHostname(parts[1])
 }
 
 // RegistryMultiError is an error wrapping multiple validation errors returned
@@ -232,6 +170,116 @@ var _ interface {
 
 var _Registry_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
 
+// Validate checks the field values on RegistryCredentials with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegistryCredentials) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegistryCredentials with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegistryCredentialsMultiError, or nil if none found.
+func (m *RegistryCredentials) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegistryCredentials) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Username != nil {
+		// no validation rules for Username
+	}
+
+	if m.Password != nil {
+		// no validation rules for Password
+	}
+
+	if len(errors) > 0 {
+		return RegistryCredentialsMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegistryCredentialsMultiError is an error wrapping multiple validation
+// errors returned by RegistryCredentials.ValidateAll() if the designated
+// constraints aren't met.
+type RegistryCredentialsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegistryCredentialsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegistryCredentialsMultiError) AllErrors() []error { return m }
+
+// RegistryCredentialsValidationError is the validation error returned by
+// RegistryCredentials.Validate if the designated constraints aren't met.
+type RegistryCredentialsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegistryCredentialsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegistryCredentialsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegistryCredentialsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegistryCredentialsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegistryCredentialsValidationError) ErrorName() string {
+	return "RegistryCredentialsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegistryCredentialsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegistryCredentials.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegistryCredentialsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegistryCredentialsValidationError{}
+
 // Validate checks the field values on RegistryCreationRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -280,77 +328,11 @@ func (m *RegistryCreationRequest) validate(all bool) error {
 
 	}
 
-	if m.Owner != nil {
-
-		if err := m._validateEmail(m.GetOwner()); err != nil {
-			err = RegistryCreationRequestValidationError{
-				field:  "Owner",
-				reason: "value must be a valid email address",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return RegistryCreationRequestMultiError(errors)
 	}
 
 	return nil
-}
-
-func (m *RegistryCreationRequest) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
-	}
-
-	return nil
-}
-
-func (m *RegistryCreationRequest) _validateEmail(addr string) error {
-	a, err := mail.ParseAddress(addr)
-	if err != nil {
-		return err
-	}
-	addr = a.Address
-
-	if len(addr) > 254 {
-		return errors.New("email addresses cannot exceed 254 characters")
-	}
-
-	parts := strings.SplitN(addr, "@", 2)
-
-	if len(parts[0]) > 64 {
-		return errors.New("email address local phrase cannot exceed 64 characters")
-	}
-
-	return m._validateHostname(parts[1])
 }
 
 // RegistryCreationRequestMultiError is an error wrapping multiple validation
@@ -696,10 +678,6 @@ func (m *RegistryListRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Owner != nil {
-		// no validation rules for Owner
-	}
-
 	if m.PageSize != nil {
 		// no validation rules for PageSize
 	}
@@ -970,10 +948,6 @@ func (m *RegistryGetRequest) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-	}
-
-	if m.Owner != nil {
-		// no validation rules for Owner
 	}
 
 	if len(errors) > 0 {
@@ -1303,6 +1277,223 @@ var _ interface {
 	ErrorName() string
 } = RegistryGetResponseErrorValidationError{}
 
+// Validate checks the field values on RegistryDeleteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegistryDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegistryDeleteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegistryDeleteRequestMultiError, or nil if none found.
+func (m *RegistryDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegistryDeleteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if len(errors) > 0 {
+		return RegistryDeleteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegistryDeleteRequestMultiError is an error wrapping multiple validation
+// errors returned by RegistryDeleteRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RegistryDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegistryDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegistryDeleteRequestMultiError) AllErrors() []error { return m }
+
+// RegistryDeleteRequestValidationError is the validation error returned by
+// RegistryDeleteRequest.Validate if the designated constraints aren't met.
+type RegistryDeleteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegistryDeleteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegistryDeleteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegistryDeleteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegistryDeleteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegistryDeleteRequestValidationError) ErrorName() string {
+	return "RegistryDeleteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegistryDeleteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegistryDeleteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegistryDeleteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegistryDeleteRequestValidationError{}
+
+// Validate checks the field values on RegistryDeleteResponseError with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RegistryDeleteResponseError) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegistryDeleteResponseError with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RegistryDeleteResponseErrorMultiError, or nil if none found.
+func (m *RegistryDeleteResponseError) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegistryDeleteResponseError) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+		// no validation rules for Error
+	}
+
+	if m.ErrorMessage != nil {
+		// no validation rules for ErrorMessage
+	}
+
+	if len(errors) > 0 {
+		return RegistryDeleteResponseErrorMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegistryDeleteResponseErrorMultiError is an error wrapping multiple
+// validation errors returned by RegistryDeleteResponseError.ValidateAll() if
+// the designated constraints aren't met.
+type RegistryDeleteResponseErrorMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegistryDeleteResponseErrorMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegistryDeleteResponseErrorMultiError) AllErrors() []error { return m }
+
+// RegistryDeleteResponseErrorValidationError is the validation error returned
+// by RegistryDeleteResponseError.Validate if the designated constraints
+// aren't met.
+type RegistryDeleteResponseErrorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegistryDeleteResponseErrorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegistryDeleteResponseErrorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegistryDeleteResponseErrorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegistryDeleteResponseErrorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegistryDeleteResponseErrorValidationError) ErrorName() string {
+	return "RegistryDeleteResponseErrorValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegistryDeleteResponseErrorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegistryDeleteResponseError.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegistryDeleteResponseErrorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegistryDeleteResponseErrorValidationError{}
+
 // Validate checks the field values on RegistryCredentialsRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1325,11 +1516,11 @@ func (m *RegistryCredentialsRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.RegistryName != nil {
+	if m.Name != nil {
 
-		if l := utf8.RuneCountInString(m.GetRegistryName()); l < 1 || l > 63 {
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
 			err := RegistryCredentialsRequestValidationError{
-				field:  "RegistryName",
+				field:  "Name",
 				reason: "value length must be between 1 and 63 runes, inclusive",
 			}
 			if !all {
@@ -1338,9 +1529,9 @@ func (m *RegistryCredentialsRequest) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-		if !_RegistryCredentialsRequest_RegistryName_Pattern.MatchString(m.GetRegistryName()) {
+		if !_RegistryCredentialsRequest_Name_Pattern.MatchString(m.GetName()) {
 			err := RegistryCredentialsRequestValidationError{
-				field:  "RegistryName",
+				field:  "Name",
 				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
 			}
 			if !all {
@@ -1431,7 +1622,7 @@ var _ interface {
 	ErrorName() string
 } = RegistryCredentialsRequestValidationError{}
 
-var _RegistryCredentialsRequest_RegistryName_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+var _RegistryCredentialsRequest_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
 
 // Validate checks the field values on RegistryCredentialsResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -1455,11 +1646,11 @@ func (m *RegistryCredentialsResponse) validate(all bool) error {
 
 	var errors []error
 
-	if m.RegistryName != nil {
+	if m.Name != nil {
 
-		if l := utf8.RuneCountInString(m.GetRegistryName()); l < 1 || l > 63 {
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
 			err := RegistryCredentialsResponseValidationError{
-				field:  "RegistryName",
+				field:  "Name",
 				reason: "value length must be between 1 and 63 runes, inclusive",
 			}
 			if !all {
@@ -1468,9 +1659,9 @@ func (m *RegistryCredentialsResponse) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
-		if !_RegistryCredentialsResponse_RegistryName_Pattern.MatchString(m.GetRegistryName()) {
+		if !_RegistryCredentialsResponse_Name_Pattern.MatchString(m.GetName()) {
 			err := RegistryCredentialsResponseValidationError{
-				field:  "RegistryName",
+				field:  "Name",
 				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
 			}
 			if !all {
@@ -1481,20 +1672,37 @@ func (m *RegistryCredentialsResponse) validate(all bool) error {
 
 	}
 
-	if m.Username != nil {
-		// no validation rules for Username
-	}
+	if m.Credentials != nil {
 
-	if m.Password != nil {
-		// no validation rules for Password
-	}
+		if all {
+			switch v := interface{}(m.GetCredentials()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RegistryCredentialsResponseValidationError{
+						field:  "Credentials",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RegistryCredentialsResponseValidationError{
+						field:  "Credentials",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCredentials()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return RegistryCredentialsResponseValidationError{
+					field:  "Credentials",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
 
-	if m.Error != nil {
-		// no validation rules for Error
-	}
-
-	if m.ErrorMessage != nil {
-		// no validation rules for ErrorMessage
 	}
 
 	if len(errors) > 0 {
@@ -1578,4 +1786,117 @@ var _ interface {
 	ErrorName() string
 } = RegistryCredentialsResponseValidationError{}
 
-var _RegistryCredentialsResponse_RegistryName_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+var _RegistryCredentialsResponse_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+// Validate checks the field values on RegistryCredentialsResponseError with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *RegistryCredentialsResponseError) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RegistryCredentialsResponseError with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RegistryCredentialsResponseErrorMultiError, or nil if none found.
+func (m *RegistryCredentialsResponseError) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RegistryCredentialsResponseError) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+		// no validation rules for Error
+	}
+
+	if m.ErrorMessage != nil {
+		// no validation rules for ErrorMessage
+	}
+
+	if len(errors) > 0 {
+		return RegistryCredentialsResponseErrorMultiError(errors)
+	}
+
+	return nil
+}
+
+// RegistryCredentialsResponseErrorMultiError is an error wrapping multiple
+// validation errors returned by
+// RegistryCredentialsResponseError.ValidateAll() if the designated
+// constraints aren't met.
+type RegistryCredentialsResponseErrorMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RegistryCredentialsResponseErrorMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RegistryCredentialsResponseErrorMultiError) AllErrors() []error { return m }
+
+// RegistryCredentialsResponseErrorValidationError is the validation error
+// returned by RegistryCredentialsResponseError.Validate if the designated
+// constraints aren't met.
+type RegistryCredentialsResponseErrorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RegistryCredentialsResponseErrorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RegistryCredentialsResponseErrorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RegistryCredentialsResponseErrorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RegistryCredentialsResponseErrorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RegistryCredentialsResponseErrorValidationError) ErrorName() string {
+	return "RegistryCredentialsResponseErrorValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RegistryCredentialsResponseErrorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRegistryCredentialsResponseError.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RegistryCredentialsResponseErrorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RegistryCredentialsResponseErrorValidationError{}

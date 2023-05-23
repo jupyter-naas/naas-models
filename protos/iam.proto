@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package iam;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/iam";
+
+import "validate.proto";
+
+message TokenData {
+    optional string user_id = 1;
+    repeated string scopes = 2;
+}
