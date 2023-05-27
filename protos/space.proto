@@ -11,6 +11,7 @@ enum Protocol {
     HTTPS = 1;
 }
 
+
 message Space {
 
     optional string name = 1 [(validate.rules).string = {
@@ -31,6 +32,7 @@ message Space {
         pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
     }];
     repeated Protocol protocols = 12;
+    map<string, string> env = 13;
 }
 
 /**
@@ -40,6 +42,7 @@ message Space {
 enum SpaceError {
     SPACE_ALREADY_EXISTS = 0;
     SPACE_NOT_FOUND = 1;
+    SPACE_NOT_UPDATED = 2;
 }
 
 message SpaceResponseError {
@@ -119,4 +122,30 @@ message SpaceListRequest {
 
 message SpaceListResponse {
     repeated Space spaces = 1;
+}
+
+/**
+*   SpaceUpdate
+*/
+
+message SpaceUpdatePatch {
+    optional string image = 3[(validate.rules).string = {
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+    }];
+    map<string, string> env = 4;
+}
+
+message SpaceUpdateRequest {
+    optional string name = 1 [(validate.rules).string = {
+        pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
+        min_len: 1,
+        max_len: 63,
+    }];
+    optional string namespace = 2;
+    optional SpaceUpdatePatch update_patch = 3;
+}
+
+message SpaceUpdateResponse {
+    optional Space space = 1;
+    optional string status = 2;
 }
