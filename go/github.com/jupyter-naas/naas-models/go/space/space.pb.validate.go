@@ -59,6 +59,10 @@ func (m *Space) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Resources
+
+	// no validation rules for Env
+
 	if m.Name != nil {
 
 		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
@@ -119,10 +123,10 @@ func (m *Space) validate(all bool) error {
 
 	if m.CreatedAt != nil {
 
-		if m.GetCreatedAt() <= 1673364229281 {
+		if !_Space_CreatedAt_Pattern.MatchString(m.GetCreatedAt()) {
 			err := SpaceValidationError{
 				field:  "CreatedAt",
-				reason: "value must be greater than 1673364229281",
+				reason: "value does not match regex pattern \"^\\\\d{4}-\\\\d{2}-\\\\d{2}T\\\\d{2}:\\\\d{2}:\\\\d{2}(\\\\.\\\\d{1,6})?Z$\"",
 			}
 			if !all {
 				return err
@@ -133,64 +137,7 @@ func (m *Space) validate(all bool) error {
 	}
 
 	if m.Namespace != nil {
-
-		if err := m._validateHostname(m.GetNamespace()); err != nil {
-			err = SpaceValidationError{
-				field:  "Namespace",
-				reason: "value must be a valid hostname",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.Cpu != nil {
-
-		if m.GetCpu() <= 0 {
-			err := SpaceValidationError{
-				field:  "Cpu",
-				reason: "value must be greater than 0",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.Memory != nil {
-
-		if m.GetMemory() <= 0 {
-			err := SpaceValidationError{
-				field:  "Memory",
-				reason: "value must be greater than 0",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.MinCount != nil {
-
-		if m.GetMinCount() < 0 {
-			err := SpaceValidationError{
-				field:  "MinCount",
-				reason: "value must be greater than or equal to 0",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
+		// no validation rules for Namespace
 	}
 
 	if m.Domain != nil {
@@ -224,63 +171,8 @@ func (m *Space) validate(all bool) error {
 
 	}
 
-	if m.Url != nil {
-
-		if uri, err := url.Parse(m.GetUrl()); err != nil {
-			err = SpaceValidationError{
-				field:  "Url",
-				reason: "value must be a valid URI",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		} else if !uri.IsAbs() {
-			err := SpaceValidationError{
-				field:  "Url",
-				reason: "value must be absolute",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
 	if len(errors) > 0 {
 		return SpaceMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *Space) _validateHostname(host string) error {
-	s := strings.ToLower(strings.TrimSuffix(host, "."))
-
-	if len(host) > 253 {
-		return errors.New("hostname cannot exceed 253 characters")
-	}
-
-	for _, part := range strings.Split(s, ".") {
-		if l := len(part); l == 0 || l > 63 {
-			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
-		}
-
-		if part[0] == '-' {
-			return errors.New("hostname parts cannot begin with hyphens")
-		}
-
-		if part[len(part)-1] == '-' {
-			return errors.New("hostname parts cannot end with hyphens")
-		}
-
-		for _, r := range part {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
-				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
-			}
-		}
 	}
 
 	return nil
@@ -366,4 +258,1638 @@ var _ interface {
 
 var _Space_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
 
+var _Space_CreatedAt_Pattern = regexp.MustCompile("^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$")
+
 var _Space_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
+
+// Validate checks the field values on SpaceResponseError with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceResponseError) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceResponseError with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceResponseErrorMultiError, or nil if none found.
+func (m *SpaceResponseError) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceResponseError) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Code != nil {
+		// no validation rules for Code
+	}
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
+	if m.Reason != nil {
+		// no validation rules for Reason
+	}
+
+	if m.Message != nil {
+		// no validation rules for Message
+	}
+
+	if len(errors) > 0 {
+		return SpaceResponseErrorMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceResponseErrorMultiError is an error wrapping multiple validation errors
+// returned by SpaceResponseError.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceResponseErrorMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceResponseErrorMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceResponseErrorMultiError) AllErrors() []error { return m }
+
+// SpaceResponseErrorValidationError is the validation error returned by
+// SpaceResponseError.Validate if the designated constraints aren't met.
+type SpaceResponseErrorValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceResponseErrorValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceResponseErrorValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceResponseErrorValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceResponseErrorValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceResponseErrorValidationError) ErrorName() string {
+	return "SpaceResponseErrorValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceResponseErrorValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceResponseError.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceResponseErrorValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceResponseErrorValidationError{}
+
+// Validate checks the field values on SpaceCreationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceCreationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceCreationRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceCreationRequestMultiError, or nil if none found.
+func (m *SpaceCreationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceCreationRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Env
+
+	if m.Name != nil {
+
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+			err := SpaceCreationRequestValidationError{
+				field:  "Name",
+				reason: "value length must be between 1 and 63 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_SpaceCreationRequest_Name_Pattern.MatchString(m.GetName()) {
+			err := SpaceCreationRequestValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = SpaceCreationRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if m.Image != nil {
+
+		if !_SpaceCreationRequest_Image_Pattern.MatchString(m.GetImage()) {
+			err := SpaceCreationRequestValidationError{
+				field:  "Image",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:][a-zA-Z0-9\\\\.\\\\/-]*)?$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SpaceCreationRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SpaceCreationRequest) _validateUuid(uuid string) error {
+	if matched := _space_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// SpaceCreationRequestMultiError is an error wrapping multiple validation
+// errors returned by SpaceCreationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SpaceCreationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceCreationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceCreationRequestMultiError) AllErrors() []error { return m }
+
+// SpaceCreationRequestValidationError is the validation error returned by
+// SpaceCreationRequest.Validate if the designated constraints aren't met.
+type SpaceCreationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceCreationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceCreationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceCreationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceCreationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceCreationRequestValidationError) ErrorName() string {
+	return "SpaceCreationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceCreationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceCreationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceCreationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceCreationRequestValidationError{}
+
+var _SpaceCreationRequest_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+var _SpaceCreationRequest_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
+
+// Validate checks the field values on SpaceCreationResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceCreationResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceCreationResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceCreationResponseMultiError, or nil if none found.
+func (m *SpaceCreationResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceCreationResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Space != nil {
+
+		if all {
+			switch v := interface{}(m.GetSpace()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SpaceCreationResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SpaceCreationResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSpace()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SpaceCreationResponseValidationError{
+					field:  "Space",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
+	if len(errors) > 0 {
+		return SpaceCreationResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceCreationResponseMultiError is an error wrapping multiple validation
+// errors returned by SpaceCreationResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SpaceCreationResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceCreationResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceCreationResponseMultiError) AllErrors() []error { return m }
+
+// SpaceCreationResponseValidationError is the validation error returned by
+// SpaceCreationResponse.Validate if the designated constraints aren't met.
+type SpaceCreationResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceCreationResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceCreationResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceCreationResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceCreationResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceCreationResponseValidationError) ErrorName() string {
+	return "SpaceCreationResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceCreationResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceCreationResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceCreationResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceCreationResponseValidationError{}
+
+// Validate checks the field values on SpaceGetRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SpaceGetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceGetRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceGetRequestMultiError, or nil if none found.
+func (m *SpaceGetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceGetRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+			err := SpaceGetRequestValidationError{
+				field:  "Name",
+				reason: "value length must be between 1 and 63 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_SpaceGetRequest_Name_Pattern.MatchString(m.GetName()) {
+			err := SpaceGetRequestValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if len(errors) > 0 {
+		return SpaceGetRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceGetRequestMultiError is an error wrapping multiple validation errors
+// returned by SpaceGetRequest.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceGetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceGetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceGetRequestMultiError) AllErrors() []error { return m }
+
+// SpaceGetRequestValidationError is the validation error returned by
+// SpaceGetRequest.Validate if the designated constraints aren't met.
+type SpaceGetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceGetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceGetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceGetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceGetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceGetRequestValidationError) ErrorName() string { return "SpaceGetRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SpaceGetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceGetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceGetRequestValidationError{}
+
+var _SpaceGetRequest_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+// Validate checks the field values on SpaceGetResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SpaceGetResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceGetResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceGetResponseMultiError, or nil if none found.
+func (m *SpaceGetResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceGetResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Space != nil {
+
+		if all {
+			switch v := interface{}(m.GetSpace()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SpaceGetResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SpaceGetResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSpace()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SpaceGetResponseValidationError{
+					field:  "Space",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
+	if len(errors) > 0 {
+		return SpaceGetResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceGetResponseMultiError is an error wrapping multiple validation errors
+// returned by SpaceGetResponse.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceGetResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceGetResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceGetResponseMultiError) AllErrors() []error { return m }
+
+// SpaceGetResponseValidationError is the validation error returned by
+// SpaceGetResponse.Validate if the designated constraints aren't met.
+type SpaceGetResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceGetResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceGetResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceGetResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceGetResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceGetResponseValidationError) ErrorName() string { return "SpaceGetResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SpaceGetResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceGetResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceGetResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceGetResponseValidationError{}
+
+// Validate checks the field values on SpaceDeletionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceDeletionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceDeletionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceDeletionRequestMultiError, or nil if none found.
+func (m *SpaceDeletionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceDeletionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+			err := SpaceDeletionRequestValidationError{
+				field:  "Name",
+				reason: "value length must be between 1 and 63 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_SpaceDeletionRequest_Name_Pattern.MatchString(m.GetName()) {
+			err := SpaceDeletionRequestValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if len(errors) > 0 {
+		return SpaceDeletionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceDeletionRequestMultiError is an error wrapping multiple validation
+// errors returned by SpaceDeletionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SpaceDeletionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceDeletionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceDeletionRequestMultiError) AllErrors() []error { return m }
+
+// SpaceDeletionRequestValidationError is the validation error returned by
+// SpaceDeletionRequest.Validate if the designated constraints aren't met.
+type SpaceDeletionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceDeletionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceDeletionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceDeletionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceDeletionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceDeletionRequestValidationError) ErrorName() string {
+	return "SpaceDeletionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceDeletionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceDeletionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceDeletionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceDeletionRequestValidationError{}
+
+var _SpaceDeletionRequest_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+// Validate checks the field values on SpaceDeletionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceDeletionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceDeletionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceDeletionResponseMultiError, or nil if none found.
+func (m *SpaceDeletionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceDeletionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
+	if len(errors) > 0 {
+		return SpaceDeletionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceDeletionResponseMultiError is an error wrapping multiple validation
+// errors returned by SpaceDeletionResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SpaceDeletionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceDeletionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceDeletionResponseMultiError) AllErrors() []error { return m }
+
+// SpaceDeletionResponseValidationError is the validation error returned by
+// SpaceDeletionResponse.Validate if the designated constraints aren't met.
+type SpaceDeletionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceDeletionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceDeletionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceDeletionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceDeletionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceDeletionResponseValidationError) ErrorName() string {
+	return "SpaceDeletionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceDeletionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceDeletionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceDeletionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceDeletionResponseValidationError{}
+
+// Validate checks the field values on SpaceListRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SpaceListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceListRequestMultiError, or nil if none found.
+func (m *SpaceListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = SpaceListRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if len(errors) > 0 {
+		return SpaceListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SpaceListRequest) _validateUuid(uuid string) error {
+	if matched := _space_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// SpaceListRequestMultiError is an error wrapping multiple validation errors
+// returned by SpaceListRequest.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceListRequestMultiError) AllErrors() []error { return m }
+
+// SpaceListRequestValidationError is the validation error returned by
+// SpaceListRequest.Validate if the designated constraints aren't met.
+type SpaceListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceListRequestValidationError) ErrorName() string { return "SpaceListRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SpaceListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceListRequestValidationError{}
+
+// Validate checks the field values on SpaceListResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SpaceListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceListResponseMultiError, or nil if none found.
+func (m *SpaceListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetSpaces() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SpaceListResponseValidationError{
+						field:  fmt.Sprintf("Spaces[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SpaceListResponseValidationError{
+						field:  fmt.Sprintf("Spaces[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SpaceListResponseValidationError{
+					field:  fmt.Sprintf("Spaces[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SpaceListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceListResponseMultiError is an error wrapping multiple validation errors
+// returned by SpaceListResponse.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceListResponseMultiError) AllErrors() []error { return m }
+
+// SpaceListResponseValidationError is the validation error returned by
+// SpaceListResponse.Validate if the designated constraints aren't met.
+type SpaceListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceListResponseValidationError) ErrorName() string {
+	return "SpaceListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceListResponseValidationError{}
+
+// Validate checks the field values on SpaceUpdatePatch with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SpaceUpdatePatch) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceUpdatePatch with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceUpdatePatchMultiError, or nil if none found.
+func (m *SpaceUpdatePatch) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceUpdatePatch) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Env
+
+	if m.Image != nil {
+
+		if !_SpaceUpdatePatch_Image_Pattern.MatchString(m.GetImage()) {
+			err := SpaceUpdatePatchValidationError{
+				field:  "Image",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:][a-zA-Z0-9\\\\.\\\\/-]*)?$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SpaceUpdatePatchMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceUpdatePatchMultiError is an error wrapping multiple validation errors
+// returned by SpaceUpdatePatch.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceUpdatePatchMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceUpdatePatchMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceUpdatePatchMultiError) AllErrors() []error { return m }
+
+// SpaceUpdatePatchValidationError is the validation error returned by
+// SpaceUpdatePatch.Validate if the designated constraints aren't met.
+type SpaceUpdatePatchValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceUpdatePatchValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceUpdatePatchValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceUpdatePatchValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceUpdatePatchValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceUpdatePatchValidationError) ErrorName() string { return "SpaceUpdatePatchValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SpaceUpdatePatchValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceUpdatePatch.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceUpdatePatchValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceUpdatePatchValidationError{}
+
+var _SpaceUpdatePatch_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
+
+// Validate checks the field values on SpaceUpdateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceUpdateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceUpdateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceUpdateRequestMultiError, or nil if none found.
+func (m *SpaceUpdateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceUpdateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+
+		if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 63 {
+			err := SpaceUpdateRequestValidationError{
+				field:  "Name",
+				reason: "value length must be between 1 and 63 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_SpaceUpdateRequest_Name_Pattern.MatchString(m.GetName()) {
+			err := SpaceUpdateRequestValidationError{
+				field:  "Name",
+				reason: "value does not match regex pattern \"^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if m.UpdatePatch != nil {
+
+		if all {
+			switch v := interface{}(m.GetUpdatePatch()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SpaceUpdateRequestValidationError{
+						field:  "UpdatePatch",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SpaceUpdateRequestValidationError{
+						field:  "UpdatePatch",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetUpdatePatch()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SpaceUpdateRequestValidationError{
+					field:  "UpdatePatch",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SpaceUpdateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceUpdateRequestMultiError is an error wrapping multiple validation errors
+// returned by SpaceUpdateRequest.ValidateAll() if the designated constraints
+// aren't met.
+type SpaceUpdateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceUpdateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceUpdateRequestMultiError) AllErrors() []error { return m }
+
+// SpaceUpdateRequestValidationError is the validation error returned by
+// SpaceUpdateRequest.Validate if the designated constraints aren't met.
+type SpaceUpdateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceUpdateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceUpdateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceUpdateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceUpdateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceUpdateRequestValidationError) ErrorName() string {
+	return "SpaceUpdateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceUpdateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceUpdateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceUpdateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceUpdateRequestValidationError{}
+
+var _SpaceUpdateRequest_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$")
+
+// Validate checks the field values on SpaceUpdateResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SpaceUpdateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SpaceUpdateResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SpaceUpdateResponseMultiError, or nil if none found.
+func (m *SpaceUpdateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SpaceUpdateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Space != nil {
+
+		if all {
+			switch v := interface{}(m.GetSpace()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SpaceUpdateResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SpaceUpdateResponseValidationError{
+						field:  "Space",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSpace()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SpaceUpdateResponseValidationError{
+					field:  "Space",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
+	if len(errors) > 0 {
+		return SpaceUpdateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SpaceUpdateResponseMultiError is an error wrapping multiple validation
+// errors returned by SpaceUpdateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SpaceUpdateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SpaceUpdateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SpaceUpdateResponseMultiError) AllErrors() []error { return m }
+
+// SpaceUpdateResponseValidationError is the validation error returned by
+// SpaceUpdateResponse.Validate if the designated constraints aren't met.
+type SpaceUpdateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SpaceUpdateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SpaceUpdateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SpaceUpdateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SpaceUpdateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SpaceUpdateResponseValidationError) ErrorName() string {
+	return "SpaceUpdateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SpaceUpdateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSpaceUpdateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SpaceUpdateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SpaceUpdateResponseValidationError{}

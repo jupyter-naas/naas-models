@@ -16,26 +16,167 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bspace.proto\x12\x05space\x1a\x0evalidate.proto\"\xc7\x04\n\x05Space\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x1e\n\x07user_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x19\n\x02id\x18\x03 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x02\x88\x01\x01\x12%\n\ncreated_at\x18\x04 \x01(\x04\x42\x0c\xfa\x42\t2\x07 \xa1\x99\x9f\xe2\xd9\x30H\x03\x88\x01\x01\x12\x1f\n\tnamespace\x18\x05 \x01(\tB\x07\xfa\x42\x04r\x02h\x01H\x04\x88\x01\x01\x12\x1c\n\x03\x63pu\x18\x06 \x01(\x02\x42\n\xfa\x42\x07\n\x05%\x00\x00\x00\x00H\x05\x88\x01\x01\x12\x1f\n\x06memory\x18\x07 \x01(\x02\x42\n\xfa\x42\x07\n\x05%\x00\x00\x00\x00H\x06\x88\x01\x01\x12\x1f\n\tmin_count\x18\x08 \x01(\rB\x07\xfa\x42\x04*\x02(\x00H\x07\x88\x01\x01\x12\x1d\n\x06\x64omain\x18\t \x01(\tB\x08\xfa\x42\x05r\x03\x90\x01\x01H\x08\x88\x01\x01\x12\x45\n\x05image\x18\n \x01(\tB1\xfa\x42.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$H\t\x88\x01\x01\x12\x1a\n\x03url\x18\x0b \x01(\tB\x08\xfa\x42\x05r\x03\x88\x01\x01H\n\x88\x01\x01\x12\"\n\tprotocols\x18\x0c \x03(\x0e\x32\x0f.space.ProtocolB\x07\n\x05_nameB\n\n\x08_user_idB\x05\n\x03_idB\r\n\x0b_created_atB\x0c\n\n_namespaceB\x06\n\x04_cpuB\t\n\x07_memoryB\x0c\n\n_min_countB\t\n\x07_domainB\x08\n\x06_imageB\x06\n\x04_url*\x1f\n\x08Protocol\x12\x08\n\x04HTTP\x10\x00\x12\t\n\x05HTTPS\x10\x01\x42.Z,github.com/jupyter-naas/naas-models/go/spaceb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bspace.proto\x12\x05space\x1a\x0evalidate.proto\"\xf8\x04\n\x05Space\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x1e\n\x07user_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x19\n\x02id\x18\x03 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x02\x88\x01\x01\x12R\n\ncreated_at\x18\x04 \x01(\tB9\xfa\x42\x36r422^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$H\x03\x88\x01\x01\x12.\n\tresources\x18\x06 \x03(\x0b\x32\x1b.space.Space.ResourcesEntry\x12\x16\n\tnamespace\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x1d\n\x06\x64omain\x18\t \x01(\tB\x08\xfa\x42\x05r\x03\x90\x01\x01H\x05\x88\x01\x01\x12\x45\n\x05image\x18\n \x01(\tB1\xfa\x42.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$H\x06\x88\x01\x01\x12\"\n\tprotocols\x18\x0c \x03(\x0e\x32\x0f.space.Protocol\x12\"\n\x03\x65nv\x18\r \x03(\x0b\x32\x15.space.Space.EnvEntry\x1a\x30\n\x0eResourcesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a*\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x07\n\x05_nameB\n\n\x08_user_idB\x05\n\x03_idB\r\n\x0b_created_atB\x0c\n\n_namespaceB\t\n\x07_domainB\x08\n\x06_image\"\xa5\x01\n\x12SpaceResponseError\x12$\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x11.space.SpaceErrorH\x00\x88\x01\x01\x12\x13\n\x06status\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06reason\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x14\n\x07message\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_codeB\t\n\x07_statusB\t\n\x07_reasonB\n\n\x08_message\"\xe1\x02\n\x14SpaceCreationRequest\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x1e\n\x07user_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x16\n\tnamespace\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x45\n\x05image\x18\x04 \x01(\tB1\xfa\x42.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$H\x03\x88\x01\x01\x12\x31\n\x03\x65nv\x18\x06 \x03(\x0b\x32$.space.SpaceCreationRequest.EnvEntry\x1a*\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x07\n\x05_nameB\n\n\x08_user_idB\x0c\n\n_namespaceB\x08\n\x06_image\"c\n\x15SpaceCreationResponse\x12 \n\x05space\x18\x01 \x01(\x0b\x32\x0c.space.SpaceH\x00\x88\x01\x01\x12\x13\n\x06status\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_spaceB\t\n\x07_status\"\x80\x01\n\x0fSpaceGetRequest\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespace\"^\n\x10SpaceGetResponse\x12 \n\x05space\x18\x01 \x01(\x0b\x32\x0c.space.SpaceH\x00\x88\x01\x01\x12\x13\n\x06status\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_spaceB\t\n\x07_status\"\x85\x01\n\x14SpaceDeletionRequest\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespace\"7\n\x15SpaceDeletionResponse\x12\x13\n\x06status\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_status\"d\n\x10SpaceListRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0c\n\n_namespace\"1\n\x11SpaceListResponse\x12\x1c\n\x06spaces\x18\x01 \x03(\x0b\x32\x0c.space.Space\"\xbe\x01\n\x10SpaceUpdatePatch\x12\x45\n\x05image\x18\x03 \x01(\tB1\xfa\x42.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$H\x00\x88\x01\x01\x12-\n\x03\x65nv\x18\x04 \x03(\x0b\x32 .space.SpaceUpdatePatch.EnvEntry\x1a*\n\x08\x45nvEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x08\n\x06_image\"\xc8\x01\n\x12SpaceUpdateRequest\x12>\n\x04name\x18\x01 \x01(\tB+\xfa\x42(r&\x10\x01\x18?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$H\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x32\n\x0cupdate_patch\x18\x03 \x01(\x0b\x32\x17.space.SpaceUpdatePatchH\x02\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespaceB\x0f\n\r_update_patch\"a\n\x13SpaceUpdateResponse\x12 \n\x05space\x18\x01 \x01(\x0b\x32\x0c.space.SpaceH\x00\x88\x01\x01\x12\x13\n\x06status\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_spaceB\t\n\x07_status*\x1f\n\x08Protocol\x12\x08\n\x04HTTP\x10\x00\x12\t\n\x05HTTPS\x10\x01*R\n\nSpaceError\x12\x18\n\x14SPACE_ALREADY_EXISTS\x10\x00\x12\x13\n\x0fSPACE_NOT_FOUND\x10\x01\x12\x15\n\x11SPACE_NOT_UPDATED\x10\x02\x42.Z,github.com/jupyter-naas/naas-models/go/spaceb\x06proto3')
 
 _PROTOCOL = DESCRIPTOR.enum_types_by_name['Protocol']
 Protocol = enum_type_wrapper.EnumTypeWrapper(_PROTOCOL)
+_SPACEERROR = DESCRIPTOR.enum_types_by_name['SpaceError']
+SpaceError = enum_type_wrapper.EnumTypeWrapper(_SPACEERROR)
 HTTP = 0
 HTTPS = 1
+SPACE_ALREADY_EXISTS = 0
+SPACE_NOT_FOUND = 1
+SPACE_NOT_UPDATED = 2
 
 
 _SPACE = DESCRIPTOR.message_types_by_name['Space']
+_SPACE_RESOURCESENTRY = _SPACE.nested_types_by_name['ResourcesEntry']
+_SPACE_ENVENTRY = _SPACE.nested_types_by_name['EnvEntry']
+_SPACERESPONSEERROR = DESCRIPTOR.message_types_by_name['SpaceResponseError']
+_SPACECREATIONREQUEST = DESCRIPTOR.message_types_by_name['SpaceCreationRequest']
+_SPACECREATIONREQUEST_ENVENTRY = _SPACECREATIONREQUEST.nested_types_by_name['EnvEntry']
+_SPACECREATIONRESPONSE = DESCRIPTOR.message_types_by_name['SpaceCreationResponse']
+_SPACEGETREQUEST = DESCRIPTOR.message_types_by_name['SpaceGetRequest']
+_SPACEGETRESPONSE = DESCRIPTOR.message_types_by_name['SpaceGetResponse']
+_SPACEDELETIONREQUEST = DESCRIPTOR.message_types_by_name['SpaceDeletionRequest']
+_SPACEDELETIONRESPONSE = DESCRIPTOR.message_types_by_name['SpaceDeletionResponse']
+_SPACELISTREQUEST = DESCRIPTOR.message_types_by_name['SpaceListRequest']
+_SPACELISTRESPONSE = DESCRIPTOR.message_types_by_name['SpaceListResponse']
+_SPACEUPDATEPATCH = DESCRIPTOR.message_types_by_name['SpaceUpdatePatch']
+_SPACEUPDATEPATCH_ENVENTRY = _SPACEUPDATEPATCH.nested_types_by_name['EnvEntry']
+_SPACEUPDATEREQUEST = DESCRIPTOR.message_types_by_name['SpaceUpdateRequest']
+_SPACEUPDATERESPONSE = DESCRIPTOR.message_types_by_name['SpaceUpdateResponse']
 Space = _reflection.GeneratedProtocolMessageType('Space', (_message.Message,), {
+
+  'ResourcesEntry' : _reflection.GeneratedProtocolMessageType('ResourcesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SPACE_RESOURCESENTRY,
+    '__module__' : 'space_pb2'
+    # @@protoc_insertion_point(class_scope:space.Space.ResourcesEntry)
+    })
+  ,
+
+  'EnvEntry' : _reflection.GeneratedProtocolMessageType('EnvEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SPACE_ENVENTRY,
+    '__module__' : 'space_pb2'
+    # @@protoc_insertion_point(class_scope:space.Space.EnvEntry)
+    })
+  ,
   'DESCRIPTOR' : _SPACE,
   '__module__' : 'space_pb2'
   # @@protoc_insertion_point(class_scope:space.Space)
   })
 _sym_db.RegisterMessage(Space)
+_sym_db.RegisterMessage(Space.ResourcesEntry)
+_sym_db.RegisterMessage(Space.EnvEntry)
+
+SpaceResponseError = _reflection.GeneratedProtocolMessageType('SpaceResponseError', (_message.Message,), {
+  'DESCRIPTOR' : _SPACERESPONSEERROR,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceResponseError)
+  })
+_sym_db.RegisterMessage(SpaceResponseError)
+
+SpaceCreationRequest = _reflection.GeneratedProtocolMessageType('SpaceCreationRequest', (_message.Message,), {
+
+  'EnvEntry' : _reflection.GeneratedProtocolMessageType('EnvEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SPACECREATIONREQUEST_ENVENTRY,
+    '__module__' : 'space_pb2'
+    # @@protoc_insertion_point(class_scope:space.SpaceCreationRequest.EnvEntry)
+    })
+  ,
+  'DESCRIPTOR' : _SPACECREATIONREQUEST,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceCreationRequest)
+  })
+_sym_db.RegisterMessage(SpaceCreationRequest)
+_sym_db.RegisterMessage(SpaceCreationRequest.EnvEntry)
+
+SpaceCreationResponse = _reflection.GeneratedProtocolMessageType('SpaceCreationResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SPACECREATIONRESPONSE,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceCreationResponse)
+  })
+_sym_db.RegisterMessage(SpaceCreationResponse)
+
+SpaceGetRequest = _reflection.GeneratedProtocolMessageType('SpaceGetRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEGETREQUEST,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceGetRequest)
+  })
+_sym_db.RegisterMessage(SpaceGetRequest)
+
+SpaceGetResponse = _reflection.GeneratedProtocolMessageType('SpaceGetResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEGETRESPONSE,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceGetResponse)
+  })
+_sym_db.RegisterMessage(SpaceGetResponse)
+
+SpaceDeletionRequest = _reflection.GeneratedProtocolMessageType('SpaceDeletionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEDELETIONREQUEST,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceDeletionRequest)
+  })
+_sym_db.RegisterMessage(SpaceDeletionRequest)
+
+SpaceDeletionResponse = _reflection.GeneratedProtocolMessageType('SpaceDeletionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEDELETIONRESPONSE,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceDeletionResponse)
+  })
+_sym_db.RegisterMessage(SpaceDeletionResponse)
+
+SpaceListRequest = _reflection.GeneratedProtocolMessageType('SpaceListRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SPACELISTREQUEST,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceListRequest)
+  })
+_sym_db.RegisterMessage(SpaceListRequest)
+
+SpaceListResponse = _reflection.GeneratedProtocolMessageType('SpaceListResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SPACELISTRESPONSE,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceListResponse)
+  })
+_sym_db.RegisterMessage(SpaceListResponse)
+
+SpaceUpdatePatch = _reflection.GeneratedProtocolMessageType('SpaceUpdatePatch', (_message.Message,), {
+
+  'EnvEntry' : _reflection.GeneratedProtocolMessageType('EnvEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SPACEUPDATEPATCH_ENVENTRY,
+    '__module__' : 'space_pb2'
+    # @@protoc_insertion_point(class_scope:space.SpaceUpdatePatch.EnvEntry)
+    })
+  ,
+  'DESCRIPTOR' : _SPACEUPDATEPATCH,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceUpdatePatch)
+  })
+_sym_db.RegisterMessage(SpaceUpdatePatch)
+_sym_db.RegisterMessage(SpaceUpdatePatch.EnvEntry)
+
+SpaceUpdateRequest = _reflection.GeneratedProtocolMessageType('SpaceUpdateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEUPDATEREQUEST,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceUpdateRequest)
+  })
+_sym_db.RegisterMessage(SpaceUpdateRequest)
+
+SpaceUpdateResponse = _reflection.GeneratedProtocolMessageType('SpaceUpdateResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SPACEUPDATERESPONSE,
+  '__module__' : 'space_pb2'
+  # @@protoc_insertion_point(class_scope:space.SpaceUpdateResponse)
+  })
+_sym_db.RegisterMessage(SpaceUpdateResponse)
 
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z,github.com/jupyter-naas/naas-models/go/space'
+  _SPACE_RESOURCESENTRY._options = None
+  _SPACE_RESOURCESENTRY._serialized_options = b'8\001'
+  _SPACE_ENVENTRY._options = None
+  _SPACE_ENVENTRY._serialized_options = b'8\001'
   _SPACE.fields_by_name['name']._options = None
   _SPACE.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$'
   _SPACE.fields_by_name['user_id']._options = None
@@ -43,23 +184,67 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SPACE.fields_by_name['id']._options = None
   _SPACE.fields_by_name['id']._serialized_options = b'\372B\005r\003\260\001\001'
   _SPACE.fields_by_name['created_at']._options = None
-  _SPACE.fields_by_name['created_at']._serialized_options = b'\372B\t2\007 \241\231\237\342\3310'
-  _SPACE.fields_by_name['namespace']._options = None
-  _SPACE.fields_by_name['namespace']._serialized_options = b'\372B\004r\002h\001'
-  _SPACE.fields_by_name['cpu']._options = None
-  _SPACE.fields_by_name['cpu']._serialized_options = b'\372B\007\n\005%\000\000\000\000'
-  _SPACE.fields_by_name['memory']._options = None
-  _SPACE.fields_by_name['memory']._serialized_options = b'\372B\007\n\005%\000\000\000\000'
-  _SPACE.fields_by_name['min_count']._options = None
-  _SPACE.fields_by_name['min_count']._serialized_options = b'\372B\004*\002(\000'
+  _SPACE.fields_by_name['created_at']._serialized_options = b'\372B6r422^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$'
   _SPACE.fields_by_name['domain']._options = None
   _SPACE.fields_by_name['domain']._serialized_options = b'\372B\005r\003\220\001\001'
   _SPACE.fields_by_name['image']._options = None
   _SPACE.fields_by_name['image']._serialized_options = b'\372B.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$'
-  _SPACE.fields_by_name['url']._options = None
-  _SPACE.fields_by_name['url']._serialized_options = b'\372B\005r\003\210\001\001'
-  _PROTOCOL._serialized_start=624
-  _PROTOCOL._serialized_end=655
+  _SPACECREATIONREQUEST_ENVENTRY._options = None
+  _SPACECREATIONREQUEST_ENVENTRY._serialized_options = b'8\001'
+  _SPACECREATIONREQUEST.fields_by_name['name']._options = None
+  _SPACECREATIONREQUEST.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$'
+  _SPACECREATIONREQUEST.fields_by_name['user_id']._options = None
+  _SPACECREATIONREQUEST.fields_by_name['user_id']._serialized_options = b'\372B\005r\003\260\001\001'
+  _SPACECREATIONREQUEST.fields_by_name['image']._options = None
+  _SPACECREATIONREQUEST.fields_by_name['image']._serialized_options = b'\372B.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$'
+  _SPACEGETREQUEST.fields_by_name['name']._options = None
+  _SPACEGETREQUEST.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$'
+  _SPACEDELETIONREQUEST.fields_by_name['name']._options = None
+  _SPACEDELETIONREQUEST.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$'
+  _SPACELISTREQUEST.fields_by_name['user_id']._options = None
+  _SPACELISTREQUEST.fields_by_name['user_id']._serialized_options = b'\372B\005r\003\260\001\001'
+  _SPACEUPDATEPATCH_ENVENTRY._options = None
+  _SPACEUPDATEPATCH_ENVENTRY._serialized_options = b'8\001'
+  _SPACEUPDATEPATCH.fields_by_name['image']._options = None
+  _SPACEUPDATEPATCH.fields_by_name['image']._serialized_options = b'\372B.r,2*^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$'
+  _SPACEUPDATEREQUEST.fields_by_name['name']._options = None
+  _SPACEUPDATEREQUEST.fields_by_name['name']._serialized_options = b'\372B(r&\020\001\030?2 ^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$'
+  _PROTOCOL._serialized_start=2366
+  _PROTOCOL._serialized_end=2397
+  _SPACEERROR._serialized_start=2399
+  _SPACEERROR._serialized_end=2481
   _SPACE._serialized_start=39
-  _SPACE._serialized_end=622
+  _SPACE._serialized_end=671
+  _SPACE_RESOURCESENTRY._serialized_start=501
+  _SPACE_RESOURCESENTRY._serialized_end=549
+  _SPACE_ENVENTRY._serialized_start=551
+  _SPACE_ENVENTRY._serialized_end=593
+  _SPACERESPONSEERROR._serialized_start=674
+  _SPACERESPONSEERROR._serialized_end=839
+  _SPACECREATIONREQUEST._serialized_start=842
+  _SPACECREATIONREQUEST._serialized_end=1195
+  _SPACECREATIONREQUEST_ENVENTRY._serialized_start=551
+  _SPACECREATIONREQUEST_ENVENTRY._serialized_end=593
+  _SPACECREATIONRESPONSE._serialized_start=1197
+  _SPACECREATIONRESPONSE._serialized_end=1296
+  _SPACEGETREQUEST._serialized_start=1299
+  _SPACEGETREQUEST._serialized_end=1427
+  _SPACEGETRESPONSE._serialized_start=1429
+  _SPACEGETRESPONSE._serialized_end=1523
+  _SPACEDELETIONREQUEST._serialized_start=1526
+  _SPACEDELETIONREQUEST._serialized_end=1659
+  _SPACEDELETIONRESPONSE._serialized_start=1661
+  _SPACEDELETIONRESPONSE._serialized_end=1716
+  _SPACELISTREQUEST._serialized_start=1718
+  _SPACELISTREQUEST._serialized_end=1818
+  _SPACELISTRESPONSE._serialized_start=1820
+  _SPACELISTRESPONSE._serialized_end=1869
+  _SPACEUPDATEPATCH._serialized_start=1872
+  _SPACEUPDATEPATCH._serialized_end=2062
+  _SPACEUPDATEPATCH_ENVENTRY._serialized_start=551
+  _SPACEUPDATEPATCH_ENVENTRY._serialized_end=593
+  _SPACEUPDATEREQUEST._serialized_start=2065
+  _SPACEUPDATEREQUEST._serialized_end=2265
+  _SPACEUPDATERESPONSE._serialized_start=2267
+  _SPACEUPDATERESPONSE._serialized_end=2364
 # @@protoc_insertion_point(module_scope)
