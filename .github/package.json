@@ -1,0 +1,8 @@
+{
+    "name": "naas-models",
+    "version": "0.0.1",
+    "devDependencies": {
+      "semantic-release": "^19.0.5"
+    }
+  }
+  
