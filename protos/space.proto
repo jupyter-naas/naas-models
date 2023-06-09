@@ -6,14 +6,80 @@ option go_package = "github.com/jupyter-naas/naas-models/go/space";
 
 import "validate.proto";
 
-enum Protocol {
-    HTTP = 0;
-    HTTPS = 1;
+
+message Container {
+    optional string name = 1 [(validate.rules).string = {
+        min_len: 1,
+        max_len: 63,
+        pattern: "^([A-Za-z0-9-]+)$",
+    }];
+    optional string image = 2 [(validate.rules).string = {
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+        min_len: 1;
+        ignore_empty: false;
+    }];
+
+    map<string, string> env = 3;
+    optional int64 port = 4 [(validate.rules).int64 = {gte: 0, lte: 65535}];
+    optional string cpu = 5 [(validate.rules).string = {
+            pattern: "^[0-9]+(.[0-9]+)?[m]?$";
+            ignore_empty: false;
+    }];
+    optional string memory = 6 [(validate.rules).string = {
+        pattern: "^[0-9]+Mi$";
+        ignore_empty: false;
+    }];
 }
 
+message ContainerUpdate {
+    optional string name = 1 [(validate.rules).string = {
+        min_len: 1,
+        max_len: 63,
+        pattern: "^([A-Za-z0-9-]+)$",
+    }];
+    optional string image = 2 [(validate.rules).string = {
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+        min_len: 1;
+        ignore_empty: false;
+    }];
+
+    map<string, string> env = 3;
+    optional int64 port = 4 [(validate.rules).int64 = {gte: 0, lte: 65535}];
+    optional string cpu = 5 [(validate.rules).string = {
+        pattern: "^[0-9]+(.[0-9]+)?[m]?$";
+        ignore_empty: false;
+    }];
+    optional string memory = 6 [(validate.rules).string = {
+        pattern: "^[0-9]+Mi$";
+        ignore_empty: false;
+    }];
+}
+
+// message ContainerPatch {
+//     optional string name = 1 [(validate.rules).string = {
+//         min_len: 1,
+//         max_len: 63,
+//         pattern: "^([A-Za-z0-9-]+)$",
+//     }];
+//     optional string image = 2 [(validate.rules).string = {
+//         pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+//         min_len: 1;
+//         ignore_empty: false;
+//     }];
+
+//     map<string, string> env = 3;
+//     optional int64 port = 4 [(validate.rules).int64 = {gte: 1, lte: 65535}];
+//     optional string cpu = 5 [(validate.rules).string = {
+//         pattern: "^[0-9]+m$";
+//         ignore_empty: false;
+//     }];
+//     optional string memory = 6 [(validate.rules).string = {
+//         pattern: "^[0-9]+Mi$";
+//         ignore_empty: false;
+//     }];
+// }
 
 message Space {
-
     optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
@@ -22,17 +88,13 @@ message Space {
     }];
     optional string user_id = 2 [(validate.rules).string.uuid = true];
     optional string id = 3 [(validate.rules).string.uuid = true];
-    optional string created_at = 4 [(validate.rules).string = {
-        pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$";
-    }];
-    map<string, string> resources = 6;
-    optional string namespace = 5;
-    optional string domain = 9 [(validate.rules).string.uri_ref = true];
-    optional string image = 10 [(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
-    }];
-    repeated Protocol protocols = 12;
-    map<string, string> env = 13;
+    optional string domain = 4 [(validate.rules).string.uri_ref = true];
+    repeated Container containers = 5 [(validate.rules).repeated.min_items = 1];
+}
+
+message SpaceUpdate {
+    optional string domain = 4 [(validate.rules).string.uri_ref = true];
+    repeated ContainerUpdate containers = 5 [(validate.rules).repeated.min_items = 1];
 }
 
 /**
@@ -40,9 +102,11 @@ message Space {
 */
 
 enum SpaceError {
-    SPACE_ALREADY_EXISTS = 0;
-    SPACE_NOT_FOUND = 1;
-    SPACE_NOT_UPDATED = 2;
+    SPACE_NO_ERROR = 0;
+    SPACE_ALREADY_EXISTS = 1;
+    SPACE_NOT_FOUND = 2;
+    SPACE_NOT_UPDATED = 3;
+    SPACE_MUST_HAVE_ONE_CONTAINER_PORT = 4;
 }
 
 message SpaceResponseError {
@@ -57,17 +121,14 @@ message SpaceResponseError {
 */
 
 message SpaceCreationRequest {
-    optional string name = 1[(validate.rules).string = {
+    optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
+
     }];
-    optional string user_id = 2[(validate.rules).string.uuid = true];
-    optional string namespace = 3;
-    optional string image = 4[(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
-    }];
-    map<string, string> env = 6;
+    optional string domain = 4 [(validate.rules).string.uri_ref = true];
+    repeated Container containers = 5 [(validate.rules).repeated.min_items = 1];
 }
 
 message SpaceCreationResponse {
@@ -85,7 +146,6 @@ message SpaceGetRequest {
         min_len: 1,
         max_len: 63,
     }];
-    optional string namespace = 2;
 }
 
 message SpaceGetResponse {
@@ -104,7 +164,6 @@ message SpaceDeletionRequest {
         min_len: 1,
         max_len: 63,
     }];
-    optional string namespace = 2;
 }
 
 message SpaceDeletionResponse {
@@ -116,8 +175,8 @@ message SpaceDeletionResponse {
 */
 
 message SpaceListRequest {
-    optional string user_id = 1[(validate.rules).string.uuid = true];
-    optional string namespace = 2;
+    optional int32 page_size = 1;
+    optional int32 page_number = 2;
 }
 
 message SpaceListResponse {
@@ -128,21 +187,15 @@ message SpaceListResponse {
 *   SpaceUpdate
 */
 
-message SpaceUpdatePatch {
-    optional string image = 3[(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
-    }];
-    map<string, string> env = 4;
-}
-
 message SpaceUpdateRequest {
     optional string name = 1 [(validate.rules).string = {
         pattern: "^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$",
         min_len: 1,
         max_len: 63,
     }];
-    optional string namespace = 2;
-    optional SpaceUpdatePatch update_patch = 3;
+    optional SpaceUpdate space = 2;
+    // optional string domain = 4 [(validate.rules).string.uri_ref = true];
+    // repeated ContainerUpdate containers = 2 [(validate.rules).repeated.min_items = 1];
 }
 
 message SpaceUpdateResponse {

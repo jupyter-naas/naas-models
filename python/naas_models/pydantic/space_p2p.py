@@ -14,34 +14,67 @@ import typing
 
 
 
-class Protocol(IntEnum):
-    HTTP = 0
-    HTTPS = 1
-
-
 class SpaceError(IntEnum):
-    SPACE_ALREADY_EXISTS = 0
-    SPACE_NOT_FOUND = 1
-    SPACE_NOT_UPDATED = 2
+    SPACE_NO_ERROR = 0
+    SPACE_ALREADY_EXISTS = 1
+    SPACE_NOT_FOUND = 2
+    SPACE_NOT_UPDATED = 3
+    SPACE_MUST_HAVE_ONE_CONTAINER_PORT = 4
+
+
+
+
+class Container(BaseModel):
+
+    _one_of_dict = {"Container._cpu": {"fields": {"cpu"}}, "Container._image": {"fields": {"image"}}, "Container._memory": {"fields": {"memory"}}, "Container._name": {"fields": {"name"}}, "Container._port": {"fields": {"port"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9-]+)$") 
+    image: str = FieldInfo(default="", min_length=1, regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
+    env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
+    port: int = FieldInfo(default=0, ge=0, le=65535) 
+    cpu: str = FieldInfo(default="", regex="^[0-9]+(.[0-9]+)?[m]?$") 
+    memory: str = FieldInfo(default="", regex="^[0-9]+Mi$") 
+
+
+
+
+class ContainerUpdate(BaseModel):
+
+    _one_of_dict = {"ContainerUpdate._cpu": {"fields": {"cpu"}}, "ContainerUpdate._image": {"fields": {"image"}}, "ContainerUpdate._memory": {"fields": {"memory"}}, "ContainerUpdate._name": {"fields": {"name"}}, "ContainerUpdate._port": {"fields": {"port"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9-]+)$") 
+    image: str = FieldInfo(default="", min_length=1, regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
+    env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
+    port: int = FieldInfo(default=0, ge=0, le=65535) 
+    cpu: str = FieldInfo(default="", regex="^[0-9]+(.[0-9]+)?[m]?$") 
+    memory: str = FieldInfo(default="", regex="^[0-9]+Mi$") 
 
 
 
 
 class Space(BaseModel):
 
-    _one_of_dict = {"Space._created_at": {"fields": {"created_at"}}, "Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._image": {"fields": {"image"}}, "Space._name": {"fields": {"name"}}, "Space._namespace": {"fields": {"namespace"}}, "Space._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"Space._domain": {"fields": {"domain"}}, "Space._id": {"fields": {"id"}}, "Space._name": {"fields": {"name"}}, "Space._user_id": {"fields": {"user_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
     user_id: UUID = FieldInfo(default="") 
     id: UUID = FieldInfo(default="") 
-    created_at: str = FieldInfo(default="", regex="^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z$") 
-    resources: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
-    namespace: str = FieldInfo(default="") 
     domain: UriRefStr = FieldInfo(default="") 
-    image: str = FieldInfo(default="", regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
-    protocols: typing.List[Protocol] = FieldInfo(default_factory=list) 
-    env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
+    containers: typing.List[Container] = FieldInfo(default_factory=list, min_items=1) 
+
+
+
+
+class SpaceUpdate(BaseModel):
+
+    _one_of_dict = {"SpaceUpdate._domain": {"fields": {"domain"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    domain: UriRefStr = FieldInfo(default="") 
+    containers: typing.List[ContainerUpdate] = FieldInfo(default_factory=list, min_items=1) 
 
 
 
@@ -61,14 +94,12 @@ class SpaceResponseError(BaseModel):
 
 class SpaceCreationRequest(BaseModel):
 
-    _one_of_dict = {"SpaceCreationRequest._image": {"fields": {"image"}}, "SpaceCreationRequest._name": {"fields": {"name"}}, "SpaceCreationRequest._namespace": {"fields": {"namespace"}}, "SpaceCreationRequest._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"SpaceCreationRequest._domain": {"fields": {"domain"}}, "SpaceCreationRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    user_id: UUID = FieldInfo(default="") 
-    namespace: str = FieldInfo(default="") 
-    image: str = FieldInfo(default="", regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
-    env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
+    domain: UriRefStr = FieldInfo(default="") 
+    containers: typing.List[Container] = FieldInfo(default_factory=list, min_items=1) 
 
 
 
@@ -86,11 +117,10 @@ class SpaceCreationResponse(BaseModel):
 
 class SpaceGetRequest(BaseModel):
 
-    _one_of_dict = {"SpaceGetRequest._name": {"fields": {"name"}}, "SpaceGetRequest._namespace": {"fields": {"namespace"}}}
+    _one_of_dict = {"SpaceGetRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    namespace: str = FieldInfo(default="") 
 
 
 
@@ -108,11 +138,10 @@ class SpaceGetResponse(BaseModel):
 
 class SpaceDeletionRequest(BaseModel):
 
-    _one_of_dict = {"SpaceDeletionRequest._name": {"fields": {"name"}}, "SpaceDeletionRequest._namespace": {"fields": {"namespace"}}}
+    _one_of_dict = {"SpaceDeletionRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    namespace: str = FieldInfo(default="") 
 
 
 
@@ -129,11 +158,11 @@ class SpaceDeletionResponse(BaseModel):
 
 class SpaceListRequest(BaseModel):
 
-    _one_of_dict = {"SpaceListRequest._namespace": {"fields": {"namespace"}}, "SpaceListRequest._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"SpaceListRequest._page_number": {"fields": {"page_number"}}, "SpaceListRequest._page_size": {"fields": {"page_size"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    user_id: UUID = FieldInfo(default="") 
-    namespace: str = FieldInfo(default="") 
+    page_size: int = FieldInfo(default=0) 
+    page_number: int = FieldInfo(default=0) 
 
 
 
@@ -145,25 +174,13 @@ class SpaceListResponse(BaseModel):
 
 
 
-class SpaceUpdatePatch(BaseModel):
-
-    _one_of_dict = {"SpaceUpdatePatch._image": {"fields": {"image"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    image: str = FieldInfo(default="", regex="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
-    env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
-
-
-
-
 class SpaceUpdateRequest(BaseModel):
 
-    _one_of_dict = {"SpaceUpdateRequest._name": {"fields": {"name"}}, "SpaceUpdateRequest._namespace": {"fields": {"namespace"}}, "SpaceUpdateRequest._update_patch": {"fields": {"update_patch"}}}
+    _one_of_dict = {"SpaceUpdateRequest._name": {"fields": {"name"}}, "SpaceUpdateRequest._space": {"fields": {"space"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="", min_length=1, max_length=63, regex="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
-    namespace: str = FieldInfo(default="") 
-    update_patch: SpaceUpdatePatch = FieldInfo() 
+    space: SpaceUpdate = FieldInfo() 
 
 
 
