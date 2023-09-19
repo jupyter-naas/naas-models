@@ -34,7 +34,7 @@ class Container(BaseModel):
     env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
     port: int = FieldInfo(default=0, ge=0, le=65535) 
     cpu: str = FieldInfo(default="", regex="^[0-9]+(.[0-9]+)?[m]?$") 
-    memory: str = FieldInfo(default="", regex="^[0-9]+Mi$") 
+    memory: str = FieldInfo(default="", regex="^[0-9]+(Mi|Gi|Ki)$") 
 
 
 
@@ -49,7 +49,7 @@ class ContainerUpdate(BaseModel):
     env: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
     port: int = FieldInfo(default=0, ge=0, le=65535) 
     cpu: str = FieldInfo(default="", regex="^[0-9]+(.[0-9]+)?[m]?$") 
-    memory: str = FieldInfo(default="", regex="^[0-9]+Mi$") 
+    memory: str = FieldInfo(default="", regex="^[0-9]+(Mi|Gi|Ki)$") 
 
 
 
