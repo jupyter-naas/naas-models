@@ -137,3 +137,145 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TokenDataValidationError{}
+
+// Validate checks the field values on Profile with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Profile) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Profile with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in ProfileMultiError, or nil if none found.
+func (m *Profile) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Profile) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+		// no validation rules for UserId
+	}
+
+	if m.FirstName != nil {
+		// no validation rules for FirstName
+	}
+
+	if m.LastName != nil {
+		// no validation rules for LastName
+	}
+
+	if m.Company != nil {
+		// no validation rules for Company
+	}
+
+	if m.Role != nil {
+		// no validation rules for Role
+	}
+
+	if m.Timezone != nil {
+		// no validation rules for Timezone
+	}
+
+	if m.ProfilePictureUrl != nil {
+		// no validation rules for ProfilePictureUrl
+	}
+
+	if m.UserPresentation != nil {
+		// no validation rules for UserPresentation
+	}
+
+	if m.TargetedUse != nil {
+		// no validation rules for TargetedUse
+	}
+
+	if m.ProductUpdates != nil {
+		// no validation rules for ProductUpdates
+	}
+
+	if m.Phone != nil {
+		// no validation rules for Phone
+	}
+
+	if len(errors) > 0 {
+		return ProfileMultiError(errors)
+	}
+
+	return nil
+}
+
+// ProfileMultiError is an error wrapping multiple validation errors returned
+// by Profile.ValidateAll() if the designated constraints aren't met.
+type ProfileMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProfileMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProfileMultiError) AllErrors() []error { return m }
+
+// ProfileValidationError is the validation error returned by Profile.Validate
+// if the designated constraints aren't met.
+type ProfileValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProfileValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProfileValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProfileValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProfileValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProfileValidationError) ErrorName() string { return "ProfileValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ProfileValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProfile.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProfileValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProfileValidationError{}
