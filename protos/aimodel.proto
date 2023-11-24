@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package aimodel;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/aimodel";
+
+import "validate.proto";
+
+message AIModel {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string name = 2 ;
+    optional string provider = 3;
+    optional string image = 4;
+    optional bool enabled = 5;
+    optional string type = 6;
+    optional bool restricted = 7;
+    optional string name_alias = 8;
+}
+
+/**
+*   Errors
+*/
+
+enum AIModelError {
+    NO_ERROR = 0;
+    ALREADY_EXISTS = 1;
+    NOT_FOUND = 2;
+    NOT_UPDATED = 3;
+    NOT_AUTHORIZED = 4;
+}
+
+message AIModelResponseError {
+    optional AIModelError code = 1;
+    optional string status = 2;
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+
+// USER SPACE
+
+/**
+*   AIModel List
+*/
+
+message AIModelListRequest {
+    optional int32 page_size = 1;
+    optional int32 page_number = 2;
+}
+
+message AIModelListResponse {
+    repeated AIModel aimodels = 1;
+    optional int32 page_number = 2;
+    optional AIModelResponseError error = 3;
+}
+
+/**
+*   AIModel Get
+*/
+
+message AIModelGetRequest {
+    optional string id = 1 [(validate.rules).string.uuid = true]; 
+}
+
+message AIModelGetResponse {
+    optional AIModel aimodel = 1;
+    optional AIModelResponseError error = 2;
+}
+
+// ADMINISTRATOR SPACE 
+// Users are not able to create models.
+
+/**
+*   AIModel Admin Creation
+*/
+
+message AIModelAdminCreationRequest {
+    optional string name = 1;
+    optional string provider = 2;
+    optional string image = 3;
+    optional bool enabled = 4;
+    optional string type = 5;
+    optional bool restricted = 6;
+    optional string name_alias = 7;
+}
+
+message  AIModelAdminCreationResponse {
+    optional AIModel aimodel = 1;
+    optional AIModelResponseError error = 2;
+}
+
+/**
+*   AIModel Admin Delete
+*/
+
+
+message AIModelAdminDeleteRequest {
+    optional string id = 1 [(validate.rules).string.uuid = true]; 
+}
+
+message AIModelAdminDeleteResponse {
+    optional AIModelResponseError error = 2;
+}

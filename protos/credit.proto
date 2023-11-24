@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package credit;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/credit";
+
+import "validate.proto";
+
+message CreditTransaction {
+    optional string scenario = 1;
+    optional string user = 2;
+    optional string plan = 3;
+    optional string type = 4;
+    optional string meta_1_desc = 5;
+    optional string meta_1 = 6;
+    optional string meta_2_desc = 7;
+    optional string meta_2 = 8;
+    optional string meta_3_desc = 9;
+    optional string meta_3 = 10;
+    optional float quantity = 11;
+    optional string unit = 12;
+    optional float unit_price = 13;
+    optional float credit = 14;
+    optional float credit_dollar = 15;
+    optional string date_extract = 16;
+}
+
+message Balance {
+    optional float balance = 1;
+    optional float balance_dollar = 2;
+}
