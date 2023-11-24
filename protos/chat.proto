@@ -1,0 +1,275 @@
+syntax = "proto3";
+
+package chat;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/chat";
+
+import "google/protobuf/struct.proto";
+import "validate.proto";
+// Message
+
+
+enum MessageType {
+    UNDEFINED = 0;
+    SYSTEM = 1;
+    AI = 2;
+    HUMAN = 3;
+}
+
+enum MessageError {
+    MESSAGE_NO_ERROR = 0;
+    MESSAGE_ALREADY_EXISTS = 1;
+    MESSAGE_NOT_FOUND = 2;
+    MESSAGE_NOT_UPDATED = 3;
+    MESSAGE_NOT_AUTHORIZED = 4;
+}
+
+message MessageResponseError {
+    optional MessageError code = 1;
+    optional string status = 2;
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+
+message Message {
+     optional int32 id = 1;
+     optional int32 version = 2;
+     optional string created_at = 3 [(validate.rules).string = {ignore_empty: true}];
+     optional int32 chat_id = 4;
+     optional bool from_user = 5;
+     optional string message = 6;
+     optional string message_type = 7 [(validate.rules).string = {ignore_empty: true}];
+     optional string message_language = 8 [(validate.rules).string = {ignore_empty: true}];
+     optional string model_id = 9;
+     optional MessageType type = 10;
+     optional string metadata = 11;
+     optional string deleted_at = 12 [(validate.rules).string = {ignore_empty: true}];
+     optional bool selected = 13;
+     optional string archived_at = 14 [(validate.rules).string = {ignore_empty: true}];
+}
+
+message Messages {
+    repeated Message messages = 1;
+}
+
+message MessageDeletionRequest {
+    optional int32 id = 1;
+    optional int32 version = 2;
+}
+
+message MessageDeletionResponse {
+    optional MessageError error = 1;
+}
+
+
+// Message Rating
+
+message MessageRatinResponseError {
+    optional MessageError code = 1;
+    optional string status = 2;
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+message MessageRating {
+    optional int32 message_id = 1;
+    optional string user_id = 2;    
+    optional int32 message_version = 3;
+    optional string created_at = 4;
+    optional string rating = 5 [(validate.rules).string = {
+        pattern: "^(LIKE|DISLIKE)$";
+        ignore_empty: false;
+    }] ;
+}
+
+
+message MessageRatingCreationRequest {
+    optional int32 message_id = 1;
+    optional int32 message_version = 2;
+    optional string rating = 3 [(validate.rules).string = {
+        pattern: "^(LIKE|DISLIKE)$";
+        ignore_empty: false;
+    }];
+}
+
+message MessageRatingCreationResponse {
+    optional MessageRatinResponseError error = 1;
+    optional MessageRating message_rating = 2;
+}
+
+
+
+// Chat
+
+
+message Chat {
+    optional int64 id = 1;
+    optional string created_at = 2;
+    optional string user_id = 3;
+    optional string name = 4;
+    optional string deleted_at = 5;
+    optional bool is_group = 6;
+    optional bool is_personnal_assistant = 7;
+    optional string starred_at = 8;
+}
+
+message ChatMessages {
+    map<int32, Messages> messages = 1;
+}
+
+enum ChatError {
+    CHAT_NO_ERROR = 0;
+    CHAT_ALREADY_EXISTS = 1;
+    CHAT_NOT_FOUND = 2;
+    CHAT_NOT_UPDATED = 3;
+    CHAT_NOT_AUTHORIZED = 4;
+    CHAT_COMPLETION_ADAPTOR_DOES_NOT_EXISTS = 5;
+    CHAT_AIMODEL_NOT_FOUND = 6;
+}
+
+message ChatResponseError {
+    optional ChatError code = 1;
+    optional string status = 2;
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+// Create
+
+message ChatCreationRequest {
+    optional string name = 1;
+    optional bool is_personnal_assistant = 2;
+}
+
+message ChatCreationResponse {
+    optional Chat chat = 1;
+    optional ChatResponseError error = 2;
+}
+
+// Get
+
+message ChatGetRequest {
+    optional int32 id = 1;
+}
+
+message ChatGetResponse {
+    optional Chat chat = 1;
+    optional ChatResponseError error = 2;
+}
+
+
+message ChatMessageGetRequest {
+    optional int32 id = 1;
+}
+message ChatMessageGetResponse {
+    optional ChatResponseError error = 1;
+    optional ChatMessages messages = 2;
+}
+
+// Delete
+
+message ChatDeletionRequest {
+    optional int64 id = 1;
+}
+
+message ChatDeletionResponse {
+    optional ChatResponseError error = 1;
+}
+
+//  Update
+
+message ChatUpdateRequest {
+    optional int64 id = 1;
+    optional string name = 2;
+}
+
+message ChatUpdateResponse {
+    optional Chat chat = 1;
+    optional ChatResponseError error = 2;
+}
+
+// List
+
+message ChatListRequest {
+    optional int32 page_size = 1;
+    optional int32 page_number = 2;
+}
+
+message ChatListResponse {
+    repeated Chat chat = 1;
+    optional ChatResponseError error = 2;
+}
+
+// Star chat
+
+message ChatStarRequest {
+    optional int32 id = 1;
+    optional bool star = 2;
+}
+
+message ChatStarResponse {
+    optional Chat chat = 1;
+    optional ChatError code = 2;
+}
+
+// Completion
+
+message CompletionResponse {
+    repeated Message messages = 1;
+    optional int32 input_tokens = 2; 
+    optional int32 output_tokens = 3;
+    optional string image_resolution = 4;
+    optional int32 image_steps = 5;
+}
+
+message BasePayload {
+    optional string name = 1;
+    optional string url = 2;
+    optional string prompt = 3;
+    //optional string commands = 4;
+}
+
+message ChatCompletionRequest {
+    optional int32 id = 1;
+    optional string model_id = 2;
+    optional string payload = 3;
+}
+
+/**
+The payload can contain multiple properties and are all tied to the model that's being used.
+
+However, there are some fields that will make the payload being interpreted as a "SystemMessage"
+
+{
+    "name": "",
+    "url": "",
+    "commands": "",
+}
+
+If at least `name` and `prompt` are present it will be interpreted as a SystemMessage. The other ones are optional but are here to be able to create richer assistants.
+
+For GPT models, the payload can contain:
+
+{
+    "temperature": ,
+    "max_tokens": ,
+}
+
+If not specified, it will take either the last SystemMessage information for it, or the default values.
+
+*/
+
+message ChatCompletionResponse {
+    optional CompletionResponse completion = 1;
+    optional ChatResponseError error = 2;
+}
+
+service ChatService {
+    rpc Create (ChatCreationRequest) returns (ChatCreationResponse) {}
+    rpc Get (ChatGetRequest) returns (ChatGetResponse) {}
+    rpc List (ChatListRequest) returns (ChatListResponse) {}
+    rpc Delete (ChatDeletionRequest) returns (ChatDeletionResponse) {}
+    rpc Update (ChatUpdateRequest) returns (ChatUpdateResponse) {}
+    rpc Star (ChatStarRequest) returns (ChatStarResponse) {}
+}

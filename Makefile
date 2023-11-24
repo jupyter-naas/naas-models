@@ -28,7 +28,7 @@ generate: clean python go
 		--python_out=python/naas_models \
 		--go_out=go \
 		--validate_out="lang=go:go" \
-		space.proto registry.proto iam.proto validate.proto
+		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto validate.proto
 		cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
 
 bash: 
