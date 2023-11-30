@@ -378,6 +378,26 @@ class ChatCompletionRequest(BaseModel):
 
 
 
+class ChatStopCompletionRequest(BaseModel):
+
+    _one_of_dict = {"ChatStopCompletionRequest._id": {"fields": {"id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    id: int = FieldInfo(default=0) 
+
+
+
+
+class ChatStopCompletionResponse(BaseModel):
+
+    _one_of_dict = {"ChatStopCompletionResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: ChatResponseError = FieldInfo() 
+
+
+
+
 class ChatCompletionResponse(BaseModel):
 
     _one_of_dict = {"ChatCompletionResponse._completion": {"fields": {"completion"}}, "ChatCompletionResponse._error": {"fields": {"error"}}}

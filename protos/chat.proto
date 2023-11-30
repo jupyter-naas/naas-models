@@ -236,6 +236,14 @@ message ChatCompletionRequest {
     optional string payload = 3;
 }
 
+message ChatStopCompletionRequest {
+    optional int32 id = 1;
+}
+
+message ChatStopCompletionResponse {
+    optional ChatResponseError error = 1;
+}
+
 /**
 The payload can contain multiple properties and are all tied to the model that's being used.
 
@@ -264,6 +272,7 @@ message ChatCompletionResponse {
     optional CompletionResponse completion = 1;
     optional ChatResponseError error = 2;
 }
+
 
 service ChatService {
     rpc Create (ChatCreationRequest) returns (ChatCreationResponse) {}

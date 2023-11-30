@@ -3855,6 +3855,247 @@ var _ interface {
 	ErrorName() string
 } = ChatCompletionRequestValidationError{}
 
+// Validate checks the field values on ChatStopCompletionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ChatStopCompletionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ChatStopCompletionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ChatStopCompletionRequestMultiError, or nil if none found.
+func (m *ChatStopCompletionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ChatStopCompletionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Id != nil {
+		// no validation rules for Id
+	}
+
+	if len(errors) > 0 {
+		return ChatStopCompletionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ChatStopCompletionRequestMultiError is an error wrapping multiple validation
+// errors returned by ChatStopCompletionRequest.ValidateAll() if the
+// designated constraints aren't met.
+type ChatStopCompletionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ChatStopCompletionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ChatStopCompletionRequestMultiError) AllErrors() []error { return m }
+
+// ChatStopCompletionRequestValidationError is the validation error returned by
+// ChatStopCompletionRequest.Validate if the designated constraints aren't met.
+type ChatStopCompletionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChatStopCompletionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChatStopCompletionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChatStopCompletionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChatStopCompletionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChatStopCompletionRequestValidationError) ErrorName() string {
+	return "ChatStopCompletionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChatStopCompletionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChatStopCompletionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChatStopCompletionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChatStopCompletionRequestValidationError{}
+
+// Validate checks the field values on ChatStopCompletionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ChatStopCompletionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ChatStopCompletionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ChatStopCompletionResponseMultiError, or nil if none found.
+func (m *ChatStopCompletionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ChatStopCompletionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ChatStopCompletionResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ChatStopCompletionResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ChatStopCompletionResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ChatStopCompletionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ChatStopCompletionResponseMultiError is an error wrapping multiple
+// validation errors returned by ChatStopCompletionResponse.ValidateAll() if
+// the designated constraints aren't met.
+type ChatStopCompletionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ChatStopCompletionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ChatStopCompletionResponseMultiError) AllErrors() []error { return m }
+
+// ChatStopCompletionResponseValidationError is the validation error returned
+// by ChatStopCompletionResponse.Validate if the designated constraints aren't met.
+type ChatStopCompletionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ChatStopCompletionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ChatStopCompletionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ChatStopCompletionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ChatStopCompletionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ChatStopCompletionResponseValidationError) ErrorName() string {
+	return "ChatStopCompletionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ChatStopCompletionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sChatStopCompletionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ChatStopCompletionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ChatStopCompletionResponseValidationError{}
+
 // Validate checks the field values on ChatCompletionResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
