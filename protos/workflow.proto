@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/workflow";
+
+import "validate.proto";
