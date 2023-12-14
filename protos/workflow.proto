@@ -5,3 +5,162 @@ package workflow;
 option go_package = "github.com/jupyter-naas/naas-models/go/workflow";
 
 import "validate.proto";
+
+/**
+*   Argo workflow custom resources
+*/
+
+message WorkflowArchive {
+    map<string, string> none = 1;
+}
+
+message WorkflowArtifactS3 {
+    optional string key = 1;
+    optional string bucket = 2;
+}
+
+message workflowArtifact {
+    optional string name = 1;
+    optional string path = 2;
+    optional int32 mode = 3;
+    optional string from = 4;
+    optional WorkflowA archive = 5;
+    optional WorkflowArtifactS3 s3 = 6;
+}
+
+message WorkflowInputs {
+    repeated WorkflowParameter parameters = 1;
+    repeated WorkflowArtifact artifacts = 2;
+}
+
+message WorkflowOutputs {
+    repeated WorkflowParameter parameters = 1;
+    repeated WorkflowArtifact artifacts = 2;
+}
+
+message WorkflowParameter {
+    optional string name = 1;
+    optional string value = 2;
+    optional string default = 3;
+}
+
+message WorkflowArguments {
+    map<string, string> parameters = 1;
+    map<string, string> artifacts = 2;
+}
+
+message WorkflowDagTasks {
+    string name = 1;
+    string template = 2;
+    optional string depends = 3;
+    optional workflowArguments arguments = 4;
+}
+
+message WorkflowDagTemplate {
+    repeated WorkflowDagTasks tasks = 1;
+    optional string target = 2;
+}
+
+message WorkflowScriptTemplate {
+    optional string source = 1;
+}
+
+message workflowTemplate {
+    optional string name = 1;
+    optional string container = 5;
+    optional WorkflowInputsTemplate inputs = 2;
+    optional WorkflowOutputsTemplate outputs = 3;
+    optional WorkflowMetadata metadata = 4;
+    optional WorkflowDagTemplate dag = 4;
+    optional WorkflowScriptTemplate script = 5;
+}
+
+message WorkflowSpec {
+    string entrypoint = 1;
+    optional WorkflowArguments arguments  = 2;
+    repeated WorkflowTemplate templates = 3;
+}
+
+
+/**
+*   Argo workflow CRUD resources
+*/
+
+message WorkflowCreationRequest {
+    optional string name = 1;
+    optional string namespace = 2;
+    optional string workflowTemplate = 4;
+    optional string workflowSpec = 5;
+}
+
+message WorkflowCreationResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowUpdateRequest {
+    optional string name = 1;
+    optional string namespace = 2;
+    optional string workflowTemplate = 4;
+    optional string workflowSpec = 5;
+}
+
+message WorkflowUpdateResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowDeleteRequest {
+    optional string name = 1;
+    optional string namespace = 2;
+}
+
+message WorkflowDeleteResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowGetRequest {
+    optional string name = 1;
+    optional string namespace = 2;
+}
+
+message WorkflowGetResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowListRequest {}
+
+message WorkflowListResponse {
+    repeated WorkflowGetResponse workflows = 1;
+}
+
+/**
+*   Errors
+*/
+
+message WorkflowCreationError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowUpdateError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowDeleteError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowGetError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowListError {
+    optional string name = 1;
+    optional string message = 2;
+}
