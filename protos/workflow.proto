@@ -10,75 +10,74 @@ import "validate.proto";
 *   Argo workflow custom resources
 */
 
-message WorkflowArchive {
+message Archive {
     map<string, string> none = 1;
 }
 
-message WorkflowArtifactS3 {
+message ArtifactS3 {
     optional string key = 1;
     optional string bucket = 2;
 }
 
-message workflowArtifact {
+message Artifact {
     optional string name = 1;
     optional string path = 2;
     optional int32 mode = 3;
     optional string from = 4;
-    optional WorkflowA archive = 5;
-    optional WorkflowArtifactS3 s3 = 6;
+    optional Archive archive = 5;
+    optional ArtifactS3 s3 = 6;
 }
 
-message WorkflowInputs {
-    repeated WorkflowParameter parameters = 1;
-    repeated WorkflowArtifact artifacts = 2;
+message Inputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
 }
 
-message WorkflowOutputs {
-    repeated WorkflowParameter parameters = 1;
-    repeated WorkflowArtifact artifacts = 2;
+message Outputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
 }
 
-message WorkflowParameter {
+message Parameter {
     optional string name = 1;
     optional string value = 2;
     optional string default = 3;
 }
 
-message WorkflowArguments {
+message Arguments {
     map<string, string> parameters = 1;
     map<string, string> artifacts = 2;
 }
 
-message WorkflowDagTasks {
+message DagTasks {
     string name = 1;
     string template = 2;
     optional string depends = 3;
-    optional workflowArguments arguments = 4;
+    optional Arguments arguments = 4;
 }
 
-message WorkflowDagTemplate {
-    repeated WorkflowDagTasks tasks = 1;
+message DagTemplate {
+    repeated DagTasks tasks = 1;
     optional string target = 2;
 }
 
-message WorkflowScriptTemplate {
+message ScriptTemplate {
     optional string source = 1;
 }
 
-message workflowTemplate {
+message Template {
     optional string name = 1;
-    optional string container = 5;
-    optional WorkflowInputsTemplate inputs = 2;
-    optional WorkflowOutputsTemplate outputs = 3;
-    optional WorkflowMetadata metadata = 4;
-    optional WorkflowDagTemplate dag = 4;
-    optional WorkflowScriptTemplate script = 5;
+    optional string container = 2;
+    optional Inputs inputs = 3;
+    optional Outputs outputs = 4;
+    optional DagTemplate dag = 5;
+    optional ScriptTemplate script = 6;
 }
 
-message WorkflowSpec {
+message Spec {
     string entrypoint = 1;
-    optional WorkflowArguments arguments  = 2;
-    repeated WorkflowTemplate templates = 3;
+    optional Arguments arguments  = 2;
+    repeated Template templates = 3;
 }
 
 
