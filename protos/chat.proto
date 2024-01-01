@@ -127,6 +127,7 @@ enum ChatError {
     CHAT_COMPLETION_ADAPTOR_DOES_NOT_EXISTS = 5;
     CHAT_AIMODEL_NOT_FOUND = 6;
     CHAT_OUT_OF_CREDIT = 7;
+    CHAT_CONTEXT_LENGTH_EXCEEDED = 8;
 }
 
 message ChatResponseError {

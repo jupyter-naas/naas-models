@@ -17,6 +17,15 @@ message AIModel {
     optional string name_alias = 8;
 }
 
+message CompletionResponse {
+    optional string model_id = 1 [(validate.rules).string.uuid = true];
+    repeated string completions = 2;
+    optional int32 input_tokens = 3; 
+    optional int32 output_tokens = 4;
+    optional string image_resolution = 5;
+    optional int32 image_steps = 6;
+}
+
 /**
 *   Errors
 */
@@ -27,6 +36,8 @@ enum AIModelError {
     NOT_FOUND = 2;
     NOT_UPDATED = 3;
     NOT_AUTHORIZED = 4;
+    AIMODEL_OUT_OF_CREDITS = 5;
+    AIMODEL_DONT_HANDLE_COMPLETION = 6;
 }
 
 message AIModelResponseError {
@@ -67,6 +78,17 @@ message AIModelGetResponse {
     optional AIModelResponseError error = 2;
 }
 
+message AIModelCompletionRequest {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string payload = 2;
+}
+
+message AIModelCompletionResponse {
+    optional CompletionResponse completion = 1;
+    optional AIModelResponseError error = 2;
+}
+
+
 // ADMINISTRATOR SPACE 
 // Users are not able to create models.
 
@@ -101,3 +123,4 @@ message AIModelAdminDeleteRequest {
 message AIModelAdminDeleteResponse {
     optional AIModelResponseError error = 2;
 }
+

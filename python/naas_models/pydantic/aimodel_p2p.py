@@ -19,6 +19,8 @@ class AIModelError(IntEnum):
     NOT_FOUND = 2
     NOT_UPDATED = 3
     NOT_AUTHORIZED = 4
+    AIMODEL_OUT_OF_CREDITS = 5
+    AIMODEL_DONT_HANDLE_COMPLETION = 6
 
 
 
@@ -36,6 +38,21 @@ class AIModel(BaseModel):
     type: str = FieldInfo(default="") 
     restricted: bool = FieldInfo(default=False) 
     name_alias: str = FieldInfo(default="") 
+
+
+
+
+class CompletionResponse(BaseModel):
+
+    _one_of_dict = {"CompletionResponse._image_resolution": {"fields": {"image_resolution"}}, "CompletionResponse._image_steps": {"fields": {"image_steps"}}, "CompletionResponse._input_tokens": {"fields": {"input_tokens"}}, "CompletionResponse._model_id": {"fields": {"model_id"}}, "CompletionResponse._output_tokens": {"fields": {"output_tokens"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    model_id: UUID = FieldInfo(default="") 
+    completions: typing.List[str] = FieldInfo(default_factory=list) 
+    input_tokens: int = FieldInfo(default=0) 
+    output_tokens: int = FieldInfo(default=0) 
+    image_resolution: str = FieldInfo(default="") 
+    image_steps: int = FieldInfo(default=0) 
 
 
 
@@ -92,6 +109,28 @@ class AIModelGetResponse(BaseModel):
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     aimodel: AIModel = FieldInfo() 
+    error: AIModelResponseError = FieldInfo() 
+
+
+
+
+class AIModelCompletionRequest(BaseModel):
+
+    _one_of_dict = {"AIModelCompletionRequest._id": {"fields": {"id"}}, "AIModelCompletionRequest._payload": {"fields": {"payload"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    id: UUID = FieldInfo(default="") 
+    payload: str = FieldInfo(default="") 
+
+
+
+
+class AIModelCompletionResponse(BaseModel):
+
+    _one_of_dict = {"AIModelCompletionResponse._completion": {"fields": {"completion"}}, "AIModelCompletionResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    completion: CompletionResponse = FieldInfo() 
     error: AIModelResponseError = FieldInfo() 
 
 
