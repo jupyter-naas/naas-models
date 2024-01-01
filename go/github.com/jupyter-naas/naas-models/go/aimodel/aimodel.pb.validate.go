@@ -188,6 +188,148 @@ var _ interface {
 	ErrorName() string
 } = AIModelValidationError{}
 
+// Validate checks the field values on CompletionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CompletionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CompletionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CompletionResponseMultiError, or nil if none found.
+func (m *CompletionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CompletionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.ModelId != nil {
+
+		if err := m._validateUuid(m.GetModelId()); err != nil {
+			err = CompletionResponseValidationError{
+				field:  "ModelId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.InputTokens != nil {
+		// no validation rules for InputTokens
+	}
+
+	if m.OutputTokens != nil {
+		// no validation rules for OutputTokens
+	}
+
+	if m.ImageResolution != nil {
+		// no validation rules for ImageResolution
+	}
+
+	if m.ImageSteps != nil {
+		// no validation rules for ImageSteps
+	}
+
+	if len(errors) > 0 {
+		return CompletionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CompletionResponse) _validateUuid(uuid string) error {
+	if matched := _aimodel_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CompletionResponseMultiError is an error wrapping multiple validation errors
+// returned by CompletionResponse.ValidateAll() if the designated constraints
+// aren't met.
+type CompletionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CompletionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CompletionResponseMultiError) AllErrors() []error { return m }
+
+// CompletionResponseValidationError is the validation error returned by
+// CompletionResponse.Validate if the designated constraints aren't met.
+type CompletionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CompletionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CompletionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CompletionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CompletionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CompletionResponseValidationError) ErrorName() string {
+	return "CompletionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CompletionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCompletionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CompletionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CompletionResponseValidationError{}
+
 // Validate checks the field values on AIModelResponseError with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -882,6 +1024,304 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AIModelGetResponseValidationError{}
+
+// Validate checks the field values on AIModelCompletionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AIModelCompletionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AIModelCompletionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AIModelCompletionRequestMultiError, or nil if none found.
+func (m *AIModelCompletionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AIModelCompletionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Id != nil {
+
+		if err := m._validateUuid(m.GetId()); err != nil {
+			err = AIModelCompletionRequestValidationError{
+				field:  "Id",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Payload != nil {
+		// no validation rules for Payload
+	}
+
+	if len(errors) > 0 {
+		return AIModelCompletionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *AIModelCompletionRequest) _validateUuid(uuid string) error {
+	if matched := _aimodel_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// AIModelCompletionRequestMultiError is an error wrapping multiple validation
+// errors returned by AIModelCompletionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AIModelCompletionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AIModelCompletionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AIModelCompletionRequestMultiError) AllErrors() []error { return m }
+
+// AIModelCompletionRequestValidationError is the validation error returned by
+// AIModelCompletionRequest.Validate if the designated constraints aren't met.
+type AIModelCompletionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AIModelCompletionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AIModelCompletionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AIModelCompletionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AIModelCompletionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AIModelCompletionRequestValidationError) ErrorName() string {
+	return "AIModelCompletionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AIModelCompletionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAIModelCompletionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AIModelCompletionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AIModelCompletionRequestValidationError{}
+
+// Validate checks the field values on AIModelCompletionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AIModelCompletionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AIModelCompletionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AIModelCompletionResponseMultiError, or nil if none found.
+func (m *AIModelCompletionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AIModelCompletionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Completion != nil {
+
+		if all {
+			switch v := interface{}(m.GetCompletion()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AIModelCompletionResponseValidationError{
+						field:  "Completion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AIModelCompletionResponseValidationError{
+						field:  "Completion",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCompletion()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AIModelCompletionResponseValidationError{
+					field:  "Completion",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AIModelCompletionResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AIModelCompletionResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AIModelCompletionResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return AIModelCompletionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AIModelCompletionResponseMultiError is an error wrapping multiple validation
+// errors returned by AIModelCompletionResponse.ValidateAll() if the
+// designated constraints aren't met.
+type AIModelCompletionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AIModelCompletionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AIModelCompletionResponseMultiError) AllErrors() []error { return m }
+
+// AIModelCompletionResponseValidationError is the validation error returned by
+// AIModelCompletionResponse.Validate if the designated constraints aren't met.
+type AIModelCompletionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AIModelCompletionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AIModelCompletionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AIModelCompletionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AIModelCompletionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AIModelCompletionResponseValidationError) ErrorName() string {
+	return "AIModelCompletionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AIModelCompletionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAIModelCompletionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AIModelCompletionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AIModelCompletionResponseValidationError{}
 
 // Validate checks the field values on AIModelAdminCreationRequest with the
 // rules defined in the proto definition for this message. If any rules are
