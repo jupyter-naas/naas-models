@@ -27,6 +27,12 @@ class MessageError(IntEnum):
     MESSAGE_NOT_AUTHORIZED = 4
 
 
+class CompletionStatus(IntEnum):
+    COMPLETED = 0
+    FAILED = 1
+    TIMEOUT = 2
+
+
 class ChatError(IntEnum):
     CHAT_NO_ERROR = 0
     CHAT_ALREADY_EXISTS = 1
@@ -344,7 +350,7 @@ class ChatStarResponse(BaseModel):
 
 class CompletionResponse(BaseModel):
 
-    _one_of_dict = {"CompletionResponse._image_resolution": {"fields": {"image_resolution"}}, "CompletionResponse._image_steps": {"fields": {"image_steps"}}, "CompletionResponse._input_tokens": {"fields": {"input_tokens"}}, "CompletionResponse._output_tokens": {"fields": {"output_tokens"}}}
+    _one_of_dict = {"CompletionResponse._image_resolution": {"fields": {"image_resolution"}}, "CompletionResponse._image_steps": {"fields": {"image_steps"}}, "CompletionResponse._input_tokens": {"fields": {"input_tokens"}}, "CompletionResponse._output_tokens": {"fields": {"output_tokens"}}, "CompletionResponse._status": {"fields": {"status"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     messages: typing.List[Message] = FieldInfo(default_factory=list) 
@@ -352,6 +358,7 @@ class CompletionResponse(BaseModel):
     output_tokens: int = FieldInfo(default=0) 
     image_resolution: str = FieldInfo(default="") 
     image_steps: int = FieldInfo(default=0) 
+    status: CompletionStatus = FieldInfo(default=0) 
 
 
 

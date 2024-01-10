@@ -24,6 +24,12 @@ enum MessageError {
     MESSAGE_NOT_AUTHORIZED = 4;
 }
 
+enum CompletionStatus {
+    COMPLETED = 0;
+    FAILED = 1;
+    TIMEOUT = 2;
+}
+
 message MessageResponseError {
     optional MessageError code = 1;
     optional string status = 2;
@@ -223,6 +229,7 @@ message CompletionResponse {
     optional int32 output_tokens = 3;
     optional string image_resolution = 4;
     optional int32 image_steps = 5;
+    optional CompletionStatus status = 6;
 }
 
 message BasePayload {
