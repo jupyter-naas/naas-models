@@ -3550,6 +3550,10 @@ func (m *CompletionResponse) validate(all bool) error {
 		// no validation rules for ImageSteps
 	}
 
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
 	if len(errors) > 0 {
 		return CompletionResponseMultiError(errors)
 	}
