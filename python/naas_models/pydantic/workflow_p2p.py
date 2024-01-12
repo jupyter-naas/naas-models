@@ -166,6 +166,31 @@ class Workflow(BaseModel):
 
 
 
+class CronSpec(BaseModel):
+
+    _one_of_dict = {"CronSpec._concurrencyPolicy": {"fields": {"concurrencyPolicy"}}, "CronSpec._failedJobsHistoryLimit": {"fields": {"failedJobsHistoryLimit"}}, "CronSpec._startingDeadlineSeconds": {"fields": {"startingDeadlineSeconds"}}, "CronSpec._successfulJobsHistoryLimit": {"fields": {"successfulJobsHistoryLimit"}}, "CronSpec._suspend": {"fields": {"suspend"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    schedule: str = FieldInfo(default="") 
+    timezone: str = FieldInfo(default="") 
+    startingDeadlineSeconds: str = FieldInfo(default="") 
+    concurrencyPolicy: str = FieldInfo(default="") 
+    successfulJobsHistoryLimit: str = FieldInfo(default="") 
+    failedJobsHistoryLimit: str = FieldInfo(default="") 
+    suspend: str = FieldInfo(default="") 
+    workflowSpec: Spec = FieldInfo() 
+
+
+
+
+class CronWorkflow(BaseModel):
+
+    metadata: Metadata = FieldInfo() 
+    spec: CronSpec = FieldInfo() 
+
+
+
+
 class WorkflowCreationRequest(BaseModel):
 
     _one_of_dict = {"WorkflowCreationRequest._description": {"fields": {"description"}}, "WorkflowCreationRequest._name": {"fields": {"name"}}, "WorkflowCreationRequest._namespace": {"fields": {"namespace"}}, "WorkflowCreationRequest._serverDryRun": {"fields": {"serverDryRun"}}, "WorkflowCreationRequest._user_uid": {"fields": {"user_uid"}}, "WorkflowCreationRequest._workflow": {"fields": {"workflow"}}}

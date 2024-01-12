@@ -95,6 +95,22 @@ message Workflow {
     Spec spec = 2;
 }
 
+message CronSpec {
+    string schedule = 1;
+    string timezone = 2;
+    optional string startingDeadlineSeconds = 3;
+    optional string concurrencyPolicy = 4;
+    optional string successfulJobsHistoryLimit = 5;
+    optional string failedJobsHistoryLimit = 6;
+    optional string suspend = 7;
+    Spec workflowSpec = 8;
+}
+
+message CronWorkflow {
+    Metadata metadata = 1;
+    CronSpec spec = 2;
+}
+
 /**
 *   Argo workflow CRUD resources
 */
