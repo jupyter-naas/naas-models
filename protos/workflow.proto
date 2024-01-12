@@ -62,16 +62,20 @@ message DagTemplate {
 }
 
 message ScriptTemplate {
-    optional string source = 1;
+    optional string image = 1;
+    repeated string command = 2;
+    map<string, string> resources = 3;
+    optional string source = 4;
 }
 
 message Template {
     optional string name = 1;
     optional string container = 2;
-    optional Inputs inputs = 3;
-    optional Outputs outputs = 4;
-    optional DagTemplate dag = 5;
-    optional ScriptTemplate script = 6;
+    map<string, string> metadata = 3;
+    optional Inputs inputs = 4;
+    optional Outputs outputs = 5;
+    optional DagTemplate dag = 6;
+    optional ScriptTemplate script = 7;
 }
 
 message Spec {
@@ -80,6 +84,16 @@ message Spec {
     repeated Template templates = 3;
 }
 
+message Metadata {
+    optional string generateName = 1;
+    optional string namespace = 2;
+    map<string, string> labels = 3;
+}
+
+message Workflow {
+    Metadata metadata = 1;
+    Spec spec = 2;
+}
 
 /**
 *   Argo workflow CRUD resources
@@ -87,9 +101,11 @@ message Spec {
 
 message WorkflowCreationRequest {
     optional string name = 1;
-    optional string namespace = 2;
-    optional string workflowTemplate = 4;
-    optional string workflowSpec = 5;
+    optional string description = 2;
+    optional string user_uid = 3;
+    optional string namespace = 4;
+    optional bool serverDryRun = 5;
+    optional Workflow workflow = 6;
 }
 
 message WorkflowCreationResponse {
@@ -100,8 +116,7 @@ message WorkflowCreationResponse {
 message WorkflowUpdateRequest {
     optional string name = 1;
     optional string namespace = 2;
-    optional string workflowTemplate = 4;
-    optional string workflowSpec = 5;
+    optional Workflow workflow = 3;
 }
 
 message WorkflowUpdateResponse {
@@ -110,7 +125,7 @@ message WorkflowUpdateResponse {
 }
 
 message WorkflowDeleteRequest {
-    optional string name = 1;
+    optional string workflow_name = 1;
     optional string namespace = 2;
 }
 
@@ -120,7 +135,7 @@ message WorkflowDeleteResponse {
 }
 
 message WorkflowGetRequest {
-    optional string name = 1;
+    optional string workflow_name = 1;
     optional string namespace = 2;
 }
 
@@ -129,7 +144,9 @@ message WorkflowGetResponse {
     optional string message = 2;
 }
 
-message WorkflowListRequest {}
+message WorkflowListRequest {
+    optional string namespace = 1;
+}
 
 message WorkflowListResponse {
     repeated WorkflowGetResponse workflows = 1;

@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eworkflow.proto\x12\x08workflow\x1a\x0evalidate.proto\"a\n\x07\x41rchive\x12)\n\x04none\x18\x01 \x03(\x0b\x32\x1b.workflow.Archive.NoneEntry\x1a+\n\tNoneEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\nArtifactS3\x12\x10\n\x03key\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x06\x62ucket\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x06\n\x04_keyB\t\n\x07_bucket\"\xdd\x01\n\x08\x41rtifact\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04path\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04mode\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x11\n\x04\x66rom\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\'\n\x07\x61rchive\x18\x05 \x01(\x0b\x32\x11.workflow.ArchiveH\x04\x88\x01\x01\x12%\n\x02s3\x18\x06 \x01(\x0b\x32\x14.workflow.ArtifactS3H\x05\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_pathB\x07\n\x05_modeB\x07\n\x05_fromB\n\n\x08_archiveB\x05\n\x03_s3\"X\n\x06Inputs\x12\'\n\nparameters\x18\x01 \x03(\x0b\x32\x13.workflow.Parameter\x12%\n\tartifacts\x18\x02 \x03(\x0b\x32\x12.workflow.Artifact\"Y\n\x07Outputs\x12\'\n\nparameters\x18\x01 \x03(\x0b\x32\x13.workflow.Parameter\x12%\n\tartifacts\x18\x02 \x03(\x0b\x32\x12.workflow.Artifact\"g\n\tParameter\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05value\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x64\x65\x66\x61ult\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_valueB\n\n\x08_default\"\xe0\x01\n\tArguments\x12\x37\n\nparameters\x18\x01 \x03(\x0b\x32#.workflow.Arguments.ParametersEntry\x12\x35\n\tartifacts\x18\x02 \x03(\x0b\x32\".workflow.Arguments.ArtifactsEntry\x1a\x31\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a\x30\n\x0e\x41rtifactsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x87\x01\n\x08\x44\x61gTasks\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08template\x18\x02 \x01(\t\x12\x14\n\x07\x64\x65pends\x18\x03 \x01(\tH\x00\x88\x01\x01\x12+\n\targuments\x18\x04 \x01(\x0b\x32\x13.workflow.ArgumentsH\x01\x88\x01\x01\x42\n\n\x08_dependsB\x0c\n\n_arguments\"P\n\x0b\x44\x61gTemplate\x12!\n\x05tasks\x18\x01 \x03(\x0b\x32\x12.workflow.DagTasks\x12\x13\n\x06target\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_target\"0\n\x0eScriptTemplate\x12\x13\n\x06source\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_source\"\x9e\x02\n\x08Template\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tcontainer\x18\x02 \x01(\tH\x01\x88\x01\x01\x12%\n\x06inputs\x18\x03 \x01(\x0b\x32\x10.workflow.InputsH\x02\x88\x01\x01\x12\'\n\x07outputs\x18\x04 \x01(\x0b\x32\x11.workflow.OutputsH\x03\x88\x01\x01\x12\'\n\x03\x64\x61g\x18\x05 \x01(\x0b\x32\x15.workflow.DagTemplateH\x04\x88\x01\x01\x12-\n\x06script\x18\x06 \x01(\x0b\x32\x18.workflow.ScriptTemplateH\x05\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_containerB\t\n\x07_inputsB\n\n\x08_outputsB\x06\n\x04_dagB\t\n\x07_script\"|\n\x04Spec\x12\x12\n\nentrypoint\x18\x01 \x01(\t\x12+\n\targuments\x18\x02 \x01(\x0b\x32\x13.workflow.ArgumentsH\x00\x88\x01\x01\x12%\n\ttemplates\x18\x03 \x03(\x0b\x32\x12.workflow.TemplateB\x0c\n\n_arguments\"\xbb\x01\n\x17WorkflowCreationRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x1d\n\x10workflowTemplate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0cworkflowSpec\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespaceB\x13\n\x11_workflowTemplateB\x0f\n\r_workflowSpec\"X\n\x18WorkflowCreationResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"\xb9\x01\n\x15WorkflowUpdateRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x1d\n\x10workflowTemplate\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0cworkflowSpec\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespaceB\x13\n\x11_workflowTemplateB\x0f\n\r_workflowSpec\"V\n\x16WorkflowUpdateResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"Y\n\x15WorkflowDeleteRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespace\"V\n\x16WorkflowDeleteResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"V\n\x12WorkflowGetRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespace\"S\n\x13WorkflowGetResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"\x15\n\x13WorkflowListRequest\"H\n\x14WorkflowListResponse\x12\x30\n\tworkflows\x18\x01 \x03(\x0b\x32\x1d.workflow.WorkflowGetResponse\"U\n\x15WorkflowCreationError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"S\n\x13WorkflowUpdateError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"S\n\x13WorkflowDeleteError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"P\n\x10WorkflowGetError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"Q\n\x11WorkflowListError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_messageB1Z/github.com/jupyter-naas/naas-models/go/workflowb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eworkflow.proto\x12\x08workflow\x1a\x0evalidate.proto\"a\n\x07\x41rchive\x12)\n\x04none\x18\x01 \x03(\x0b\x32\x1b.workflow.Archive.NoneEntry\x1a+\n\tNoneEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\nArtifactS3\x12\x10\n\x03key\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x06\x62ucket\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x06\n\x04_keyB\t\n\x07_bucket\"\xdd\x01\n\x08\x41rtifact\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04path\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04mode\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x11\n\x04\x66rom\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\'\n\x07\x61rchive\x18\x05 \x01(\x0b\x32\x11.workflow.ArchiveH\x04\x88\x01\x01\x12%\n\x02s3\x18\x06 \x01(\x0b\x32\x14.workflow.ArtifactS3H\x05\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_pathB\x07\n\x05_modeB\x07\n\x05_fromB\n\n\x08_archiveB\x05\n\x03_s3\"X\n\x06Inputs\x12\'\n\nparameters\x18\x01 \x03(\x0b\x32\x13.workflow.Parameter\x12%\n\tartifacts\x18\x02 \x03(\x0b\x32\x12.workflow.Artifact\"Y\n\x07Outputs\x12\'\n\nparameters\x18\x01 \x03(\x0b\x32\x13.workflow.Parameter\x12%\n\tartifacts\x18\x02 \x03(\x0b\x32\x12.workflow.Artifact\"g\n\tParameter\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05value\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x64\x65\x66\x61ult\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_valueB\n\n\x08_default\"\xe0\x01\n\tArguments\x12\x37\n\nparameters\x18\x01 \x03(\x0b\x32#.workflow.Arguments.ParametersEntry\x12\x35\n\tartifacts\x18\x02 \x03(\x0b\x32\".workflow.Arguments.ArtifactsEntry\x1a\x31\n\x0fParametersEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a\x30\n\x0e\x41rtifactsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x87\x01\n\x08\x44\x61gTasks\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08template\x18\x02 \x01(\t\x12\x14\n\x07\x64\x65pends\x18\x03 \x01(\tH\x00\x88\x01\x01\x12+\n\targuments\x18\x04 \x01(\x0b\x32\x13.workflow.ArgumentsH\x01\x88\x01\x01\x42\n\n\x08_dependsB\x0c\n\n_arguments\"P\n\x0b\x44\x61gTemplate\x12!\n\x05tasks\x18\x01 \x03(\x0b\x32\x12.workflow.DagTasks\x12\x13\n\x06target\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_target\"\xcd\x01\n\x0eScriptTemplate\x12\x12\n\x05image\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x0f\n\x07\x63ommand\x18\x02 \x03(\t\x12:\n\tresources\x18\x03 \x03(\x0b\x32\'.workflow.ScriptTemplate.ResourcesEntry\x12\x13\n\x06source\x18\x04 \x01(\tH\x01\x88\x01\x01\x1a\x30\n\x0eResourcesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x08\n\x06_imageB\t\n\x07_source\"\x83\x03\n\x08Template\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tcontainer\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x32\n\x08metadata\x18\x03 \x03(\x0b\x32 .workflow.Template.MetadataEntry\x12%\n\x06inputs\x18\x04 \x01(\x0b\x32\x10.workflow.InputsH\x02\x88\x01\x01\x12\'\n\x07outputs\x18\x05 \x01(\x0b\x32\x11.workflow.OutputsH\x03\x88\x01\x01\x12\'\n\x03\x64\x61g\x18\x06 \x01(\x0b\x32\x15.workflow.DagTemplateH\x04\x88\x01\x01\x12-\n\x06script\x18\x07 \x01(\x0b\x32\x18.workflow.ScriptTemplateH\x05\x88\x01\x01\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x07\n\x05_nameB\x0c\n\n_containerB\t\n\x07_inputsB\n\n\x08_outputsB\x06\n\x04_dagB\t\n\x07_script\"|\n\x04Spec\x12\x12\n\nentrypoint\x18\x01 \x01(\t\x12+\n\targuments\x18\x02 \x01(\x0b\x32\x13.workflow.ArgumentsH\x00\x88\x01\x01\x12%\n\ttemplates\x18\x03 \x03(\x0b\x32\x12.workflow.TemplateB\x0c\n\n_arguments\"\xbb\x01\n\x08Metadata\x12\x19\n\x0cgenerateName\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x12.\n\x06labels\x18\x03 \x03(\x0b\x32\x1e.workflow.Metadata.LabelsEntry\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x0f\n\r_generateNameB\x0c\n\n_namespace\"N\n\x08Workflow\x12$\n\x08metadata\x18\x01 \x01(\x0b\x32\x12.workflow.Metadata\x12\x1c\n\x04spec\x18\x02 \x01(\x0b\x32\x0e.workflow.Spec\"\x8d\x02\n\x17WorkflowCreationRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x15\n\x08user_uid\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tnamespace\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x19\n\x0cserverDryRun\x18\x05 \x01(\x08H\x04\x88\x01\x01\x12)\n\x08workflow\x18\x06 \x01(\x0b\x32\x12.workflow.WorkflowH\x05\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_descriptionB\x0b\n\t_user_uidB\x0c\n\n_namespaceB\x0f\n\r_serverDryRunB\x0b\n\t_workflow\"X\n\x18WorkflowCreationResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"\x91\x01\n\x15WorkflowUpdateRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x12)\n\x08workflow\x18\x03 \x01(\x0b\x32\x12.workflow.WorkflowH\x02\x88\x01\x01\x42\x07\n\x05_nameB\x0c\n\n_namespaceB\x0b\n\t_workflow\"V\n\x16WorkflowUpdateResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"k\n\x15WorkflowDeleteRequest\x12\x1a\n\rworkflow_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x10\n\x0e_workflow_nameB\x0c\n\n_namespace\"V\n\x16WorkflowDeleteResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"h\n\x12WorkflowGetRequest\x12\x1a\n\rworkflow_name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tnamespace\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x10\n\x0e_workflow_nameB\x0c\n\n_namespace\"S\n\x13WorkflowGetResponse\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\";\n\x13WorkflowListRequest\x12\x16\n\tnamespace\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0c\n\n_namespace\"H\n\x14WorkflowListResponse\x12\x30\n\tworkflows\x18\x01 \x03(\x0b\x32\x1d.workflow.WorkflowGetResponse\"U\n\x15WorkflowCreationError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"S\n\x13WorkflowUpdateError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"S\n\x13WorkflowDeleteError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"P\n\x10WorkflowGetError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_message\"Q\n\x11WorkflowListError\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\n\n\x08_messageB1Z/github.com/jupyter-naas/naas-models/go/workflowb\x06proto3')
 
 
 
@@ -32,8 +32,13 @@ _ARGUMENTS_ARTIFACTSENTRY = _ARGUMENTS.nested_types_by_name['ArtifactsEntry']
 _DAGTASKS = DESCRIPTOR.message_types_by_name['DagTasks']
 _DAGTEMPLATE = DESCRIPTOR.message_types_by_name['DagTemplate']
 _SCRIPTTEMPLATE = DESCRIPTOR.message_types_by_name['ScriptTemplate']
+_SCRIPTTEMPLATE_RESOURCESENTRY = _SCRIPTTEMPLATE.nested_types_by_name['ResourcesEntry']
 _TEMPLATE = DESCRIPTOR.message_types_by_name['Template']
+_TEMPLATE_METADATAENTRY = _TEMPLATE.nested_types_by_name['MetadataEntry']
 _SPEC = DESCRIPTOR.message_types_by_name['Spec']
+_METADATA = DESCRIPTOR.message_types_by_name['Metadata']
+_METADATA_LABELSENTRY = _METADATA.nested_types_by_name['LabelsEntry']
+_WORKFLOW = DESCRIPTOR.message_types_by_name['Workflow']
 _WORKFLOWCREATIONREQUEST = DESCRIPTOR.message_types_by_name['WorkflowCreationRequest']
 _WORKFLOWCREATIONRESPONSE = DESCRIPTOR.message_types_by_name['WorkflowCreationResponse']
 _WORKFLOWUPDATEREQUEST = DESCRIPTOR.message_types_by_name['WorkflowUpdateRequest']
@@ -137,18 +142,34 @@ DagTemplate = _reflection.GeneratedProtocolMessageType('DagTemplate', (_message.
 _sym_db.RegisterMessage(DagTemplate)
 
 ScriptTemplate = _reflection.GeneratedProtocolMessageType('ScriptTemplate', (_message.Message,), {
+
+  'ResourcesEntry' : _reflection.GeneratedProtocolMessageType('ResourcesEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SCRIPTTEMPLATE_RESOURCESENTRY,
+    '__module__' : 'workflow_pb2'
+    # @@protoc_insertion_point(class_scope:workflow.ScriptTemplate.ResourcesEntry)
+    })
+  ,
   'DESCRIPTOR' : _SCRIPTTEMPLATE,
   '__module__' : 'workflow_pb2'
   # @@protoc_insertion_point(class_scope:workflow.ScriptTemplate)
   })
 _sym_db.RegisterMessage(ScriptTemplate)
+_sym_db.RegisterMessage(ScriptTemplate.ResourcesEntry)
 
 Template = _reflection.GeneratedProtocolMessageType('Template', (_message.Message,), {
+
+  'MetadataEntry' : _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), {
+    'DESCRIPTOR' : _TEMPLATE_METADATAENTRY,
+    '__module__' : 'workflow_pb2'
+    # @@protoc_insertion_point(class_scope:workflow.Template.MetadataEntry)
+    })
+  ,
   'DESCRIPTOR' : _TEMPLATE,
   '__module__' : 'workflow_pb2'
   # @@protoc_insertion_point(class_scope:workflow.Template)
   })
 _sym_db.RegisterMessage(Template)
+_sym_db.RegisterMessage(Template.MetadataEntry)
 
 Spec = _reflection.GeneratedProtocolMessageType('Spec', (_message.Message,), {
   'DESCRIPTOR' : _SPEC,
@@ -156,6 +177,28 @@ Spec = _reflection.GeneratedProtocolMessageType('Spec', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:workflow.Spec)
   })
 _sym_db.RegisterMessage(Spec)
+
+Metadata = _reflection.GeneratedProtocolMessageType('Metadata', (_message.Message,), {
+
+  'LabelsEntry' : _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _METADATA_LABELSENTRY,
+    '__module__' : 'workflow_pb2'
+    # @@protoc_insertion_point(class_scope:workflow.Metadata.LabelsEntry)
+    })
+  ,
+  'DESCRIPTOR' : _METADATA,
+  '__module__' : 'workflow_pb2'
+  # @@protoc_insertion_point(class_scope:workflow.Metadata)
+  })
+_sym_db.RegisterMessage(Metadata)
+_sym_db.RegisterMessage(Metadata.LabelsEntry)
+
+Workflow = _reflection.GeneratedProtocolMessageType('Workflow', (_message.Message,), {
+  'DESCRIPTOR' : _WORKFLOW,
+  '__module__' : 'workflow_pb2'
+  # @@protoc_insertion_point(class_scope:workflow.Workflow)
+  })
+_sym_db.RegisterMessage(Workflow)
 
 WorkflowCreationRequest = _reflection.GeneratedProtocolMessageType('WorkflowCreationRequest', (_message.Message,), {
   'DESCRIPTOR' : _WORKFLOWCREATIONREQUEST,
@@ -272,6 +315,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _ARGUMENTS_PARAMETERSENTRY._serialized_options = b'8\001'
   _ARGUMENTS_ARTIFACTSENTRY._options = None
   _ARGUMENTS_ARTIFACTSENTRY._serialized_options = b'8\001'
+  _SCRIPTTEMPLATE_RESOURCESENTRY._options = None
+  _SCRIPTTEMPLATE_RESOURCESENTRY._serialized_options = b'8\001'
+  _TEMPLATE_METADATAENTRY._options = None
+  _TEMPLATE_METADATAENTRY._serialized_options = b'8\001'
+  _METADATA_LABELSENTRY._options = None
+  _METADATA_LABELSENTRY._serialized_options = b'8\001'
   _ARCHIVE._serialized_start=44
   _ARCHIVE._serialized_end=141
   _ARCHIVE_NONEENTRY._serialized_start=98
@@ -296,40 +345,50 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _DAGTASKS._serialized_end=1088
   _DAGTEMPLATE._serialized_start=1090
   _DAGTEMPLATE._serialized_end=1170
-  _SCRIPTTEMPLATE._serialized_start=1172
-  _SCRIPTTEMPLATE._serialized_end=1220
-  _TEMPLATE._serialized_start=1223
-  _TEMPLATE._serialized_end=1509
-  _SPEC._serialized_start=1511
-  _SPEC._serialized_end=1635
-  _WORKFLOWCREATIONREQUEST._serialized_start=1638
-  _WORKFLOWCREATIONREQUEST._serialized_end=1825
-  _WORKFLOWCREATIONRESPONSE._serialized_start=1827
-  _WORKFLOWCREATIONRESPONSE._serialized_end=1915
-  _WORKFLOWUPDATEREQUEST._serialized_start=1918
-  _WORKFLOWUPDATEREQUEST._serialized_end=2103
-  _WORKFLOWUPDATERESPONSE._serialized_start=2105
-  _WORKFLOWUPDATERESPONSE._serialized_end=2191
-  _WORKFLOWDELETEREQUEST._serialized_start=2193
-  _WORKFLOWDELETEREQUEST._serialized_end=2282
-  _WORKFLOWDELETERESPONSE._serialized_start=2284
-  _WORKFLOWDELETERESPONSE._serialized_end=2370
-  _WORKFLOWGETREQUEST._serialized_start=2372
-  _WORKFLOWGETREQUEST._serialized_end=2458
-  _WORKFLOWGETRESPONSE._serialized_start=2460
-  _WORKFLOWGETRESPONSE._serialized_end=2543
-  _WORKFLOWLISTREQUEST._serialized_start=2545
-  _WORKFLOWLISTREQUEST._serialized_end=2566
-  _WORKFLOWLISTRESPONSE._serialized_start=2568
-  _WORKFLOWLISTRESPONSE._serialized_end=2640
-  _WORKFLOWCREATIONERROR._serialized_start=2642
-  _WORKFLOWCREATIONERROR._serialized_end=2727
-  _WORKFLOWUPDATEERROR._serialized_start=2729
-  _WORKFLOWUPDATEERROR._serialized_end=2812
-  _WORKFLOWDELETEERROR._serialized_start=2814
-  _WORKFLOWDELETEERROR._serialized_end=2897
-  _WORKFLOWGETERROR._serialized_start=2899
-  _WORKFLOWGETERROR._serialized_end=2979
-  _WORKFLOWLISTERROR._serialized_start=2981
-  _WORKFLOWLISTERROR._serialized_end=3062
+  _SCRIPTTEMPLATE._serialized_start=1173
+  _SCRIPTTEMPLATE._serialized_end=1378
+  _SCRIPTTEMPLATE_RESOURCESENTRY._serialized_start=1309
+  _SCRIPTTEMPLATE_RESOURCESENTRY._serialized_end=1357
+  _TEMPLATE._serialized_start=1381
+  _TEMPLATE._serialized_end=1768
+  _TEMPLATE_METADATAENTRY._serialized_start=1656
+  _TEMPLATE_METADATAENTRY._serialized_end=1703
+  _SPEC._serialized_start=1770
+  _SPEC._serialized_end=1894
+  _METADATA._serialized_start=1897
+  _METADATA._serialized_end=2084
+  _METADATA_LABELSENTRY._serialized_start=2008
+  _METADATA_LABELSENTRY._serialized_end=2053
+  _WORKFLOW._serialized_start=2086
+  _WORKFLOW._serialized_end=2164
+  _WORKFLOWCREATIONREQUEST._serialized_start=2167
+  _WORKFLOWCREATIONREQUEST._serialized_end=2436
+  _WORKFLOWCREATIONRESPONSE._serialized_start=2438
+  _WORKFLOWCREATIONRESPONSE._serialized_end=2526
+  _WORKFLOWUPDATEREQUEST._serialized_start=2529
+  _WORKFLOWUPDATEREQUEST._serialized_end=2674
+  _WORKFLOWUPDATERESPONSE._serialized_start=2676
+  _WORKFLOWUPDATERESPONSE._serialized_end=2762
+  _WORKFLOWDELETEREQUEST._serialized_start=2764
+  _WORKFLOWDELETEREQUEST._serialized_end=2871
+  _WORKFLOWDELETERESPONSE._serialized_start=2873
+  _WORKFLOWDELETERESPONSE._serialized_end=2959
+  _WORKFLOWGETREQUEST._serialized_start=2961
+  _WORKFLOWGETREQUEST._serialized_end=3065
+  _WORKFLOWGETRESPONSE._serialized_start=3067
+  _WORKFLOWGETRESPONSE._serialized_end=3150
+  _WORKFLOWLISTREQUEST._serialized_start=3152
+  _WORKFLOWLISTREQUEST._serialized_end=3211
+  _WORKFLOWLISTRESPONSE._serialized_start=3213
+  _WORKFLOWLISTRESPONSE._serialized_end=3285
+  _WORKFLOWCREATIONERROR._serialized_start=3287
+  _WORKFLOWCREATIONERROR._serialized_end=3372
+  _WORKFLOWUPDATEERROR._serialized_start=3374
+  _WORKFLOWUPDATEERROR._serialized_end=3457
+  _WORKFLOWDELETEERROR._serialized_start=3459
+  _WORKFLOWDELETEERROR._serialized_end=3542
+  _WORKFLOWGETERROR._serialized_start=3544
+  _WORKFLOWGETERROR._serialized_end=3624
+  _WORKFLOWLISTERROR._serialized_start=3626
+  _WORKFLOWLISTERROR._serialized_end=3707
 # @@protoc_insertion_point(module_scope)

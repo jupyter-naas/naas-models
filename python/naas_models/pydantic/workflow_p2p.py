@@ -107,9 +107,12 @@ class DagTemplate(BaseModel):
 
 class ScriptTemplate(BaseModel):
 
-    _one_of_dict = {"ScriptTemplate._source": {"fields": {"source"}}}
+    _one_of_dict = {"ScriptTemplate._image": {"fields": {"image"}}, "ScriptTemplate._source": {"fields": {"source"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
+    image: str = FieldInfo(default="") 
+    command: typing.List[str] = FieldInfo(default_factory=list) 
+    resources: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
     source: str = FieldInfo(default="") 
 
 
@@ -122,6 +125,7 @@ class Template(BaseModel):
 
     name: str = FieldInfo(default="") 
     container: str = FieldInfo(default="") 
+    metadata: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
     inputs: Inputs = FieldInfo() 
     outputs: Outputs = FieldInfo() 
     dag: DagTemplate = FieldInfo() 
@@ -142,15 +146,37 @@ class Spec(BaseModel):
 
 
 
+class Metadata(BaseModel):
+
+    _one_of_dict = {"Metadata._generateName": {"fields": {"generateName"}}, "Metadata._namespace": {"fields": {"namespace"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    generateName: str = FieldInfo(default="") 
+    namespace: str = FieldInfo(default="") 
+    labels: typing.Dict[str, str] = FieldInfo(default_factory=dict) 
+
+
+
+
+class Workflow(BaseModel):
+
+    metadata: Metadata = FieldInfo() 
+    spec: Spec = FieldInfo() 
+
+
+
+
 class WorkflowCreationRequest(BaseModel):
 
-    _one_of_dict = {"WorkflowCreationRequest._name": {"fields": {"name"}}, "WorkflowCreationRequest._namespace": {"fields": {"namespace"}}, "WorkflowCreationRequest._workflowSpec": {"fields": {"workflowSpec"}}, "WorkflowCreationRequest._workflowTemplate": {"fields": {"workflowTemplate"}}}
+    _one_of_dict = {"WorkflowCreationRequest._description": {"fields": {"description"}}, "WorkflowCreationRequest._name": {"fields": {"name"}}, "WorkflowCreationRequest._namespace": {"fields": {"namespace"}}, "WorkflowCreationRequest._serverDryRun": {"fields": {"serverDryRun"}}, "WorkflowCreationRequest._user_uid": {"fields": {"user_uid"}}, "WorkflowCreationRequest._workflow": {"fields": {"workflow"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
+    description: str = FieldInfo(default="") 
+    user_uid: str = FieldInfo(default="") 
     namespace: str = FieldInfo(default="") 
-    workflowTemplate: str = FieldInfo(default="") 
-    workflowSpec: str = FieldInfo(default="") 
+    serverDryRun: bool = FieldInfo(default=False) 
+    workflow: Workflow = FieldInfo() 
 
 
 
@@ -168,13 +194,12 @@ class WorkflowCreationResponse(BaseModel):
 
 class WorkflowUpdateRequest(BaseModel):
 
-    _one_of_dict = {"WorkflowUpdateRequest._name": {"fields": {"name"}}, "WorkflowUpdateRequest._namespace": {"fields": {"namespace"}}, "WorkflowUpdateRequest._workflowSpec": {"fields": {"workflowSpec"}}, "WorkflowUpdateRequest._workflowTemplate": {"fields": {"workflowTemplate"}}}
+    _one_of_dict = {"WorkflowUpdateRequest._name": {"fields": {"name"}}, "WorkflowUpdateRequest._namespace": {"fields": {"namespace"}}, "WorkflowUpdateRequest._workflow": {"fields": {"workflow"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
     namespace: str = FieldInfo(default="") 
-    workflowTemplate: str = FieldInfo(default="") 
-    workflowSpec: str = FieldInfo(default="") 
+    workflow: Workflow = FieldInfo() 
 
 
 
@@ -192,10 +217,10 @@ class WorkflowUpdateResponse(BaseModel):
 
 class WorkflowDeleteRequest(BaseModel):
 
-    _one_of_dict = {"WorkflowDeleteRequest._name": {"fields": {"name"}}, "WorkflowDeleteRequest._namespace": {"fields": {"namespace"}}}
+    _one_of_dict = {"WorkflowDeleteRequest._namespace": {"fields": {"namespace"}}, "WorkflowDeleteRequest._workflow_name": {"fields": {"workflow_name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    name: str = FieldInfo(default="") 
+    workflow_name: str = FieldInfo(default="") 
     namespace: str = FieldInfo(default="") 
 
 
@@ -214,10 +239,10 @@ class WorkflowDeleteResponse(BaseModel):
 
 class WorkflowGetRequest(BaseModel):
 
-    _one_of_dict = {"WorkflowGetRequest._name": {"fields": {"name"}}, "WorkflowGetRequest._namespace": {"fields": {"namespace"}}}
+    _one_of_dict = {"WorkflowGetRequest._namespace": {"fields": {"namespace"}}, "WorkflowGetRequest._workflow_name": {"fields": {"workflow_name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    name: str = FieldInfo(default="") 
+    workflow_name: str = FieldInfo(default="") 
     namespace: str = FieldInfo(default="") 
 
 
@@ -235,6 +260,11 @@ class WorkflowGetResponse(BaseModel):
 
 
 class WorkflowListRequest(BaseModel):
+
+    _one_of_dict = {"WorkflowListRequest._namespace": {"fields": {"namespace"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    namespace: str = FieldInfo(default="") 
 
 
 
