@@ -8,7 +8,7 @@ build:
 
 python: python/naas_models python/naas_models/pydantic
 
-python/naas_models: 
+python/naas_models:
 	mkdir -p python/naas_models
 
 python/naas_models/pydantic: python/naas_models
@@ -18,7 +18,7 @@ go:
 	mkdir go
 
 clean:
-	rm -rf dist go  python/naas_models/*_pb2.py python/naas_models/pydantic/*_p2p.py 
+	rm -rf dist go  python/naas_models/*_pb2.py python/naas_models/pydantic/*_p2p.py
 
 generate: clean python go
 	$(d) python3 -m grpc_tools.protoc \
@@ -28,8 +28,8 @@ generate: clean python go
 		--python_out=python/naas_models \
 		--go_out=go \
 		--validate_out="lang=go:go" \
-		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto validate.proto
+		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto validate.proto workflow.proto
 		cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
 
-bash: 
+bash:
 	$(d) /bin/bash

@@ -1,0 +1,198 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/workflow";
+
+import "validate.proto";
+
+/**
+*   Argo workflow custom resources
+*/
+
+message Archive {
+    map<string, string> none = 1;
+}
+
+message ArtifactS3 {
+    optional string key = 1;
+    optional string bucket = 2;
+}
+
+message Artifact {
+    optional string name = 1;
+    optional string path = 2;
+    optional int32 mode = 3;
+    optional string from = 4;
+    optional Archive archive = 5;
+    optional ArtifactS3 s3 = 6;
+}
+
+message Inputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
+}
+
+message Outputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
+}
+
+message Parameter {
+    optional string name = 1;
+    optional string value = 2;
+    optional string default = 3;
+}
+
+message Arguments {
+    map<string, string> parameters = 1;
+    map<string, string> artifacts = 2;
+}
+
+message DagTasks {
+    string name = 1;
+    string template = 2;
+    optional string depends = 3;
+    optional Arguments arguments = 4;
+}
+
+message DagTemplate {
+    repeated DagTasks tasks = 1;
+    optional string target = 2;
+}
+
+message ScriptTemplate {
+    optional string image = 1;
+    repeated string command = 2;
+    map<string, string> resources = 3;
+    optional string source = 4;
+}
+
+message Template {
+    optional string name = 1;
+    optional string container = 2;
+    map<string, string> metadata = 3;
+    optional Inputs inputs = 4;
+    optional Outputs outputs = 5;
+    optional DagTemplate dag = 6;
+    optional ScriptTemplate script = 7;
+}
+
+message Spec {
+    string entrypoint = 1;
+    optional Arguments arguments  = 2;
+    repeated Template templates = 3;
+}
+
+message Metadata {
+    optional string generateName = 1;
+    optional string namespace = 2;
+    map<string, string> labels = 3;
+}
+
+message Workflow {
+    Metadata metadata = 1;
+    Spec spec = 2;
+}
+
+message CronSpec {
+    string schedule = 1;
+    string timezone = 2;
+    optional string startingDeadlineSeconds = 3;
+    optional string concurrencyPolicy = 4;
+    optional string successfulJobsHistoryLimit = 5;
+    optional string failedJobsHistoryLimit = 6;
+    optional string suspend = 7;
+    Spec workflowSpec = 8;
+}
+
+message CronWorkflow {
+    Metadata metadata = 1;
+    CronSpec spec = 2;
+}
+
+/**
+*   Argo workflow CRUD resources
+*/
+
+message WorkflowCreationRequest {
+    optional string name = 1;
+    optional string description = 2;
+    optional string user_uid = 3;
+    optional string namespace = 4;
+    optional bool serverDryRun = 5;
+    optional Workflow workflow = 6;
+}
+
+message WorkflowCreationResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowUpdateRequest {
+    optional string name = 1;
+    optional string namespace = 2;
+    optional Workflow workflow = 3;
+}
+
+message WorkflowUpdateResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowDeleteRequest {
+    optional string workflow_name = 1;
+    optional string namespace = 2;
+}
+
+message WorkflowDeleteResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowGetRequest {
+    optional string workflow_name = 1;
+    optional string namespace = 2;
+}
+
+message WorkflowGetResponse {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowListRequest {
+    optional string namespace = 1;
+}
+
+message WorkflowListResponse {
+    repeated WorkflowGetResponse workflows = 1;
+}
+
+/**
+*   Errors
+*/
+
+message WorkflowCreationError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowUpdateError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowDeleteError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowGetError {
+    optional string name = 1;
+    optional string message = 2;
+}
+
+message WorkflowListError {
+    optional string name = 1;
+    optional string message = 2;
+}
