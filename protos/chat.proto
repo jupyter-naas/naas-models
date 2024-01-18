@@ -116,7 +116,7 @@ message Chat {
     optional string name = 4;
     optional string deleted_at = 5;
     optional bool is_group = 6;
-    optional bool is_personnal_assistant = 7;
+    optional bool is_personal_assistant = 7;
     optional string starred_at = 8;
 }
 
@@ -147,7 +147,7 @@ message ChatResponseError {
 
 message ChatCreationRequest {
     optional string name = 1;
-    optional bool is_personnal_assistant = 2;
+    optional bool is_personal_assistant = 2;
 }
 
 message ChatCreationResponse {

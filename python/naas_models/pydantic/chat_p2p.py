@@ -163,7 +163,7 @@ class MessageRatingCreationResponse(BaseModel):
 
 class Chat(BaseModel):
 
-    _one_of_dict = {"Chat._created_at": {"fields": {"created_at"}}, "Chat._deleted_at": {"fields": {"deleted_at"}}, "Chat._id": {"fields": {"id"}}, "Chat._is_group": {"fields": {"is_group"}}, "Chat._is_personnal_assistant": {"fields": {"is_personnal_assistant"}}, "Chat._name": {"fields": {"name"}}, "Chat._starred_at": {"fields": {"starred_at"}}, "Chat._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"Chat._created_at": {"fields": {"created_at"}}, "Chat._deleted_at": {"fields": {"deleted_at"}}, "Chat._id": {"fields": {"id"}}, "Chat._is_group": {"fields": {"is_group"}}, "Chat._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "Chat._name": {"fields": {"name"}}, "Chat._starred_at": {"fields": {"starred_at"}}, "Chat._user_id": {"fields": {"user_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: int = FieldInfo(default=0) 
@@ -172,7 +172,7 @@ class Chat(BaseModel):
     name: str = FieldInfo(default="") 
     deleted_at: str = FieldInfo(default="") 
     is_group: bool = FieldInfo(default=False) 
-    is_personnal_assistant: bool = FieldInfo(default=False) 
+    is_personal_assistant: bool = FieldInfo(default=False) 
     starred_at: str = FieldInfo(default="") 
 
 
@@ -200,11 +200,11 @@ class ChatResponseError(BaseModel):
 
 class ChatCreationRequest(BaseModel):
 
-    _one_of_dict = {"ChatCreationRequest._is_personnal_assistant": {"fields": {"is_personnal_assistant"}}, "ChatCreationRequest._name": {"fields": {"name"}}}
+    _one_of_dict = {"ChatCreationRequest._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "ChatCreationRequest._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
-    is_personnal_assistant: bool = FieldInfo(default=False) 
+    is_personal_assistant: bool = FieldInfo(default=False) 
 
 
 
