@@ -1269,8 +1269,8 @@ func (m *Chat) validate(all bool) error {
 		// no validation rules for IsGroup
 	}
 
-	if m.IsPersonnalAssistant != nil {
-		// no validation rules for IsPersonnalAssistant
+	if m.IsPersonalAssistant != nil {
+		// no validation rules for IsPersonalAssistant
 	}
 
 	if m.StarredAt != nil {
@@ -1643,8 +1643,8 @@ func (m *ChatCreationRequest) validate(all bool) error {
 		// no validation rules for Name
 	}
 
-	if m.IsPersonnalAssistant != nil {
-		// no validation rules for IsPersonnalAssistant
+	if m.IsPersonalAssistant != nil {
+		// no validation rules for IsPersonalAssistant
 	}
 
 	if len(errors) > 0 {
