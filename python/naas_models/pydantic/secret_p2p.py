@@ -16,6 +16,7 @@ class SecretError(IntEnum):
     SECRET_NO_ERROR = 0
     SECRET_ALREADY_EXISTS = 1
     SECRET_NOT_FOUND = 2
+    SECRET_MARKED_FOR_DELETION = 3
 
 
 
