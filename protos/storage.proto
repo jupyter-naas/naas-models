@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package storage;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/storage";
+
+import "validate.proto";
+
+message Storage {
+    optional string workspace_id = 1;
+    optional string name = 2;
+}
+
+message Object {
+    optional string name = 1;
+}
+
+/**
+*   Errors
+*/
+
+enum StorageError {
+    STORAGE_NO_ERROR = 0;
+}
+
+message StorageResponseError {
+    optional StorageError error = 1;
+    optional string message = 2;
+}
+
+enum ObjectError {
+    OBJECT_NO_ERROR = 0;
+}
+
+message ObjectResponseError {
+    optional ObjectError error = 1;
+    optional string message = 2;
+}
+
+// USER SPACE
+
+message StorageCreateRequest {
+    optional Storage storage = 1;
+}
+
+message StorageCreateResponse {
+    optional StorageResponseError error = 1;
+}
+
+message StorageGetRequest {
+    optional string name = 1;
+}
+
+message StorageGetResponse {
+    optional Storage storage = 1;
+    optional StorageResponseError error = 2;
+}
+
+message StorageDeleteRequest {
+    optional string name = 1;
+}
+
+message StorageDeleteResponse {
+    optional StorageResponseError error = 1;
+}
+
+message StorageListRequest {
+    optional int32 page_size = 1;
+    optional int32 page_number = 2;
+}
+
+message StorageListResponse {
+    repeated Storage directories = 1;
+    optional StorageResponseError error = 2;
+}
+
+// Object
+
+message ObjectCreateRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message ObjectCreateResponse {
+    optional StorageResponseError error = 1;
+}
