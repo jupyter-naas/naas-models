@@ -128,21 +128,20 @@ class StorageDeleteResponse(BaseModel):
 
 class StorageListRequest(BaseModel):
 
-    _one_of_dict = {"StorageListRequest._page_number": {"fields": {"page_number"}}, "StorageListRequest._page_size": {"fields": {"page_size"}}}
+    _one_of_dict = {"StorageListRequest._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    page_size: int = FieldInfo(default=0) 
-    page_number: int = FieldInfo(default=0) 
+    workspace_id: str = FieldInfo(default="") 
 
 
 
 
 class StorageListResponse(BaseModel):
 
-    _one_of_dict = {"StorageListResponse._error": {"fields": {"error"}}}
+    _one_of_dict = {"StorageListResponse._error": {"fields": {"error"}}, "StorageListResponse._storage": {"fields": {"storage"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    directories: typing.List[Storage] = FieldInfo(default_factory=list) 
+    storage: str = FieldInfo(default="") 
     error: StorageResponseError = FieldInfo() 
 
 
@@ -165,5 +164,48 @@ class ObjectCreateResponse(BaseModel):
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     error: StorageResponseError = FieldInfo() 
+
+
+
+
+class ObjectListRequest(BaseModel):
+
+    _one_of_dict = {"ObjectListRequest._storage": {"fields": {"storage"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: Storage = FieldInfo() 
+
+
+
+
+class ObjectListResponse(BaseModel):
+
+    _one_of_dict = {"ObjectListResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    objects: typing.List[Object] = FieldInfo(default_factory=list) 
+    error: StorageResponseError = FieldInfo() 
+
+
+
+
+class ObjectGetResponse(BaseModel):
+
+    _one_of_dict = {"ObjectGetResponse._error": {"fields": {"error"}}, "ObjectGetResponse._object": {"fields": {"object"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    object: Object = FieldInfo() 
+    error: ObjectResponseError = FieldInfo() 
+
+
+
+
+class ObjectGetRequest(BaseModel):
+
+    _one_of_dict = {"ObjectGetRequest._object": {"fields": {"object"}}, "ObjectGetRequest._storage": {"fields": {"storage"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: Storage = FieldInfo() 
+    object: Object = FieldInfo() 
 
 

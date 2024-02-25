@@ -9,10 +9,12 @@ import "validate.proto";
 message Storage {
     optional string workspace_id = 1;
     optional string name = 2;
+    // id
 }
 
 message Object {
     optional string name = 1;
+    // id
 }
 
 /**
@@ -65,12 +67,11 @@ message StorageDeleteResponse {
 }
 
 message StorageListRequest {
-    optional int32 page_size = 1;
-    optional int32 page_number = 2;
+    optional string workspace_id = 1;
 }
 
 message StorageListResponse {
-    repeated Storage directories = 1;
+    optional string storage = 1;
     optional StorageResponseError error = 2;
 }
 
@@ -83,4 +84,23 @@ message ObjectCreateRequest {
 
 message ObjectCreateResponse {
     optional StorageResponseError error = 1;
+}
+
+message ObjectListRequest {
+    optional Storage storage = 1;
+}
+
+message ObjectListResponse {
+    repeated Object objects = 1;
+    optional StorageResponseError error = 2;
+}
+
+message ObjectGetResponse {
+    optional Object object = 1;
+    optional ObjectResponseError error = 2;
+}
+
+message ObjectGetRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
 }

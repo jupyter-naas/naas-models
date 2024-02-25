@@ -1270,12 +1270,8 @@ func (m *StorageListRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.PageSize != nil {
-		// no validation rules for PageSize
-	}
-
-	if m.PageNumber != nil {
-		// no validation rules for PageNumber
+	if m.WorkspaceId != nil {
+		// no validation rules for WorkspaceId
 	}
 
 	if len(errors) > 0 {
@@ -1380,38 +1376,8 @@ func (m *StorageListResponse) validate(all bool) error {
 
 	var errors []error
 
-	for idx, item := range m.GetDirectories() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, StorageListResponseValidationError{
-						field:  fmt.Sprintf("Directories[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, StorageListResponseValidationError{
-						field:  fmt.Sprintf("Directories[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return StorageListResponseValidationError{
-					field:  fmt.Sprintf("Directories[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
+	if m.Storage != nil {
+		// no validation rules for Storage
 	}
 
 	if m.Error != nil {
@@ -1829,3 +1795,641 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ObjectCreateResponseValidationError{}
+
+// Validate checks the field values on ObjectListRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ObjectListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectListRequestMultiError, or nil if none found.
+func (m *ObjectListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectListRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectListRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectListRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectListRequestMultiError is an error wrapping multiple validation errors
+// returned by ObjectListRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectListRequestMultiError) AllErrors() []error { return m }
+
+// ObjectListRequestValidationError is the validation error returned by
+// ObjectListRequest.Validate if the designated constraints aren't met.
+type ObjectListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectListRequestValidationError) ErrorName() string {
+	return "ObjectListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectListRequestValidationError{}
+
+// Validate checks the field values on ObjectListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectListResponseMultiError, or nil if none found.
+func (m *ObjectListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetObjects() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectListResponseValidationError{
+						field:  fmt.Sprintf("Objects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectListResponseValidationError{
+						field:  fmt.Sprintf("Objects[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectListResponseValidationError{
+					field:  fmt.Sprintf("Objects[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectListResponseMultiError is an error wrapping multiple validation errors
+// returned by ObjectListResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectListResponseMultiError) AllErrors() []error { return m }
+
+// ObjectListResponseValidationError is the validation error returned by
+// ObjectListResponse.Validate if the designated constraints aren't met.
+type ObjectListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectListResponseValidationError) ErrorName() string {
+	return "ObjectListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectListResponseValidationError{}
+
+// Validate checks the field values on ObjectGetResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ObjectGetResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectGetResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectGetResponseMultiError, or nil if none found.
+func (m *ObjectGetResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectGetResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetResponseValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetResponseValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetResponseValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectGetResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectGetResponseMultiError is an error wrapping multiple validation errors
+// returned by ObjectGetResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectGetResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectGetResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectGetResponseMultiError) AllErrors() []error { return m }
+
+// ObjectGetResponseValidationError is the validation error returned by
+// ObjectGetResponse.Validate if the designated constraints aren't met.
+type ObjectGetResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectGetResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectGetResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectGetResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectGetResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectGetResponseValidationError) ErrorName() string {
+	return "ObjectGetResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectGetResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectGetResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectGetResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectGetResponseValidationError{}
+
+// Validate checks the field values on ObjectGetRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ObjectGetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectGetRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectGetRequestMultiError, or nil if none found.
+func (m *ObjectGetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectGetRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetRequestValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectGetRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectGetRequestMultiError is an error wrapping multiple validation errors
+// returned by ObjectGetRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectGetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectGetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectGetRequestMultiError) AllErrors() []error { return m }
+
+// ObjectGetRequestValidationError is the validation error returned by
+// ObjectGetRequest.Validate if the designated constraints aren't met.
+type ObjectGetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectGetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectGetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectGetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectGetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectGetRequestValidationError) ErrorName() string { return "ObjectGetRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ObjectGetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectGetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectGetRequestValidationError{}
