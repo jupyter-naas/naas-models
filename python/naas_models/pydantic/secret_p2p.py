@@ -124,3 +124,20 @@ class SecretListResponse(BaseModel):
     error: SecretResponseError = FieldInfo() 
 
 
+
+
+class SecretBulkCreateRequest(BaseModel):
+
+    secrets: typing.List[Secret] = FieldInfo(default_factory=list) 
+
+
+
+
+class SecretBulkCreateResponse(BaseModel):
+
+    _one_of_dict = {"SecretBulkCreateResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: SecretResponseError = FieldInfo() 
+
+
