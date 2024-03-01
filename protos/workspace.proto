@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package workspace;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/workspace";
+
+import "validate.proto";
+
+message Workspace {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string name = 2;
+    optional string logo = 3;
+    optional string primary_color = 4;
+    optional string secondary_color = 5;
+    optional bool is_personal = 6;
+    optional string create_at = 7;
+}
+
+message WorkspaceUpdate {
+    optional string name = 2;
+    optional string logo = 3;
+    optional string primary_color = 4;
+    optional string secondary_color = 5;
+}
+
+message WorkspaceUser {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string role = 3;
+    optional string status = 4;
+    optional string create_at = 5;
+    optional string update_at = 6;
+}
+
+message WorkspaceUserUpdate {
+    optional string role = 3;
+    optional string status = 4;
+}
+
+message WorkspacePlugin {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    // optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    // optional string name = 3;
+    // optional string description = 4;
+    // optional string logo = 5;
+    // optional string create_at = 6;
+    // optional string update_at = 7;
+}
+
+
+enum WorkspaceError {
+    WORKSPACE_NO_ERROR = 0;
+    WORKSPACE_NOT_FOUND = 1;
+    WORKSPACE_USER_ALREADY_EXISTS = 2;
+    WORKSPACE_USER_NOT_FOUND = 3;
+    WORKSPACE_USER_ALREADY_ACTIVE = 4;
+    USER_ALREADY_HAVE_PERSONAL_WORKSPACE = 5;
+
+    INTERNAL_SERVER_ERROR = 1000;
+}
+
+message WorkspaceResponseError {
+    optional WorkspaceError code = 1;
+    optional string message = 2;
+}
+
+// Workspace List
+
+message WorkspaceListRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceListResponse {
+    repeated Workspace workspaces = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Create
+
+message WorkspaceCreateRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string name = 2;
+    optional string logo = 3;
+    optional string primary_color = 4;
+    optional string secondary_color = 5;
+    optional bool is_personal = 6;
+}
+
+message WorkspaceCreateResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Get
+
+message WorkspaceGetRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceGetResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Update
+
+message WorkspaceUpdateRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional WorkspaceUpdate workspace = 2;
+}
+
+message WorkspaceUpdateResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+
+// Workspace Delete
+
+message WorkspaceDeleteRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceDeleteResponse {
+    optional WorkspaceResponseError error = 1;
+}
+
