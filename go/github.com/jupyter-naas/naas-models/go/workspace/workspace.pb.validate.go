@@ -356,11 +356,33 @@ func (m *WorkspaceUser) validate(all bool) error {
 	}
 
 	if m.Role != nil {
-		// no validation rules for Role
+
+		if _, ok := _WorkspaceUser_Role_InLookup[m.GetRole()]; !ok {
+			err := WorkspaceUserValidationError{
+				field:  "Role",
+				reason: "value must be in list [owner admin member]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if m.Status != nil {
-		// no validation rules for Status
+
+		if _, ok := _WorkspaceUser_Status_InLookup[m.GetStatus()]; !ok {
+			err := WorkspaceUserValidationError{
+				field:  "Status",
+				reason: "value must be in list [active invited declined]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if m.CreateAt != nil {
@@ -457,6 +479,18 @@ var _ interface {
 	ErrorName() string
 } = WorkspaceUserValidationError{}
 
+var _WorkspaceUser_Role_InLookup = map[string]struct{}{
+	"owner":  {},
+	"admin":  {},
+	"member": {},
+}
+
+var _WorkspaceUser_Status_InLookup = map[string]struct{}{
+	"active":   {},
+	"invited":  {},
+	"declined": {},
+}
+
 // Validate checks the field values on WorkspaceUserUpdate with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -480,11 +514,33 @@ func (m *WorkspaceUserUpdate) validate(all bool) error {
 	var errors []error
 
 	if m.Role != nil {
-		// no validation rules for Role
+
+		if _, ok := _WorkspaceUserUpdate_Role_InLookup[m.GetRole()]; !ok {
+			err := WorkspaceUserUpdateValidationError{
+				field:  "Role",
+				reason: "value must be in list [owner admin member]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if m.Status != nil {
-		// no validation rules for Status
+
+		if _, ok := _WorkspaceUserUpdate_Status_InLookup[m.GetStatus()]; !ok {
+			err := WorkspaceUserUpdateValidationError{
+				field:  "Status",
+				reason: "value must be in list [active invited declined]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if len(errors) > 0 {
@@ -567,6 +623,18 @@ var _ interface {
 	ErrorName() string
 } = WorkspaceUserUpdateValidationError{}
 
+var _WorkspaceUserUpdate_Role_InLookup = map[string]struct{}{
+	"owner":  {},
+	"admin":  {},
+	"member": {},
+}
+
+var _WorkspaceUserUpdate_Status_InLookup = map[string]struct{}{
+	"active":   {},
+	"invited":  {},
+	"declined": {},
+}
+
 // Validate checks the field values on WorkspacePlugin with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -603,6 +671,30 @@ func (m *WorkspacePlugin) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Payload != nil {
+		// no validation rules for Payload
+	}
+
+	if m.CreateAt != nil {
+		// no validation rules for CreateAt
 	}
 
 	if len(errors) > 0 {
@@ -690,6 +782,112 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkspacePluginValidationError{}
+
+// Validate checks the field values on WorkspacePluginUpdate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginUpdate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginUpdate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginUpdateMultiError, or nil if none found.
+func (m *WorkspacePluginUpdate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginUpdate) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Payload != nil {
+		// no validation rules for Payload
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginUpdateMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginUpdateMultiError is an error wrapping multiple validation
+// errors returned by WorkspacePluginUpdate.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspacePluginUpdateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginUpdateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginUpdateMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginUpdateValidationError is the validation error returned by
+// WorkspacePluginUpdate.Validate if the designated constraints aren't met.
+type WorkspacePluginUpdateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginUpdateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginUpdateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginUpdateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginUpdateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginUpdateValidationError) ErrorName() string {
+	return "WorkspacePluginUpdateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginUpdateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginUpdate.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginUpdateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginUpdateValidationError{}
 
 // Validate checks the field values on WorkspaceResponseError with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2323,3 +2521,2760 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkspaceDeleteResponseValidationError{}
+
+// Validate checks the field values on WorkspaceUserListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserListRequestMultiError, or nil if none found.
+func (m *WorkspaceUserListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceUserListRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceUserListRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceUserListRequestMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceUserListRequest.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspaceUserListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserListRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserListRequestValidationError is the validation error returned by
+// WorkspaceUserListRequest.Validate if the designated constraints aren't met.
+type WorkspaceUserListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserListRequestValidationError) ErrorName() string {
+	return "WorkspaceUserListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserListRequestValidationError{}
+
+// Validate checks the field values on WorkspaceUserListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserListResponseMultiError, or nil if none found.
+func (m *WorkspaceUserListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetWorkspaceUsers() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserListResponseValidationError{
+						field:  fmt.Sprintf("WorkspaceUsers[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserListResponseValidationError{
+						field:  fmt.Sprintf("WorkspaceUsers[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserListResponseValidationError{
+					field:  fmt.Sprintf("WorkspaceUsers[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceUserListResponseMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceUserListResponse.ValidateAll() if the
+// designated constraints aren't met.
+type WorkspaceUserListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserListResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserListResponseValidationError is the validation error returned by
+// WorkspaceUserListResponse.Validate if the designated constraints aren't met.
+type WorkspaceUserListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserListResponseValidationError) ErrorName() string {
+	return "WorkspaceUserListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserListResponseValidationError{}
+
+// Validate checks the field values on WorkspaceUserGetRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserGetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserGetRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserGetRequestMultiError, or nil if none found.
+func (m *WorkspaceUserGetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserGetRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = WorkspaceUserGetRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceUserGetRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserGetRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceUserGetRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceUserGetRequestMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceUserGetRequest.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspaceUserGetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserGetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserGetRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserGetRequestValidationError is the validation error returned by
+// WorkspaceUserGetRequest.Validate if the designated constraints aren't met.
+type WorkspaceUserGetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserGetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserGetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserGetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserGetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserGetRequestValidationError) ErrorName() string {
+	return "WorkspaceUserGetRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserGetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserGetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserGetRequestValidationError{}
+
+// Validate checks the field values on WorkspaceUserGetResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserGetResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserGetResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserGetResponseMultiError, or nil if none found.
+func (m *WorkspaceUserGetResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserGetResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceUser != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspaceUser()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserGetResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserGetResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspaceUser()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserGetResponseValidationError{
+					field:  "WorkspaceUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserGetResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserGetResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceUserGetResponseMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceUserGetResponse.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspaceUserGetResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserGetResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserGetResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserGetResponseValidationError is the validation error returned by
+// WorkspaceUserGetResponse.Validate if the designated constraints aren't met.
+type WorkspaceUserGetResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserGetResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserGetResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserGetResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserGetResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserGetResponseValidationError) ErrorName() string {
+	return "WorkspaceUserGetResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserGetResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserGetResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserGetResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserGetResponseValidationError{}
+
+// Validate checks the field values on WorkspaceUserUpdateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserUpdateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserUpdateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserUpdateRequestMultiError, or nil if none found.
+func (m *WorkspaceUserUpdateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserUpdateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = WorkspaceUserUpdateRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceUserUpdateRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.WorkspaceUser != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspaceUser()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateRequestValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateRequestValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspaceUser()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserUpdateRequestValidationError{
+					field:  "WorkspaceUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserUpdateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceUserUpdateRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceUserUpdateRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceUserUpdateRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceUserUpdateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserUpdateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserUpdateRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserUpdateRequestValidationError is the validation error returned
+// by WorkspaceUserUpdateRequest.Validate if the designated constraints aren't met.
+type WorkspaceUserUpdateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserUpdateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserUpdateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserUpdateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserUpdateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserUpdateRequestValidationError) ErrorName() string {
+	return "WorkspaceUserUpdateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserUpdateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserUpdateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserUpdateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserUpdateRequestValidationError{}
+
+// Validate checks the field values on WorkspaceUserUpdateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserUpdateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserUpdateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserUpdateResponseMultiError, or nil if none found.
+func (m *WorkspaceUserUpdateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserUpdateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceUser != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspaceUser()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspaceUser()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserUpdateResponseValidationError{
+					field:  "WorkspaceUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserUpdateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserUpdateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserUpdateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceUserUpdateResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceUserUpdateResponse.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceUserUpdateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserUpdateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserUpdateResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserUpdateResponseValidationError is the validation error returned
+// by WorkspaceUserUpdateResponse.Validate if the designated constraints
+// aren't met.
+type WorkspaceUserUpdateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserUpdateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserUpdateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserUpdateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserUpdateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserUpdateResponseValidationError) ErrorName() string {
+	return "WorkspaceUserUpdateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserUpdateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserUpdateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserUpdateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserUpdateResponseValidationError{}
+
+// Validate checks the field values on WorkspaceUserDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserDeleteRequestMultiError, or nil if none found.
+func (m *WorkspaceUserDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserDeleteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = WorkspaceUserDeleteRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceUserDeleteRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserDeleteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceUserDeleteRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceUserDeleteRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceUserDeleteRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceUserDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserDeleteRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserDeleteRequestValidationError is the validation error returned
+// by WorkspaceUserDeleteRequest.Validate if the designated constraints aren't met.
+type WorkspaceUserDeleteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserDeleteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserDeleteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserDeleteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserDeleteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserDeleteRequestValidationError) ErrorName() string {
+	return "WorkspaceUserDeleteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserDeleteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserDeleteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserDeleteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserDeleteRequestValidationError{}
+
+// Validate checks the field values on WorkspaceUserDeleteResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceUserDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceUserDeleteResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceUserDeleteResponseMultiError, or nil if none found.
+func (m *WorkspaceUserDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceUserDeleteResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceUserDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceUserDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceUserDeleteResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceUserDeleteResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceUserDeleteResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceUserDeleteResponse.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceUserDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceUserDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceUserDeleteResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceUserDeleteResponseValidationError is the validation error returned
+// by WorkspaceUserDeleteResponse.Validate if the designated constraints
+// aren't met.
+type WorkspaceUserDeleteResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceUserDeleteResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceUserDeleteResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceUserDeleteResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceUserDeleteResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceUserDeleteResponseValidationError) ErrorName() string {
+	return "WorkspaceUserDeleteResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceUserDeleteResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceUserDeleteResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceUserDeleteResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceUserDeleteResponseValidationError{}
+
+// Validate checks the field values on WorkspacePluginCreateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginCreateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginCreateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginCreateRequestMultiError, or nil if none found.
+func (m *WorkspacePluginCreateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginCreateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginCreateRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Payload != nil {
+		// no validation rules for Payload
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginCreateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspacePluginCreateRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspacePluginCreateRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginCreateRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginCreateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginCreateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginCreateRequestMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginCreateRequestValidationError is the validation error returned
+// by WorkspacePluginCreateRequest.Validate if the designated constraints
+// aren't met.
+type WorkspacePluginCreateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginCreateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginCreateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginCreateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginCreateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginCreateRequestValidationError) ErrorName() string {
+	return "WorkspacePluginCreateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginCreateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginCreateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginCreateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginCreateRequestValidationError{}
+
+// Validate checks the field values on WorkspacePluginCreateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginCreateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginCreateResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// WorkspacePluginCreateResponseMultiError, or nil if none found.
+func (m *WorkspacePluginCreateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginCreateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspacePlugin != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspacePlugin()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginCreateResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginCreateResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspacePlugin()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginCreateResponseValidationError{
+					field:  "WorkspacePlugin",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginCreateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginCreateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginCreateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginCreateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginCreateResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginCreateResponse.ValidateAll()
+// if the designated constraints aren't met.
+type WorkspacePluginCreateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginCreateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginCreateResponseMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginCreateResponseValidationError is the validation error
+// returned by WorkspacePluginCreateResponse.Validate if the designated
+// constraints aren't met.
+type WorkspacePluginCreateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginCreateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginCreateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginCreateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginCreateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginCreateResponseValidationError) ErrorName() string {
+	return "WorkspacePluginCreateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginCreateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginCreateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginCreateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginCreateResponseValidationError{}
+
+// Validate checks the field values on WorkspacePluginGetRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginGetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginGetRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginGetRequestMultiError, or nil if none found.
+func (m *WorkspacePluginGetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginGetRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginGetRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PluginId != nil {
+
+		if err := m._validateUuid(m.GetPluginId()); err != nil {
+			err = WorkspacePluginGetRequestValidationError{
+				field:  "PluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginGetRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspacePluginGetRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspacePluginGetRequestMultiError is an error wrapping multiple validation
+// errors returned by WorkspacePluginGetRequest.ValidateAll() if the
+// designated constraints aren't met.
+type WorkspacePluginGetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginGetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginGetRequestMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginGetRequestValidationError is the validation error returned by
+// WorkspacePluginGetRequest.Validate if the designated constraints aren't met.
+type WorkspacePluginGetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginGetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginGetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginGetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginGetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginGetRequestValidationError) ErrorName() string {
+	return "WorkspacePluginGetRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginGetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginGetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginGetRequestValidationError{}
+
+// Validate checks the field values on WorkspacePluginGetResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginGetResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginGetResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginGetResponseMultiError, or nil if none found.
+func (m *WorkspacePluginGetResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginGetResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspacePlugin != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspacePlugin()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginGetResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginGetResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspacePlugin()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginGetResponseValidationError{
+					field:  "WorkspacePlugin",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginGetResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginGetResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginGetResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginGetResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginGetResponse.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginGetResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginGetResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginGetResponseMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginGetResponseValidationError is the validation error returned
+// by WorkspacePluginGetResponse.Validate if the designated constraints aren't met.
+type WorkspacePluginGetResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginGetResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginGetResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginGetResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginGetResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginGetResponseValidationError) ErrorName() string {
+	return "WorkspacePluginGetResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginGetResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginGetResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginGetResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginGetResponseValidationError{}
+
+// Validate checks the field values on WorkspacePluginListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginListRequestMultiError, or nil if none found.
+func (m *WorkspacePluginListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginListRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspacePluginListRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspacePluginListRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginListRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginListRequestMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginListRequestValidationError is the validation error returned
+// by WorkspacePluginListRequest.Validate if the designated constraints aren't met.
+type WorkspacePluginListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginListRequestValidationError) ErrorName() string {
+	return "WorkspacePluginListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginListRequestValidationError{}
+
+// Validate checks the field values on WorkspacePluginListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginListResponseMultiError, or nil if none found.
+func (m *WorkspacePluginListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetWorkspacePlugins() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginListResponseValidationError{
+						field:  fmt.Sprintf("WorkspacePlugins[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginListResponseValidationError{
+						field:  fmt.Sprintf("WorkspacePlugins[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginListResponseValidationError{
+					field:  fmt.Sprintf("WorkspacePlugins[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginListResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginListResponse.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginListResponseMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginListResponseValidationError is the validation error returned
+// by WorkspacePluginListResponse.Validate if the designated constraints
+// aren't met.
+type WorkspacePluginListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginListResponseValidationError) ErrorName() string {
+	return "WorkspacePluginListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginListResponseValidationError{}
+
+// Validate checks the field values on WorkspacePluginUpdateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginUpdateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginUpdateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginUpdateRequestMultiError, or nil if none found.
+func (m *WorkspacePluginUpdateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginUpdateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginUpdateRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PluginId != nil {
+
+		if err := m._validateUuid(m.GetPluginId()); err != nil {
+			err = WorkspacePluginUpdateRequestValidationError{
+				field:  "PluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.WorkspacePlugin != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspacePlugin()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateRequestValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateRequestValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspacePlugin()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginUpdateRequestValidationError{
+					field:  "WorkspacePlugin",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginUpdateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspacePluginUpdateRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspacePluginUpdateRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginUpdateRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginUpdateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginUpdateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginUpdateRequestMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginUpdateRequestValidationError is the validation error returned
+// by WorkspacePluginUpdateRequest.Validate if the designated constraints
+// aren't met.
+type WorkspacePluginUpdateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginUpdateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginUpdateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginUpdateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginUpdateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginUpdateRequestValidationError) ErrorName() string {
+	return "WorkspacePluginUpdateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginUpdateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginUpdateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginUpdateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginUpdateRequestValidationError{}
+
+// Validate checks the field values on WorkspacePluginUpdateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginUpdateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginUpdateResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// WorkspacePluginUpdateResponseMultiError, or nil if none found.
+func (m *WorkspacePluginUpdateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginUpdateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspacePlugin != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspacePlugin()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateResponseValidationError{
+						field:  "WorkspacePlugin",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspacePlugin()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginUpdateResponseValidationError{
+					field:  "WorkspacePlugin",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginUpdateResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginUpdateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginUpdateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginUpdateResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginUpdateResponse.ValidateAll()
+// if the designated constraints aren't met.
+type WorkspacePluginUpdateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginUpdateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginUpdateResponseMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginUpdateResponseValidationError is the validation error
+// returned by WorkspacePluginUpdateResponse.Validate if the designated
+// constraints aren't met.
+type WorkspacePluginUpdateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginUpdateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginUpdateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginUpdateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginUpdateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginUpdateResponseValidationError) ErrorName() string {
+	return "WorkspacePluginUpdateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginUpdateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginUpdateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginUpdateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginUpdateResponseValidationError{}
+
+// Validate checks the field values on WorkspacePluginDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspacePluginDeleteRequestMultiError, or nil if none found.
+func (m *WorkspacePluginDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginDeleteRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspacePluginDeleteRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.PluginId != nil {
+
+		if err := m._validateUuid(m.GetPluginId()); err != nil {
+			err = WorkspacePluginDeleteRequestValidationError{
+				field:  "PluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginDeleteRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspacePluginDeleteRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspacePluginDeleteRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginDeleteRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspacePluginDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginDeleteRequestMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginDeleteRequestValidationError is the validation error returned
+// by WorkspacePluginDeleteRequest.Validate if the designated constraints
+// aren't met.
+type WorkspacePluginDeleteRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginDeleteRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginDeleteRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginDeleteRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginDeleteRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginDeleteRequestValidationError) ErrorName() string {
+	return "WorkspacePluginDeleteRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginDeleteRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginDeleteRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginDeleteRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginDeleteRequestValidationError{}
+
+// Validate checks the field values on WorkspacePluginDeleteResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspacePluginDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspacePluginDeleteResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// WorkspacePluginDeleteResponseMultiError, or nil if none found.
+func (m *WorkspacePluginDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspacePluginDeleteResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspacePluginDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspacePluginDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspacePluginDeleteResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspacePluginDeleteResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspacePluginDeleteResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspacePluginDeleteResponse.ValidateAll()
+// if the designated constraints aren't met.
+type WorkspacePluginDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspacePluginDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspacePluginDeleteResponseMultiError) AllErrors() []error { return m }
+
+// WorkspacePluginDeleteResponseValidationError is the validation error
+// returned by WorkspacePluginDeleteResponse.Validate if the designated
+// constraints aren't met.
+type WorkspacePluginDeleteResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspacePluginDeleteResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspacePluginDeleteResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspacePluginDeleteResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspacePluginDeleteResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspacePluginDeleteResponseValidationError) ErrorName() string {
+	return "WorkspacePluginDeleteResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspacePluginDeleteResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspacePluginDeleteResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspacePluginDeleteResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspacePluginDeleteResponseValidationError{}

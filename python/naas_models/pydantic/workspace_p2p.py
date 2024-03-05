@@ -5,8 +5,10 @@
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
 from protobuf_to_pydantic.customer_validator import check_one_of
+from protobuf_to_pydantic.customer_validator import in_validator
 from pydantic import BaseModel
 from pydantic import root_validator
+from pydantic import validator
 from pydantic.fields import FieldInfo
 from uuid import UUID
 import typing
@@ -56,13 +58,15 @@ class WorkspaceUpdate(BaseModel):
 
 class WorkspaceUser(BaseModel):
 
+    role_in_validator = validator("role",  allow_reuse=True)(in_validator)
+    status_in_validator = validator("status",  allow_reuse=True)(in_validator)
     _one_of_dict = {"WorkspaceUser._create_at": {"fields": {"create_at"}}, "WorkspaceUser._role": {"fields": {"role"}}, "WorkspaceUser._status": {"fields": {"status"}}, "WorkspaceUser._update_at": {"fields": {"update_at"}}, "WorkspaceUser._user_id": {"fields": {"user_id"}}, "WorkspaceUser._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     user_id: UUID = FieldInfo(default="") 
     workspace_id: UUID = FieldInfo(default="") 
-    role: str = FieldInfo(default="") 
-    status: str = FieldInfo(default="") 
+    role: str = FieldInfo(default="", in_=["admin", "member", "owner"]) 
+    status: str = FieldInfo(default="", in_=["active", "declined", "invited"]) 
     create_at: str = FieldInfo(default="") 
     update_at: str = FieldInfo(default="") 
 
@@ -71,21 +75,36 @@ class WorkspaceUser(BaseModel):
 
 class WorkspaceUserUpdate(BaseModel):
 
+    role_in_validator = validator("role",  allow_reuse=True)(in_validator)
+    status_in_validator = validator("status",  allow_reuse=True)(in_validator)
     _one_of_dict = {"WorkspaceUserUpdate._role": {"fields": {"role"}}, "WorkspaceUserUpdate._status": {"fields": {"status"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    role: str = FieldInfo(default="") 
-    status: str = FieldInfo(default="") 
+    role: str = FieldInfo(default="", in_=["admin", "member", "owner"]) 
+    status: str = FieldInfo(default="", in_=["active", "declined", "invited"]) 
 
 
 
 
 class WorkspacePlugin(BaseModel):
 
-    _one_of_dict = {"WorkspacePlugin._id": {"fields": {"id"}}}
+    _one_of_dict = {"WorkspacePlugin._create_at": {"fields": {"create_at"}}, "WorkspacePlugin._id": {"fields": {"id"}}, "WorkspacePlugin._payload": {"fields": {"payload"}}, "WorkspacePlugin._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: UUID = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+    payload: str = FieldInfo(default="") 
+    create_at: str = FieldInfo(default="") 
+
+
+
+
+class WorkspacePluginUpdate(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginUpdate._payload": {"fields": {"payload"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    payload: str = FieldInfo(default="") 
 
 
 
@@ -206,6 +225,202 @@ class WorkspaceDeleteRequest(BaseModel):
 class WorkspaceDeleteResponse(BaseModel):
 
     _one_of_dict = {"WorkspaceDeleteResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspaceUserListRequest(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserListRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspaceUserListResponse(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserListResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_users: typing.List[WorkspaceUser] = FieldInfo(default_factory=list) 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspaceUserGetRequest(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserGetRequest._user_id": {"fields": {"user_id"}}, "WorkspaceUserGetRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    user_id: UUID = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspaceUserGetResponse(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserGetResponse._error": {"fields": {"error"}}, "WorkspaceUserGetResponse._workspace_user": {"fields": {"workspace_user"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_user: WorkspaceUser = FieldInfo() 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspaceUserUpdateRequest(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserUpdateRequest._user_id": {"fields": {"user_id"}}, "WorkspaceUserUpdateRequest._workspace_id": {"fields": {"workspace_id"}}, "WorkspaceUserUpdateRequest._workspace_user": {"fields": {"workspace_user"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    user_id: UUID = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+    workspace_user: WorkspaceUserUpdate = FieldInfo() 
+
+
+
+
+class WorkspaceUserUpdateResponse(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserUpdateResponse._error": {"fields": {"error"}}, "WorkspaceUserUpdateResponse._workspace_user": {"fields": {"workspace_user"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_user: WorkspaceUser = FieldInfo() 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspaceUserDeleteRequest(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserDeleteRequest._user_id": {"fields": {"user_id"}}, "WorkspaceUserDeleteRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    user_id: UUID = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspaceUserDeleteResponse(BaseModel):
+
+    _one_of_dict = {"WorkspaceUserDeleteResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspacePluginCreateRequest(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginCreateRequest._payload": {"fields": {"payload"}}, "WorkspacePluginCreateRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    payload: str = FieldInfo(default="") 
+
+
+
+
+class WorkspacePluginCreateResponse(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginCreateResponse._error": {"fields": {"error"}}, "WorkspacePluginCreateResponse._workspace_plugin": {"fields": {"workspace_plugin"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_plugin: WorkspacePlugin = FieldInfo() 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspacePluginGetRequest(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginGetRequest._plugin_id": {"fields": {"plugin_id"}}, "WorkspacePluginGetRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    plugin_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspacePluginGetResponse(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginGetResponse._error": {"fields": {"error"}}, "WorkspacePluginGetResponse._workspace_plugin": {"fields": {"workspace_plugin"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_plugin: WorkspacePlugin = FieldInfo() 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspacePluginListRequest(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginListRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspacePluginListResponse(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginListResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_plugins: typing.List[WorkspacePlugin] = FieldInfo(default_factory=list) 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspacePluginUpdateRequest(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginUpdateRequest._plugin_id": {"fields": {"plugin_id"}}, "WorkspacePluginUpdateRequest._workspace_id": {"fields": {"workspace_id"}}, "WorkspacePluginUpdateRequest._workspace_plugin": {"fields": {"workspace_plugin"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    plugin_id: UUID = FieldInfo(default="") 
+    workspace_plugin: WorkspacePluginUpdate = FieldInfo() 
+
+
+
+
+class WorkspacePluginUpdateResponse(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginUpdateResponse._error": {"fields": {"error"}}, "WorkspacePluginUpdateResponse._workspace_plugin": {"fields": {"workspace_plugin"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_plugin: WorkspacePlugin = FieldInfo() 
+    error: WorkspaceResponseError = FieldInfo() 
+
+
+
+
+class WorkspacePluginDeleteRequest(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginDeleteRequest._plugin_id": {"fields": {"plugin_id"}}, "WorkspacePluginDeleteRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    plugin_id: UUID = FieldInfo(default="") 
+
+
+
+
+class WorkspacePluginDeleteResponse(BaseModel):
+
+    _one_of_dict = {"WorkspacePluginDeleteResponse._error": {"fields": {"error"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     error: WorkspaceResponseError = FieldInfo() 
