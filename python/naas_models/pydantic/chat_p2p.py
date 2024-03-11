@@ -86,6 +86,22 @@ class Message(BaseModel):
 
 
 
+class MessageUpdate(BaseModel):
+
+    _one_of_dict = {"MessageUpdate._archived_at": {"fields": {"archived_at"}}, "MessageUpdate._field_mask": {"fields": {"field_mask"}}, "MessageUpdate._message": {"fields": {"message"}}, "MessageUpdate._message_language": {"fields": {"message_language"}}, "MessageUpdate._message_type": {"fields": {"message_type"}}, "MessageUpdate._metadata": {"fields": {"metadata"}}, "MessageUpdate._selected": {"fields": {"selected"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    message: str = FieldInfo(default="") 
+    message_type: str = FieldInfo(default="") 
+    message_language: str = FieldInfo(default="") 
+    metadata: str = FieldInfo(default="") 
+    selected: bool = FieldInfo(default=False) 
+    archived_at: str = FieldInfo(default="") 
+    field_mask: FieldMask = FieldInfo() 
+
+
+
+
 class Messages(BaseModel):
 
     messages: typing.List[Message] = FieldInfo(default_factory=list) 
@@ -361,6 +377,26 @@ class ChatStarResponse(BaseModel):
 
     chat: Chat = FieldInfo() 
     code: ChatError = FieldInfo(default=0) 
+
+
+
+
+class ChatArchiveRequest(BaseModel):
+
+    _one_of_dict = {"ChatArchiveRequest._id": {"fields": {"id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    id: int = FieldInfo(default=0) 
+
+
+
+
+class ChatArchiveResponse(BaseModel):
+
+    _one_of_dict = {"ChatArchiveResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: ChatResponseError = FieldInfo() 
 
 
 

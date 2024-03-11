@@ -60,6 +60,17 @@ message Message {
      optional string archived_at = 14 [(validate.rules).string = {ignore_empty: true}];
 }
 
+message MessageUpdate {
+    optional string message = 1;
+    optional string message_type = 2 [(validate.rules).string = {ignore_empty: true}];
+    optional string message_language = 3 [(validate.rules).string = {ignore_empty: true}];
+    optional string metadata = 4;
+    optional bool selected = 5;
+    optional string archived_at = 6 [(validate.rules).string = {ignore_empty: true}];
+
+    optional common.FieldMask field_mask = 100;
+}
+
 message Messages {
     repeated Message messages = 1;
 }
@@ -235,6 +246,16 @@ message ChatStarRequest {
 message ChatStarResponse {
     optional Chat chat = 1;
     optional ChatError code = 2;
+}
+
+// Archive chat messages
+
+message ChatArchiveRequest {
+    optional int32 id = 1;
+}
+
+message ChatArchiveResponse {
+    optional ChatResponseError error = 1;
 }
 
 // Completion
