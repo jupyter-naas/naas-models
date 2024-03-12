@@ -30,7 +30,7 @@ class WorkspaceError(IntEnum):
 
 class Workspace(BaseModel):
 
-    _one_of_dict = {"Workspace._create_at": {"fields": {"create_at"}}, "Workspace._id": {"fields": {"id"}}, "Workspace._is_personal": {"fields": {"is_personal"}}, "Workspace._logo": {"fields": {"logo"}}, "Workspace._name": {"fields": {"name"}}, "Workspace._primary_color": {"fields": {"primary_color"}}, "Workspace._secondary_color": {"fields": {"secondary_color"}}}
+    _one_of_dict = {"Workspace._created_at": {"fields": {"created_at"}}, "Workspace._id": {"fields": {"id"}}, "Workspace._is_personal": {"fields": {"is_personal"}}, "Workspace._logo": {"fields": {"logo"}}, "Workspace._name": {"fields": {"name"}}, "Workspace._primary_color": {"fields": {"primary_color"}}, "Workspace._secondary_color": {"fields": {"secondary_color"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: UUID = FieldInfo(default="") 
@@ -39,7 +39,7 @@ class Workspace(BaseModel):
     primary_color: str = FieldInfo(default="") 
     secondary_color: str = FieldInfo(default="") 
     is_personal: bool = FieldInfo(default=False) 
-    create_at: str = FieldInfo(default="") 
+    created_at: str = FieldInfo(default="") 
 
 
 
