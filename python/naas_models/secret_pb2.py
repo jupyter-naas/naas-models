@@ -16,7 +16,7 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0csecret.proto\x12\x07secrets\x1a\x0evalidate.proto\"B\n\x06Secret\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05value\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_value\"k\n\x13SecretResponseError\x12(\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x14.secrets.SecretErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"F\n\x13SecretCreateRequest\x12$\n\x06secret\x18\x01 \x01(\x0b\x32\x0f.secrets.SecretH\x00\x88\x01\x01\x42\t\n\x07_secret\"R\n\x14SecretCreateResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\".\n\x10SecretGetRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x80\x01\n\x11SecretGetResponse\x12$\n\x06secret\x18\x01 \x01(\x0b\x32\x0f.secrets.SecretH\x00\x88\x01\x01\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x01\x88\x01\x01\x42\t\n\x07_secretB\x08\n\x06_error\"1\n\x13SecretDeleteRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"R\n\x14SecretDeleteResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"c\n\x11SecretListRequest\x12\x16\n\tpage_size\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x18\n\x0bpage_number\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x0c\n\n_page_sizeB\x0e\n\x0c_page_number\"r\n\x12SecretListResponse\x12 \n\x07secrets\x18\x01 \x03(\x0b\x32\x0f.secrets.Secret\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\";\n\x17SecretBulkCreateRequest\x12 \n\x07secrets\x18\x01 \x03(\x0b\x32\x0f.secrets.Secret\"V\n\x18SecretBulkCreateResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*s\n\x0bSecretError\x12\x13\n\x0fSECRET_NO_ERROR\x10\x00\x12\x19\n\x15SECRET_ALREADY_EXISTS\x10\x01\x12\x14\n\x10SECRET_NOT_FOUND\x10\x02\x12\x1e\n\x1aSECRET_MARKED_FOR_DELETION\x10\x03\x42\x30Z.github.com/jupyter-naas/naas-models/go/secretsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0csecret.proto\x12\x07secrets\x1a\x0evalidate.proto\"B\n\x06Secret\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05value\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x08\n\x06_value\"k\n\x13SecretResponseError\x12(\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x14.secrets.SecretErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"F\n\x13SecretCreateRequest\x12$\n\x06secret\x18\x01 \x01(\x0b\x32\x0f.secrets.SecretH\x00\x88\x01\x01\x42\t\n\x07_secret\"R\n\x14SecretCreateResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\".\n\x10SecretGetRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x80\x01\n\x11SecretGetResponse\x12$\n\x06secret\x18\x01 \x01(\x0b\x32\x0f.secrets.SecretH\x00\x88\x01\x01\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x01\x88\x01\x01\x42\t\n\x07_secretB\x08\n\x06_error\"1\n\x13SecretDeleteRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"R\n\x14SecretDeleteResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"c\n\x11SecretListRequest\x12\x16\n\tpage_size\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x18\n\x0bpage_number\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x0c\n\n_page_sizeB\x0e\n\x0c_page_number\"r\n\x12SecretListResponse\x12 \n\x07secrets\x18\x01 \x03(\x0b\x32\x0f.secrets.Secret\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.secrets.SecretResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*s\n\x0bSecretError\x12\x13\n\x0fSECRET_NO_ERROR\x10\x00\x12\x19\n\x15SECRET_ALREADY_EXISTS\x10\x01\x12\x14\n\x10SECRET_NOT_FOUND\x10\x02\x12\x1e\n\x1aSECRET_MARKED_FOR_DELETION\x10\x03\x42\x30Z.github.com/jupyter-naas/naas-models/go/secretsb\x06proto3')
 
 _SECRETERROR = DESCRIPTOR.enum_types_by_name['SecretError']
 SecretError = enum_type_wrapper.EnumTypeWrapper(_SECRETERROR)
@@ -36,8 +36,6 @@ _SECRETDELETEREQUEST = DESCRIPTOR.message_types_by_name['SecretDeleteRequest']
 _SECRETDELETERESPONSE = DESCRIPTOR.message_types_by_name['SecretDeleteResponse']
 _SECRETLISTREQUEST = DESCRIPTOR.message_types_by_name['SecretListRequest']
 _SECRETLISTRESPONSE = DESCRIPTOR.message_types_by_name['SecretListResponse']
-_SECRETBULKCREATEREQUEST = DESCRIPTOR.message_types_by_name['SecretBulkCreateRequest']
-_SECRETBULKCREATERESPONSE = DESCRIPTOR.message_types_by_name['SecretBulkCreateResponse']
 Secret = _reflection.GeneratedProtocolMessageType('Secret', (_message.Message,), {
   'DESCRIPTOR' : _SECRET,
   '__module__' : 'secret_pb2'
@@ -108,26 +106,12 @@ SecretListResponse = _reflection.GeneratedProtocolMessageType('SecretListRespons
   })
 _sym_db.RegisterMessage(SecretListResponse)
 
-SecretBulkCreateRequest = _reflection.GeneratedProtocolMessageType('SecretBulkCreateRequest', (_message.Message,), {
-  'DESCRIPTOR' : _SECRETBULKCREATEREQUEST,
-  '__module__' : 'secret_pb2'
-  # @@protoc_insertion_point(class_scope:secrets.SecretBulkCreateRequest)
-  })
-_sym_db.RegisterMessage(SecretBulkCreateRequest)
-
-SecretBulkCreateResponse = _reflection.GeneratedProtocolMessageType('SecretBulkCreateResponse', (_message.Message,), {
-  'DESCRIPTOR' : _SECRETBULKCREATERESPONSE,
-  '__module__' : 'secret_pb2'
-  # @@protoc_insertion_point(class_scope:secrets.SecretBulkCreateResponse)
-  })
-_sym_db.RegisterMessage(SecretBulkCreateResponse)
-
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z.github.com/jupyter-naas/naas-models/go/secrets'
-  _SECRETERROR._serialized_start=1054
-  _SECRETERROR._serialized_end=1169
+  _SECRETERROR._serialized_start=905
+  _SECRETERROR._serialized_end=1020
   _SECRET._serialized_start=41
   _SECRET._serialized_end=107
   _SECRETRESPONSEERROR._serialized_start=109
@@ -148,8 +132,4 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SECRETLISTREQUEST._serialized_end=787
   _SECRETLISTRESPONSE._serialized_start=789
   _SECRETLISTRESPONSE._serialized_end=903
-  _SECRETBULKCREATEREQUEST._serialized_start=905
-  _SECRETBULKCREATEREQUEST._serialized_end=964
-  _SECRETBULKCREATERESPONSE._serialized_start=966
-  _SECRETBULKCREATERESPONSE._serialized_end=1052
 # @@protoc_insertion_point(module_scope)
