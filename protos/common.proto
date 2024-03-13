@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package common;
+import "validate.proto";
+
+option go_package = "github.com/jupyter-naas/naas-models/go/common";
+
+message FieldMask {
+    // The set of field mask paths.
+    repeated string paths = 1 [(validate.rules).repeated = {min_items: 1}];
+}

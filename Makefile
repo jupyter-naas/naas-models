@@ -31,8 +31,9 @@ generate: clean python go build submodules
 		--python_out=python/naas_models \
 		--go_out=go \
 		--validate_out="lang=go:go" \
-		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto validate.proto
-		cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
+		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto workspace.proto validate.proto common.proto
+	cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
+	cd python/naas_models/pydantic && sed -i.bak 's/..common_p2p/naas_models.pydantic.common_p2p/g' *.py && rm *.bak
 
 bash: 
 	$(d) /bin/bash

@@ -4,7 +4,10 @@ package chat;
 
 option go_package = "github.com/jupyter-naas/naas-models/go/chat";
 
+
 import "google/protobuf/struct.proto";
+
+import "common.proto";
 import "validate.proto";
 // Message
 
@@ -22,6 +25,8 @@ enum MessageError {
     MESSAGE_NOT_FOUND = 2;
     MESSAGE_NOT_UPDATED = 3;
     MESSAGE_NOT_AUTHORIZED = 4;
+
+    MESSAGE_INTERNAL_SERVER_ERROR = 1000;
 }
 
 enum CompletionStatus {
@@ -53,6 +58,17 @@ message Message {
      optional string deleted_at = 12 [(validate.rules).string = {ignore_empty: true}];
      optional bool selected = 13;
      optional string archived_at = 14 [(validate.rules).string = {ignore_empty: true}];
+}
+
+message MessageUpdate {
+    optional string message = 1;
+    optional string message_type = 2 [(validate.rules).string = {ignore_empty: true}];
+    optional string message_language = 3 [(validate.rules).string = {ignore_empty: true}];
+    optional string metadata = 4;
+    optional bool selected = 5;
+    optional string archived_at = 6 [(validate.rules).string = {ignore_empty: true}];
+
+    optional common.FieldMask field_mask = 100;
 }
 
 message Messages {
@@ -120,6 +136,15 @@ message Chat {
     optional string starred_at = 8;
 }
 
+message ChatUpdate {
+    optional string name = 1;
+    optional bool is_group = 2;
+    optional bool is_personal_assistant = 3;
+    optional string starred_at = 4;
+
+    optional common.FieldMask field_mask = 100;
+}
+
 message ChatMessages {
     map<int32, Messages> messages = 1;
 }
@@ -134,6 +159,8 @@ enum ChatError {
     CHAT_AIMODEL_NOT_FOUND = 6;
     CHAT_OUT_OF_CREDIT = 7;
     CHAT_CONTEXT_LENGTH_EXCEEDED = 8;
+
+    CHAT_INTERNAL_SERVER_ERROR = 1000;
 }
 
 message ChatResponseError {
@@ -189,7 +216,7 @@ message ChatDeletionResponse {
 
 message ChatUpdateRequest {
     optional int64 id = 1;
-    optional string name = 2;
+    optional ChatUpdate chat_update = 2;
 }
 
 message ChatUpdateResponse {
@@ -219,6 +246,16 @@ message ChatStarRequest {
 message ChatStarResponse {
     optional Chat chat = 1;
     optional ChatError code = 2;
+}
+
+// Archive chat messages
+
+message ChatArchiveRequest {
+    optional int32 id = 1;
+}
+
+message ChatArchiveResponse {
+    optional ChatResponseError error = 1;
 }
 
 // Completion
