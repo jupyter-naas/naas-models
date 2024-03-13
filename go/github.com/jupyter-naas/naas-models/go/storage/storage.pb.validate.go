@@ -56,10 +56,6 @@ func (m *Storage) validate(all bool) error {
 
 	var errors []error
 
-	if m.WorkspaceId != nil {
-		// no validation rules for WorkspaceId
-	}
-
 	if m.Name != nil {
 		// no validation rules for Name
 	}
@@ -164,6 +160,18 @@ func (m *Object) validate(all bool) error {
 
 	if m.Name != nil {
 		// no validation rules for Name
+	}
+
+	if m.Prefix != nil {
+		// no validation rules for Prefix
+	}
+
+	if m.Size != nil {
+		// no validation rules for Size
+	}
+
+	if m.Lastmodified != nil {
+		// no validation rules for Lastmodified
 	}
 
 	if len(errors) > 0 {
@@ -463,6 +471,343 @@ var _ interface {
 	ErrorName() string
 } = ObjectResponseErrorValidationError{}
 
+// Validate checks the field values on StorageListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StorageListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StorageListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// StorageListRequestMultiError, or nil if none found.
+func (m *StorageListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StorageListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListRequestValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return StorageListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// StorageListRequestMultiError is an error wrapping multiple validation errors
+// returned by StorageListRequest.ValidateAll() if the designated constraints
+// aren't met.
+type StorageListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StorageListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StorageListRequestMultiError) AllErrors() []error { return m }
+
+// StorageListRequestValidationError is the validation error returned by
+// StorageListRequest.Validate if the designated constraints aren't met.
+type StorageListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StorageListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StorageListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StorageListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StorageListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StorageListRequestValidationError) ErrorName() string {
+	return "StorageListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StorageListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStorageListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StorageListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StorageListRequestValidationError{}
+
+// Validate checks the field values on StorageListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *StorageListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on StorageListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// StorageListResponseMultiError, or nil if none found.
+func (m *StorageListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *StorageListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetStorage() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListResponseValidationError{
+						field:  fmt.Sprintf("Storage[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListResponseValidationError{
+						field:  fmt.Sprintf("Storage[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListResponseValidationError{
+					field:  fmt.Sprintf("Storage[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return StorageListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// StorageListResponseMultiError is an error wrapping multiple validation
+// errors returned by StorageListResponse.ValidateAll() if the designated
+// constraints aren't met.
+type StorageListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m StorageListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m StorageListResponseMultiError) AllErrors() []error { return m }
+
+// StorageListResponseValidationError is the validation error returned by
+// StorageListResponse.Validate if the designated constraints aren't met.
+type StorageListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e StorageListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e StorageListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e StorageListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e StorageListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e StorageListResponseValidationError) ErrorName() string {
+	return "StorageListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e StorageListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sStorageListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = StorageListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = StorageListResponseValidationError{}
+
 // Validate checks the field values on StorageCreateRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -733,280 +1078,6 @@ var _ interface {
 	ErrorName() string
 } = StorageCreateResponseValidationError{}
 
-// Validate checks the field values on StorageGetRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *StorageGetRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on StorageGetRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// StorageGetRequestMultiError, or nil if none found.
-func (m *StorageGetRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *StorageGetRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.Name != nil {
-		// no validation rules for Name
-	}
-
-	if len(errors) > 0 {
-		return StorageGetRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// StorageGetRequestMultiError is an error wrapping multiple validation errors
-// returned by StorageGetRequest.ValidateAll() if the designated constraints
-// aren't met.
-type StorageGetRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m StorageGetRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m StorageGetRequestMultiError) AllErrors() []error { return m }
-
-// StorageGetRequestValidationError is the validation error returned by
-// StorageGetRequest.Validate if the designated constraints aren't met.
-type StorageGetRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e StorageGetRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e StorageGetRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e StorageGetRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e StorageGetRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e StorageGetRequestValidationError) ErrorName() string {
-	return "StorageGetRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e StorageGetRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sStorageGetRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = StorageGetRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = StorageGetRequestValidationError{}
-
-// Validate checks the field values on StorageGetResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *StorageGetResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on StorageGetResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// StorageGetResponseMultiError, or nil if none found.
-func (m *StorageGetResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *StorageGetResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.Storage != nil {
-
-		if all {
-			switch v := interface{}(m.GetStorage()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, StorageGetResponseValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, StorageGetResponseValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return StorageGetResponseValidationError{
-					field:  "Storage",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if m.Error != nil {
-
-		if all {
-			switch v := interface{}(m.GetError()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, StorageGetResponseValidationError{
-						field:  "Error",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, StorageGetResponseValidationError{
-						field:  "Error",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return StorageGetResponseValidationError{
-					field:  "Error",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return StorageGetResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// StorageGetResponseMultiError is an error wrapping multiple validation errors
-// returned by StorageGetResponse.ValidateAll() if the designated constraints
-// aren't met.
-type StorageGetResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m StorageGetResponseMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m StorageGetResponseMultiError) AllErrors() []error { return m }
-
-// StorageGetResponseValidationError is the validation error returned by
-// StorageGetResponse.Validate if the designated constraints aren't met.
-type StorageGetResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e StorageGetResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e StorageGetResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e StorageGetResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e StorageGetResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e StorageGetResponseValidationError) ErrorName() string {
-	return "StorageGetResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e StorageGetResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sStorageGetResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = StorageGetResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = StorageGetResponseValidationError{}
-
 // Validate checks the field values on StorageDeleteRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1029,8 +1100,37 @@ func (m *StorageDeleteRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Name != nil {
-		// no validation rules for Name
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageDeleteRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageDeleteRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageDeleteRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {
@@ -1248,46 +1348,108 @@ var _ interface {
 	ErrorName() string
 } = StorageDeleteResponseValidationError{}
 
-// Validate checks the field values on StorageListRequest with the rules
+// Validate checks the field values on StorageListObjectRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *StorageListRequest) Validate() error {
+func (m *StorageListObjectRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on StorageListRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on StorageListObjectRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// StorageListRequestMultiError, or nil if none found.
-func (m *StorageListRequest) ValidateAll() error {
+// StorageListObjectRequestMultiError, or nil if none found.
+func (m *StorageListObjectRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *StorageListRequest) validate(all bool) error {
+func (m *StorageListObjectRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.WorkspaceId != nil {
-		// no validation rules for WorkspaceId
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListObjectRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListObjectRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListObjectRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListObjectRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListObjectRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListObjectRequestValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if len(errors) > 0 {
-		return StorageListRequestMultiError(errors)
+		return StorageListObjectRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// StorageListRequestMultiError is an error wrapping multiple validation errors
-// returned by StorageListRequest.ValidateAll() if the designated constraints
-// aren't met.
-type StorageListRequestMultiError []error
+// StorageListObjectRequestMultiError is an error wrapping multiple validation
+// errors returned by StorageListObjectRequest.ValidateAll() if the designated
+// constraints aren't met.
+type StorageListObjectRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m StorageListRequestMultiError) Error() string {
+func (m StorageListObjectRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1296,11 +1458,11 @@ func (m StorageListRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m StorageListRequestMultiError) AllErrors() []error { return m }
+func (m StorageListObjectRequestMultiError) AllErrors() []error { return m }
 
-// StorageListRequestValidationError is the validation error returned by
-// StorageListRequest.Validate if the designated constraints aren't met.
-type StorageListRequestValidationError struct {
+// StorageListObjectRequestValidationError is the validation error returned by
+// StorageListObjectRequest.Validate if the designated constraints aren't met.
+type StorageListObjectRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1308,24 +1470,24 @@ type StorageListRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e StorageListRequestValidationError) Field() string { return e.field }
+func (e StorageListObjectRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e StorageListRequestValidationError) Reason() string { return e.reason }
+func (e StorageListObjectRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e StorageListRequestValidationError) Cause() error { return e.cause }
+func (e StorageListObjectRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e StorageListRequestValidationError) Key() bool { return e.key }
+func (e StorageListObjectRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e StorageListRequestValidationError) ErrorName() string {
-	return "StorageListRequestValidationError"
+func (e StorageListObjectRequestValidationError) ErrorName() string {
+	return "StorageListObjectRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e StorageListRequestValidationError) Error() string {
+func (e StorageListObjectRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1337,14 +1499,14 @@ func (e StorageListRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sStorageListRequest.%s: %s%s",
+		"invalid %sStorageListObjectRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = StorageListRequestValidationError{}
+var _ error = StorageListObjectRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1352,32 +1514,62 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = StorageListRequestValidationError{}
+} = StorageListObjectRequestValidationError{}
 
-// Validate checks the field values on StorageListResponse with the rules
+// Validate checks the field values on StorageListObjectResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *StorageListResponse) Validate() error {
+func (m *StorageListObjectResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on StorageListResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on StorageListObjectResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// StorageListResponseMultiError, or nil if none found.
-func (m *StorageListResponse) ValidateAll() error {
+// StorageListObjectResponseMultiError, or nil if none found.
+func (m *StorageListObjectResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *StorageListResponse) validate(all bool) error {
+func (m *StorageListObjectResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.Storage != nil {
-		// no validation rules for Storage
+	for idx, item := range m.GetObject() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, StorageListObjectResponseValidationError{
+						field:  fmt.Sprintf("Object[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, StorageListObjectResponseValidationError{
+						field:  fmt.Sprintf("Object[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return StorageListObjectResponseValidationError{
+					field:  fmt.Sprintf("Object[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
 	}
 
 	if m.Error != nil {
@@ -1386,7 +1578,7 @@ func (m *StorageListResponse) validate(all bool) error {
 			switch v := interface{}(m.GetError()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, StorageListResponseValidationError{
+					errors = append(errors, StorageListObjectResponseValidationError{
 						field:  "Error",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1394,7 +1586,7 @@ func (m *StorageListResponse) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, StorageListResponseValidationError{
+					errors = append(errors, StorageListObjectResponseValidationError{
 						field:  "Error",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -1403,7 +1595,7 @@ func (m *StorageListResponse) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return StorageListResponseValidationError{
+				return StorageListObjectResponseValidationError{
 					field:  "Error",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -1414,19 +1606,19 @@ func (m *StorageListResponse) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return StorageListResponseMultiError(errors)
+		return StorageListObjectResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// StorageListResponseMultiError is an error wrapping multiple validation
-// errors returned by StorageListResponse.ValidateAll() if the designated
-// constraints aren't met.
-type StorageListResponseMultiError []error
+// StorageListObjectResponseMultiError is an error wrapping multiple validation
+// errors returned by StorageListObjectResponse.ValidateAll() if the
+// designated constraints aren't met.
+type StorageListObjectResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m StorageListResponseMultiError) Error() string {
+func (m StorageListObjectResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1435,11 +1627,11 @@ func (m StorageListResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m StorageListResponseMultiError) AllErrors() []error { return m }
+func (m StorageListObjectResponseMultiError) AllErrors() []error { return m }
 
-// StorageListResponseValidationError is the validation error returned by
-// StorageListResponse.Validate if the designated constraints aren't met.
-type StorageListResponseValidationError struct {
+// StorageListObjectResponseValidationError is the validation error returned by
+// StorageListObjectResponse.Validate if the designated constraints aren't met.
+type StorageListObjectResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1447,24 +1639,24 @@ type StorageListResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e StorageListResponseValidationError) Field() string { return e.field }
+func (e StorageListObjectResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e StorageListResponseValidationError) Reason() string { return e.reason }
+func (e StorageListObjectResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e StorageListResponseValidationError) Cause() error { return e.cause }
+func (e StorageListObjectResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e StorageListResponseValidationError) Key() bool { return e.key }
+func (e StorageListObjectResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e StorageListResponseValidationError) ErrorName() string {
-	return "StorageListResponseValidationError"
+func (e StorageListObjectResponseValidationError) ErrorName() string {
+	return "StorageListObjectResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e StorageListResponseValidationError) Error() string {
+func (e StorageListObjectResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1476,14 +1668,14 @@ func (e StorageListResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sStorageListResponse.%s: %s%s",
+		"invalid %sStorageListObjectResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = StorageListResponseValidationError{}
+var _ error = StorageListObjectResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -1491,7 +1683,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = StorageListResponseValidationError{}
+} = StorageListObjectResponseValidationError{}
 
 // Validate checks the field values on ObjectCreateRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1851,6 +2043,39 @@ func (m *ObjectListRequest) validate(all bool) error {
 
 	}
 
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectListRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectListRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectListRequestValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return ObjectListRequestMultiError(errors)
 	}
@@ -1953,7 +2178,7 @@ func (m *ObjectListResponse) validate(all bool) error {
 
 	var errors []error
 
-	for idx, item := range m.GetObjects() {
+	for idx, item := range m.GetObject() {
 		_, _ = idx, item
 
 		if all {
@@ -1961,7 +2186,7 @@ func (m *ObjectListResponse) validate(all bool) error {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, ObjectListResponseValidationError{
-						field:  fmt.Sprintf("Objects[%v]", idx),
+						field:  fmt.Sprintf("Object[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1969,7 +2194,7 @@ func (m *ObjectListResponse) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, ObjectListResponseValidationError{
-						field:  fmt.Sprintf("Objects[%v]", idx),
+						field:  fmt.Sprintf("Object[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1978,7 +2203,7 @@ func (m *ObjectListResponse) validate(all bool) error {
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return ObjectListResponseValidationError{
-					field:  fmt.Sprintf("Objects[%v]", idx),
+					field:  fmt.Sprintf("Object[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -2099,6 +2324,172 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ObjectListResponseValidationError{}
+
+// Validate checks the field values on ObjectGetRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ObjectGetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectGetRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectGetRequestMultiError, or nil if none found.
+func (m *ObjectGetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectGetRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Object != nil {
+
+		if all {
+			switch v := interface{}(m.GetObject()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectGetRequestValidationError{
+						field:  "Object",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectGetRequestValidationError{
+					field:  "Object",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectGetRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectGetRequestMultiError is an error wrapping multiple validation errors
+// returned by ObjectGetRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectGetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectGetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectGetRequestMultiError) AllErrors() []error { return m }
+
+// ObjectGetRequestValidationError is the validation error returned by
+// ObjectGetRequest.Validate if the designated constraints aren't met.
+type ObjectGetRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectGetRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectGetRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectGetRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectGetRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectGetRequestValidationError) ErrorName() string { return "ObjectGetRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ObjectGetRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectGetRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectGetRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectGetRequestValidationError{}
 
 // Validate checks the field values on ObjectGetResponse with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -2268,60 +2659,27 @@ var _ interface {
 	ErrorName() string
 } = ObjectGetResponseValidationError{}
 
-// Validate checks the field values on ObjectGetRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *ObjectGetRequest) Validate() error {
+// Validate checks the field values on ObjectDeleteRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectDeleteRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ObjectGetRequest with the rules
+// ValidateAll checks the field values on ObjectDeleteRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ObjectGetRequestMultiError, or nil if none found.
-func (m *ObjectGetRequest) ValidateAll() error {
+// ObjectDeleteRequestMultiError, or nil if none found.
+func (m *ObjectDeleteRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ObjectGetRequest) validate(all bool) error {
+func (m *ObjectDeleteRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
-
-	if m.Storage != nil {
-
-		if all {
-			switch v := interface{}(m.GetStorage()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ObjectGetRequestValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ObjectGetRequestValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ObjectGetRequestValidationError{
-					field:  "Storage",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
 
 	if m.Object != nil {
 
@@ -2329,7 +2687,7 @@ func (m *ObjectGetRequest) validate(all bool) error {
 			switch v := interface{}(m.GetObject()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ObjectGetRequestValidationError{
+					errors = append(errors, ObjectDeleteRequestValidationError{
 						field:  "Object",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2337,7 +2695,7 @@ func (m *ObjectGetRequest) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, ObjectGetRequestValidationError{
+					errors = append(errors, ObjectDeleteRequestValidationError{
 						field:  "Object",
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -2346,7 +2704,7 @@ func (m *ObjectGetRequest) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(m.GetObject()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return ObjectGetRequestValidationError{
+				return ObjectDeleteRequestValidationError{
 					field:  "Object",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -2357,19 +2715,19 @@ func (m *ObjectGetRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ObjectGetRequestMultiError(errors)
+		return ObjectDeleteRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// ObjectGetRequestMultiError is an error wrapping multiple validation errors
-// returned by ObjectGetRequest.ValidateAll() if the designated constraints
-// aren't met.
-type ObjectGetRequestMultiError []error
+// ObjectDeleteRequestMultiError is an error wrapping multiple validation
+// errors returned by ObjectDeleteRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ObjectGetRequestMultiError) Error() string {
+func (m ObjectDeleteRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -2378,11 +2736,11 @@ func (m ObjectGetRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ObjectGetRequestMultiError) AllErrors() []error { return m }
+func (m ObjectDeleteRequestMultiError) AllErrors() []error { return m }
 
-// ObjectGetRequestValidationError is the validation error returned by
-// ObjectGetRequest.Validate if the designated constraints aren't met.
-type ObjectGetRequestValidationError struct {
+// ObjectDeleteRequestValidationError is the validation error returned by
+// ObjectDeleteRequest.Validate if the designated constraints aren't met.
+type ObjectDeleteRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -2390,22 +2748,24 @@ type ObjectGetRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ObjectGetRequestValidationError) Field() string { return e.field }
+func (e ObjectDeleteRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ObjectGetRequestValidationError) Reason() string { return e.reason }
+func (e ObjectDeleteRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ObjectGetRequestValidationError) Cause() error { return e.cause }
+func (e ObjectDeleteRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ObjectGetRequestValidationError) Key() bool { return e.key }
+func (e ObjectDeleteRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ObjectGetRequestValidationError) ErrorName() string { return "ObjectGetRequestValidationError" }
+func (e ObjectDeleteRequestValidationError) ErrorName() string {
+	return "ObjectDeleteRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e ObjectGetRequestValidationError) Error() string {
+func (e ObjectDeleteRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -2417,14 +2777,14 @@ func (e ObjectGetRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sObjectGetRequest.%s: %s%s",
+		"invalid %sObjectDeleteRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ObjectGetRequestValidationError{}
+var _ error = ObjectDeleteRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -2432,4 +2792,658 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ObjectGetRequestValidationError{}
+} = ObjectDeleteRequestValidationError{}
+
+// Validate checks the field values on ObjectDeleteResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectDeleteResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectDeleteResponseMultiError, or nil if none found.
+func (m *ObjectDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectDeleteResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectDeleteResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectDeleteResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectDeleteResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectDeleteResponseMultiError is an error wrapping multiple validation
+// errors returned by ObjectDeleteResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectDeleteResponseMultiError) AllErrors() []error { return m }
+
+// ObjectDeleteResponseValidationError is the validation error returned by
+// ObjectDeleteResponse.Validate if the designated constraints aren't met.
+type ObjectDeleteResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectDeleteResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectDeleteResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectDeleteResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectDeleteResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectDeleteResponseValidationError) ErrorName() string {
+	return "ObjectDeleteResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectDeleteResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectDeleteResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectDeleteResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectDeleteResponseValidationError{}
+
+// Validate checks the field values on ObjectStorageCredentialsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectStorageCredentialsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageCredentialsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ObjectStorageCredentialsRequestMultiError, or nil if none found.
+func (m *ObjectStorageCredentialsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageCredentialsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+		// no validation rules for WorkspaceId
+	}
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectStorageCredentialsRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageCredentialsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageCredentialsRequestMultiError is an error wrapping multiple
+// validation errors returned by ObjectStorageCredentialsRequest.ValidateAll()
+// if the designated constraints aren't met.
+type ObjectStorageCredentialsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageCredentialsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageCredentialsRequestMultiError) AllErrors() []error { return m }
+
+// ObjectStorageCredentialsRequestValidationError is the validation error
+// returned by ObjectStorageCredentialsRequest.Validate if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageCredentialsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageCredentialsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageCredentialsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageCredentialsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageCredentialsRequestValidationError) ErrorName() string {
+	return "ObjectStorageCredentialsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageCredentialsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageCredentialsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageCredentialsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageCredentialsRequestValidationError{}
+
+// Validate checks the field values on ObjectStorageCredentialsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ObjectStorageCredentialsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageCredentialsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ObjectStorageCredentialsResponseMultiError, or nil if none found.
+func (m *ObjectStorageCredentialsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageCredentialsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Credentials != nil {
+		// no validation rules for Credentials
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectStorageCredentialsResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageCredentialsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageCredentialsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ObjectStorageCredentialsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageCredentialsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageCredentialsResponseMultiError) AllErrors() []error { return m }
+
+// ObjectStorageCredentialsResponseValidationError is the validation error
+// returned by ObjectStorageCredentialsResponse.Validate if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageCredentialsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageCredentialsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageCredentialsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageCredentialsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageCredentialsResponseValidationError) ErrorName() string {
+	return "ObjectStorageCredentialsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageCredentialsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageCredentialsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageCredentialsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageCredentialsResponseValidationError{}
+
+// Validate checks the field values on ObjectStorageS3Credentials with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectStorageS3Credentials) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageS3Credentials with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectStorageS3CredentialsMultiError, or nil if none found.
+func (m *ObjectStorageS3Credentials) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageS3Credentials) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.EndpointUrl != nil {
+		// no validation rules for EndpointUrl
+	}
+
+	if m.AccessKeyId != nil {
+		// no validation rules for AccessKeyId
+	}
+
+	if m.SecretKey != nil {
+		// no validation rules for SecretKey
+	}
+
+	if m.RegionName != nil {
+		// no validation rules for RegionName
+	}
+
+	if m.SignatureVersion != nil {
+		// no validation rules for SignatureVersion
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageS3CredentialsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageS3CredentialsMultiError is an error wrapping multiple
+// validation errors returned by ObjectStorageS3Credentials.ValidateAll() if
+// the designated constraints aren't met.
+type ObjectStorageS3CredentialsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageS3CredentialsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageS3CredentialsMultiError) AllErrors() []error { return m }
+
+// ObjectStorageS3CredentialsValidationError is the validation error returned
+// by ObjectStorageS3Credentials.Validate if the designated constraints aren't met.
+type ObjectStorageS3CredentialsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageS3CredentialsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageS3CredentialsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageS3CredentialsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageS3CredentialsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageS3CredentialsValidationError) ErrorName() string {
+	return "ObjectStorageS3CredentialsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageS3CredentialsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageS3Credentials.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageS3CredentialsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageS3CredentialsValidationError{}
+
+// Validate checks the field values on ObjectStorageAzureCredentials with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectStorageAzureCredentials) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageAzureCredentials with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ObjectStorageAzureCredentialsMultiError, or nil if none found.
+func (m *ObjectStorageAzureCredentials) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageAzureCredentials) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.EndpointUrl != nil {
+		// no validation rules for EndpointUrl
+	}
+
+	if m.AccessKeyId != nil {
+		// no validation rules for AccessKeyId
+	}
+
+	if m.SecretKey != nil {
+		// no validation rules for SecretKey
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageAzureCredentialsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageAzureCredentialsMultiError is an error wrapping multiple
+// validation errors returned by ObjectStorageAzureCredentials.ValidateAll()
+// if the designated constraints aren't met.
+type ObjectStorageAzureCredentialsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageAzureCredentialsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageAzureCredentialsMultiError) AllErrors() []error { return m }
+
+// ObjectStorageAzureCredentialsValidationError is the validation error
+// returned by ObjectStorageAzureCredentials.Validate if the designated
+// constraints aren't met.
+type ObjectStorageAzureCredentialsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageAzureCredentialsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageAzureCredentialsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageAzureCredentialsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageAzureCredentialsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageAzureCredentialsValidationError) ErrorName() string {
+	return "ObjectStorageAzureCredentialsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageAzureCredentialsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageAzureCredentials.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageAzureCredentialsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageAzureCredentialsValidationError{}

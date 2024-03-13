@@ -96,8 +96,8 @@ func (m *Workspace) validate(all bool) error {
 		// no validation rules for IsPersonal
 	}
 
-	if m.CreateAt != nil {
-		// no validation rules for CreateAt
+	if m.CreatedAt != nil {
+		// no validation rules for CreatedAt
 	}
 
 	if len(errors) > 0 {

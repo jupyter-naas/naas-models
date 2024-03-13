@@ -16,34 +16,46 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rstorage.proto\x12\x07storage\x1a\x0evalidate.proto\"Q\n\x07Storage\x12\x19\n\x0cworkspace_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04name\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x07\n\x05_name\"$\n\x06Object\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"m\n\x14StorageResponseError\x12)\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x15.storage.StorageErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"k\n\x13ObjectResponseError\x12(\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x14.storage.ObjectErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"J\n\x14StorageCreateRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x42\n\n\x08_storage\"T\n\x15StorageCreateResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"/\n\x11StorageGetRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x85\x01\n\x12StorageGetResponse\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x01\x88\x01\x01\x42\n\n\x08_storageB\x08\n\x06_error\"2\n\x14StorageDeleteRequest\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"T\n\x15StorageDeleteResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"@\n\x12StorageListRequest\x12\x19\n\x0cworkspace_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"t\n\x13StorageListResponse\x12\x14\n\x07storage\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x01\x88\x01\x01\x42\n\n\x08_storageB\x08\n\x06_error\"z\n\x13ObjectCreateRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"S\n\x14ObjectCreateResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"G\n\x11ObjectListRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x42\n\n\x08_storage\"s\n\x12ObjectListResponse\x12 \n\x07objects\x18\x01 \x03(\x0b\x32\x0f.storage.Object\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\x80\x01\n\x11ObjectGetResponse\x12$\n\x06object\x18\x01 \x01(\x0b\x32\x0f.storage.ObjectH\x00\x88\x01\x01\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.storage.ObjectResponseErrorH\x01\x88\x01\x01\x42\t\n\x07_objectB\x08\n\x06_error\"w\n\x10ObjectGetRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object*$\n\x0cStorageError\x12\x14\n\x10STORAGE_NO_ERROR\x10\x00*\"\n\x0bObjectError\x12\x13\n\x0fOBJECT_NO_ERROR\x10\x00\x42\x30Z.github.com/jupyter-naas/naas-models/go/storageb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rstorage.proto\x12\x07storage\x1a\x0evalidate.proto\"%\n\x07Storage\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x07\n\x05_name\"\x8c\x01\n\x06Object\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x13\n\x06prefix\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04size\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0clastmodified\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\t\n\x07_prefixB\x07\n\x05_sizeB\x0f\n\r_lastmodified\"m\n\x14StorageResponseError\x12)\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x15.storage.StorageErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"k\n\x13ObjectResponseError\x12(\n\x05\x65rror\x18\x01 \x01(\x0e\x32\x14.storage.ObjectErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_message\"y\n\x12StorageListRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"u\n\x13StorageListResponse\x12!\n\x07storage\x18\x01 \x03(\x0b\x32\x10.storage.Storage\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"J\n\x14StorageCreateRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x42\n\n\x08_storage\"T\n\x15StorageCreateResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"J\n\x14StorageDeleteRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x42\n\n\x08_storage\"T\n\x15StorageDeleteResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\x7f\n\x18StorageListObjectRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"y\n\x19StorageListObjectResponse\x12\x1f\n\x06object\x18\x01 \x03(\x0b\x32\x0f.storage.Object\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"z\n\x13ObjectCreateRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"S\n\x14ObjectCreateResponse\x12\x31\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"x\n\x11ObjectListRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"q\n\x12ObjectListResponse\x12\x1f\n\x06object\x18\x01 \x03(\x0b\x32\x0f.storage.Object\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.storage.ObjectResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"w\n\x10ObjectGetRequest\x12&\n\x07storage\x18\x01 \x01(\x0b\x32\x10.storage.StorageH\x00\x88\x01\x01\x12$\n\x06object\x18\x02 \x01(\x0b\x32\x0f.storage.ObjectH\x01\x88\x01\x01\x42\n\n\x08_storageB\t\n\x07_object\"\x80\x01\n\x11ObjectGetResponse\x12$\n\x06object\x18\x01 \x01(\x0b\x32\x0f.storage.ObjectH\x00\x88\x01\x01\x12\x30\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1c.storage.ObjectResponseErrorH\x01\x88\x01\x01\x42\t\n\x07_objectB\x08\n\x06_error\"F\n\x13ObjectDeleteRequest\x12$\n\x06object\x18\x01 \x01(\x0b\x32\x0f.storage.ObjectH\x00\x88\x01\x01\x42\t\n\x07_object\"R\n\x14ObjectDeleteResponse\x12\x30\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x1c.storage.ObjectResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\x81\x01\n\x1fObjectStorageCredentialsRequest\x12\x19\n\x0cworkspace_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12&\n\x07storage\x18\x02 \x01(\x0b\x32\x10.storage.StorageH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\n\n\x08_storage\"\x89\x01\n ObjectStorageCredentialsResponse\x12\x18\n\x0b\x63redentials\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x31\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x1d.storage.StorageResponseErrorH\x01\x88\x01\x01\x42\x0e\n\x0c_credentialsB\x08\n\x06_error\"\xfe\x01\n\x1aObjectStorageS3Credentials\x12\x19\n\x0c\x65ndpoint_url\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\raccess_key_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x17\n\nsecret_key\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x18\n\x0bregion_name\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1e\n\x11signature_version\x18\x05 \x01(\tH\x04\x88\x01\x01\x42\x0f\n\r_endpoint_urlB\x10\n\x0e_access_key_idB\r\n\x0b_secret_keyB\x0e\n\x0c_region_nameB\x14\n\x12_signature_version\"\xa1\x01\n\x1dObjectStorageAzureCredentials\x12\x19\n\x0c\x65ndpoint_url\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x1a\n\raccess_key_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x17\n\nsecret_key\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x0f\n\r_endpoint_urlB\x10\n\x0e_access_key_idB\r\n\x0b_secret_key*V\n\x0cStorageError\x12\x14\n\x10STORAGE_NO_ERROR\x10\x00\x12\x19\n\x15STORAGE_ALREADY_EXIST\x10\x01\x12\x15\n\x11STORAGE_NOT_FOUND\x10\x02*\x83\x01\n\x0bObjectError\x12\x13\n\x0fOBJECT_NO_ERROR\x10\x00\x12\x18\n\x14OBJECT_ALREADY_EXIST\x10\x01\x12\x15\n\x11OBJECT_SIZE_ERROR\x10\x02\x12\x14\n\x10OBJECT_NOT_FOUND\x10\x03\x12\x18\n\x14OBJECT_DIR_NOT_EMPTY\x10\x04\x42\x30Z.github.com/jupyter-naas/naas-models/go/storageb\x06proto3')
 
 _STORAGEERROR = DESCRIPTOR.enum_types_by_name['StorageError']
 StorageError = enum_type_wrapper.EnumTypeWrapper(_STORAGEERROR)
 _OBJECTERROR = DESCRIPTOR.enum_types_by_name['ObjectError']
 ObjectError = enum_type_wrapper.EnumTypeWrapper(_OBJECTERROR)
 STORAGE_NO_ERROR = 0
+STORAGE_ALREADY_EXIST = 1
+STORAGE_NOT_FOUND = 2
 OBJECT_NO_ERROR = 0
+OBJECT_ALREADY_EXIST = 1
+OBJECT_SIZE_ERROR = 2
+OBJECT_NOT_FOUND = 3
+OBJECT_DIR_NOT_EMPTY = 4
 
 
 _STORAGE = DESCRIPTOR.message_types_by_name['Storage']
 _OBJECT = DESCRIPTOR.message_types_by_name['Object']
 _STORAGERESPONSEERROR = DESCRIPTOR.message_types_by_name['StorageResponseError']
 _OBJECTRESPONSEERROR = DESCRIPTOR.message_types_by_name['ObjectResponseError']
-_STORAGECREATEREQUEST = DESCRIPTOR.message_types_by_name['StorageCreateRequest']
-_STORAGECREATERESPONSE = DESCRIPTOR.message_types_by_name['StorageCreateResponse']
-_STORAGEGETREQUEST = DESCRIPTOR.message_types_by_name['StorageGetRequest']
-_STORAGEGETRESPONSE = DESCRIPTOR.message_types_by_name['StorageGetResponse']
-_STORAGEDELETEREQUEST = DESCRIPTOR.message_types_by_name['StorageDeleteRequest']
-_STORAGEDELETERESPONSE = DESCRIPTOR.message_types_by_name['StorageDeleteResponse']
 _STORAGELISTREQUEST = DESCRIPTOR.message_types_by_name['StorageListRequest']
 _STORAGELISTRESPONSE = DESCRIPTOR.message_types_by_name['StorageListResponse']
+_STORAGECREATEREQUEST = DESCRIPTOR.message_types_by_name['StorageCreateRequest']
+_STORAGECREATERESPONSE = DESCRIPTOR.message_types_by_name['StorageCreateResponse']
+_STORAGEDELETEREQUEST = DESCRIPTOR.message_types_by_name['StorageDeleteRequest']
+_STORAGEDELETERESPONSE = DESCRIPTOR.message_types_by_name['StorageDeleteResponse']
+_STORAGELISTOBJECTREQUEST = DESCRIPTOR.message_types_by_name['StorageListObjectRequest']
+_STORAGELISTOBJECTRESPONSE = DESCRIPTOR.message_types_by_name['StorageListObjectResponse']
 _OBJECTCREATEREQUEST = DESCRIPTOR.message_types_by_name['ObjectCreateRequest']
 _OBJECTCREATERESPONSE = DESCRIPTOR.message_types_by_name['ObjectCreateResponse']
 _OBJECTLISTREQUEST = DESCRIPTOR.message_types_by_name['ObjectListRequest']
 _OBJECTLISTRESPONSE = DESCRIPTOR.message_types_by_name['ObjectListResponse']
-_OBJECTGETRESPONSE = DESCRIPTOR.message_types_by_name['ObjectGetResponse']
 _OBJECTGETREQUEST = DESCRIPTOR.message_types_by_name['ObjectGetRequest']
+_OBJECTGETRESPONSE = DESCRIPTOR.message_types_by_name['ObjectGetResponse']
+_OBJECTDELETEREQUEST = DESCRIPTOR.message_types_by_name['ObjectDeleteRequest']
+_OBJECTDELETERESPONSE = DESCRIPTOR.message_types_by_name['ObjectDeleteResponse']
+_OBJECTSTORAGECREDENTIALSREQUEST = DESCRIPTOR.message_types_by_name['ObjectStorageCredentialsRequest']
+_OBJECTSTORAGECREDENTIALSRESPONSE = DESCRIPTOR.message_types_by_name['ObjectStorageCredentialsResponse']
+_OBJECTSTORAGES3CREDENTIALS = DESCRIPTOR.message_types_by_name['ObjectStorageS3Credentials']
+_OBJECTSTORAGEAZURECREDENTIALS = DESCRIPTOR.message_types_by_name['ObjectStorageAzureCredentials']
 Storage = _reflection.GeneratedProtocolMessageType('Storage', (_message.Message,), {
   'DESCRIPTOR' : _STORAGE,
   '__module__' : 'storage_pb2'
@@ -72,6 +84,20 @@ ObjectResponseError = _reflection.GeneratedProtocolMessageType('ObjectResponseEr
   })
 _sym_db.RegisterMessage(ObjectResponseError)
 
+StorageListRequest = _reflection.GeneratedProtocolMessageType('StorageListRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STORAGELISTREQUEST,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.StorageListRequest)
+  })
+_sym_db.RegisterMessage(StorageListRequest)
+
+StorageListResponse = _reflection.GeneratedProtocolMessageType('StorageListResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STORAGELISTRESPONSE,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.StorageListResponse)
+  })
+_sym_db.RegisterMessage(StorageListResponse)
+
 StorageCreateRequest = _reflection.GeneratedProtocolMessageType('StorageCreateRequest', (_message.Message,), {
   'DESCRIPTOR' : _STORAGECREATEREQUEST,
   '__module__' : 'storage_pb2'
@@ -85,20 +111,6 @@ StorageCreateResponse = _reflection.GeneratedProtocolMessageType('StorageCreateR
   # @@protoc_insertion_point(class_scope:storage.StorageCreateResponse)
   })
 _sym_db.RegisterMessage(StorageCreateResponse)
-
-StorageGetRequest = _reflection.GeneratedProtocolMessageType('StorageGetRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STORAGEGETREQUEST,
-  '__module__' : 'storage_pb2'
-  # @@protoc_insertion_point(class_scope:storage.StorageGetRequest)
-  })
-_sym_db.RegisterMessage(StorageGetRequest)
-
-StorageGetResponse = _reflection.GeneratedProtocolMessageType('StorageGetResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STORAGEGETRESPONSE,
-  '__module__' : 'storage_pb2'
-  # @@protoc_insertion_point(class_scope:storage.StorageGetResponse)
-  })
-_sym_db.RegisterMessage(StorageGetResponse)
 
 StorageDeleteRequest = _reflection.GeneratedProtocolMessageType('StorageDeleteRequest', (_message.Message,), {
   'DESCRIPTOR' : _STORAGEDELETEREQUEST,
@@ -114,19 +126,19 @@ StorageDeleteResponse = _reflection.GeneratedProtocolMessageType('StorageDeleteR
   })
 _sym_db.RegisterMessage(StorageDeleteResponse)
 
-StorageListRequest = _reflection.GeneratedProtocolMessageType('StorageListRequest', (_message.Message,), {
-  'DESCRIPTOR' : _STORAGELISTREQUEST,
+StorageListObjectRequest = _reflection.GeneratedProtocolMessageType('StorageListObjectRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STORAGELISTOBJECTREQUEST,
   '__module__' : 'storage_pb2'
-  # @@protoc_insertion_point(class_scope:storage.StorageListRequest)
+  # @@protoc_insertion_point(class_scope:storage.StorageListObjectRequest)
   })
-_sym_db.RegisterMessage(StorageListRequest)
+_sym_db.RegisterMessage(StorageListObjectRequest)
 
-StorageListResponse = _reflection.GeneratedProtocolMessageType('StorageListResponse', (_message.Message,), {
-  'DESCRIPTOR' : _STORAGELISTRESPONSE,
+StorageListObjectResponse = _reflection.GeneratedProtocolMessageType('StorageListObjectResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STORAGELISTOBJECTRESPONSE,
   '__module__' : 'storage_pb2'
-  # @@protoc_insertion_point(class_scope:storage.StorageListResponse)
+  # @@protoc_insertion_point(class_scope:storage.StorageListObjectResponse)
   })
-_sym_db.RegisterMessage(StorageListResponse)
+_sym_db.RegisterMessage(StorageListObjectResponse)
 
 ObjectCreateRequest = _reflection.GeneratedProtocolMessageType('ObjectCreateRequest', (_message.Message,), {
   'DESCRIPTOR' : _OBJECTCREATEREQUEST,
@@ -156,13 +168,6 @@ ObjectListResponse = _reflection.GeneratedProtocolMessageType('ObjectListRespons
   })
 _sym_db.RegisterMessage(ObjectListResponse)
 
-ObjectGetResponse = _reflection.GeneratedProtocolMessageType('ObjectGetResponse', (_message.Message,), {
-  'DESCRIPTOR' : _OBJECTGETRESPONSE,
-  '__module__' : 'storage_pb2'
-  # @@protoc_insertion_point(class_scope:storage.ObjectGetResponse)
-  })
-_sym_db.RegisterMessage(ObjectGetResponse)
-
 ObjectGetRequest = _reflection.GeneratedProtocolMessageType('ObjectGetRequest', (_message.Message,), {
   'DESCRIPTOR' : _OBJECTGETREQUEST,
   '__module__' : 'storage_pb2'
@@ -170,48 +175,109 @@ ObjectGetRequest = _reflection.GeneratedProtocolMessageType('ObjectGetRequest', 
   })
 _sym_db.RegisterMessage(ObjectGetRequest)
 
+ObjectGetResponse = _reflection.GeneratedProtocolMessageType('ObjectGetResponse', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTGETRESPONSE,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectGetResponse)
+  })
+_sym_db.RegisterMessage(ObjectGetResponse)
+
+ObjectDeleteRequest = _reflection.GeneratedProtocolMessageType('ObjectDeleteRequest', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTDELETEREQUEST,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectDeleteRequest)
+  })
+_sym_db.RegisterMessage(ObjectDeleteRequest)
+
+ObjectDeleteResponse = _reflection.GeneratedProtocolMessageType('ObjectDeleteResponse', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTDELETERESPONSE,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectDeleteResponse)
+  })
+_sym_db.RegisterMessage(ObjectDeleteResponse)
+
+ObjectStorageCredentialsRequest = _reflection.GeneratedProtocolMessageType('ObjectStorageCredentialsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTSTORAGECREDENTIALSREQUEST,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectStorageCredentialsRequest)
+  })
+_sym_db.RegisterMessage(ObjectStorageCredentialsRequest)
+
+ObjectStorageCredentialsResponse = _reflection.GeneratedProtocolMessageType('ObjectStorageCredentialsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTSTORAGECREDENTIALSRESPONSE,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectStorageCredentialsResponse)
+  })
+_sym_db.RegisterMessage(ObjectStorageCredentialsResponse)
+
+ObjectStorageS3Credentials = _reflection.GeneratedProtocolMessageType('ObjectStorageS3Credentials', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTSTORAGES3CREDENTIALS,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectStorageS3Credentials)
+  })
+_sym_db.RegisterMessage(ObjectStorageS3Credentials)
+
+ObjectStorageAzureCredentials = _reflection.GeneratedProtocolMessageType('ObjectStorageAzureCredentials', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTSTORAGEAZURECREDENTIALS,
+  '__module__' : 'storage_pb2'
+  # @@protoc_insertion_point(class_scope:storage.ObjectStorageAzureCredentials)
+  })
+_sym_db.RegisterMessage(ObjectStorageAzureCredentials)
+
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z.github.com/jupyter-naas/naas-models/go/storage'
-  _STORAGEERROR._serialized_start=1703
-  _STORAGEERROR._serialized_end=1739
-  _OBJECTERROR._serialized_start=1741
-  _OBJECTERROR._serialized_end=1775
+  _STORAGEERROR._serialized_start=2809
+  _STORAGEERROR._serialized_end=2895
+  _OBJECTERROR._serialized_start=2898
+  _OBJECTERROR._serialized_end=3029
   _STORAGE._serialized_start=42
-  _STORAGE._serialized_end=123
-  _OBJECT._serialized_start=125
-  _OBJECT._serialized_end=161
-  _STORAGERESPONSEERROR._serialized_start=163
-  _STORAGERESPONSEERROR._serialized_end=272
-  _OBJECTRESPONSEERROR._serialized_start=274
-  _OBJECTRESPONSEERROR._serialized_end=381
-  _STORAGECREATEREQUEST._serialized_start=383
-  _STORAGECREATEREQUEST._serialized_end=457
-  _STORAGECREATERESPONSE._serialized_start=459
-  _STORAGECREATERESPONSE._serialized_end=543
-  _STORAGEGETREQUEST._serialized_start=545
-  _STORAGEGETREQUEST._serialized_end=592
-  _STORAGEGETRESPONSE._serialized_start=595
-  _STORAGEGETRESPONSE._serialized_end=728
-  _STORAGEDELETEREQUEST._serialized_start=730
-  _STORAGEDELETEREQUEST._serialized_end=780
-  _STORAGEDELETERESPONSE._serialized_start=782
-  _STORAGEDELETERESPONSE._serialized_end=866
-  _STORAGELISTREQUEST._serialized_start=868
-  _STORAGELISTREQUEST._serialized_end=932
-  _STORAGELISTRESPONSE._serialized_start=934
-  _STORAGELISTRESPONSE._serialized_end=1050
-  _OBJECTCREATEREQUEST._serialized_start=1052
-  _OBJECTCREATEREQUEST._serialized_end=1174
-  _OBJECTCREATERESPONSE._serialized_start=1176
-  _OBJECTCREATERESPONSE._serialized_end=1259
-  _OBJECTLISTREQUEST._serialized_start=1261
-  _OBJECTLISTREQUEST._serialized_end=1332
-  _OBJECTLISTRESPONSE._serialized_start=1334
-  _OBJECTLISTRESPONSE._serialized_end=1449
-  _OBJECTGETRESPONSE._serialized_start=1452
-  _OBJECTGETRESPONSE._serialized_end=1580
-  _OBJECTGETREQUEST._serialized_start=1582
-  _OBJECTGETREQUEST._serialized_end=1701
+  _STORAGE._serialized_end=79
+  _OBJECT._serialized_start=82
+  _OBJECT._serialized_end=222
+  _STORAGERESPONSEERROR._serialized_start=224
+  _STORAGERESPONSEERROR._serialized_end=333
+  _OBJECTRESPONSEERROR._serialized_start=335
+  _OBJECTRESPONSEERROR._serialized_end=442
+  _STORAGELISTREQUEST._serialized_start=444
+  _STORAGELISTREQUEST._serialized_end=565
+  _STORAGELISTRESPONSE._serialized_start=567
+  _STORAGELISTRESPONSE._serialized_end=684
+  _STORAGECREATEREQUEST._serialized_start=686
+  _STORAGECREATEREQUEST._serialized_end=760
+  _STORAGECREATERESPONSE._serialized_start=762
+  _STORAGECREATERESPONSE._serialized_end=846
+  _STORAGEDELETEREQUEST._serialized_start=848
+  _STORAGEDELETEREQUEST._serialized_end=922
+  _STORAGEDELETERESPONSE._serialized_start=924
+  _STORAGEDELETERESPONSE._serialized_end=1008
+  _STORAGELISTOBJECTREQUEST._serialized_start=1010
+  _STORAGELISTOBJECTREQUEST._serialized_end=1137
+  _STORAGELISTOBJECTRESPONSE._serialized_start=1139
+  _STORAGELISTOBJECTRESPONSE._serialized_end=1260
+  _OBJECTCREATEREQUEST._serialized_start=1262
+  _OBJECTCREATEREQUEST._serialized_end=1384
+  _OBJECTCREATERESPONSE._serialized_start=1386
+  _OBJECTCREATERESPONSE._serialized_end=1469
+  _OBJECTLISTREQUEST._serialized_start=1471
+  _OBJECTLISTREQUEST._serialized_end=1591
+  _OBJECTLISTRESPONSE._serialized_start=1593
+  _OBJECTLISTRESPONSE._serialized_end=1706
+  _OBJECTGETREQUEST._serialized_start=1708
+  _OBJECTGETREQUEST._serialized_end=1827
+  _OBJECTGETRESPONSE._serialized_start=1830
+  _OBJECTGETRESPONSE._serialized_end=1958
+  _OBJECTDELETEREQUEST._serialized_start=1960
+  _OBJECTDELETEREQUEST._serialized_end=2030
+  _OBJECTDELETERESPONSE._serialized_start=2032
+  _OBJECTDELETERESPONSE._serialized_end=2114
+  _OBJECTSTORAGECREDENTIALSREQUEST._serialized_start=2117
+  _OBJECTSTORAGECREDENTIALSREQUEST._serialized_end=2246
+  _OBJECTSTORAGECREDENTIALSRESPONSE._serialized_start=2249
+  _OBJECTSTORAGECREDENTIALSRESPONSE._serialized_end=2386
+  _OBJECTSTORAGES3CREDENTIALS._serialized_start=2389
+  _OBJECTSTORAGES3CREDENTIALS._serialized_end=2643
+  _OBJECTSTORAGEAZURECREDENTIALS._serialized_start=2646
+  _OBJECTSTORAGEAZURECREDENTIALS._serialized_end=2807
 # @@protoc_insertion_point(module_scope)

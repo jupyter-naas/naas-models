@@ -15,13 +15,11 @@ ADD .docker/install-protoc-gen-validate.sh /tmp/
 RUN chmod +x /tmp/install-protoc-gen-validate.sh
 RUN /tmp/install-protoc-gen-validate.sh
 
-ADD .docker/requirements.txt /tmp/requirements.txt
-RUN pip --default-timeout=100 install -r /tmp/requirements.txt
-
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/go/bin"
 
-RUN echo $TARGETOS $TARGETARCH 
+ADD .docker/requirements.txt /tmp/requirements.txt
+RUN pip --default-timeout=100 install -r /tmp/requirements.txt
 
 #ENTRYPOINT ["/usr/local/bin/protoc"]

@@ -13,7 +13,7 @@ message Workspace {
     optional string primary_color = 4;
     optional string secondary_color = 5;
     optional bool is_personal = 6;
-    optional string create_at = 7;
+    optional string created_at = 7;
 }
 
 message WorkspaceUpdate {

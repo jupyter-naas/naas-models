@@ -14,20 +14,25 @@ import typing
 
 class StorageError(IntEnum):
     STORAGE_NO_ERROR = 0
+    STORAGE_ALREADY_EXIST = 1
+    STORAGE_NOT_FOUND = 2
 
 
 class ObjectError(IntEnum):
     OBJECT_NO_ERROR = 0
+    OBJECT_ALREADY_EXIST = 1
+    OBJECT_SIZE_ERROR = 2
+    OBJECT_NOT_FOUND = 3
+    OBJECT_DIR_NOT_EMPTY = 4
 
 
 
 
 class Storage(BaseModel):
 
-    _one_of_dict = {"Storage._name": {"fields": {"name"}}, "Storage._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"Storage._name": {"fields": {"name"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    workspace_id: str = FieldInfo(default="") 
     name: str = FieldInfo(default="") 
 
 
@@ -35,10 +40,13 @@ class Storage(BaseModel):
 
 class Object(BaseModel):
 
-    _one_of_dict = {"Object._name": {"fields": {"name"}}}
+    _one_of_dict = {"Object._lastmodified": {"fields": {"lastmodified"}}, "Object._name": {"fields": {"name"}}, "Object._prefix": {"fields": {"prefix"}}, "Object._size": {"fields": {"size"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
+    prefix: str = FieldInfo(default="") 
+    size: str = FieldInfo(default="") 
+    lastmodified: str = FieldInfo(default="") 
 
 
 
@@ -65,6 +73,28 @@ class ObjectResponseError(BaseModel):
 
 
 
+class StorageListRequest(BaseModel):
+
+    _one_of_dict = {"StorageListRequest._object": {"fields": {"object"}}, "StorageListRequest._storage": {"fields": {"storage"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: Storage = FieldInfo() 
+    object: Object = FieldInfo() 
+
+
+
+
+class StorageListResponse(BaseModel):
+
+    _one_of_dict = {"StorageListResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: typing.List[Storage] = FieldInfo(default_factory=list) 
+    error: StorageResponseError = FieldInfo() 
+
+
+
+
 class StorageCreateRequest(BaseModel):
 
     _one_of_dict = {"StorageCreateRequest._storage": {"fields": {"storage"}}}
@@ -85,33 +115,12 @@ class StorageCreateResponse(BaseModel):
 
 
 
-class StorageGetRequest(BaseModel):
+class StorageDeleteRequest(BaseModel):
 
-    _one_of_dict = {"StorageGetRequest._name": {"fields": {"name"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-
-
-
-
-class StorageGetResponse(BaseModel):
-
-    _one_of_dict = {"StorageGetResponse._error": {"fields": {"error"}}, "StorageGetResponse._storage": {"fields": {"storage"}}}
+    _one_of_dict = {"StorageDeleteRequest._storage": {"fields": {"storage"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     storage: Storage = FieldInfo() 
-    error: StorageResponseError = FieldInfo() 
-
-
-
-
-class StorageDeleteRequest(BaseModel):
-
-    _one_of_dict = {"StorageDeleteRequest._name": {"fields": {"name"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
 
 
 
@@ -126,22 +135,23 @@ class StorageDeleteResponse(BaseModel):
 
 
 
-class StorageListRequest(BaseModel):
+class StorageListObjectRequest(BaseModel):
 
-    _one_of_dict = {"StorageListRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"StorageListObjectRequest._object": {"fields": {"object"}}, "StorageListObjectRequest._storage": {"fields": {"storage"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    workspace_id: str = FieldInfo(default="") 
+    storage: Storage = FieldInfo() 
+    object: Object = FieldInfo() 
 
 
 
 
-class StorageListResponse(BaseModel):
+class StorageListObjectResponse(BaseModel):
 
-    _one_of_dict = {"StorageListResponse._error": {"fields": {"error"}}, "StorageListResponse._storage": {"fields": {"storage"}}}
+    _one_of_dict = {"StorageListObjectResponse._error": {"fields": {"error"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    storage: str = FieldInfo(default="") 
+    object: typing.List[Object] = FieldInfo(default_factory=list) 
     error: StorageResponseError = FieldInfo() 
 
 
@@ -170,10 +180,11 @@ class ObjectCreateResponse(BaseModel):
 
 class ObjectListRequest(BaseModel):
 
-    _one_of_dict = {"ObjectListRequest._storage": {"fields": {"storage"}}}
+    _one_of_dict = {"ObjectListRequest._object": {"fields": {"object"}}, "ObjectListRequest._storage": {"fields": {"storage"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     storage: Storage = FieldInfo() 
+    object: Object = FieldInfo() 
 
 
 
@@ -183,8 +194,19 @@ class ObjectListResponse(BaseModel):
     _one_of_dict = {"ObjectListResponse._error": {"fields": {"error"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    objects: typing.List[Object] = FieldInfo(default_factory=list) 
-    error: StorageResponseError = FieldInfo() 
+    object: typing.List[Object] = FieldInfo(default_factory=list) 
+    error: ObjectResponseError = FieldInfo() 
+
+
+
+
+class ObjectGetRequest(BaseModel):
+
+    _one_of_dict = {"ObjectGetRequest._object": {"fields": {"object"}}, "ObjectGetRequest._storage": {"fields": {"storage"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: Storage = FieldInfo() 
+    object: Object = FieldInfo() 
 
 
 
@@ -200,12 +222,69 @@ class ObjectGetResponse(BaseModel):
 
 
 
-class ObjectGetRequest(BaseModel):
+class ObjectDeleteRequest(BaseModel):
 
-    _one_of_dict = {"ObjectGetRequest._object": {"fields": {"object"}}, "ObjectGetRequest._storage": {"fields": {"storage"}}}
+    _one_of_dict = {"ObjectDeleteRequest._object": {"fields": {"object"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    storage: Storage = FieldInfo() 
     object: Object = FieldInfo() 
+
+
+
+
+class ObjectDeleteResponse(BaseModel):
+
+    _one_of_dict = {"ObjectDeleteResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: ObjectResponseError = FieldInfo() 
+
+
+
+
+class ObjectStorageCredentialsRequest(BaseModel):
+
+    _one_of_dict = {"ObjectStorageCredentialsRequest._storage": {"fields": {"storage"}}, "ObjectStorageCredentialsRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: str = FieldInfo(default="") 
+    storage: Storage = FieldInfo() 
+
+
+
+
+class ObjectStorageCredentialsResponse(BaseModel):
+
+    _one_of_dict = {"ObjectStorageCredentialsResponse._credentials": {"fields": {"credentials"}}, "ObjectStorageCredentialsResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    credentials: str = FieldInfo(default="") 
+    error: StorageResponseError = FieldInfo() 
+
+
+
+
+class ObjectStorageS3Credentials(BaseModel):
+
+    _one_of_dict = {"ObjectStorageS3Credentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageS3Credentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageS3Credentials._region_name": {"fields": {"region_name"}}, "ObjectStorageS3Credentials._secret_key": {"fields": {"secret_key"}}, "ObjectStorageS3Credentials._signature_version": {"fields": {"signature_version"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    endpoint_url: str = FieldInfo(default="") 
+    access_key_id: str = FieldInfo(default="") 
+    secret_key: str = FieldInfo(default="") 
+    region_name: str = FieldInfo(default="") 
+    signature_version: str = FieldInfo(default="") 
+
+
+
+
+class ObjectStorageAzureCredentials(BaseModel):
+
+    _one_of_dict = {"ObjectStorageAzureCredentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageAzureCredentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageAzureCredentials._secret_key": {"fields": {"secret_key"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    endpoint_url: str = FieldInfo(default="") 
+    access_key_id: str = FieldInfo(default="") 
+    secret_key: str = FieldInfo(default="") 
 
 

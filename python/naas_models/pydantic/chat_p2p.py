@@ -2,6 +2,7 @@
 # gen by protobuf_to_pydantic(https://github.com/so1n/protobuf_to_pydantic)
 # type: ignore
 
+from naas_models.pydantic.common_p2p import FieldMask
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
 from protobuf_to_pydantic.customer_validator import check_one_of
@@ -25,6 +26,7 @@ class MessageError(IntEnum):
     MESSAGE_NOT_FOUND = 2
     MESSAGE_NOT_UPDATED = 3
     MESSAGE_NOT_AUTHORIZED = 4
+    MESSAGE_INTERNAL_SERVER_ERROR = 1000
 
 
 class CompletionStatus(IntEnum):
@@ -43,6 +45,7 @@ class ChatError(IntEnum):
     CHAT_AIMODEL_NOT_FOUND = 6
     CHAT_OUT_OF_CREDIT = 7
     CHAT_CONTEXT_LENGTH_EXCEEDED = 8
+    CHAT_INTERNAL_SERVER_ERROR = 1000
 
 
 
@@ -79,6 +82,22 @@ class Message(BaseModel):
     deleted_at: str = FieldInfo(default="") 
     selected: bool = FieldInfo(default=False) 
     archived_at: str = FieldInfo(default="") 
+
+
+
+
+class MessageUpdate(BaseModel):
+
+    _one_of_dict = {"MessageUpdate._archived_at": {"fields": {"archived_at"}}, "MessageUpdate._field_mask": {"fields": {"field_mask"}}, "MessageUpdate._message": {"fields": {"message"}}, "MessageUpdate._message_language": {"fields": {"message_language"}}, "MessageUpdate._message_type": {"fields": {"message_type"}}, "MessageUpdate._metadata": {"fields": {"metadata"}}, "MessageUpdate._selected": {"fields": {"selected"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    message: str = FieldInfo(default="") 
+    message_type: str = FieldInfo(default="") 
+    message_language: str = FieldInfo(default="") 
+    metadata: str = FieldInfo(default="") 
+    selected: bool = FieldInfo(default=False) 
+    archived_at: str = FieldInfo(default="") 
+    field_mask: FieldMask = FieldInfo() 
 
 
 
@@ -174,6 +193,20 @@ class Chat(BaseModel):
     is_group: bool = FieldInfo(default=False) 
     is_personal_assistant: bool = FieldInfo(default=False) 
     starred_at: str = FieldInfo(default="") 
+
+
+
+
+class ChatUpdate(BaseModel):
+
+    _one_of_dict = {"ChatUpdate._field_mask": {"fields": {"field_mask"}}, "ChatUpdate._is_group": {"fields": {"is_group"}}, "ChatUpdate._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "ChatUpdate._name": {"fields": {"name"}}, "ChatUpdate._starred_at": {"fields": {"starred_at"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    name: str = FieldInfo(default="") 
+    is_group: bool = FieldInfo(default=False) 
+    is_personal_assistant: bool = FieldInfo(default=False) 
+    starred_at: str = FieldInfo(default="") 
+    field_mask: FieldMask = FieldInfo() 
 
 
 
@@ -284,11 +317,11 @@ class ChatDeletionResponse(BaseModel):
 
 class ChatUpdateRequest(BaseModel):
 
-    _one_of_dict = {"ChatUpdateRequest._id": {"fields": {"id"}}, "ChatUpdateRequest._name": {"fields": {"name"}}}
+    _one_of_dict = {"ChatUpdateRequest._chat_update": {"fields": {"chat_update"}}, "ChatUpdateRequest._id": {"fields": {"id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: int = FieldInfo(default=0) 
-    name: str = FieldInfo(default="") 
+    chat_update: ChatUpdate = FieldInfo() 
 
 
 
@@ -344,6 +377,26 @@ class ChatStarResponse(BaseModel):
 
     chat: Chat = FieldInfo() 
     code: ChatError = FieldInfo(default=0) 
+
+
+
+
+class ChatArchiveRequest(BaseModel):
+
+    _one_of_dict = {"ChatArchiveRequest._id": {"fields": {"id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    id: int = FieldInfo(default=0) 
+
+
+
+
+class ChatArchiveResponse(BaseModel):
+
+    _one_of_dict = {"ChatArchiveResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: ChatResponseError = FieldInfo() 
 
 
 
