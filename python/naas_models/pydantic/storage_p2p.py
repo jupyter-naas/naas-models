@@ -242,38 +242,17 @@ class ObjectDeleteResponse(BaseModel):
 
 
 
-class ObjectStorageCredentialsRequest(BaseModel):
-
-    _one_of_dict = {"ObjectStorageCredentialsRequest._storage": {"fields": {"storage"}}, "ObjectStorageCredentialsRequest._workspace_id": {"fields": {"workspace_id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    workspace_id: str = FieldInfo(default="") 
-    storage: Storage = FieldInfo() 
-
-
-
-
-class ObjectStorageCredentialsResponse(BaseModel):
-
-    _one_of_dict = {"ObjectStorageCredentialsResponse._credentials": {"fields": {"credentials"}}, "ObjectStorageCredentialsResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    credentials: str = FieldInfo(default="") 
-    error: StorageResponseError = FieldInfo() 
-
-
-
-
 class ObjectStorageS3Credentials(BaseModel):
 
-    _one_of_dict = {"ObjectStorageS3Credentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageS3Credentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageS3Credentials._region_name": {"fields": {"region_name"}}, "ObjectStorageS3Credentials._secret_key": {"fields": {"secret_key"}}, "ObjectStorageS3Credentials._signature_version": {"fields": {"signature_version"}}}
+    _one_of_dict = {"ObjectStorageS3Credentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageS3Credentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageS3Credentials._expiration": {"fields": {"expiration"}}, "ObjectStorageS3Credentials._region_name": {"fields": {"region_name"}}, "ObjectStorageS3Credentials._secret_key": {"fields": {"secret_key"}}, "ObjectStorageS3Credentials._session_token": {"fields": {"session_token"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     endpoint_url: str = FieldInfo(default="") 
     access_key_id: str = FieldInfo(default="") 
     secret_key: str = FieldInfo(default="") 
+    session_token: str = FieldInfo(default="") 
+    expiration: str = FieldInfo(default="") 
     region_name: str = FieldInfo(default="") 
-    signature_version: str = FieldInfo(default="") 
 
 
 
@@ -286,5 +265,33 @@ class ObjectStorageAzureCredentials(BaseModel):
     endpoint_url: str = FieldInfo(default="") 
     access_key_id: str = FieldInfo(default="") 
     secret_key: str = FieldInfo(default="") 
+
+
+
+
+class ObjectStorageCredentials(BaseModel):
+
+    s3: ObjectStorageS3Credentials = FieldInfo() 
+
+
+
+
+class ObjectStorageCredentialsRequest(BaseModel):
+
+    _one_of_dict = {"ObjectStorageCredentialsRequest._storage": {"fields": {"storage"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    storage: Storage = FieldInfo() 
+
+
+
+
+class ObjectStorageCredentialsResponse(BaseModel):
+
+    _one_of_dict = {"ObjectStorageCredentialsResponse._credentials": {"fields": {"credentials"}}, "ObjectStorageCredentialsResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    credentials: ObjectStorageCredentials = FieldInfo() 
+    error: StorageResponseError = FieldInfo() 
 
 

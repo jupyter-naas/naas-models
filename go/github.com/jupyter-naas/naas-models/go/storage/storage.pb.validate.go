@@ -2929,288 +2929,6 @@ var _ interface {
 	ErrorName() string
 } = ObjectDeleteResponseValidationError{}
 
-// Validate checks the field values on ObjectStorageCredentialsRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ObjectStorageCredentialsRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on ObjectStorageCredentialsRequest with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ObjectStorageCredentialsRequestMultiError, or nil if none found.
-func (m *ObjectStorageCredentialsRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *ObjectStorageCredentialsRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.WorkspaceId != nil {
-		// no validation rules for WorkspaceId
-	}
-
-	if m.Storage != nil {
-
-		if all {
-			switch v := interface{}(m.GetStorage()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
-						field:  "Storage",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ObjectStorageCredentialsRequestValidationError{
-					field:  "Storage",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return ObjectStorageCredentialsRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// ObjectStorageCredentialsRequestMultiError is an error wrapping multiple
-// validation errors returned by ObjectStorageCredentialsRequest.ValidateAll()
-// if the designated constraints aren't met.
-type ObjectStorageCredentialsRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m ObjectStorageCredentialsRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m ObjectStorageCredentialsRequestMultiError) AllErrors() []error { return m }
-
-// ObjectStorageCredentialsRequestValidationError is the validation error
-// returned by ObjectStorageCredentialsRequest.Validate if the designated
-// constraints aren't met.
-type ObjectStorageCredentialsRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ObjectStorageCredentialsRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ObjectStorageCredentialsRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ObjectStorageCredentialsRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ObjectStorageCredentialsRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ObjectStorageCredentialsRequestValidationError) ErrorName() string {
-	return "ObjectStorageCredentialsRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ObjectStorageCredentialsRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sObjectStorageCredentialsRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ObjectStorageCredentialsRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ObjectStorageCredentialsRequestValidationError{}
-
-// Validate checks the field values on ObjectStorageCredentialsResponse with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the first error encountered is returned, or nil if there are
-// no violations.
-func (m *ObjectStorageCredentialsResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on ObjectStorageCredentialsResponse with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ObjectStorageCredentialsResponseMultiError, or nil if none found.
-func (m *ObjectStorageCredentialsResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *ObjectStorageCredentialsResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.Credentials != nil {
-		// no validation rules for Credentials
-	}
-
-	if m.Error != nil {
-
-		if all {
-			switch v := interface{}(m.GetError()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
-						field:  "Error",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
-						field:  "Error",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return ObjectStorageCredentialsResponseValidationError{
-					field:  "Error",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if len(errors) > 0 {
-		return ObjectStorageCredentialsResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// ObjectStorageCredentialsResponseMultiError is an error wrapping multiple
-// validation errors returned by
-// ObjectStorageCredentialsResponse.ValidateAll() if the designated
-// constraints aren't met.
-type ObjectStorageCredentialsResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m ObjectStorageCredentialsResponseMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m ObjectStorageCredentialsResponseMultiError) AllErrors() []error { return m }
-
-// ObjectStorageCredentialsResponseValidationError is the validation error
-// returned by ObjectStorageCredentialsResponse.Validate if the designated
-// constraints aren't met.
-type ObjectStorageCredentialsResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e ObjectStorageCredentialsResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e ObjectStorageCredentialsResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e ObjectStorageCredentialsResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e ObjectStorageCredentialsResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e ObjectStorageCredentialsResponseValidationError) ErrorName() string {
-	return "ObjectStorageCredentialsResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e ObjectStorageCredentialsResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sObjectStorageCredentialsResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = ObjectStorageCredentialsResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = ObjectStorageCredentialsResponseValidationError{}
-
 // Validate checks the field values on ObjectStorageS3Credentials with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -3245,12 +2963,16 @@ func (m *ObjectStorageS3Credentials) validate(all bool) error {
 		// no validation rules for SecretKey
 	}
 
-	if m.RegionName != nil {
-		// no validation rules for RegionName
+	if m.SessionToken != nil {
+		// no validation rules for SessionToken
 	}
 
-	if m.SignatureVersion != nil {
-		// no validation rules for SignatureVersion
+	if m.Expiration != nil {
+		// no validation rules for Expiration
+	}
+
+	if m.RegionName != nil {
+		// no validation rules for RegionName
 	}
 
 	if len(errors) > 0 {
@@ -3447,3 +3169,441 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ObjectStorageAzureCredentialsValidationError{}
+
+// Validate checks the field values on ObjectStorageCredentials with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectStorageCredentials) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageCredentials with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ObjectStorageCredentialsMultiError, or nil if none found.
+func (m *ObjectStorageCredentials) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageCredentials) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetS3()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ObjectStorageCredentialsValidationError{
+					field:  "S3",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ObjectStorageCredentialsValidationError{
+					field:  "S3",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetS3()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ObjectStorageCredentialsValidationError{
+				field:  "S3",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageCredentialsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageCredentialsMultiError is an error wrapping multiple validation
+// errors returned by ObjectStorageCredentials.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageCredentialsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageCredentialsMultiError) AllErrors() []error { return m }
+
+// ObjectStorageCredentialsValidationError is the validation error returned by
+// ObjectStorageCredentials.Validate if the designated constraints aren't met.
+type ObjectStorageCredentialsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageCredentialsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageCredentialsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageCredentialsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageCredentialsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageCredentialsValidationError) ErrorName() string {
+	return "ObjectStorageCredentialsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageCredentialsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageCredentials.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageCredentialsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageCredentialsValidationError{}
+
+// Validate checks the field values on ObjectStorageCredentialsRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ObjectStorageCredentialsRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageCredentialsRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ObjectStorageCredentialsRequestMultiError, or nil if none found.
+func (m *ObjectStorageCredentialsRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageCredentialsRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Storage != nil {
+
+		if all {
+			switch v := interface{}(m.GetStorage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsRequestValidationError{
+						field:  "Storage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStorage()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectStorageCredentialsRequestValidationError{
+					field:  "Storage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageCredentialsRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageCredentialsRequestMultiError is an error wrapping multiple
+// validation errors returned by ObjectStorageCredentialsRequest.ValidateAll()
+// if the designated constraints aren't met.
+type ObjectStorageCredentialsRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageCredentialsRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageCredentialsRequestMultiError) AllErrors() []error { return m }
+
+// ObjectStorageCredentialsRequestValidationError is the validation error
+// returned by ObjectStorageCredentialsRequest.Validate if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageCredentialsRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageCredentialsRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageCredentialsRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageCredentialsRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageCredentialsRequestValidationError) ErrorName() string {
+	return "ObjectStorageCredentialsRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageCredentialsRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageCredentialsRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageCredentialsRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageCredentialsRequestValidationError{}
+
+// Validate checks the field values on ObjectStorageCredentialsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ObjectStorageCredentialsResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectStorageCredentialsResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ObjectStorageCredentialsResponseMultiError, or nil if none found.
+func (m *ObjectStorageCredentialsResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectStorageCredentialsResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Credentials != nil {
+
+		if all {
+			switch v := interface{}(m.GetCredentials()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Credentials",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Credentials",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetCredentials()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectStorageCredentialsResponseValidationError{
+					field:  "Credentials",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectStorageCredentialsResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectStorageCredentialsResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ObjectStorageCredentialsResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ObjectStorageCredentialsResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ObjectStorageCredentialsResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectStorageCredentialsResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectStorageCredentialsResponseMultiError) AllErrors() []error { return m }
+
+// ObjectStorageCredentialsResponseValidationError is the validation error
+// returned by ObjectStorageCredentialsResponse.Validate if the designated
+// constraints aren't met.
+type ObjectStorageCredentialsResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectStorageCredentialsResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectStorageCredentialsResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectStorageCredentialsResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectStorageCredentialsResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectStorageCredentialsResponseValidationError) ErrorName() string {
+	return "ObjectStorageCredentialsResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ObjectStorageCredentialsResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectStorageCredentialsResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectStorageCredentialsResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectStorageCredentialsResponseValidationError{}
