@@ -1312,3 +1312,275 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SecretListResponseValidationError{}
+
+// Validate checks the field values on SecretBulkCreateRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SecretBulkCreateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SecretBulkCreateRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SecretBulkCreateRequestMultiError, or nil if none found.
+func (m *SecretBulkCreateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SecretBulkCreateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetSecrets() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SecretBulkCreateRequestValidationError{
+						field:  fmt.Sprintf("Secrets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SecretBulkCreateRequestValidationError{
+						field:  fmt.Sprintf("Secrets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SecretBulkCreateRequestValidationError{
+					field:  fmt.Sprintf("Secrets[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SecretBulkCreateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SecretBulkCreateRequestMultiError is an error wrapping multiple validation
+// errors returned by SecretBulkCreateRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SecretBulkCreateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SecretBulkCreateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SecretBulkCreateRequestMultiError) AllErrors() []error { return m }
+
+// SecretBulkCreateRequestValidationError is the validation error returned by
+// SecretBulkCreateRequest.Validate if the designated constraints aren't met.
+type SecretBulkCreateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecretBulkCreateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecretBulkCreateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecretBulkCreateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecretBulkCreateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecretBulkCreateRequestValidationError) ErrorName() string {
+	return "SecretBulkCreateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SecretBulkCreateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecretBulkCreateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecretBulkCreateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecretBulkCreateRequestValidationError{}
+
+// Validate checks the field values on SecretBulkCreateResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SecretBulkCreateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SecretBulkCreateResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SecretBulkCreateResponseMultiError, or nil if none found.
+func (m *SecretBulkCreateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SecretBulkCreateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetError() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SecretBulkCreateResponseValidationError{
+						field:  fmt.Sprintf("Error[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SecretBulkCreateResponseValidationError{
+						field:  fmt.Sprintf("Error[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SecretBulkCreateResponseValidationError{
+					field:  fmt.Sprintf("Error[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SecretBulkCreateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SecretBulkCreateResponseMultiError is an error wrapping multiple validation
+// errors returned by SecretBulkCreateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SecretBulkCreateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SecretBulkCreateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SecretBulkCreateResponseMultiError) AllErrors() []error { return m }
+
+// SecretBulkCreateResponseValidationError is the validation error returned by
+// SecretBulkCreateResponse.Validate if the designated constraints aren't met.
+type SecretBulkCreateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SecretBulkCreateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SecretBulkCreateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SecretBulkCreateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SecretBulkCreateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SecretBulkCreateResponseValidationError) ErrorName() string {
+	return "SecretBulkCreateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SecretBulkCreateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSecretBulkCreateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SecretBulkCreateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SecretBulkCreateResponseValidationError{}

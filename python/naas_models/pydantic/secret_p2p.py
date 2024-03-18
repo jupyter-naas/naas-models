@@ -124,3 +124,17 @@ class SecretListResponse(BaseModel):
     error: SecretResponseError = FieldInfo() 
 
 
+
+
+class SecretBulkCreateRequest(BaseModel):
+
+    secrets: typing.List[Secret] = FieldInfo(default_factory=list) 
+
+
+
+
+class SecretBulkCreateResponse(BaseModel):
+
+    error: typing.List[SecretResponseError] = FieldInfo(default_factory=list) 
+
+
