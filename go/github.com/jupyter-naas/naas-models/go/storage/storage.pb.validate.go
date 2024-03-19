@@ -162,6 +162,10 @@ func (m *Object) validate(all bool) error {
 		// no validation rules for Name
 	}
 
+	if m.Type != nil {
+		// no validation rules for Type
+	}
+
 	if m.Prefix != nil {
 		// no validation rules for Prefix
 	}

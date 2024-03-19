@@ -40,10 +40,11 @@ class Storage(BaseModel):
 
 class Object(BaseModel):
 
-    _one_of_dict = {"Object._lastmodified": {"fields": {"lastmodified"}}, "Object._name": {"fields": {"name"}}, "Object._prefix": {"fields": {"prefix"}}, "Object._size": {"fields": {"size"}}}
+    _one_of_dict = {"Object._lastmodified": {"fields": {"lastmodified"}}, "Object._name": {"fields": {"name"}}, "Object._prefix": {"fields": {"prefix"}}, "Object._size": {"fields": {"size"}}, "Object._type": {"fields": {"type"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
+    type: str = FieldInfo(default="") 
     prefix: str = FieldInfo(default="") 
     size: str = FieldInfo(default="") 
     lastmodified: str = FieldInfo(default="") 

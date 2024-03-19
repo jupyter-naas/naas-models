@@ -12,9 +12,10 @@ message Storage {
 
 message Object {
     optional string name = 1;
-    optional string prefix = 2;
-    optional string size = 3;
-    optional string lastmodified = 4;
+    optional string type = 2;
+    optional string prefix = 3;
+    optional string size = 4;
+    optional string lastmodified = 5;
 }
 
 /**
