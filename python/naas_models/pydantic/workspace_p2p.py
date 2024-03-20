@@ -30,29 +30,58 @@ class WorkspaceError(IntEnum):
 
 class Workspace(BaseModel):
 
-    _one_of_dict = {"Workspace._created_at": {"fields": {"created_at"}}, "Workspace._id": {"fields": {"id"}}, "Workspace._is_personal": {"fields": {"is_personal"}}, "Workspace._logo": {"fields": {"logo"}}, "Workspace._name": {"fields": {"name"}}, "Workspace._primary_color": {"fields": {"primary_color"}}, "Workspace._secondary_color": {"fields": {"secondary_color"}}}
+    _one_of_dict = {"Workspace._created_at": {"fields": {"created_at"}}, "Workspace._fav_icon": {"fields": {"fav_icon"}}, "Workspace._id": {"fields": {"id"}}, "Workspace._is_personal": {"fields": {"is_personal"}}, "Workspace._large_logo": {"fields": {"large_logo"}}, "Workspace._name": {"fields": {"name"}}, "Workspace._primary_color": {"fields": {"primary_color"}}, "Workspace._secondary_color": {"fields": {"secondary_color"}}, "Workspace._small_logo": {"fields": {"small_logo"}}, "Workspace._tertiary_color": {"fields": {"tertiary_color"}}, "Workspace._text_primary_color": {"fields": {"text_primary_color"}}, "Workspace._text_secondary_color": {"fields": {"text_secondary_color"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: UUID = FieldInfo(default="") 
     name: str = FieldInfo(default="") 
-    logo: str = FieldInfo(default="") 
+    fav_icon: str = FieldInfo(default="") 
+    large_logo: str = FieldInfo(default="") 
+    small_logo: str = FieldInfo(default="") 
     primary_color: str = FieldInfo(default="") 
     secondary_color: str = FieldInfo(default="") 
+    tertiary_color: str = FieldInfo(default="") 
+    text_primary_color: str = FieldInfo(default="") 
+    text_secondary_color: str = FieldInfo(default="") 
     is_personal: bool = FieldInfo(default=False) 
     created_at: str = FieldInfo(default="") 
 
 
 
 
-class WorkspaceUpdate(BaseModel):
+class WorkspaceCreation(BaseModel):
 
-    _one_of_dict = {"WorkspaceUpdate._logo": {"fields": {"logo"}}, "WorkspaceUpdate._name": {"fields": {"name"}}, "WorkspaceUpdate._primary_color": {"fields": {"primary_color"}}, "WorkspaceUpdate._secondary_color": {"fields": {"secondary_color"}}}
+    _one_of_dict = {"WorkspaceCreation._fav_icon": {"fields": {"fav_icon"}}, "WorkspaceCreation._is_personal": {"fields": {"is_personal"}}, "WorkspaceCreation._large_logo": {"fields": {"large_logo"}}, "WorkspaceCreation._name": {"fields": {"name"}}, "WorkspaceCreation._primary_color": {"fields": {"primary_color"}}, "WorkspaceCreation._secondary_color": {"fields": {"secondary_color"}}, "WorkspaceCreation._small_logo": {"fields": {"small_logo"}}, "WorkspaceCreation._tertiary_color": {"fields": {"tertiary_color"}}, "WorkspaceCreation._text_primary_color": {"fields": {"text_primary_color"}}, "WorkspaceCreation._text_secondary_color": {"fields": {"text_secondary_color"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     name: str = FieldInfo(default="") 
-    logo: str = FieldInfo(default="") 
+    fav_icon: str = FieldInfo(default="") 
+    large_logo: str = FieldInfo(default="") 
+    small_logo: str = FieldInfo(default="") 
     primary_color: str = FieldInfo(default="") 
     secondary_color: str = FieldInfo(default="") 
+    tertiary_color: str = FieldInfo(default="") 
+    text_primary_color: str = FieldInfo(default="") 
+    text_secondary_color: str = FieldInfo(default="") 
+    is_personal: bool = FieldInfo(default=False) 
+
+
+
+
+class WorkspaceUpdate(BaseModel):
+
+    _one_of_dict = {"WorkspaceUpdate._fav_icon": {"fields": {"fav_icon"}}, "WorkspaceUpdate._large_logo": {"fields": {"large_logo"}}, "WorkspaceUpdate._name": {"fields": {"name"}}, "WorkspaceUpdate._primary_color": {"fields": {"primary_color"}}, "WorkspaceUpdate._secondary_color": {"fields": {"secondary_color"}}, "WorkspaceUpdate._small_logo": {"fields": {"small_logo"}}, "WorkspaceUpdate._tertiary_color": {"fields": {"tertiary_color"}}, "WorkspaceUpdate._text_primary_color": {"fields": {"text_primary_color"}}, "WorkspaceUpdate._text_secondary_color": {"fields": {"text_secondary_color"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    name: str = FieldInfo(default="") 
+    fav_icon: str = FieldInfo(default="") 
+    large_logo: str = FieldInfo(default="") 
+    small_logo: str = FieldInfo(default="") 
+    primary_color: str = FieldInfo(default="") 
+    secondary_color: str = FieldInfo(default="") 
+    tertiary_color: str = FieldInfo(default="") 
+    text_primary_color: str = FieldInfo(default="") 
+    text_secondary_color: str = FieldInfo(default="") 
 
 
 
@@ -144,15 +173,11 @@ class WorkspaceListResponse(BaseModel):
 
 class WorkspaceCreateRequest(BaseModel):
 
-    _one_of_dict = {"WorkspaceCreateRequest._is_personal": {"fields": {"is_personal"}}, "WorkspaceCreateRequest._logo": {"fields": {"logo"}}, "WorkspaceCreateRequest._name": {"fields": {"name"}}, "WorkspaceCreateRequest._primary_color": {"fields": {"primary_color"}}, "WorkspaceCreateRequest._secondary_color": {"fields": {"secondary_color"}}, "WorkspaceCreateRequest._user_id": {"fields": {"user_id"}}}
+    _one_of_dict = {"WorkspaceCreateRequest._user_id": {"fields": {"user_id"}}, "WorkspaceCreateRequest._workspace": {"fields": {"workspace"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     user_id: UUID = FieldInfo(default="") 
-    name: str = FieldInfo(default="") 
-    logo: str = FieldInfo(default="") 
-    primary_color: str = FieldInfo(default="") 
-    secondary_color: str = FieldInfo(default="") 
-    is_personal: bool = FieldInfo(default=False) 
+    workspace: WorkspaceCreation = FieldInfo() 
 
 
 
