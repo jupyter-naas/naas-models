@@ -16,7 +16,7 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fworkspace.proto\x12\tworkspace\x1a\x0evalidate.proto\"\x97\x02\n\tWorkspace\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04logo\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x18\n\x0bis_personal\x18\x06 \x01(\x08H\x05\x88\x01\x01\x12\x17\n\ncreated_at\x18\x07 \x01(\tH\x06\x88\x01\x01\x42\x05\n\x03_idB\x07\n\x05_nameB\x07\n\x05_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_colorB\x0e\n\x0c_is_personalB\r\n\x0b_created_at\"\xa9\x01\n\x0fWorkspaceUpdate\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x11\n\x04logo\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x07\n\x05_nameB\x07\n\x05_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_color\"\xb8\x02\n\rWorkspaceUser\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12.\n\x04role\x18\x03 \x01(\tB\x1b\xfa\x42\x18r\x16R\x05ownerR\x05\x61\x64minR\x06memberH\x02\x88\x01\x01\x12\x35\n\x06status\x18\x04 \x01(\tB \xfa\x42\x1dr\x1bR\x06\x61\x63tiveR\x07invitedR\x08\x64\x65\x63linedH\x03\x88\x01\x01\x12\x16\n\tcreate_at\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x16\n\tupdate_at\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_idB\x07\n\x05_roleB\t\n\x07_statusB\x0c\n\n_create_atB\x0c\n\n_update_at\"\x90\x01\n\x13WorkspaceUserUpdate\x12.\n\x04role\x18\x01 \x01(\tB\x1b\xfa\x42\x18r\x16R\x05ownerR\x05\x61\x64minR\x06memberH\x00\x88\x01\x01\x12\x35\n\x06status\x18\x02 \x01(\tB \xfa\x42\x1dr\x1bR\x06\x61\x63tiveR\x07invitedR\x08\x64\x65\x63linedH\x01\x88\x01\x01\x42\x07\n\x05_roleB\t\n\x07_status\"\xb1\x01\n\x0fWorkspacePlugin\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x14\n\x07payload\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tcreate_at\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\n\n\x08_payloadB\x0c\n\n_create_at\"9\n\x15WorkspacePluginUpdate\x12\x14\n\x07payload\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_payload\"q\n\x16WorkspaceResponseError\x12,\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x19.workspace.WorkspaceErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"B\n\x14WorkspaceListRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\n\n\x08_user_id\"\x82\x01\n\x15WorkspaceListResponse\x12(\n\nworkspaces\x18\x01 \x03(\x0b\x32\x14.workspace.Workspace\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\x86\x02\n\x16WorkspaceCreateRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04logo\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x18\n\x0bis_personal\x18\x06 \x01(\x08H\x05\x88\x01\x01\x42\n\n\x08_user_idB\x07\n\x05_nameB\x07\n\x05_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_colorB\x0e\n\x0c_is_personal\"\x96\x01\n\x17WorkspaceCreateResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"w\n\x13WorkspaceGetRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"\x93\x01\n\x14WorkspaceGetResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"\x90\x01\n\x16WorkspaceUpdateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x32\n\tworkspace\x18\x02 \x01(\x0b\x32\x1a.workspace.WorkspaceUpdateH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_workspace\"\x96\x01\n\x17WorkspaceUpdateResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"z\n\x16WorkspaceDeleteRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"Z\n\x17WorkspaceDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"P\n\x18WorkspaceUserListRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"\x8f\x01\n\x19WorkspaceUserListResponse\x12\x31\n\x0fworkspace_users\x18\x01 \x03(\x0b\x32\x18.workspace.WorkspaceUser\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"{\n\x17WorkspaceUserGetRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"\xa5\x01\n\x18WorkspaceUserGetResponse\x12\x35\n\x0eworkspace_user\x18\x01 \x01(\x0b\x32\x18.workspace.WorkspaceUserH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x11\n\x0f_workspace_userB\x08\n\x06_error\"\xce\x01\n\x1aWorkspaceUserUpdateRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12;\n\x0eworkspace_user\x18\x03 \x01(\x0b\x32\x1e.workspace.WorkspaceUserUpdateH\x02\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_idB\x11\n\x0f_workspace_user\"\xa8\x01\n\x1bWorkspaceUserUpdateResponse\x12\x35\n\x0eworkspace_user\x18\x01 \x01(\x0b\x32\x18.workspace.WorkspaceUserH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x11\n\x0f_workspace_userB\x08\n\x06_error\"~\n\x1aWorkspaceUserDeleteRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"^\n\x1bWorkspaceUserDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"v\n\x1cWorkspacePluginCreateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x14\n\x07payload\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\n\n\x08_payload\"\xb0\x01\n\x1dWorkspacePluginCreateResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"\x81\x01\n\x19WorkspacePluginGetRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_id\"\xad\x01\n\x1aWorkspacePluginGetResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"R\n\x1aWorkspacePluginListRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"\x95\x01\n\x1bWorkspacePluginListResponse\x12\x35\n\x11workspace_plugins\x18\x01 \x03(\x0b\x32\x1a.workspace.WorkspacePlugin\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\xda\x01\n\x1cWorkspacePluginUpdateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12?\n\x10workspace_plugin\x18\x03 \x01(\x0b\x32 .workspace.WorkspacePluginUpdateH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_idB\x13\n\x11_workspace_plugin\"\xb0\x01\n\x1dWorkspacePluginUpdateResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"\x84\x01\n\x1cWorkspacePluginDeleteRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_id\"`\n\x1dWorkspacePluginDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*\x8b\x02\n\x0eWorkspaceError\x12\x16\n\x12WORKSPACE_NO_ERROR\x10\x00\x12\x17\n\x13WORKSPACE_NOT_FOUND\x10\x01\x12!\n\x1dWORKSPACE_USER_ALREADY_EXISTS\x10\x02\x12\x1c\n\x18WORKSPACE_USER_NOT_FOUND\x10\x03\x12!\n\x1dWORKSPACE_USER_ALREADY_ACTIVE\x10\x04\x12(\n$USER_ALREADY_HAVE_PERSONAL_WORKSPACE\x10\x05\x12\x1e\n\x1aWORKSPACE_PLUGIN_NOT_FOUND\x10\x06\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42\x32Z0github.com/jupyter-naas/naas-models/go/workspaceb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fworkspace.proto\x12\tworkspace\x1a\x0evalidate.proto\"\x93\x04\n\tWorkspace\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x11\n\x04name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x15\n\x08\x66\x61v_icon\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nlarge_logo\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x17\n\nsmall_logo\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x1b\n\x0etertiary_color\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x1f\n\x12text_primary_color\x18\t \x01(\tH\x08\x88\x01\x01\x12!\n\x14text_secondary_color\x18\n \x01(\tH\t\x88\x01\x01\x12\x18\n\x0bis_personal\x18\x0b \x01(\x08H\n\x88\x01\x01\x12\x17\n\ncreated_at\x18\x0c \x01(\tH\x0b\x88\x01\x01\x42\x05\n\x03_idB\x07\n\x05_nameB\x0b\n\t_fav_iconB\r\n\x0b_large_logoB\r\n\x0b_small_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_colorB\x11\n\x0f_tertiary_colorB\x15\n\x13_text_primary_colorB\x17\n\x15_text_secondary_colorB\x0e\n\x0c_is_personalB\r\n\x0b_created_at\"\xd1\x03\n\x11WorkspaceCreation\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08\x66\x61v_icon\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x17\n\nlarge_logo\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nsmall_logo\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x1b\n\x0etertiary_color\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x1f\n\x12text_primary_color\x18\x08 \x01(\tH\x07\x88\x01\x01\x12!\n\x14text_secondary_color\x18\t \x01(\tH\x08\x88\x01\x01\x12\x18\n\x0bis_personal\x18\n \x01(\x08H\t\x88\x01\x01\x42\x07\n\x05_nameB\x0b\n\t_fav_iconB\r\n\x0b_large_logoB\r\n\x0b_small_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_colorB\x11\n\x0f_tertiary_colorB\x15\n\x13_text_primary_colorB\x17\n\x15_text_secondary_colorB\x0e\n\x0c_is_personal\"\xa5\x03\n\x0fWorkspaceUpdate\x12\x11\n\x04name\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x15\n\x08\x66\x61v_icon\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x17\n\nlarge_logo\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x17\n\nsmall_logo\x18\x05 \x01(\tH\x03\x88\x01\x01\x12\x1a\n\rprimary_color\x18\x06 \x01(\tH\x04\x88\x01\x01\x12\x1c\n\x0fsecondary_color\x18\x07 \x01(\tH\x05\x88\x01\x01\x12\x1b\n\x0etertiary_color\x18\x08 \x01(\tH\x06\x88\x01\x01\x12\x1f\n\x12text_primary_color\x18\t \x01(\tH\x07\x88\x01\x01\x12!\n\x14text_secondary_color\x18\n \x01(\tH\x08\x88\x01\x01\x42\x07\n\x05_nameB\x0b\n\t_fav_iconB\r\n\x0b_large_logoB\r\n\x0b_small_logoB\x10\n\x0e_primary_colorB\x12\n\x10_secondary_colorB\x11\n\x0f_tertiary_colorB\x15\n\x13_text_primary_colorB\x17\n\x15_text_secondary_color\"\xb8\x02\n\rWorkspaceUser\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12.\n\x04role\x18\x03 \x01(\tB\x1b\xfa\x42\x18r\x16R\x05ownerR\x05\x61\x64minR\x06memberH\x02\x88\x01\x01\x12\x35\n\x06status\x18\x04 \x01(\tB \xfa\x42\x1dr\x1bR\x06\x61\x63tiveR\x07invitedR\x08\x64\x65\x63linedH\x03\x88\x01\x01\x12\x16\n\tcreate_at\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x16\n\tupdate_at\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_idB\x07\n\x05_roleB\t\n\x07_statusB\x0c\n\n_create_atB\x0c\n\n_update_at\"\x90\x01\n\x13WorkspaceUserUpdate\x12.\n\x04role\x18\x01 \x01(\tB\x1b\xfa\x42\x18r\x16R\x05ownerR\x05\x61\x64minR\x06memberH\x00\x88\x01\x01\x12\x35\n\x06status\x18\x02 \x01(\tB \xfa\x42\x1dr\x1bR\x06\x61\x63tiveR\x07invitedR\x08\x64\x65\x63linedH\x01\x88\x01\x01\x42\x07\n\x05_roleB\t\n\x07_status\"\xb1\x01\n\x0fWorkspacePlugin\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x14\n\x07payload\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x16\n\tcreate_at\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\n\n\x08_payloadB\x0c\n\n_create_at\"9\n\x15WorkspacePluginUpdate\x12\x14\n\x07payload\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\n\n\x08_payload\"q\n\x16WorkspaceResponseError\x12,\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x19.workspace.WorkspaceErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"B\n\x14WorkspaceListRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\n\n\x08_user_id\"\x82\x01\n\x15WorkspaceListResponse\x12(\n\nworkspaces\x18\x01 \x03(\x0b\x32\x14.workspace.Workspace\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\x88\x01\n\x16WorkspaceCreateRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x34\n\tworkspace\x18\x02 \x01(\x0b\x32\x1c.workspace.WorkspaceCreationH\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0c\n\n_workspace\"\x96\x01\n\x17WorkspaceCreateResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"w\n\x13WorkspaceGetRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"\x93\x01\n\x14WorkspaceGetResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"\x90\x01\n\x16WorkspaceUpdateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x32\n\tworkspace\x18\x02 \x01(\x0b\x32\x1a.workspace.WorkspaceUpdateH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_workspace\"\x96\x01\n\x17WorkspaceUpdateResponse\x12,\n\tworkspace\x18\x01 \x01(\x0b\x32\x14.workspace.WorkspaceH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x0c\n\n_workspaceB\x08\n\x06_error\"z\n\x16WorkspaceDeleteRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"Z\n\x17WorkspaceDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"P\n\x18WorkspaceUserListRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"\x8f\x01\n\x19WorkspaceUserListResponse\x12\x31\n\x0fworkspace_users\x18\x01 \x03(\x0b\x32\x18.workspace.WorkspaceUser\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"{\n\x17WorkspaceUserGetRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"\xa5\x01\n\x18WorkspaceUserGetResponse\x12\x35\n\x0eworkspace_user\x18\x01 \x01(\x0b\x32\x18.workspace.WorkspaceUserH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x11\n\x0f_workspace_userB\x08\n\x06_error\"\xce\x01\n\x1aWorkspaceUserUpdateRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12;\n\x0eworkspace_user\x18\x03 \x01(\x0b\x32\x1e.workspace.WorkspaceUserUpdateH\x02\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_idB\x11\n\x0f_workspace_user\"\xa8\x01\n\x1bWorkspaceUserUpdateResponse\x12\x35\n\x0eworkspace_user\x18\x01 \x01(\x0b\x32\x18.workspace.WorkspaceUserH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x11\n\x0f_workspace_userB\x08\n\x06_error\"~\n\x1aWorkspaceUserDeleteRequest\x12\x1e\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\n\n\x08_user_idB\x0f\n\r_workspace_id\"^\n\x1bWorkspaceUserDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"v\n\x1cWorkspacePluginCreateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x14\n\x07payload\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\n\n\x08_payload\"\xb0\x01\n\x1dWorkspacePluginCreateResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"\x81\x01\n\x19WorkspacePluginGetRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_id\"\xad\x01\n\x1aWorkspacePluginGetResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"R\n\x1aWorkspacePluginListRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"\x95\x01\n\x1bWorkspacePluginListResponse\x12\x35\n\x11workspace_plugins\x18\x01 \x03(\x0b\x32\x1a.workspace.WorkspacePlugin\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"\xda\x01\n\x1cWorkspacePluginUpdateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12?\n\x10workspace_plugin\x18\x03 \x01(\x0b\x32 .workspace.WorkspacePluginUpdateH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_idB\x13\n\x11_workspace_plugin\"\xb0\x01\n\x1dWorkspacePluginUpdateResponse\x12\x39\n\x10workspace_plugin\x18\x01 \x01(\x0b\x32\x1a.workspace.WorkspacePluginH\x00\x88\x01\x01\x12\x35\n\x05\x65rror\x18\x02 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x01\x88\x01\x01\x42\x13\n\x11_workspace_pluginB\x08\n\x06_error\"\x84\x01\n\x1cWorkspacePluginDeleteRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12 \n\tplugin_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_plugin_id\"`\n\x1dWorkspacePluginDeleteResponse\x12\x35\n\x05\x65rror\x18\x01 \x01(\x0b\x32!.workspace.WorkspaceResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*\x8b\x02\n\x0eWorkspaceError\x12\x16\n\x12WORKSPACE_NO_ERROR\x10\x00\x12\x17\n\x13WORKSPACE_NOT_FOUND\x10\x01\x12!\n\x1dWORKSPACE_USER_ALREADY_EXISTS\x10\x02\x12\x1c\n\x18WORKSPACE_USER_NOT_FOUND\x10\x03\x12!\n\x1dWORKSPACE_USER_ALREADY_ACTIVE\x10\x04\x12(\n$USER_ALREADY_HAVE_PERSONAL_WORKSPACE\x10\x05\x12\x1e\n\x1aWORKSPACE_PLUGIN_NOT_FOUND\x10\x06\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42\x32Z0github.com/jupyter-naas/naas-models/go/workspaceb\x06proto3')
 
 _WORKSPACEERROR = DESCRIPTOR.enum_types_by_name['WorkspaceError']
 WorkspaceError = enum_type_wrapper.EnumTypeWrapper(_WORKSPACEERROR)
@@ -31,6 +31,7 @@ INTERNAL_SERVER_ERROR = 1000
 
 
 _WORKSPACE = DESCRIPTOR.message_types_by_name['Workspace']
+_WORKSPACECREATION = DESCRIPTOR.message_types_by_name['WorkspaceCreation']
 _WORKSPACEUPDATE = DESCRIPTOR.message_types_by_name['WorkspaceUpdate']
 _WORKSPACEUSER = DESCRIPTOR.message_types_by_name['WorkspaceUser']
 _WORKSPACEUSERUPDATE = DESCRIPTOR.message_types_by_name['WorkspaceUserUpdate']
@@ -71,6 +72,13 @@ Workspace = _reflection.GeneratedProtocolMessageType('Workspace', (_message.Mess
   # @@protoc_insertion_point(class_scope:workspace.Workspace)
   })
 _sym_db.RegisterMessage(Workspace)
+
+WorkspaceCreation = _reflection.GeneratedProtocolMessageType('WorkspaceCreation', (_message.Message,), {
+  'DESCRIPTOR' : _WORKSPACECREATION,
+  '__module__' : 'workspace_pb2'
+  # @@protoc_insertion_point(class_scope:workspace.WorkspaceCreation)
+  })
+_sym_db.RegisterMessage(WorkspaceCreation)
 
 WorkspaceUpdate = _reflection.GeneratedProtocolMessageType('WorkspaceUpdate', (_message.Message,), {
   'DESCRIPTOR' : _WORKSPACEUPDATE,
@@ -376,76 +384,78 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _WORKSPACEPLUGINDELETEREQUEST.fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _WORKSPACEPLUGINDELETEREQUEST.fields_by_name['plugin_id']._options = None
   _WORKSPACEPLUGINDELETEREQUEST.fields_by_name['plugin_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _WORKSPACEERROR._serialized_start=5324
-  _WORKSPACEERROR._serialized_end=5591
+  _WORKSPACEERROR._serialized_start=6170
+  _WORKSPACEERROR._serialized_end=6437
   _WORKSPACE._serialized_start=47
-  _WORKSPACE._serialized_end=326
-  _WORKSPACEUPDATE._serialized_start=329
-  _WORKSPACEUPDATE._serialized_end=498
-  _WORKSPACEUSER._serialized_start=501
-  _WORKSPACEUSER._serialized_end=813
-  _WORKSPACEUSERUPDATE._serialized_start=816
-  _WORKSPACEUSERUPDATE._serialized_end=960
-  _WORKSPACEPLUGIN._serialized_start=963
-  _WORKSPACEPLUGIN._serialized_end=1140
-  _WORKSPACEPLUGINUPDATE._serialized_start=1142
-  _WORKSPACEPLUGINUPDATE._serialized_end=1199
-  _WORKSPACERESPONSEERROR._serialized_start=1201
-  _WORKSPACERESPONSEERROR._serialized_end=1314
-  _WORKSPACELISTREQUEST._serialized_start=1316
-  _WORKSPACELISTREQUEST._serialized_end=1382
-  _WORKSPACELISTRESPONSE._serialized_start=1385
-  _WORKSPACELISTRESPONSE._serialized_end=1515
-  _WORKSPACECREATEREQUEST._serialized_start=1518
-  _WORKSPACECREATEREQUEST._serialized_end=1780
-  _WORKSPACECREATERESPONSE._serialized_start=1783
-  _WORKSPACECREATERESPONSE._serialized_end=1933
-  _WORKSPACEGETREQUEST._serialized_start=1935
-  _WORKSPACEGETREQUEST._serialized_end=2054
-  _WORKSPACEGETRESPONSE._serialized_start=2057
-  _WORKSPACEGETRESPONSE._serialized_end=2204
-  _WORKSPACEUPDATEREQUEST._serialized_start=2207
-  _WORKSPACEUPDATEREQUEST._serialized_end=2351
-  _WORKSPACEUPDATERESPONSE._serialized_start=2354
-  _WORKSPACEUPDATERESPONSE._serialized_end=2504
-  _WORKSPACEDELETEREQUEST._serialized_start=2506
-  _WORKSPACEDELETEREQUEST._serialized_end=2628
-  _WORKSPACEDELETERESPONSE._serialized_start=2630
-  _WORKSPACEDELETERESPONSE._serialized_end=2720
-  _WORKSPACEUSERLISTREQUEST._serialized_start=2722
-  _WORKSPACEUSERLISTREQUEST._serialized_end=2802
-  _WORKSPACEUSERLISTRESPONSE._serialized_start=2805
-  _WORKSPACEUSERLISTRESPONSE._serialized_end=2948
-  _WORKSPACEUSERGETREQUEST._serialized_start=2950
-  _WORKSPACEUSERGETREQUEST._serialized_end=3073
-  _WORKSPACEUSERGETRESPONSE._serialized_start=3076
-  _WORKSPACEUSERGETRESPONSE._serialized_end=3241
-  _WORKSPACEUSERUPDATEREQUEST._serialized_start=3244
-  _WORKSPACEUSERUPDATEREQUEST._serialized_end=3450
-  _WORKSPACEUSERUPDATERESPONSE._serialized_start=3453
-  _WORKSPACEUSERUPDATERESPONSE._serialized_end=3621
-  _WORKSPACEUSERDELETEREQUEST._serialized_start=3623
-  _WORKSPACEUSERDELETEREQUEST._serialized_end=3749
-  _WORKSPACEUSERDELETERESPONSE._serialized_start=3751
-  _WORKSPACEUSERDELETERESPONSE._serialized_end=3845
-  _WORKSPACEPLUGINCREATEREQUEST._serialized_start=3847
-  _WORKSPACEPLUGINCREATEREQUEST._serialized_end=3965
-  _WORKSPACEPLUGINCREATERESPONSE._serialized_start=3968
-  _WORKSPACEPLUGINCREATERESPONSE._serialized_end=4144
-  _WORKSPACEPLUGINGETREQUEST._serialized_start=4147
-  _WORKSPACEPLUGINGETREQUEST._serialized_end=4276
-  _WORKSPACEPLUGINGETRESPONSE._serialized_start=4279
-  _WORKSPACEPLUGINGETRESPONSE._serialized_end=4452
-  _WORKSPACEPLUGINLISTREQUEST._serialized_start=4454
-  _WORKSPACEPLUGINLISTREQUEST._serialized_end=4536
-  _WORKSPACEPLUGINLISTRESPONSE._serialized_start=4539
-  _WORKSPACEPLUGINLISTRESPONSE._serialized_end=4688
-  _WORKSPACEPLUGINUPDATEREQUEST._serialized_start=4691
-  _WORKSPACEPLUGINUPDATEREQUEST._serialized_end=4909
-  _WORKSPACEPLUGINUPDATERESPONSE._serialized_start=4912
-  _WORKSPACEPLUGINUPDATERESPONSE._serialized_end=5088
-  _WORKSPACEPLUGINDELETEREQUEST._serialized_start=5091
-  _WORKSPACEPLUGINDELETEREQUEST._serialized_end=5223
-  _WORKSPACEPLUGINDELETERESPONSE._serialized_start=5225
-  _WORKSPACEPLUGINDELETERESPONSE._serialized_end=5321
+  _WORKSPACE._serialized_end=578
+  _WORKSPACECREATION._serialized_start=581
+  _WORKSPACECREATION._serialized_end=1046
+  _WORKSPACEUPDATE._serialized_start=1049
+  _WORKSPACEUPDATE._serialized_end=1470
+  _WORKSPACEUSER._serialized_start=1473
+  _WORKSPACEUSER._serialized_end=1785
+  _WORKSPACEUSERUPDATE._serialized_start=1788
+  _WORKSPACEUSERUPDATE._serialized_end=1932
+  _WORKSPACEPLUGIN._serialized_start=1935
+  _WORKSPACEPLUGIN._serialized_end=2112
+  _WORKSPACEPLUGINUPDATE._serialized_start=2114
+  _WORKSPACEPLUGINUPDATE._serialized_end=2171
+  _WORKSPACERESPONSEERROR._serialized_start=2173
+  _WORKSPACERESPONSEERROR._serialized_end=2286
+  _WORKSPACELISTREQUEST._serialized_start=2288
+  _WORKSPACELISTREQUEST._serialized_end=2354
+  _WORKSPACELISTRESPONSE._serialized_start=2357
+  _WORKSPACELISTRESPONSE._serialized_end=2487
+  _WORKSPACECREATEREQUEST._serialized_start=2490
+  _WORKSPACECREATEREQUEST._serialized_end=2626
+  _WORKSPACECREATERESPONSE._serialized_start=2629
+  _WORKSPACECREATERESPONSE._serialized_end=2779
+  _WORKSPACEGETREQUEST._serialized_start=2781
+  _WORKSPACEGETREQUEST._serialized_end=2900
+  _WORKSPACEGETRESPONSE._serialized_start=2903
+  _WORKSPACEGETRESPONSE._serialized_end=3050
+  _WORKSPACEUPDATEREQUEST._serialized_start=3053
+  _WORKSPACEUPDATEREQUEST._serialized_end=3197
+  _WORKSPACEUPDATERESPONSE._serialized_start=3200
+  _WORKSPACEUPDATERESPONSE._serialized_end=3350
+  _WORKSPACEDELETEREQUEST._serialized_start=3352
+  _WORKSPACEDELETEREQUEST._serialized_end=3474
+  _WORKSPACEDELETERESPONSE._serialized_start=3476
+  _WORKSPACEDELETERESPONSE._serialized_end=3566
+  _WORKSPACEUSERLISTREQUEST._serialized_start=3568
+  _WORKSPACEUSERLISTREQUEST._serialized_end=3648
+  _WORKSPACEUSERLISTRESPONSE._serialized_start=3651
+  _WORKSPACEUSERLISTRESPONSE._serialized_end=3794
+  _WORKSPACEUSERGETREQUEST._serialized_start=3796
+  _WORKSPACEUSERGETREQUEST._serialized_end=3919
+  _WORKSPACEUSERGETRESPONSE._serialized_start=3922
+  _WORKSPACEUSERGETRESPONSE._serialized_end=4087
+  _WORKSPACEUSERUPDATEREQUEST._serialized_start=4090
+  _WORKSPACEUSERUPDATEREQUEST._serialized_end=4296
+  _WORKSPACEUSERUPDATERESPONSE._serialized_start=4299
+  _WORKSPACEUSERUPDATERESPONSE._serialized_end=4467
+  _WORKSPACEUSERDELETEREQUEST._serialized_start=4469
+  _WORKSPACEUSERDELETEREQUEST._serialized_end=4595
+  _WORKSPACEUSERDELETERESPONSE._serialized_start=4597
+  _WORKSPACEUSERDELETERESPONSE._serialized_end=4691
+  _WORKSPACEPLUGINCREATEREQUEST._serialized_start=4693
+  _WORKSPACEPLUGINCREATEREQUEST._serialized_end=4811
+  _WORKSPACEPLUGINCREATERESPONSE._serialized_start=4814
+  _WORKSPACEPLUGINCREATERESPONSE._serialized_end=4990
+  _WORKSPACEPLUGINGETREQUEST._serialized_start=4993
+  _WORKSPACEPLUGINGETREQUEST._serialized_end=5122
+  _WORKSPACEPLUGINGETRESPONSE._serialized_start=5125
+  _WORKSPACEPLUGINGETRESPONSE._serialized_end=5298
+  _WORKSPACEPLUGINLISTREQUEST._serialized_start=5300
+  _WORKSPACEPLUGINLISTREQUEST._serialized_end=5382
+  _WORKSPACEPLUGINLISTRESPONSE._serialized_start=5385
+  _WORKSPACEPLUGINLISTRESPONSE._serialized_end=5534
+  _WORKSPACEPLUGINUPDATEREQUEST._serialized_start=5537
+  _WORKSPACEPLUGINUPDATEREQUEST._serialized_end=5755
+  _WORKSPACEPLUGINUPDATERESPONSE._serialized_start=5758
+  _WORKSPACEPLUGINUPDATERESPONSE._serialized_end=5934
+  _WORKSPACEPLUGINDELETEREQUEST._serialized_start=5937
+  _WORKSPACEPLUGINDELETEREQUEST._serialized_end=6069
+  _WORKSPACEPLUGINDELETERESPONSE._serialized_start=6071
+  _WORKSPACEPLUGINDELETERESPONSE._serialized_end=6167
 # @@protoc_insertion_point(module_scope)

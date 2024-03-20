@@ -80,8 +80,16 @@ func (m *Workspace) validate(all bool) error {
 		// no validation rules for Name
 	}
 
-	if m.Logo != nil {
-		// no validation rules for Logo
+	if m.FavIcon != nil {
+		// no validation rules for FavIcon
+	}
+
+	if m.LargeLogo != nil {
+		// no validation rules for LargeLogo
+	}
+
+	if m.SmallLogo != nil {
+		// no validation rules for SmallLogo
 	}
 
 	if m.PrimaryColor != nil {
@@ -90,6 +98,18 @@ func (m *Workspace) validate(all bool) error {
 
 	if m.SecondaryColor != nil {
 		// no validation rules for SecondaryColor
+	}
+
+	if m.TertiaryColor != nil {
+		// no validation rules for TertiaryColor
+	}
+
+	if m.TextPrimaryColor != nil {
+		// no validation rules for TextPrimaryColor
+	}
+
+	if m.TextSecondaryColor != nil {
+		// no validation rules for TextSecondaryColor
 	}
 
 	if m.IsPersonal != nil {
@@ -185,6 +205,148 @@ var _ interface {
 	ErrorName() string
 } = WorkspaceValidationError{}
 
+// Validate checks the field values on WorkspaceCreation with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceCreation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceCreation with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceCreationMultiError, or nil if none found.
+func (m *WorkspaceCreation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceCreation) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if m.FavIcon != nil {
+		// no validation rules for FavIcon
+	}
+
+	if m.LargeLogo != nil {
+		// no validation rules for LargeLogo
+	}
+
+	if m.SmallLogo != nil {
+		// no validation rules for SmallLogo
+	}
+
+	if m.PrimaryColor != nil {
+		// no validation rules for PrimaryColor
+	}
+
+	if m.SecondaryColor != nil {
+		// no validation rules for SecondaryColor
+	}
+
+	if m.TertiaryColor != nil {
+		// no validation rules for TertiaryColor
+	}
+
+	if m.TextPrimaryColor != nil {
+		// no validation rules for TextPrimaryColor
+	}
+
+	if m.TextSecondaryColor != nil {
+		// no validation rules for TextSecondaryColor
+	}
+
+	if m.IsPersonal != nil {
+		// no validation rules for IsPersonal
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceCreationMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceCreationMultiError is an error wrapping multiple validation errors
+// returned by WorkspaceCreation.ValidateAll() if the designated constraints
+// aren't met.
+type WorkspaceCreationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceCreationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceCreationMultiError) AllErrors() []error { return m }
+
+// WorkspaceCreationValidationError is the validation error returned by
+// WorkspaceCreation.Validate if the designated constraints aren't met.
+type WorkspaceCreationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceCreationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceCreationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceCreationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceCreationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceCreationValidationError) ErrorName() string {
+	return "WorkspaceCreationValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceCreationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceCreation.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceCreationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceCreationValidationError{}
+
 // Validate checks the field values on WorkspaceUpdate with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -211,8 +373,16 @@ func (m *WorkspaceUpdate) validate(all bool) error {
 		// no validation rules for Name
 	}
 
-	if m.Logo != nil {
-		// no validation rules for Logo
+	if m.FavIcon != nil {
+		// no validation rules for FavIcon
+	}
+
+	if m.LargeLogo != nil {
+		// no validation rules for LargeLogo
+	}
+
+	if m.SmallLogo != nil {
+		// no validation rules for SmallLogo
 	}
 
 	if m.PrimaryColor != nil {
@@ -221,6 +391,18 @@ func (m *WorkspaceUpdate) validate(all bool) error {
 
 	if m.SecondaryColor != nil {
 		// no validation rules for SecondaryColor
+	}
+
+	if m.TertiaryColor != nil {
+		// no validation rules for TertiaryColor
+	}
+
+	if m.TextPrimaryColor != nil {
+		// no validation rules for TextPrimaryColor
+	}
+
+	if m.TextSecondaryColor != nil {
+		// no validation rules for TextSecondaryColor
 	}
 
 	if len(errors) > 0 {
@@ -1332,24 +1514,37 @@ func (m *WorkspaceCreateRequest) validate(all bool) error {
 
 	}
 
-	if m.Name != nil {
-		// no validation rules for Name
-	}
+	if m.Workspace != nil {
 
-	if m.Logo != nil {
-		// no validation rules for Logo
-	}
+		if all {
+			switch v := interface{}(m.GetWorkspace()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceCreateRequestValidationError{
+						field:  "Workspace",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceCreateRequestValidationError{
+						field:  "Workspace",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspace()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceCreateRequestValidationError{
+					field:  "Workspace",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
 
-	if m.PrimaryColor != nil {
-		// no validation rules for PrimaryColor
-	}
-
-	if m.SecondaryColor != nil {
-		// no validation rules for SecondaryColor
-	}
-
-	if m.IsPersonal != nil {
-		// no validation rules for IsPersonal
 	}
 
 	if len(errors) > 0 {
