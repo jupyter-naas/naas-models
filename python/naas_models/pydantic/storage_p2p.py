@@ -248,8 +248,8 @@ class ObjectStorageS3Credentials(BaseModel):
     _one_of_dict = {"ObjectStorageS3Credentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageS3Credentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageS3Credentials._expiration": {"fields": {"expiration"}}, "ObjectStorageS3Credentials._region_name": {"fields": {"region_name"}}, "ObjectStorageS3Credentials._secret_key": {"fields": {"secret_key"}}, "ObjectStorageS3Credentials._session_token": {"fields": {"session_token"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    region_name: str = FieldInfo(default="") 
     endpoint_url: str = FieldInfo(default="") 
+    region_name: str = FieldInfo(default="") 
     access_key_id: str = FieldInfo(default="") 
     secret_key: str = FieldInfo(default="") 
     session_token: str = FieldInfo(default="") 
