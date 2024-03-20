@@ -2955,6 +2955,10 @@ func (m *ObjectStorageS3Credentials) validate(all bool) error {
 
 	var errors []error
 
+	if m.RegionName != nil {
+		// no validation rules for RegionName
+	}
+
 	if m.EndpointUrl != nil {
 		// no validation rules for EndpointUrl
 	}
@@ -2973,10 +2977,6 @@ func (m *ObjectStorageS3Credentials) validate(all bool) error {
 
 	if m.Expiration != nil {
 		// no validation rules for Expiration
-	}
-
-	if m.RegionName != nil {
-		// no validation rules for RegionName
 	}
 
 	if len(errors) > 0 {
