@@ -46,6 +46,17 @@ message ObjectResponseError {
     optional string message = 2;
 }
 
+enum CredentialsError {
+    CREDENTIALS_NO_ERROR = 0;
+
+}
+
+message ObjectStorageCredentialsResponseError {
+    optional CredentialsError error = 1;
+    optional string message = 2;
+}
+
+
 // Storage
 
 message StorageListRequest {
@@ -150,5 +161,5 @@ message ObjectStorageCredentialsRequest {
 
 message ObjectStorageCredentialsResponse {
     optional ObjectStorageCredentials credentials = 1;
-    optional StorageResponseError error = 2;
+    optional ObjectStorageCredentialsResponseError error = 2;
 }

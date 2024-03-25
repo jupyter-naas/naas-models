@@ -26,6 +26,10 @@ class ObjectError(IntEnum):
     OBJECT_DIR_NOT_EMPTY = 4
 
 
+class CredentialsError(IntEnum):
+    CREDENTIALS_NO_ERROR = 0
+
+
 
 
 class Storage(BaseModel):
@@ -69,6 +73,17 @@ class ObjectResponseError(BaseModel):
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     error: ObjectError = FieldInfo(default=0) 
+    message: str = FieldInfo(default="") 
+
+
+
+
+class ObjectStorageCredentialsResponseError(BaseModel):
+
+    _one_of_dict = {"ObjectStorageCredentialsResponseError._error": {"fields": {"error"}}, "ObjectStorageCredentialsResponseError._message": {"fields": {"message"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    error: CredentialsError = FieldInfo(default=0) 
     message: str = FieldInfo(default="") 
 
 
@@ -293,6 +308,6 @@ class ObjectStorageCredentialsResponse(BaseModel):
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     credentials: ObjectStorageCredentials = FieldInfo() 
-    error: StorageResponseError = FieldInfo() 
+    error: ObjectStorageCredentialsResponseError = FieldInfo() 
 
 
