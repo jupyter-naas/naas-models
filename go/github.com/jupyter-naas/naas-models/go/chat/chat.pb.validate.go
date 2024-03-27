@@ -35,6 +35,9 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _chat_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on MessageResponseError with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -4366,8 +4369,32 @@ func (m *ChatCompletionRequest) validate(all bool) error {
 		// no validation rules for Payload
 	}
 
+	if m.PluginId != nil {
+
+		if err := m._validateUuid(m.GetPluginId()); err != nil {
+			err = ChatCompletionRequestValidationError{
+				field:  "PluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return ChatCompletionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *ChatCompletionRequest) _validateUuid(uuid string) error {
+	if matched := _chat_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
