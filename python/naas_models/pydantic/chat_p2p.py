@@ -9,6 +9,7 @@ from protobuf_to_pydantic.customer_validator import check_one_of
 from pydantic import BaseModel
 from pydantic import root_validator
 from pydantic.fields import FieldInfo
+from uuid import UUID
 import typing
 
 
@@ -430,12 +431,13 @@ class BasePayload(BaseModel):
 
 class ChatCompletionRequest(BaseModel):
 
-    _one_of_dict = {"ChatCompletionRequest._id": {"fields": {"id"}}, "ChatCompletionRequest._model_id": {"fields": {"model_id"}}, "ChatCompletionRequest._payload": {"fields": {"payload"}}}
+    _one_of_dict = {"ChatCompletionRequest._id": {"fields": {"id"}}, "ChatCompletionRequest._model_id": {"fields": {"model_id"}}, "ChatCompletionRequest._payload": {"fields": {"payload"}}, "ChatCompletionRequest._plugin_id": {"fields": {"plugin_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: int = FieldInfo(default=0) 
     model_id: str = FieldInfo(default="") 
     payload: str = FieldInfo(default="") 
+    plugin_id: UUID = FieldInfo(default="") 
 
 
 

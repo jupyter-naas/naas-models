@@ -280,6 +280,7 @@ message ChatCompletionRequest {
     optional int32 id = 1;
     optional string model_id = 2;
     optional string payload = 3;
+    optional string plugin_id = 4 [(validate.rules).string.uuid = true];
 }
 
 message ChatStopCompletionRequest {
