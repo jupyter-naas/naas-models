@@ -22,7 +22,7 @@ class AssetError(IntEnum):
 
 class Asset(BaseModel):
 
-    _one_of_dict = {"Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._created_at": {"fields": {"created_at"}}, "Asset._id": {"fields": {"id"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._updated_at": {"fields": {"updated_at"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._created_at": {"fields": {"created_at"}}, "Asset._id": {"fields": {"id"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._updated_at": {"fields": {"updated_at"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: str = FieldInfo(default="") 
@@ -35,6 +35,7 @@ class Asset(BaseModel):
     content_disposition: str = FieldInfo(default="") 
     created_at: str = FieldInfo(default="") 
     updated_at: str = FieldInfo(default="") 
+    url: str = FieldInfo(default="") 
 
 
 

@@ -16,7 +16,7 @@ _sym_db = _symbol_database.Default()
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0b\x61sset.proto\x12\x05\x61sset\x1a\x0evalidate.proto\"\x93\x03\n\x05\x41sset\x12\x0f\n\x02id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x19\n\x0cworkspace_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07user_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x13\n\x06prefix\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x17\n\nversion_id\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x17\n\nvisibility\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0c\x63ontent_type\x18\x07 \x01(\tH\x06\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x17\n\ncreated_at\x18\t \x01(\tH\x08\x88\x01\x01\x12\x17\n\nupdated_at\x18\n \x01(\tH\t\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\n\n\x08_user_idB\t\n\x07_prefixB\r\n\x0b_version_idB\r\n\x0b_visibilityB\x0f\n\r_content_typeB\x16\n\x14_content_dispositionB\r\n\x0b_created_atB\r\n\x0b_updated_at\"\x91\x01\n\rAssetCreation\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x19\n\x0cstorage_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06object\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0f\n\r_storage_nameB\t\n\x07_object\"e\n\x12\x41ssetResponseError\x12$\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x11.asset.AssetErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"H\n\x12\x41ssetCreateRequest\x12(\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x14.asset.AssetCreationH\x00\x88\x01\x01\x42\x08\n\x06_asset\"z\n\x13\x41ssetCreateResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error*Q\n\nAssetError\x12\x12\n\x0e\x41SSET_NO_ERROR\x10\x00\x12\x13\n\x0f\x41SSET_NOT_FOUND\x10\x01\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42.Z,github.com/jupyter-naas/naas-models/go/assetb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0b\x61sset.proto\x12\x05\x61sset\x1a\x0evalidate.proto\"\xad\x03\n\x05\x41sset\x12\x0f\n\x02id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x19\n\x0cworkspace_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07user_id\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x13\n\x06prefix\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x17\n\nversion_id\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x17\n\nvisibility\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0c\x63ontent_type\x18\x07 \x01(\tH\x06\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x17\n\ncreated_at\x18\t \x01(\tH\x08\x88\x01\x01\x12\x17\n\nupdated_at\x18\n \x01(\tH\t\x88\x01\x01\x12\x10\n\x03url\x18\x0b \x01(\tH\n\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\n\n\x08_user_idB\t\n\x07_prefixB\r\n\x0b_version_idB\r\n\x0b_visibilityB\x0f\n\r_content_typeB\x16\n\x14_content_dispositionB\r\n\x0b_created_atB\r\n\x0b_updated_atB\x06\n\x04_url\"\x91\x01\n\rAssetCreation\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x19\n\x0cstorage_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06object\x18\x03 \x01(\tH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0f\n\r_storage_nameB\t\n\x07_object\"e\n\x12\x41ssetResponseError\x12$\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x11.asset.AssetErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"H\n\x12\x41ssetCreateRequest\x12(\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x14.asset.AssetCreationH\x00\x88\x01\x01\x42\x08\n\x06_asset\"z\n\x13\x41ssetCreateResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error*Q\n\nAssetError\x12\x12\n\x0e\x41SSET_NO_ERROR\x10\x00\x12\x13\n\x0f\x41SSET_NOT_FOUND\x10\x01\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42.Z,github.com/jupyter-naas/naas-models/go/assetb\x06proto3')
 
 _ASSETERROR = DESCRIPTOR.enum_types_by_name['AssetError']
 AssetError = enum_type_wrapper.EnumTypeWrapper(_ASSETERROR)
@@ -71,16 +71,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'Z,github.com/jupyter-naas/naas-models/go/asset'
   _ASSETCREATION.fields_by_name['workspace_id']._options = None
   _ASSETCREATION.fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _ASSETERROR._serialized_start=893
-  _ASSETERROR._serialized_end=974
+  _ASSETERROR._serialized_start=919
+  _ASSETERROR._serialized_end=1000
   _ASSET._serialized_start=39
-  _ASSET._serialized_end=442
-  _ASSETCREATION._serialized_start=445
-  _ASSETCREATION._serialized_end=590
-  _ASSETRESPONSEERROR._serialized_start=592
-  _ASSETRESPONSEERROR._serialized_end=693
-  _ASSETCREATEREQUEST._serialized_start=695
-  _ASSETCREATEREQUEST._serialized_end=767
-  _ASSETCREATERESPONSE._serialized_start=769
-  _ASSETCREATERESPONSE._serialized_end=891
+  _ASSET._serialized_end=468
+  _ASSETCREATION._serialized_start=471
+  _ASSETCREATION._serialized_end=616
+  _ASSETRESPONSEERROR._serialized_start=618
+  _ASSETRESPONSEERROR._serialized_end=719
+  _ASSETCREATEREQUEST._serialized_start=721
+  _ASSETCREATEREQUEST._serialized_end=793
+  _ASSETCREATERESPONSE._serialized_start=795
+  _ASSETCREATERESPONSE._serialized_end=917
 # @@protoc_insertion_point(module_scope)

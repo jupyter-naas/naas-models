@@ -17,6 +17,7 @@ message Asset {
  optional string content_disposition = 8;
  optional string created_at = 9;
  optional string updated_at = 10;
+ optional string url = 11;
  //optional timestamp created_at = 9;
  //optional timestamp updated_at = 10;
 }
