@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package asset;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/asset";
+
+import "validate.proto";
+
+message Asset {
+ optional string id = 1;
+ optional string workspace_id = 2;
+ optional string user_id = 3;
+ optional string prefix = 4;
+ optional string version_id = 5; // Default to NULL.
+ optional string visibility = 6;
+ optional string content_type = 7;
+ optional string content_disposition = 8;
+ optional string created_at = 9;
+ optional string updated_at = 10;
+ //optional timestamp created_at = 9;
+ //optional timestamp updated_at = 10;
+}
+
+message AssetCreation {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string storage_name = 2;
+    optional string object = 3;
+}
+
+enum AssetError {
+    ASSET_NO_ERROR = 0;
+    ASSET_NOT_FOUND = 1;
+
+    INTERNAL_SERVER_ERROR = 1000;
+}
+
+message AssetResponseError {
+    optional AssetError code = 1;
+    optional string message = 2;
+}
+
+//  Create
+message AssetCreateRequest {
+    optional AssetCreation asset = 1;
+}
+
+message AssetCreateResponse {
+    optional Asset asset = 1;
+    optional AssetResponseError error = 2;
+}
