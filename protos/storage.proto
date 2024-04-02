@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package storage;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/storage";
+
+import "validate.proto";
+
+message Storage {
+    optional string name = 1;    
+}
+
+message Object {
+    optional string name = 1;
+    optional string type = 2;
+    optional string prefix = 3;
+    optional string size = 4;
+    optional string lastmodified = 5;
+}
+
+/**
+*   Errors
+*/
+
+enum StorageError {
+    STORAGE_NO_ERROR = 0;
+    STORAGE_ALREADY_EXIST = 1;
+    STORAGE_NOT_FOUND = 2;
+}
+
+message StorageResponseError {
+    optional StorageError error = 1;
+    optional string message = 2;
+}
+
+enum ObjectError {
+    OBJECT_NO_ERROR = 0;
+    OBJECT_ALREADY_EXIST = 1;
+    OBJECT_SIZE_ERROR = 2;
+    OBJECT_NOT_FOUND = 3;
+    OBJECT_DIR_NOT_EMPTY = 4;
+}
+
+message ObjectResponseError {
+    optional ObjectError error = 1;
+    optional string message = 2;
+}
+
+enum CredentialsError {
+    CREDENTIALS_NO_ERROR = 0;
+
+}
+
+message ObjectStorageCredentialsResponseError {
+    optional CredentialsError error = 1;
+    optional string message = 2;
+}
+
+
+// Storage
+
+message StorageListRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message StorageListResponse {
+    repeated Storage storage = 1;
+    optional StorageResponseError error = 2;
+}
+
+message StorageCreateRequest {
+    optional Storage storage = 1;
+}
+
+message StorageCreateResponse {
+    optional StorageResponseError error = 1;
+}
+
+message StorageDeleteRequest {
+    optional Storage storage = 1;
+}
+
+message StorageDeleteResponse {
+    optional StorageResponseError error = 1;
+}
+
+message StorageListObjectRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message StorageListObjectResponse {
+    repeated Object object = 1;
+    optional StorageResponseError error = 2;
+}
+
+// Object
+
+message ObjectCreateRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message ObjectCreateResponse {
+    optional StorageResponseError error = 1;
+}
+
+message ObjectListRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message ObjectListResponse {
+    repeated Object object = 1;
+    optional ObjectResponseError error = 2;
+}
+
+message ObjectGetRequest {
+    optional Storage storage = 1;
+    optional Object object = 2;
+}
+
+message ObjectGetResponse {
+    optional Object object = 1;
+    optional ObjectResponseError error = 2;
+}
+
+message ObjectDeleteRequest {
+    optional Object object = 1;
+}
+
+message ObjectDeleteResponse {
+    optional ObjectResponseError error = 1;
+}
+
+// Credentials
+message ObjectStorageS3Credentials {    
+    optional string endpoint_url = 1;
+    optional string region_name = 2;    
+    optional string access_key_id = 3;
+    optional string secret_key = 4;
+    optional string session_token = 5;
+    optional string expiration = 6;
+}
+
+message ObjectStorageAzureCredentials {
+    optional string endpoint_url = 1;
+    optional string access_key_id = 2;
+    optional string secret_key = 3;
+}
+
+message ObjectStorageCredentials {
+    ObjectStorageS3Credentials s3 = 1;
+}
+
+message ObjectStorageCredentialsRequest {
+    //optional string workspace_id = 1;
+    optional Storage storage = 1;
+}
+
+message ObjectStorageCredentialsResponse {
+    optional ObjectStorageCredentials credentials = 1;
+    optional ObjectStorageCredentialsResponseError error = 2;
+}
