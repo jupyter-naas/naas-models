@@ -2,6 +2,7 @@
 # gen by protobuf_to_pydantic(https://github.com/so1n/protobuf_to_pydantic)
 # type: ignore
 
+from datetime import datetime
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
 from protobuf_to_pydantic.customer_validator import check_one_of
@@ -15,6 +16,7 @@ from uuid import UUID
 class AssetError(IntEnum):
     ASSET_NO_ERROR = 0
     ASSET_NOT_FOUND = 1
+    ASSET_PARAMETER_ERROR = 2
     INTERNAL_SERVER_ERROR = 1000
 
 
@@ -22,19 +24,21 @@ class AssetError(IntEnum):
 
 class Asset(BaseModel):
 
-    _one_of_dict = {"Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._created_at": {"fields": {"created_at"}}, "Asset._id": {"fields": {"id"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._updated_at": {"fields": {"updated_at"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"Asset._asset_created_at": {"fields": {"asset_created_at"}}, "Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._id": {"fields": {"id"}}, "Asset._object_name": {"fields": {"object_name"}}, "Asset._object_updated_at": {"fields": {"object_updated_at"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._provider": {"fields": {"provider"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    id: str = FieldInfo(default="") 
-    workspace_id: str = FieldInfo(default="") 
-    user_id: str = FieldInfo(default="") 
+    id: UUID = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+    user_id: UUID = FieldInfo(default="") 
+    provider: str = FieldInfo(default="") 
+    object_name: str = FieldInfo(default="") 
     prefix: str = FieldInfo(default="") 
+    object_updated_at: datetime = FieldInfo(default_factory=datetime.now) 
     version_id: str = FieldInfo(default="") 
     visibility: str = FieldInfo(default="") 
     content_type: str = FieldInfo(default="") 
     content_disposition: str = FieldInfo(default="") 
-    created_at: str = FieldInfo(default="") 
-    updated_at: str = FieldInfo(default="") 
+    asset_created_at: datetime = FieldInfo(default_factory=datetime.now) 
     url: str = FieldInfo(default="") 
 
 
@@ -42,12 +46,24 @@ class Asset(BaseModel):
 
 class AssetCreation(BaseModel):
 
-    _one_of_dict = {"AssetCreation._object": {"fields": {"object"}}, "AssetCreation._storage_name": {"fields": {"storage_name"}}, "AssetCreation._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"AssetCreation._object_name": {"fields": {"object_name"}}, "AssetCreation._object_version_id": {"fields": {"object_version_id"}}, "AssetCreation._storage_name": {"fields": {"storage_name"}}, "AssetCreation._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     workspace_id: UUID = FieldInfo(default="") 
     storage_name: str = FieldInfo(default="") 
-    object: str = FieldInfo(default="") 
+    object_name: str = FieldInfo(default="") 
+    object_version_id: str = FieldInfo(default="") 
+
+
+
+
+class AssetUpdate(BaseModel):
+
+    _one_of_dict = {"AssetUpdate._content_disposition": {"fields": {"content_disposition"}}, "AssetUpdate._visibility": {"fields": {"visibility"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    visibility: str = FieldInfo(default="") 
+    content_disposition: str = FieldInfo(default="") 
 
 
 
@@ -79,6 +95,94 @@ class AssetCreateResponse(BaseModel):
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     asset: Asset = FieldInfo() 
+    error: AssetResponseError = FieldInfo() 
+
+
+
+
+class AssetGetRequest(BaseModel):
+
+    _one_of_dict = {"AssetGetRequest._asset_id": {"fields": {"asset_id"}}, "AssetGetRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    asset_id: UUID = FieldInfo(default="") 
+
+
+
+
+class AssetGetResponse(BaseModel):
+
+    _one_of_dict = {"AssetGetResponse._asset": {"fields": {"asset"}}, "AssetGetResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    asset: Asset = FieldInfo() 
+    error: AssetResponseError = FieldInfo() 
+
+
+
+
+class AssetGetObjectRequest(BaseModel):
+
+    _one_of_dict = {"AssetGetObjectRequest._asset_id": {"fields": {"asset_id"}}, "AssetGetObjectRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    asset_id: UUID = FieldInfo(default="") 
+
+
+
+
+class AssetGetObjectResponse(BaseModel):
+
+    _one_of_dict = {"AssetGetObjectResponse._error": {"fields": {"error"}}, "AssetGetObjectResponse._url": {"fields": {"url"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    url: str = FieldInfo(default="") 
+    error: AssetResponseError = FieldInfo() 
+
+
+
+
+class AssetUpdateRequest(BaseModel):
+
+    _one_of_dict = {"AssetUpdateRequest._asset": {"fields": {"asset"}}, "AssetUpdateRequest._asset_id": {"fields": {"asset_id"}}, "AssetUpdateRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    asset_id: UUID = FieldInfo(default="") 
+    asset: AssetUpdate = FieldInfo() 
+
+
+
+
+class AssetUpdateResponse(BaseModel):
+
+    _one_of_dict = {"AssetUpdateResponse._asset": {"fields": {"asset"}}, "AssetUpdateResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    asset: Asset = FieldInfo() 
+    error: AssetResponseError = FieldInfo() 
+
+
+
+
+class AssetDeleteRequest(BaseModel):
+
+    _one_of_dict = {"AssetDeleteRequest._asset_id": {"fields": {"asset_id"}}, "AssetDeleteRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    workspace_id: UUID = FieldInfo(default="") 
+    asset_id: UUID = FieldInfo(default="") 
+
+
+
+
+class AssetDeleteResponse(BaseModel):
+
+    _one_of_dict = {"AssetDeleteResponse._error": {"fields": {"error"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
     error: AssetResponseError = FieldInfo() 
 
 

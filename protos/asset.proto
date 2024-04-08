@@ -4,33 +4,45 @@ package asset;
 
 option go_package = "github.com/jupyter-naas/naas-models/go/asset";
 
+import "google/protobuf/timestamp.proto";
 import "validate.proto";
 
 message Asset {
- optional string id = 1;
- optional string workspace_id = 2;
- optional string user_id = 3;
- optional string prefix = 4;
- optional string version_id = 5; // Default to NULL.
- optional string visibility = 6;
- optional string content_type = 7;
- optional string content_disposition = 8;
- optional string created_at = 9;
- optional string updated_at = 10;
- optional string url = 11;
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string user_id = 3 [(validate.rules).string.uuid = true];
+    optional string provider = 4;
+    optional string object_name = 5;
+    optional string prefix = 6;
+    optional google.protobuf.Timestamp object_updated_at = 7;
+    optional string version_id = 8; // Default to NULL.
+    optional string visibility = 9;
+    optional string content_type = 10;
+    optional string content_disposition = 11;
+    optional google.protobuf.Timestamp asset_created_at = 12;
+    optional string url = 13;
+}
  //optional timestamp created_at = 9;
  //optional timestamp updated_at = 10;
-}
 
 message AssetCreation {
     optional string workspace_id = 1 [(validate.rules).string.uuid = true];
     optional string storage_name = 2;
-    optional string object = 3;
+    optional string object_name = 3;
+    optional string object_version_id = 4;
+    // optional string visibility = 4;    
+    // optional bool public = 5;
+    // optional bool visible = 6;
+}
+message AssetUpdate {
+    optional string visibility = 1;
+    optional string content_disposition = 2;
 }
 
 enum AssetError {
     ASSET_NO_ERROR = 0;
     ASSET_NOT_FOUND = 1;
+    ASSET_PARAMETER_ERROR = 2;
 
     INTERNAL_SERVER_ERROR = 1000;
 }
@@ -40,7 +52,7 @@ message AssetResponseError {
     optional string message = 2;
 }
 
-//  Create
+//  Asset Create
 message AssetCreateRequest {
     optional AssetCreation asset = 1;
 }
@@ -48,4 +60,48 @@ message AssetCreateRequest {
 message AssetCreateResponse {
     optional Asset asset = 1;
     optional AssetResponseError error = 2;
+}
+
+// Asset Get
+message AssetGetRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string asset_id = 2 [(validate.rules).string.uuid = true]; 
+}
+
+message AssetGetResponse {
+    optional Asset asset = 1;
+    optional AssetResponseError error = 2;
+}
+
+// Asset Get Object
+message AssetGetObjectRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string asset_id = 2 [(validate.rules).string.uuid = true]; 
+}
+
+message AssetGetObjectResponse {
+    optional string url = 1;
+    optional AssetResponseError error = 2;
+}
+
+// Asset Update
+message AssetUpdateRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string asset_id = 2 [(validate.rules).string.uuid = true];
+    optional AssetUpdate asset = 3;
+}
+
+message AssetUpdateResponse {
+    optional Asset asset = 1;
+    optional AssetResponseError error = 2;
+}
+
+// Asset Delete
+message AssetDeleteRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string asset_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message AssetDeleteResponse {
+    optional AssetResponseError error = 1;
 }
