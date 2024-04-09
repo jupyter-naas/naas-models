@@ -75,6 +75,10 @@ func (m *Asset) validate(all bool) error {
 
 	}
 
+	if m.Url != nil {
+		// no validation rules for Url
+	}
+
 	if m.WorkspaceId != nil {
 
 		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
@@ -89,6 +93,22 @@ func (m *Asset) validate(all bool) error {
 			errors = append(errors, err)
 		}
 
+	}
+
+	if m.StorageName != nil {
+		// no validation rules for StorageName
+	}
+
+	if m.Prefix != nil {
+		// no validation rules for Prefix
+	}
+
+	if m.ObjectName != nil {
+		// no validation rules for ObjectName
+	}
+
+	if m.VersionId != nil {
+		// no validation rules for VersionId
 	}
 
 	if m.UserId != nil {
@@ -107,16 +127,16 @@ func (m *Asset) validate(all bool) error {
 
 	}
 
+	if m.Password != nil {
+		// no validation rules for Password
+	}
+
 	if m.Provider != nil {
 		// no validation rules for Provider
 	}
 
-	if m.ObjectName != nil {
-		// no validation rules for ObjectName
-	}
-
-	if m.Prefix != nil {
-		// no validation rules for Prefix
+	if m.ProviderBucketName != nil {
+		// no validation rules for ProviderBucketName
 	}
 
 	if m.ObjectUpdatedAt != nil {
@@ -150,10 +170,6 @@ func (m *Asset) validate(all bool) error {
 			}
 		}
 
-	}
-
-	if m.VersionId != nil {
-		// no validation rules for VersionId
 	}
 
 	if m.Visibility != nil {
@@ -199,10 +215,6 @@ func (m *Asset) validate(all bool) error {
 			}
 		}
 
-	}
-
-	if m.Url != nil {
-		// no validation rules for Url
 	}
 
 	if len(errors) > 0 {
@@ -1555,46 +1567,14 @@ func (m *AssetUpdateRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.WorkspaceId != nil {
-
-		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
-			err = AssetUpdateRequestValidationError{
-				field:  "WorkspaceId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.AssetId != nil {
-
-		if err := m._validateUuid(m.GetAssetId()); err != nil {
-			err = AssetUpdateRequestValidationError{
-				field:  "AssetId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.Asset != nil {
+	if m.AssetUpdate != nil {
 
 		if all {
-			switch v := interface{}(m.GetAsset()).(type) {
+			switch v := interface{}(m.GetAssetUpdate()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, AssetUpdateRequestValidationError{
-						field:  "Asset",
+						field:  "AssetUpdate",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1602,16 +1582,16 @@ func (m *AssetUpdateRequest) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, AssetUpdateRequestValidationError{
-						field:  "Asset",
+						field:  "AssetUpdate",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetAsset()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetAssetUpdate()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return AssetUpdateRequestValidationError{
-					field:  "Asset",
+					field:  "AssetUpdate",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1622,14 +1602,6 @@ func (m *AssetUpdateRequest) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return AssetUpdateRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *AssetUpdateRequest) _validateUuid(uuid string) error {
-	if matched := _asset_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1729,39 +1701,6 @@ func (m *AssetUpdateResponse) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if m.Asset != nil {
-
-		if all {
-			switch v := interface{}(m.GetAsset()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, AssetUpdateResponseValidationError{
-						field:  "Asset",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, AssetUpdateResponseValidationError{
-						field:  "Asset",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetAsset()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return AssetUpdateResponseValidationError{
-					field:  "Asset",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
 
 	if m.Error != nil {
 

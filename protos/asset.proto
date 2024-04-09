@@ -9,18 +9,21 @@ import "validate.proto";
 
 message Asset {
     optional string id = 1 [(validate.rules).string.uuid = true];
-    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
-    optional string user_id = 3 [(validate.rules).string.uuid = true];
-    optional string provider = 4;
-    optional string object_name = 5;
-    optional string prefix = 6;
-    optional google.protobuf.Timestamp object_updated_at = 7;
-    optional string version_id = 8; // Default to NULL.
-    optional string visibility = 9;
-    optional string content_type = 10;
-    optional string content_disposition = 11;
-    optional google.protobuf.Timestamp asset_created_at = 12;
-    optional string url = 13;
+    optional string url = 2;    
+    optional string workspace_id = 3 [(validate.rules).string.uuid = true];
+    optional string storage_name = 4;
+    optional string prefix = 5;    
+    optional string object_name = 6;
+    optional string version_id = 7;
+    optional string user_id = 8 [(validate.rules).string.uuid = true];
+    optional string password = 9;
+    optional string provider = 10;
+    optional string provider_bucket_name = 11;
+    optional google.protobuf.Timestamp object_updated_at = 12;
+    optional string visibility = 13;
+    optional string content_type = 14;
+    optional string content_disposition = 15;
+    optional google.protobuf.Timestamp asset_created_at = 16;
 }
  //optional timestamp created_at = 9;
  //optional timestamp updated_at = 10;
@@ -43,6 +46,7 @@ enum AssetError {
     ASSET_NO_ERROR = 0;
     ASSET_NOT_FOUND = 1;
     ASSET_PARAMETER_ERROR = 2;
+    ASSET_ALREADY_EXISTS = 3;
 
     INTERNAL_SERVER_ERROR = 1000;
 }
@@ -86,14 +90,11 @@ message AssetGetObjectResponse {
 
 // Asset Update
 message AssetUpdateRequest {
-    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
-    optional string asset_id = 2 [(validate.rules).string.uuid = true];
-    optional AssetUpdate asset = 3;
+    optional AssetUpdate asset_update = 1;
 }
 
 message AssetUpdateResponse {
-    optional Asset asset = 1;
-    optional AssetResponseError error = 2;
+    optional AssetResponseError error = 1;
 }
 
 // Asset Delete

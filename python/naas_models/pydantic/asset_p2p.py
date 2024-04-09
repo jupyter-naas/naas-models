@@ -17,6 +17,7 @@ class AssetError(IntEnum):
     ASSET_NO_ERROR = 0
     ASSET_NOT_FOUND = 1
     ASSET_PARAMETER_ERROR = 2
+    ASSET_ALREADY_EXISTS = 3
     INTERNAL_SERVER_ERROR = 1000
 
 
@@ -24,22 +25,25 @@ class AssetError(IntEnum):
 
 class Asset(BaseModel):
 
-    _one_of_dict = {"Asset._asset_created_at": {"fields": {"asset_created_at"}}, "Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._id": {"fields": {"id"}}, "Asset._object_name": {"fields": {"object_name"}}, "Asset._object_updated_at": {"fields": {"object_updated_at"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._provider": {"fields": {"provider"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"Asset._asset_created_at": {"fields": {"asset_created_at"}}, "Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._id": {"fields": {"id"}}, "Asset._object_name": {"fields": {"object_name"}}, "Asset._object_updated_at": {"fields": {"object_updated_at"}}, "Asset._password": {"fields": {"password"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._provider": {"fields": {"provider"}}, "Asset._provider_bucket_name": {"fields": {"provider_bucket_name"}}, "Asset._storage_name": {"fields": {"storage_name"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._version_id": {"fields": {"version_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: UUID = FieldInfo(default="") 
+    url: str = FieldInfo(default="") 
     workspace_id: UUID = FieldInfo(default="") 
-    user_id: UUID = FieldInfo(default="") 
-    provider: str = FieldInfo(default="") 
-    object_name: str = FieldInfo(default="") 
+    storage_name: str = FieldInfo(default="") 
     prefix: str = FieldInfo(default="") 
-    object_updated_at: datetime = FieldInfo(default_factory=datetime.now) 
+    object_name: str = FieldInfo(default="") 
     version_id: str = FieldInfo(default="") 
+    user_id: UUID = FieldInfo(default="") 
+    password: str = FieldInfo(default="") 
+    provider: str = FieldInfo(default="") 
+    provider_bucket_name: str = FieldInfo(default="") 
+    object_updated_at: datetime = FieldInfo(default_factory=datetime.now) 
     visibility: str = FieldInfo(default="") 
     content_type: str = FieldInfo(default="") 
     content_disposition: str = FieldInfo(default="") 
     asset_created_at: datetime = FieldInfo(default_factory=datetime.now) 
-    url: str = FieldInfo(default="") 
 
 
 
@@ -146,22 +150,19 @@ class AssetGetObjectResponse(BaseModel):
 
 class AssetUpdateRequest(BaseModel):
 
-    _one_of_dict = {"AssetUpdateRequest._asset": {"fields": {"asset"}}, "AssetUpdateRequest._asset_id": {"fields": {"asset_id"}}, "AssetUpdateRequest._workspace_id": {"fields": {"workspace_id"}}}
+    _one_of_dict = {"AssetUpdateRequest._asset_update": {"fields": {"asset_update"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    workspace_id: UUID = FieldInfo(default="") 
-    asset_id: UUID = FieldInfo(default="") 
-    asset: AssetUpdate = FieldInfo() 
+    asset_update: AssetUpdate = FieldInfo() 
 
 
 
 
 class AssetUpdateResponse(BaseModel):
 
-    _one_of_dict = {"AssetUpdateResponse._asset": {"fields": {"asset"}}, "AssetUpdateResponse._error": {"fields": {"error"}}}
+    _one_of_dict = {"AssetUpdateResponse._error": {"fields": {"error"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    asset: Asset = FieldInfo() 
     error: AssetResponseError = FieldInfo() 
 
 

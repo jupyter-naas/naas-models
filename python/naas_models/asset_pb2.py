@@ -17,13 +17,14 @@ from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__
 import naas_models.validate_pb2 as validate__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0b\x61sset.proto\x12\x05\x61sset\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0evalidate.proto\"\xeb\x04\n\x05\x41sset\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x1e\n\x07user_id\x18\x03 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x02\x88\x01\x01\x12\x15\n\x08provider\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0bobject_name\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x13\n\x06prefix\x18\x06 \x01(\tH\x05\x88\x01\x01\x12:\n\x11object_updated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x06\x88\x01\x01\x12\x17\n\nversion_id\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x17\n\nvisibility\x18\t \x01(\tH\x08\x88\x01\x01\x12\x19\n\x0c\x63ontent_type\x18\n \x01(\tH\t\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x0b \x01(\tH\n\x88\x01\x01\x12\x39\n\x10\x61sset_created_at\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x0b\x88\x01\x01\x12\x10\n\x03url\x18\r \x01(\tH\x0c\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\n\n\x08_user_idB\x0b\n\t_providerB\x0e\n\x0c_object_nameB\t\n\x07_prefixB\x14\n\x12_object_updated_atB\r\n\x0b_version_idB\r\n\x0b_visibilityB\x0f\n\r_content_typeB\x16\n\x14_content_dispositionB\x13\n\x11_asset_created_atB\x06\n\x04_url\"\xd1\x01\n\rAssetCreation\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x19\n\x0cstorage_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0bobject_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1e\n\x11object_version_id\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0f\n\r_storage_nameB\x0e\n\x0c_object_nameB\x14\n\x12_object_version_id\"o\n\x0b\x41ssetUpdate\x12\x17\n\nvisibility\x18\x01 \x01(\tH\x00\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\r\n\x0b_visibilityB\x16\n\x14_content_disposition\"e\n\x12\x41ssetResponseError\x12$\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x11.asset.AssetErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"H\n\x12\x41ssetCreateRequest\x12(\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x14.asset.AssetCreationH\x00\x88\x01\x01\x42\x08\n\x06_asset\"z\n\x13\x41ssetCreateResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error\"u\n\x0f\x41ssetGetRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"w\n\x10\x41ssetGetResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error\"{\n\x15\x41ssetGetObjectRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"k\n\x16\x41ssetGetObjectResponse\x12\x10\n\x03url\x18\x01 \x01(\tH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x06\n\x04_urlB\x08\n\x06_error\"\xaa\x01\n\x12\x41ssetUpdateRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12&\n\x05\x61sset\x18\x03 \x01(\x0b\x32\x12.asset.AssetUpdateH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_idB\x08\n\x06_asset\"z\n\x13\x41ssetUpdateResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error\"x\n\x12\x41ssetDeleteRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"N\n\x13\x41ssetDeleteResponse\x12-\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*l\n\nAssetError\x12\x12\n\x0e\x41SSET_NO_ERROR\x10\x00\x12\x13\n\x0f\x41SSET_NOT_FOUND\x10\x01\x12\x19\n\x15\x41SSET_PARAMETER_ERROR\x10\x02\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42.Z,github.com/jupyter-naas/naas-models/go/assetb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0b\x61sset.proto\x12\x05\x61sset\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0evalidate.proto\"\xf7\x05\n\x05\x41sset\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x10\n\x03url\x18\x02 \x01(\tH\x01\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x03 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x02\x88\x01\x01\x12\x19\n\x0cstorage_name\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x13\n\x06prefix\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x18\n\x0bobject_name\x18\x06 \x01(\tH\x05\x88\x01\x01\x12\x17\n\nversion_id\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x1e\n\x07user_id\x18\x08 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x07\x88\x01\x01\x12\x15\n\x08password\x18\t \x01(\tH\x08\x88\x01\x01\x12\x15\n\x08provider\x18\n \x01(\tH\t\x88\x01\x01\x12!\n\x14provider_bucket_name\x18\x0b \x01(\tH\n\x88\x01\x01\x12:\n\x11object_updated_at\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x0b\x88\x01\x01\x12\x17\n\nvisibility\x18\r \x01(\tH\x0c\x88\x01\x01\x12\x19\n\x0c\x63ontent_type\x18\x0e \x01(\tH\r\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x0f \x01(\tH\x0e\x88\x01\x01\x12\x39\n\x10\x61sset_created_at\x18\x10 \x01(\x0b\x32\x1a.google.protobuf.TimestampH\x0f\x88\x01\x01\x42\x05\n\x03_idB\x06\n\x04_urlB\x0f\n\r_workspace_idB\x0f\n\r_storage_nameB\t\n\x07_prefixB\x0e\n\x0c_object_nameB\r\n\x0b_version_idB\n\n\x08_user_idB\x0b\n\t_passwordB\x0b\n\t_providerB\x17\n\x15_provider_bucket_nameB\x14\n\x12_object_updated_atB\r\n\x0b_visibilityB\x0f\n\r_content_typeB\x16\n\x14_content_dispositionB\x13\n\x11_asset_created_at\"\xd1\x01\n\rAssetCreation\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x19\n\x0cstorage_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x18\n\x0bobject_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x1e\n\x11object_version_id\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0f\n\r_storage_nameB\x0e\n\x0c_object_nameB\x14\n\x12_object_version_id\"o\n\x0b\x41ssetUpdate\x12\x17\n\nvisibility\x18\x01 \x01(\tH\x00\x88\x01\x01\x12 \n\x13\x63ontent_disposition\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\r\n\x0b_visibilityB\x16\n\x14_content_disposition\"e\n\x12\x41ssetResponseError\x12$\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x11.asset.AssetErrorH\x00\x88\x01\x01\x12\x14\n\x07message\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_codeB\n\n\x08_message\"H\n\x12\x41ssetCreateRequest\x12(\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x14.asset.AssetCreationH\x00\x88\x01\x01\x42\x08\n\x06_asset\"z\n\x13\x41ssetCreateResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error\"u\n\x0f\x41ssetGetRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"w\n\x10\x41ssetGetResponse\x12 \n\x05\x61sset\x18\x01 \x01(\x0b\x32\x0c.asset.AssetH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x08\n\x06_assetB\x08\n\x06_error\"{\n\x15\x41ssetGetObjectRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"k\n\x16\x41ssetGetObjectResponse\x12\x10\n\x03url\x18\x01 \x01(\tH\x00\x88\x01\x01\x12-\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x01\x88\x01\x01\x42\x06\n\x04_urlB\x08\n\x06_error\"T\n\x12\x41ssetUpdateRequest\x12-\n\x0c\x61sset_update\x18\x01 \x01(\x0b\x32\x12.asset.AssetUpdateH\x00\x88\x01\x01\x42\x0f\n\r_asset_update\"N\n\x13\x41ssetUpdateResponse\x12-\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error\"x\n\x12\x41ssetDeleteRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1f\n\x08\x61sset_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0b\n\t_asset_id\"N\n\x13\x41ssetDeleteResponse\x12-\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x19.asset.AssetResponseErrorH\x00\x88\x01\x01\x42\x08\n\x06_error*\x86\x01\n\nAssetError\x12\x12\n\x0e\x41SSET_NO_ERROR\x10\x00\x12\x13\n\x0f\x41SSET_NOT_FOUND\x10\x01\x12\x19\n\x15\x41SSET_PARAMETER_ERROR\x10\x02\x12\x18\n\x14\x41SSET_ALREADY_EXISTS\x10\x03\x12\x1a\n\x15INTERNAL_SERVER_ERROR\x10\xe8\x07\x42.Z,github.com/jupyter-naas/naas-models/go/assetb\x06proto3')
 
 _ASSETERROR = DESCRIPTOR.enum_types_by_name['AssetError']
 AssetError = enum_type_wrapper.EnumTypeWrapper(_ASSETERROR)
 ASSET_NO_ERROR = 0
 ASSET_NOT_FOUND = 1
 ASSET_PARAMETER_ERROR = 2
+ASSET_ALREADY_EXISTS = 3
 INTERNAL_SERVER_ERROR = 1000
 
 
@@ -159,42 +160,38 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _ASSETGETOBJECTREQUEST.fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _ASSETGETOBJECTREQUEST.fields_by_name['asset_id']._options = None
   _ASSETGETOBJECTREQUEST.fields_by_name['asset_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _ASSETUPDATEREQUEST.fields_by_name['workspace_id']._options = None
-  _ASSETUPDATEREQUEST.fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _ASSETUPDATEREQUEST.fields_by_name['asset_id']._options = None
-  _ASSETUPDATEREQUEST.fields_by_name['asset_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _ASSETDELETEREQUEST.fields_by_name['workspace_id']._options = None
   _ASSETDELETEREQUEST.fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _ASSETDELETEREQUEST.fields_by_name['asset_id']._options = None
   _ASSETDELETEREQUEST.fields_by_name['asset_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _ASSETERROR._serialized_start=2292
-  _ASSETERROR._serialized_end=2400
+  _ASSETERROR._serialized_start=2302
+  _ASSETERROR._serialized_end=2436
   _ASSET._serialized_start=72
-  _ASSET._serialized_end=691
-  _ASSETCREATION._serialized_start=694
-  _ASSETCREATION._serialized_end=903
-  _ASSETUPDATE._serialized_start=905
-  _ASSETUPDATE._serialized_end=1016
-  _ASSETRESPONSEERROR._serialized_start=1018
-  _ASSETRESPONSEERROR._serialized_end=1119
-  _ASSETCREATEREQUEST._serialized_start=1121
-  _ASSETCREATEREQUEST._serialized_end=1193
-  _ASSETCREATERESPONSE._serialized_start=1195
-  _ASSETCREATERESPONSE._serialized_end=1317
-  _ASSETGETREQUEST._serialized_start=1319
-  _ASSETGETREQUEST._serialized_end=1436
-  _ASSETGETRESPONSE._serialized_start=1438
-  _ASSETGETRESPONSE._serialized_end=1557
-  _ASSETGETOBJECTREQUEST._serialized_start=1559
-  _ASSETGETOBJECTREQUEST._serialized_end=1682
-  _ASSETGETOBJECTRESPONSE._serialized_start=1684
-  _ASSETGETOBJECTRESPONSE._serialized_end=1791
-  _ASSETUPDATEREQUEST._serialized_start=1794
-  _ASSETUPDATEREQUEST._serialized_end=1964
-  _ASSETUPDATERESPONSE._serialized_start=1966
-  _ASSETUPDATERESPONSE._serialized_end=2088
-  _ASSETDELETEREQUEST._serialized_start=2090
-  _ASSETDELETEREQUEST._serialized_end=2210
-  _ASSETDELETERESPONSE._serialized_start=2212
-  _ASSETDELETERESPONSE._serialized_end=2290
+  _ASSET._serialized_end=831
+  _ASSETCREATION._serialized_start=834
+  _ASSETCREATION._serialized_end=1043
+  _ASSETUPDATE._serialized_start=1045
+  _ASSETUPDATE._serialized_end=1156
+  _ASSETRESPONSEERROR._serialized_start=1158
+  _ASSETRESPONSEERROR._serialized_end=1259
+  _ASSETCREATEREQUEST._serialized_start=1261
+  _ASSETCREATEREQUEST._serialized_end=1333
+  _ASSETCREATERESPONSE._serialized_start=1335
+  _ASSETCREATERESPONSE._serialized_end=1457
+  _ASSETGETREQUEST._serialized_start=1459
+  _ASSETGETREQUEST._serialized_end=1576
+  _ASSETGETRESPONSE._serialized_start=1578
+  _ASSETGETRESPONSE._serialized_end=1697
+  _ASSETGETOBJECTREQUEST._serialized_start=1699
+  _ASSETGETOBJECTREQUEST._serialized_end=1822
+  _ASSETGETOBJECTRESPONSE._serialized_start=1824
+  _ASSETGETOBJECTRESPONSE._serialized_end=1931
+  _ASSETUPDATEREQUEST._serialized_start=1933
+  _ASSETUPDATEREQUEST._serialized_end=2017
+  _ASSETUPDATERESPONSE._serialized_start=2019
+  _ASSETUPDATERESPONSE._serialized_end=2097
+  _ASSETDELETEREQUEST._serialized_start=2099
+  _ASSETDELETEREQUEST._serialized_end=2219
+  _ASSETDELETERESPONSE._serialized_start=2221
+  _ASSETDELETERESPONSE._serialized_end=2299
 # @@protoc_insertion_point(module_scope)
