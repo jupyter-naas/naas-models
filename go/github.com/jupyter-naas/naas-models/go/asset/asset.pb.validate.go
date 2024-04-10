@@ -75,6 +75,22 @@ func (m *Asset) validate(all bool) error {
 
 	}
 
+	if m.ObjectName != nil {
+		// no validation rules for ObjectName
+	}
+
+	if m.Visibility != nil {
+		// no validation rules for Visibility
+	}
+
+	if m.ContentDisposition != nil {
+		// no validation rules for ContentDisposition
+	}
+
+	if m.Password != nil {
+		// no validation rules for Password
+	}
+
 	if m.Url != nil {
 		// no validation rules for Url
 	}
@@ -103,40 +119,12 @@ func (m *Asset) validate(all bool) error {
 		// no validation rules for Prefix
 	}
 
-	if m.ObjectName != nil {
-		// no validation rules for ObjectName
+	if m.ObjectVersion != nil {
+		// no validation rules for ObjectVersion
 	}
 
-	if m.VersionId != nil {
-		// no validation rules for VersionId
-	}
-
-	if m.UserId != nil {
-
-		if err := m._validateUuid(m.GetUserId()); err != nil {
-			err = AssetValidationError{
-				field:  "UserId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
-
-	}
-
-	if m.Password != nil {
-		// no validation rules for Password
-	}
-
-	if m.Provider != nil {
-		// no validation rules for Provider
-	}
-
-	if m.ProviderBucketName != nil {
-		// no validation rules for ProviderBucketName
+	if m.ContentType != nil {
+		// no validation rules for ContentType
 	}
 
 	if m.ObjectUpdatedAt != nil {
@@ -172,18 +160,6 @@ func (m *Asset) validate(all bool) error {
 
 	}
 
-	if m.Visibility != nil {
-		// no validation rules for Visibility
-	}
-
-	if m.ContentType != nil {
-		// no validation rules for ContentType
-	}
-
-	if m.ContentDisposition != nil {
-		// no validation rules for ContentDisposition
-	}
-
 	if m.AssetCreatedAt != nil {
 
 		if all {
@@ -215,6 +191,30 @@ func (m *Asset) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = AssetValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Provider != nil {
+		// no validation rules for Provider
+	}
+
+	if m.ProviderBucketName != nil {
+		// no validation rules for ProviderBucketName
 	}
 
 	if len(errors) > 0 {
@@ -348,8 +348,20 @@ func (m *AssetCreation) validate(all bool) error {
 		// no validation rules for ObjectName
 	}
 
-	if m.ObjectVersionId != nil {
-		// no validation rules for ObjectVersionId
+	if m.ObjectVersion != nil {
+		// no validation rules for ObjectVersion
+	}
+
+	if m.Visibility != nil {
+		// no validation rules for Visibility
+	}
+
+	if m.ContentDisposition != nil {
+		// no validation rules for ContentDisposition
+	}
+
+	if m.Password != nil {
+		// no validation rules for Password
 	}
 
 	if len(errors) > 0 {
@@ -1701,6 +1713,39 @@ func (m *AssetUpdateResponse) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if m.Asset != nil {
+
+		if all {
+			switch v := interface{}(m.GetAsset()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AssetUpdateResponseValidationError{
+						field:  "Asset",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AssetUpdateResponseValidationError{
+						field:  "Asset",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetAsset()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AssetUpdateResponseValidationError{
+					field:  "Asset",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if m.Error != nil {
 

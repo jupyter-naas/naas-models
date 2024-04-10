@@ -9,33 +9,31 @@ import "validate.proto";
 
 message Asset {
     optional string id = 1 [(validate.rules).string.uuid = true];
-    optional string url = 2;    
-    optional string workspace_id = 3 [(validate.rules).string.uuid = true];
-    optional string storage_name = 4;
-    optional string prefix = 5;    
-    optional string object_name = 6;
-    optional string version_id = 7;
-    optional string user_id = 8 [(validate.rules).string.uuid = true];
-    optional string password = 9;
-    optional string provider = 10;
-    optional string provider_bucket_name = 11;
+    optional string object_name = 2;
+    optional string visibility = 3;
+    optional string content_disposition = 4;    
+    optional string password = 5;    
+    optional string url = 6;    
+    optional string workspace_id = 7 [(validate.rules).string.uuid = true];
+    optional string storage_name = 8;
+    optional string prefix = 9;    
+    optional string object_version = 10;
+    optional string content_type = 11;    
     optional google.protobuf.Timestamp object_updated_at = 12;
-    optional string visibility = 13;
-    optional string content_type = 14;
-    optional string content_disposition = 15;
-    optional google.protobuf.Timestamp asset_created_at = 16;
+    optional google.protobuf.Timestamp asset_created_at = 13; 
+    optional string user_id = 14 [(validate.rules).string.uuid = true];
+    optional string provider = 15;
+    optional string provider_bucket_name = 16;
 }
- //optional timestamp created_at = 9;
- //optional timestamp updated_at = 10;
 
 message AssetCreation {
     optional string workspace_id = 1 [(validate.rules).string.uuid = true];
     optional string storage_name = 2;
     optional string object_name = 3;
-    optional string object_version_id = 4;
-    // optional string visibility = 4;    
-    // optional bool public = 5;
-    // optional bool visible = 6;
+    optional string object_version = 4;
+    optional string visibility = 5;
+    optional string content_disposition = 6;
+    optional string password = 7;
 }
 message AssetUpdate {
     optional string visibility = 1;
@@ -45,8 +43,8 @@ message AssetUpdate {
 enum AssetError {
     ASSET_NO_ERROR = 0;
     ASSET_NOT_FOUND = 1;
-    ASSET_PARAMETER_ERROR = 2;
-    ASSET_ALREADY_EXISTS = 3;
+    ASSET_ALREADY_EXISTS = 2;
+    ASSET_REQUEST_ERROR = 3;
 
     INTERNAL_SERVER_ERROR = 1000;
 }
@@ -94,7 +92,8 @@ message AssetUpdateRequest {
 }
 
 message AssetUpdateResponse {
-    optional AssetResponseError error = 1;
+    optional Asset asset = 1;
+    optional AssetResponseError error = 2;
 }
 
 // Asset Delete
