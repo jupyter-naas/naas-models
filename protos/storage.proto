@@ -74,7 +74,8 @@ message StorageCreateRequest {
 }
 
 message StorageCreateResponse {
-    optional StorageResponseError error = 1;
+    optional Storage storage = 1;
+    optional StorageResponseError error = 2;
 }
 
 message StorageDeleteRequest {

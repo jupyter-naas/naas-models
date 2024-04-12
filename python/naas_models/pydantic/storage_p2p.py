@@ -123,9 +123,10 @@ class StorageCreateRequest(BaseModel):
 
 class StorageCreateResponse(BaseModel):
 
-    _one_of_dict = {"StorageCreateResponse._error": {"fields": {"error"}}}
+    _one_of_dict = {"StorageCreateResponse._error": {"fields": {"error"}}, "StorageCreateResponse._storage": {"fields": {"storage"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
+    storage: Storage = FieldInfo() 
     error: StorageResponseError = FieldInfo() 
 
 
