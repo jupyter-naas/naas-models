@@ -103,6 +103,10 @@ func (m *AIModel) validate(all bool) error {
 		// no validation rules for NameAlias
 	}
 
+	if m.ContextWindow != nil {
+		// no validation rules for ContextWindow
+	}
+
 	if len(errors) > 0 {
 		return AIModelMultiError(errors)
 	}
