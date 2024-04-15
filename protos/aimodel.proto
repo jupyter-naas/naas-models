@@ -15,6 +15,7 @@ message AIModel {
     optional string type = 6;
     optional bool restricted = 7;
     optional string name_alias = 8;
+    optional int32 context_window = 9;
 }
 
 message CompletionResponse {

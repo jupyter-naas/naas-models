@@ -27,7 +27,7 @@ class AIModelError(IntEnum):
 
 class AIModel(BaseModel):
 
-    _one_of_dict = {"AIModel._enabled": {"fields": {"enabled"}}, "AIModel._id": {"fields": {"id"}}, "AIModel._image": {"fields": {"image"}}, "AIModel._name": {"fields": {"name"}}, "AIModel._name_alias": {"fields": {"name_alias"}}, "AIModel._provider": {"fields": {"provider"}}, "AIModel._restricted": {"fields": {"restricted"}}, "AIModel._type": {"fields": {"type"}}}
+    _one_of_dict = {"AIModel._context_window": {"fields": {"context_window"}}, "AIModel._enabled": {"fields": {"enabled"}}, "AIModel._id": {"fields": {"id"}}, "AIModel._image": {"fields": {"image"}}, "AIModel._name": {"fields": {"name"}}, "AIModel._name_alias": {"fields": {"name_alias"}}, "AIModel._provider": {"fields": {"provider"}}, "AIModel._restricted": {"fields": {"restricted"}}, "AIModel._type": {"fields": {"type"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
     id: UUID = FieldInfo(default="") 
@@ -38,6 +38,7 @@ class AIModel(BaseModel):
     type: str = FieldInfo(default="") 
     restricted: bool = FieldInfo(default=False) 
     name_alias: str = FieldInfo(default="") 
+    context_window: int = FieldInfo(default=0) 
 
 
 
