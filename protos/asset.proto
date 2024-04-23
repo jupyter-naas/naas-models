@@ -7,6 +7,20 @@ option go_package = "github.com/jupyter-naas/naas-models/go/asset";
 import "google/protobuf/timestamp.proto";
 import "validate.proto";
 
+message ObjectMetadata {
+    optional string provider = 1;
+    optional string provider_bucket_name = 2;
+    optional string workspace_id = 3 [(validate.rules).string.uuid = true];
+    optional string storage_name = 4;
+    optional string prefix = 5;
+    optional string object_name = 6;    
+    optional string content_type = 7;
+    optional string content_length = 8;
+    optional google.protobuf.Timestamp object_updated_at = 9;
+    optional string object_version = 10;
+    optional string metadata = 11;
+}
+
 message Asset {
     optional string id = 1 [(validate.rules).string.uuid = true];
     optional string object_name = 2;

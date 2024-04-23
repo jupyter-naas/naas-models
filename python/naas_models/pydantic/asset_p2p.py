@@ -23,6 +23,26 @@ class AssetError(IntEnum):
 
 
 
+class ObjectMetadata(BaseModel):
+
+    _one_of_dict = {"ObjectMetadata._content_length": {"fields": {"content_length"}}, "ObjectMetadata._content_type": {"fields": {"content_type"}}, "ObjectMetadata._metadata": {"fields": {"metadata"}}, "ObjectMetadata._object_name": {"fields": {"object_name"}}, "ObjectMetadata._object_updated_at": {"fields": {"object_updated_at"}}, "ObjectMetadata._object_version": {"fields": {"object_version"}}, "ObjectMetadata._prefix": {"fields": {"prefix"}}, "ObjectMetadata._provider": {"fields": {"provider"}}, "ObjectMetadata._provider_bucket_name": {"fields": {"provider_bucket_name"}}, "ObjectMetadata._storage_name": {"fields": {"storage_name"}}, "ObjectMetadata._workspace_id": {"fields": {"workspace_id"}}}
+    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
+
+    provider: str = FieldInfo(default="") 
+    provider_bucket_name: str = FieldInfo(default="") 
+    workspace_id: UUID = FieldInfo(default="") 
+    storage_name: str = FieldInfo(default="") 
+    prefix: str = FieldInfo(default="") 
+    object_name: str = FieldInfo(default="") 
+    content_type: str = FieldInfo(default="") 
+    content_length: str = FieldInfo(default="") 
+    object_updated_at: datetime = FieldInfo(default_factory=datetime.now) 
+    object_version: str = FieldInfo(default="") 
+    metadata: str = FieldInfo(default="") 
+
+
+
+
 class Asset(BaseModel):
 
     _one_of_dict = {"Asset._asset_created_at": {"fields": {"asset_created_at"}}, "Asset._content_disposition": {"fields": {"content_disposition"}}, "Asset._content_type": {"fields": {"content_type"}}, "Asset._id": {"fields": {"id"}}, "Asset._object_name": {"fields": {"object_name"}}, "Asset._object_updated_at": {"fields": {"object_updated_at"}}, "Asset._object_version": {"fields": {"object_version"}}, "Asset._password": {"fields": {"password"}}, "Asset._prefix": {"fields": {"prefix"}}, "Asset._provider": {"fields": {"provider"}}, "Asset._provider_bucket_name": {"fields": {"provider_bucket_name"}}, "Asset._storage_name": {"fields": {"storage_name"}}, "Asset._url": {"fields": {"url"}}, "Asset._user_id": {"fields": {"user_id"}}, "Asset._visibility": {"fields": {"visibility"}}, "Asset._workspace_id": {"fields": {"workspace_id"}}}

@@ -38,6 +38,199 @@ var (
 // define the regex for a UUID once up-front
 var _asset_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
+// Validate checks the field values on ObjectMetadata with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ObjectMetadata) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ObjectMetadata with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ObjectMetadataMultiError,
+// or nil if none found.
+func (m *ObjectMetadata) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ObjectMetadata) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Provider != nil {
+		// no validation rules for Provider
+	}
+
+	if m.ProviderBucketName != nil {
+		// no validation rules for ProviderBucketName
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = ObjectMetadataValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.StorageName != nil {
+		// no validation rules for StorageName
+	}
+
+	if m.Prefix != nil {
+		// no validation rules for Prefix
+	}
+
+	if m.ObjectName != nil {
+		// no validation rules for ObjectName
+	}
+
+	if m.ContentType != nil {
+		// no validation rules for ContentType
+	}
+
+	if m.ContentLength != nil {
+		// no validation rules for ContentLength
+	}
+
+	if m.ObjectUpdatedAt != nil {
+
+		if all {
+			switch v := interface{}(m.GetObjectUpdatedAt()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ObjectMetadataValidationError{
+						field:  "ObjectUpdatedAt",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ObjectMetadataValidationError{
+						field:  "ObjectUpdatedAt",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetObjectUpdatedAt()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ObjectMetadataValidationError{
+					field:  "ObjectUpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.ObjectVersion != nil {
+		// no validation rules for ObjectVersion
+	}
+
+	if m.Metadata != nil {
+		// no validation rules for Metadata
+	}
+
+	if len(errors) > 0 {
+		return ObjectMetadataMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *ObjectMetadata) _validateUuid(uuid string) error {
+	if matched := _asset_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// ObjectMetadataMultiError is an error wrapping multiple validation errors
+// returned by ObjectMetadata.ValidateAll() if the designated constraints
+// aren't met.
+type ObjectMetadataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ObjectMetadataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ObjectMetadataMultiError) AllErrors() []error { return m }
+
+// ObjectMetadataValidationError is the validation error returned by
+// ObjectMetadata.Validate if the designated constraints aren't met.
+type ObjectMetadataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ObjectMetadataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ObjectMetadataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ObjectMetadataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ObjectMetadataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ObjectMetadataValidationError) ErrorName() string { return "ObjectMetadataValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ObjectMetadataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sObjectMetadata.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ObjectMetadataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ObjectMetadataValidationError{}
+
 // Validate checks the field values on Asset with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
