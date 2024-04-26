@@ -108,10 +108,10 @@ class AssetResponseError(BaseModel):
 
 class AssetCreateRequest(BaseModel):
 
-    _one_of_dict = {"AssetCreateRequest._asset": {"fields": {"asset"}}}
+    _one_of_dict = {"AssetCreateRequest._asset_creation": {"fields": {"asset_creation"}}}
     _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
 
-    asset: AssetCreation = FieldInfo() 
+    asset_creation: AssetCreation = FieldInfo() 
 
 
 
