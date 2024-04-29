@@ -1,16 +1,12 @@
 # This is an automatically generated file, please do not change
-# gen by protobuf_to_pydantic(https://github.com/so1n/protobuf_to_pydantic)
-# type: ignore
-
+# gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
+# Protobuf Version: 4.25.3 
+# Pydantic Version: 2.7.1 
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
-from protobuf_to_pydantic.customer_validator import check_one_of
 from pydantic import BaseModel
-from pydantic import root_validator
-from pydantic.fields import FieldInfo
+from pydantic import Field
 import typing
-
-
 
 class StorageError(IntEnum):
     STORAGE_NO_ERROR = 0
@@ -29,286 +25,105 @@ class ObjectError(IntEnum):
 class CredentialsError(IntEnum):
     CREDENTIALS_NO_ERROR = 0
 
-
-
-
 class Storage(BaseModel):
-
-    _one_of_dict = {"Storage._name": {"fields": {"name"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-
-
-
+    name: typing.Optional[str] = Field(default="") 
 
 class Object(BaseModel):
-
-    _one_of_dict = {"Object._lastmodified": {"fields": {"lastmodified"}}, "Object._name": {"fields": {"name"}}, "Object._prefix": {"fields": {"prefix"}}, "Object._size": {"fields": {"size"}}, "Object._type": {"fields": {"type"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-    type: str = FieldInfo(default="") 
-    prefix: str = FieldInfo(default="") 
-    size: str = FieldInfo(default="") 
-    lastmodified: str = FieldInfo(default="") 
-
-
-
+    name: typing.Optional[str] = Field(default="") 
+    type: typing.Optional[str] = Field(default="") 
+    prefix: typing.Optional[str] = Field(default="") 
+    size: typing.Optional[str] = Field(default="") 
+    lastmodified: typing.Optional[str] = Field(default="") 
 
 class StorageResponseError(BaseModel):
-
-    _one_of_dict = {"StorageResponseError._error": {"fields": {"error"}}, "StorageResponseError._message": {"fields": {"message"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: StorageError = FieldInfo(default=0) 
-    message: str = FieldInfo(default="") 
-
-
-
+    error: typing.Optional[StorageError] = Field(default=0) 
+    message: typing.Optional[str] = Field(default="") 
 
 class ObjectResponseError(BaseModel):
-
-    _one_of_dict = {"ObjectResponseError._error": {"fields": {"error"}}, "ObjectResponseError._message": {"fields": {"message"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ObjectError = FieldInfo(default=0) 
-    message: str = FieldInfo(default="") 
-
-
-
+    error: typing.Optional[ObjectError] = Field(default=0) 
+    message: typing.Optional[str] = Field(default="") 
 
 class ObjectStorageCredentialsResponseError(BaseModel):
-
-    _one_of_dict = {"ObjectStorageCredentialsResponseError._error": {"fields": {"error"}}, "ObjectStorageCredentialsResponseError._message": {"fields": {"message"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: CredentialsError = FieldInfo(default=0) 
-    message: str = FieldInfo(default="") 
-
-
-
+    error: typing.Optional[CredentialsError] = Field(default=0) 
+    message: typing.Optional[str] = Field(default="") 
 
 class StorageListRequest(BaseModel):
-
-    _one_of_dict = {"StorageListRequest._object": {"fields": {"object"}}, "StorageListRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    object: Object = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    object: typing.Optional[Object] = Field(default=None) 
 
 class StorageListResponse(BaseModel):
-
-    _one_of_dict = {"StorageListResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: typing.List[Storage] = FieldInfo(default_factory=list) 
-    error: StorageResponseError = FieldInfo() 
-
-
-
+    storage: typing.List[Storage] = Field(default_factory=list) 
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class StorageCreateRequest(BaseModel):
-
-    _one_of_dict = {"StorageCreateRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
 
 class StorageCreateResponse(BaseModel):
-
-    _one_of_dict = {"StorageCreateResponse._error": {"fields": {"error"}}, "StorageCreateResponse._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    error: StorageResponseError = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class StorageDeleteRequest(BaseModel):
-
-    _one_of_dict = {"StorageDeleteRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
 
 class StorageDeleteResponse(BaseModel):
-
-    _one_of_dict = {"StorageDeleteResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: StorageResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class StorageListObjectRequest(BaseModel):
-
-    _one_of_dict = {"StorageListObjectRequest._object": {"fields": {"object"}}, "StorageListObjectRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    object: Object = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    object: typing.Optional[Object] = Field(default=None) 
 
 class StorageListObjectResponse(BaseModel):
-
-    _one_of_dict = {"StorageListObjectResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    object: typing.List[Object] = FieldInfo(default_factory=list) 
-    error: StorageResponseError = FieldInfo() 
-
-
-
+    object: typing.List[Object] = Field(default_factory=list) 
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class ObjectCreateRequest(BaseModel):
-
-    _one_of_dict = {"ObjectCreateRequest._object": {"fields": {"object"}}, "ObjectCreateRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    object: Object = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    object: typing.Optional[Object] = Field(default=None) 
 
 class ObjectCreateResponse(BaseModel):
-
-    _one_of_dict = {"ObjectCreateResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: StorageResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class ObjectListRequest(BaseModel):
-
-    _one_of_dict = {"ObjectListRequest._object": {"fields": {"object"}}, "ObjectListRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    object: Object = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    object: typing.Optional[Object] = Field(default=None) 
 
 class ObjectListResponse(BaseModel):
-
-    _one_of_dict = {"ObjectListResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    object: typing.List[Object] = FieldInfo(default_factory=list) 
-    error: ObjectResponseError = FieldInfo() 
-
-
-
+    object: typing.List[Object] = Field(default_factory=list) 
+    error: typing.Optional[ObjectResponseError] = Field(default=None) 
 
 class ObjectGetRequest(BaseModel):
-
-    _one_of_dict = {"ObjectGetRequest._object": {"fields": {"object"}}, "ObjectGetRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-    object: Object = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
+    object: typing.Optional[Object] = Field(default=None) 
 
 class ObjectGetResponse(BaseModel):
-
-    _one_of_dict = {"ObjectGetResponse._error": {"fields": {"error"}}, "ObjectGetResponse._object": {"fields": {"object"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    object: Object = FieldInfo() 
-    error: ObjectResponseError = FieldInfo() 
-
-
-
+    object: typing.Optional[Object] = Field(default=None) 
+    error: typing.Optional[ObjectResponseError] = Field(default=None) 
 
 class ObjectDeleteRequest(BaseModel):
-
-    _one_of_dict = {"ObjectDeleteRequest._object": {"fields": {"object"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    object: Object = FieldInfo() 
-
-
-
+    object: typing.Optional[Object] = Field(default=None) 
 
 class ObjectDeleteResponse(BaseModel):
-
-    _one_of_dict = {"ObjectDeleteResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ObjectResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[ObjectResponseError] = Field(default=None) 
 
 class ObjectStorageS3Credentials(BaseModel):
-
-    _one_of_dict = {"ObjectStorageS3Credentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageS3Credentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageS3Credentials._expiration": {"fields": {"expiration"}}, "ObjectStorageS3Credentials._region_name": {"fields": {"region_name"}}, "ObjectStorageS3Credentials._secret_key": {"fields": {"secret_key"}}, "ObjectStorageS3Credentials._session_token": {"fields": {"session_token"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    endpoint_url: str = FieldInfo(default="") 
-    region_name: str = FieldInfo(default="") 
-    access_key_id: str = FieldInfo(default="") 
-    secret_key: str = FieldInfo(default="") 
-    session_token: str = FieldInfo(default="") 
-    expiration: str = FieldInfo(default="") 
-
-
-
+    endpoint_url: typing.Optional[str] = Field(default="") 
+    region_name: typing.Optional[str] = Field(default="") 
+    access_key_id: typing.Optional[str] = Field(default="") 
+    secret_key: typing.Optional[str] = Field(default="") 
+    session_token: typing.Optional[str] = Field(default="") 
+    expiration: typing.Optional[str] = Field(default="") 
 
 class ObjectStorageAzureCredentials(BaseModel):
-
-    _one_of_dict = {"ObjectStorageAzureCredentials._access_key_id": {"fields": {"access_key_id"}}, "ObjectStorageAzureCredentials._endpoint_url": {"fields": {"endpoint_url"}}, "ObjectStorageAzureCredentials._secret_key": {"fields": {"secret_key"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    endpoint_url: str = FieldInfo(default="") 
-    access_key_id: str = FieldInfo(default="") 
-    secret_key: str = FieldInfo(default="") 
-
-
-
+    endpoint_url: typing.Optional[str] = Field(default="") 
+    access_key_id: typing.Optional[str] = Field(default="") 
+    secret_key: typing.Optional[str] = Field(default="") 
 
 class ObjectStorageCredentials(BaseModel):
-
-    s3: ObjectStorageS3Credentials = FieldInfo() 
-
-
-
+    s3: ObjectStorageS3Credentials = Field() 
 
 class ObjectStorageCredentialsRequest(BaseModel):
-
-    _one_of_dict = {"ObjectStorageCredentialsRequest._storage": {"fields": {"storage"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    storage: Storage = FieldInfo() 
-
-
-
+    storage: typing.Optional[Storage] = Field(default=None) 
 
 class ObjectStorageCredentialsResponse(BaseModel):
-
-    _one_of_dict = {"ObjectStorageCredentialsResponse._credentials": {"fields": {"credentials"}}, "ObjectStorageCredentialsResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    credentials: ObjectStorageCredentials = FieldInfo() 
-    error: ObjectStorageCredentialsResponseError = FieldInfo() 
-
-
+    credentials: typing.Optional[ObjectStorageCredentials] = Field(default=None) 
+    error: typing.Optional[ObjectStorageCredentialsResponseError] = Field(default=None) 

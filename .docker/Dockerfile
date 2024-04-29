@@ -3,7 +3,7 @@ FROM --platform=$TARGETPLATFORM ubuntu:latest
 ARG TARGETARCH
 ARG TARGETOS
 
-RUN apt-get update && apt-get install --yes wget unzip python3 python3-pip golang-go 
+RUN apt-get update && apt-get install --yes wget unzip python3 python3-pip golang-go python3-dev
 
 ENV PROTOC_VERSION=21.12
 ADD .docker/install-protoc.sh /tmp/
@@ -19,7 +19,13 @@ RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/go/bin"
 
-ADD .docker/requirements.txt /tmp/requirements.txt
-RUN pip --default-timeout=100 install -r /tmp/requirements.txt
+RUN python3 -m pip install virtualenv --break-system-packages
+
+# Removing version pining to try to follow new versions.
+RUN bash -c 'virtualenv venv \
+    && source venv/bin/activate \
+    && python3 -m pip install --upgrade pip \
+    && pip install protobuf-to-pydantic protobuf-to-pydantic[mypy-protobuf] protobuf protobuf2pydantic grpcio-tools'
+
 
 #ENTRYPOINT ["/usr/local/bin/protoc"]

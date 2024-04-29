@@ -1,18 +1,14 @@
 # This is an automatically generated file, please do not change
-# gen by protobuf_to_pydantic(https://github.com/so1n/protobuf_to_pydantic)
-# type: ignore
-
-from naas_models.pydantic.common_p2p import FieldMask
+# gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
+# Protobuf Version: 4.25.3 
+# Pydantic Version: 2.7.1 
+fronaas_models.pydantic.common_p2p import FieldMask
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
-from protobuf_to_pydantic.customer_validator import check_one_of
 from pydantic import BaseModel
-from pydantic import root_validator
-from pydantic.fields import FieldInfo
+from pydantic import Field
 from uuid import UUID
 import typing
-
-
 
 class MessageType(IntEnum):
     UNDEFINED = 0
@@ -48,426 +44,178 @@ class ChatError(IntEnum):
     CHAT_CONTEXT_LENGTH_EXCEEDED = 8
     CHAT_INTERNAL_SERVER_ERROR = 1000
 
-
-
-
 class MessageResponseError(BaseModel):
-
-    _one_of_dict = {"MessageResponseError._code": {"fields": {"code"}}, "MessageResponseError._message": {"fields": {"message"}}, "MessageResponseError._reason": {"fields": {"reason"}}, "MessageResponseError._status": {"fields": {"status"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    code: MessageError = FieldInfo(default=0) 
-    status: str = FieldInfo(default="") 
-    reason: str = FieldInfo(default="") 
-    message: str = FieldInfo(default="") 
-
-
-
+    code: typing.Optional[MessageError] = Field(default=0) 
+    status: typing.Optional[str] = Field(default="") 
+    reason: typing.Optional[str] = Field(default="") 
+    message: typing.Optional[str] = Field(default="") 
 
 class Message(BaseModel):
-
-    _one_of_dict = {"Message._archived_at": {"fields": {"archived_at"}}, "Message._chat_id": {"fields": {"chat_id"}}, "Message._created_at": {"fields": {"created_at"}}, "Message._deleted_at": {"fields": {"deleted_at"}}, "Message._from_user": {"fields": {"from_user"}}, "Message._id": {"fields": {"id"}}, "Message._message": {"fields": {"message"}}, "Message._message_language": {"fields": {"message_language"}}, "Message._message_type": {"fields": {"message_type"}}, "Message._metadata": {"fields": {"metadata"}}, "Message._model_id": {"fields": {"model_id"}}, "Message._selected": {"fields": {"selected"}}, "Message._type": {"fields": {"type"}}, "Message._version": {"fields": {"version"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    version: int = FieldInfo(default=0) 
-    created_at: str = FieldInfo(default="") 
-    chat_id: int = FieldInfo(default=0) 
-    from_user: bool = FieldInfo(default=False) 
-    message: str = FieldInfo(default="") 
-    message_type: str = FieldInfo(default="") 
-    message_language: str = FieldInfo(default="") 
-    model_id: str = FieldInfo(default="") 
-    type: MessageType = FieldInfo(default=0) 
-    metadata: str = FieldInfo(default="") 
-    deleted_at: str = FieldInfo(default="") 
-    selected: bool = FieldInfo(default=False) 
-    archived_at: str = FieldInfo(default="") 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    version: typing.Optional[int] = Field(default=0) 
+    created_at: typing.Optional[str] = Field(default="") 
+    chat_id: typing.Optional[int] = Field(default=0) 
+    from_user: typing.Optional[bool] = Field(default=False) 
+    message: typing.Optional[str] = Field(default="") 
+    message_type: typing.Optional[str] = Field(default="") 
+    message_language: typing.Optional[str] = Field(default="") 
+    model_id: typing.Optional[str] = Field(default="") 
+    type: typing.Optional[MessageType] = Field(default=0) 
+    metadata: typing.Optional[str] = Field(default="") 
+    deleted_at: typing.Optional[str] = Field(default="") 
+    selected: typing.Optional[bool] = Field(default=False) 
+    archived_at: typing.Optional[str] = Field(default="") 
 
 class MessageUpdate(BaseModel):
-
-    _one_of_dict = {"MessageUpdate._archived_at": {"fields": {"archived_at"}}, "MessageUpdate._field_mask": {"fields": {"field_mask"}}, "MessageUpdate._message": {"fields": {"message"}}, "MessageUpdate._message_language": {"fields": {"message_language"}}, "MessageUpdate._message_type": {"fields": {"message_type"}}, "MessageUpdate._metadata": {"fields": {"metadata"}}, "MessageUpdate._selected": {"fields": {"selected"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    message: str = FieldInfo(default="") 
-    message_type: str = FieldInfo(default="") 
-    message_language: str = FieldInfo(default="") 
-    metadata: str = FieldInfo(default="") 
-    selected: bool = FieldInfo(default=False) 
-    archived_at: str = FieldInfo(default="") 
-    field_mask: FieldMask = FieldInfo() 
-
-
-
+    message: typing.Optional[str] = Field(default="") 
+    message_type: typing.Optional[str] = Field(default="") 
+    message_language: typing.Optional[str] = Field(default="") 
+    metadata: typing.Optional[str] = Field(default="") 
+    selected: typing.Optional[bool] = Field(default=False) 
+    archived_at: typing.Optional[str] = Field(default="") 
+    field_mask: typing.Optional[FieldMask] = Field(default=None) 
 
 class Messages(BaseModel):
-
-    messages: typing.List[Message] = FieldInfo(default_factory=list) 
-
-
-
+    messages: typing.List[Message] = Field(default_factory=list) 
 
 class MessageDeletionRequest(BaseModel):
-
-    _one_of_dict = {"MessageDeletionRequest._id": {"fields": {"id"}}, "MessageDeletionRequest._version": {"fields": {"version"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    version: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    version: typing.Optional[int] = Field(default=0) 
 
 class MessageDeletionResponse(BaseModel):
-
-    _one_of_dict = {"MessageDeletionResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: MessageError = FieldInfo(default=0) 
-
-
-
+    error: typing.Optional[MessageError] = Field(default=0) 
 
 class MessageRatinResponseError(BaseModel):
-
-    _one_of_dict = {"MessageRatinResponseError._code": {"fields": {"code"}}, "MessageRatinResponseError._message": {"fields": {"message"}}, "MessageRatinResponseError._reason": {"fields": {"reason"}}, "MessageRatinResponseError._status": {"fields": {"status"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    code: MessageError = FieldInfo(default=0) 
-    status: str = FieldInfo(default="") 
-    reason: str = FieldInfo(default="") 
-    message: str = FieldInfo(default="") 
-
-
-
+    code: typing.Optional[MessageError] = Field(default=0) 
+    status: typing.Optional[str] = Field(default="") 
+    reason: typing.Optional[str] = Field(default="") 
+    message: typing.Optional[str] = Field(default="") 
 
 class MessageRating(BaseModel):
-
-    _one_of_dict = {"MessageRating._created_at": {"fields": {"created_at"}}, "MessageRating._message_id": {"fields": {"message_id"}}, "MessageRating._message_version": {"fields": {"message_version"}}, "MessageRating._rating": {"fields": {"rating"}}, "MessageRating._user_id": {"fields": {"user_id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    message_id: int = FieldInfo(default=0) 
-    user_id: str = FieldInfo(default="") 
-    message_version: int = FieldInfo(default=0) 
-    created_at: str = FieldInfo(default="") 
-    rating: str = FieldInfo(default="", regex="^(LIKE|DISLIKE)$") 
-
-
-
+    message_id: typing.Optional[int] = Field(default=0) 
+    user_id: typing.Optional[str] = Field(default="") 
+    message_version: typing.Optional[int] = Field(default=0) 
+    created_at: typing.Optional[str] = Field(default="") 
+    rating: typing.Optional[str] = Field(default="", pattern="^(LIKE|DISLIKE)$") 
 
 class MessageRatingCreationRequest(BaseModel):
-
-    _one_of_dict = {"MessageRatingCreationRequest._message_id": {"fields": {"message_id"}}, "MessageRatingCreationRequest._message_version": {"fields": {"message_version"}}, "MessageRatingCreationRequest._rating": {"fields": {"rating"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    message_id: int = FieldInfo(default=0) 
-    message_version: int = FieldInfo(default=0) 
-    rating: str = FieldInfo(default="", regex="^(LIKE|DISLIKE)$") 
-
-
-
+    message_id: typing.Optional[int] = Field(default=0) 
+    message_version: typing.Optional[int] = Field(default=0) 
+    rating: typing.Optional[str] = Field(default="", pattern="^(LIKE|DISLIKE)$") 
 
 class MessageRatingCreationResponse(BaseModel):
-
-    _one_of_dict = {"MessageRatingCreationResponse._error": {"fields": {"error"}}, "MessageRatingCreationResponse._message_rating": {"fields": {"message_rating"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: MessageRatinResponseError = FieldInfo() 
-    message_rating: MessageRating = FieldInfo() 
-
-
-
+    error: typing.Optional[MessageRatinResponseError] = Field(default=None) 
+    message_rating: typing.Optional[MessageRating] = Field(default=None) 
 
 class Chat(BaseModel):
-
-    _one_of_dict = {"Chat._created_at": {"fields": {"created_at"}}, "Chat._deleted_at": {"fields": {"deleted_at"}}, "Chat._id": {"fields": {"id"}}, "Chat._is_group": {"fields": {"is_group"}}, "Chat._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "Chat._name": {"fields": {"name"}}, "Chat._starred_at": {"fields": {"starred_at"}}, "Chat._user_id": {"fields": {"user_id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    created_at: str = FieldInfo(default="") 
-    user_id: str = FieldInfo(default="") 
-    name: str = FieldInfo(default="") 
-    deleted_at: str = FieldInfo(default="") 
-    is_group: bool = FieldInfo(default=False) 
-    is_personal_assistant: bool = FieldInfo(default=False) 
-    starred_at: str = FieldInfo(default="") 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    created_at: typing.Optional[str] = Field(default="") 
+    user_id: typing.Optional[str] = Field(default="") 
+    name: typing.Optional[str] = Field(default="") 
+    deleted_at: typing.Optional[str] = Field(default="") 
+    is_group: typing.Optional[bool] = Field(default=False) 
+    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
+    starred_at: typing.Optional[str] = Field(default="") 
 
 class ChatUpdate(BaseModel):
-
-    _one_of_dict = {"ChatUpdate._field_mask": {"fields": {"field_mask"}}, "ChatUpdate._is_group": {"fields": {"is_group"}}, "ChatUpdate._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "ChatUpdate._name": {"fields": {"name"}}, "ChatUpdate._starred_at": {"fields": {"starred_at"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-    is_group: bool = FieldInfo(default=False) 
-    is_personal_assistant: bool = FieldInfo(default=False) 
-    starred_at: str = FieldInfo(default="") 
-    field_mask: FieldMask = FieldInfo() 
-
-
-
+    name: typing.Optional[str] = Field(default="") 
+    is_group: typing.Optional[bool] = Field(default=False) 
+    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
+    starred_at: typing.Optional[str] = Field(default="") 
+    field_mask: typing.Optional[FieldMask] = Field(default=None) 
 
 class ChatMessages(BaseModel):
-
-    messages: typing.Dict[int, Messages] = FieldInfo(default_factory=dict) 
-
-
-
+    messages: typing.Dict[int, Messages] = Field(default_factory=dict) 
 
 class ChatResponseError(BaseModel):
-
-    _one_of_dict = {"ChatResponseError._code": {"fields": {"code"}}, "ChatResponseError._message": {"fields": {"message"}}, "ChatResponseError._reason": {"fields": {"reason"}}, "ChatResponseError._status": {"fields": {"status"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    code: ChatError = FieldInfo(default=0) 
-    status: str = FieldInfo(default="") 
-    reason: str = FieldInfo(default="") 
-    message: str = FieldInfo(default="") 
-
-
-
+    code: typing.Optional[ChatError] = Field(default=0) 
+    status: typing.Optional[str] = Field(default="") 
+    reason: typing.Optional[str] = Field(default="") 
+    message: typing.Optional[str] = Field(default="") 
 
 class ChatCreationRequest(BaseModel):
-
-    _one_of_dict = {"ChatCreationRequest._is_personal_assistant": {"fields": {"is_personal_assistant"}}, "ChatCreationRequest._name": {"fields": {"name"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-    is_personal_assistant: bool = FieldInfo(default=False) 
-
-
-
+    name: typing.Optional[str] = Field(default="") 
+    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
 
 class ChatCreationResponse(BaseModel):
-
-    _one_of_dict = {"ChatCreationResponse._chat": {"fields": {"chat"}}, "ChatCreationResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    chat: Chat = FieldInfo() 
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    chat: typing.Optional[Chat] = Field(default=None) 
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatGetRequest(BaseModel):
-
-    _one_of_dict = {"ChatGetRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
 
 class ChatGetResponse(BaseModel):
-
-    _one_of_dict = {"ChatGetResponse._chat": {"fields": {"chat"}}, "ChatGetResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    chat: Chat = FieldInfo() 
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    chat: typing.Optional[Chat] = Field(default=None) 
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatMessageGetRequest(BaseModel):
-
-    _one_of_dict = {"ChatMessageGetRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
 
 class ChatMessageGetResponse(BaseModel):
-
-    _one_of_dict = {"ChatMessageGetResponse._error": {"fields": {"error"}}, "ChatMessageGetResponse._messages": {"fields": {"messages"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ChatResponseError = FieldInfo() 
-    messages: ChatMessages = FieldInfo() 
-
-
-
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    messages: typing.Optional[ChatMessages] = Field(default=None) 
 
 class ChatDeletionRequest(BaseModel):
-
-    _one_of_dict = {"ChatDeletionRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
 
 class ChatDeletionResponse(BaseModel):
-
-    _one_of_dict = {"ChatDeletionResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatUpdateRequest(BaseModel):
-
-    _one_of_dict = {"ChatUpdateRequest._chat_update": {"fields": {"chat_update"}}, "ChatUpdateRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    chat_update: ChatUpdate = FieldInfo() 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    chat_update: typing.Optional[ChatUpdate] = Field(default=None) 
 
 class ChatUpdateResponse(BaseModel):
-
-    _one_of_dict = {"ChatUpdateResponse._chat": {"fields": {"chat"}}, "ChatUpdateResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    chat: Chat = FieldInfo() 
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    chat: typing.Optional[Chat] = Field(default=None) 
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatListRequest(BaseModel):
-
-    _one_of_dict = {"ChatListRequest._page_number": {"fields": {"page_number"}}, "ChatListRequest._page_size": {"fields": {"page_size"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    page_size: int = FieldInfo(default=0) 
-    page_number: int = FieldInfo(default=0) 
-
-
-
+    page_size: typing.Optional[int] = Field(default=0) 
+    page_number: typing.Optional[int] = Field(default=0) 
 
 class ChatListResponse(BaseModel):
-
-    _one_of_dict = {"ChatListResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    chat: typing.List[Chat] = FieldInfo(default_factory=list) 
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    chat: typing.List[Chat] = Field(default_factory=list) 
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatStarRequest(BaseModel):
-
-    _one_of_dict = {"ChatStarRequest._id": {"fields": {"id"}}, "ChatStarRequest._star": {"fields": {"star"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    star: bool = FieldInfo(default=False) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    star: typing.Optional[bool] = Field(default=False) 
 
 class ChatStarResponse(BaseModel):
-
-    _one_of_dict = {"ChatStarResponse._chat": {"fields": {"chat"}}, "ChatStarResponse._code": {"fields": {"code"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    chat: Chat = FieldInfo() 
-    code: ChatError = FieldInfo(default=0) 
-
-
-
+    chat: typing.Optional[Chat] = Field(default=None) 
+    code: typing.Optional[ChatError] = Field(default=0) 
 
 class ChatArchiveRequest(BaseModel):
-
-    _one_of_dict = {"ChatArchiveRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
 
 class ChatArchiveResponse(BaseModel):
-
-    _one_of_dict = {"ChatArchiveResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class CompletionResponse(BaseModel):
-
-    _one_of_dict = {"CompletionResponse._image_resolution": {"fields": {"image_resolution"}}, "CompletionResponse._image_steps": {"fields": {"image_steps"}}, "CompletionResponse._input_tokens": {"fields": {"input_tokens"}}, "CompletionResponse._output_tokens": {"fields": {"output_tokens"}}, "CompletionResponse._status": {"fields": {"status"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    messages: typing.List[Message] = FieldInfo(default_factory=list) 
-    input_tokens: int = FieldInfo(default=0) 
-    output_tokens: int = FieldInfo(default=0) 
-    image_resolution: str = FieldInfo(default="") 
-    image_steps: int = FieldInfo(default=0) 
-    status: CompletionStatus = FieldInfo(default=0) 
-
-
-
+    messages: typing.List[Message] = Field(default_factory=list) 
+    input_tokens: typing.Optional[int] = Field(default=0) 
+    output_tokens: typing.Optional[int] = Field(default=0) 
+    image_resolution: typing.Optional[str] = Field(default="") 
+    image_steps: typing.Optional[int] = Field(default=0) 
+    status: typing.Optional[CompletionStatus] = Field(default=0) 
 
 class BasePayload(BaseModel):
-
-    _one_of_dict = {"BasePayload._name": {"fields": {"name"}}, "BasePayload._prompt": {"fields": {"prompt"}}, "BasePayload._url": {"fields": {"url"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    name: str = FieldInfo(default="") 
-    url: str = FieldInfo(default="") 
-    prompt: str = FieldInfo(default="") 
-
-
-
+    name: typing.Optional[str] = Field(default="") 
+    url: typing.Optional[str] = Field(default="") 
+    prompt: typing.Optional[str] = Field(default="") 
 
 class ChatCompletionRequest(BaseModel):
-
-    _one_of_dict = {"ChatCompletionRequest._id": {"fields": {"id"}}, "ChatCompletionRequest._model_id": {"fields": {"model_id"}}, "ChatCompletionRequest._payload": {"fields": {"payload"}}, "ChatCompletionRequest._plugin_id": {"fields": {"plugin_id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-    model_id: str = FieldInfo(default="") 
-    payload: str = FieldInfo(default="") 
-    plugin_id: UUID = FieldInfo(default="") 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
+    model_id: typing.Optional[str] = Field(default="") 
+    payload: typing.Optional[str] = Field(default="") 
+    plugin_id: typing.Optional[UUID] = Field(default="") 
 
 class ChatStopCompletionRequest(BaseModel):
-
-    _one_of_dict = {"ChatStopCompletionRequest._id": {"fields": {"id"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    id: int = FieldInfo(default=0) 
-
-
-
+    id: typing.Optional[int] = Field(default=0) 
 
 class ChatStopCompletionResponse(BaseModel):
-
-    _one_of_dict = {"ChatStopCompletionResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    error: ChatResponseError = FieldInfo() 
-
-
-
+    error: typing.Optional[ChatResponseError] = Field(default=None) 
 
 class ChatCompletionResponse(BaseModel):
-
-    _one_of_dict = {"ChatCompletionResponse._completion": {"fields": {"completion"}}, "ChatCompletionResponse._error": {"fields": {"error"}}}
-    _check_one_of = root_validator(pre=True, allow_reuse=True)(check_one_of)
-
-    completion: CompletionResponse = FieldInfo() 
-    error: ChatResponseError = FieldInfo() 
-
-
+    completion: typing.Optional[CompletionResponse] = Field(default=None) 
+    error: typing.Optional[ChatResponseError] = Field(default=None) 

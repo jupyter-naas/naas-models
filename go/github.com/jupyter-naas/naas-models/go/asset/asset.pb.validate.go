@@ -882,6 +882,22 @@ func (m *AssetCreateRequest) validate(all bool) error {
 
 	var errors []error
 
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = AssetCreateRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if m.AssetCreation != nil {
 
 		if all {
@@ -917,6 +933,14 @@ func (m *AssetCreateRequest) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return AssetCreateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *AssetCreateRequest) _validateUuid(uuid string) error {
+	if matched := _asset_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1772,6 +1796,22 @@ func (m *AssetUpdateRequest) validate(all bool) error {
 
 	var errors []error
 
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = AssetUpdateRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if m.AssetUpdate != nil {
 
 		if all {
@@ -1807,6 +1847,14 @@ func (m *AssetUpdateRequest) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return AssetUpdateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *AssetUpdateRequest) _validateUuid(uuid string) error {
+	if matched := _asset_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil

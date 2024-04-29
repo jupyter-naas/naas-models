@@ -70,7 +70,8 @@ message AssetResponseError {
 
 //  Asset Create
 message AssetCreateRequest {
-    optional AssetCreation asset_creation = 1;
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional AssetCreation asset_creation = 2;
 }
 
 message AssetCreateResponse {
@@ -102,7 +103,8 @@ message AssetGetObjectResponse {
 
 // Asset Update
 message AssetUpdateRequest {
-    optional AssetUpdate asset_update = 1;
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional AssetUpdate asset_update = 2;
 }
 
 message AssetUpdateResponse {
