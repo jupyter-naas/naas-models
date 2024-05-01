@@ -8,9 +8,12 @@ packages = [{include = "naas_models"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-protobuf-to-pydantic = "^0.1.7.3"
-protobuf = "^4.25.2"
+protobuf-to-pydantic = {version = "0.2.6.2", extras = ["mypy-protobuf"]}
+protobuf = "^5.26.1"
 
+
+[tool.poetry.group.dev.dependencies]
+grpcio-tools = "^1.63.0"
 
 [build-system]
 requires = ["poetry-core"]

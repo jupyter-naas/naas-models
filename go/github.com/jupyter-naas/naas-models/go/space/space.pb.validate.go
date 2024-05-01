@@ -472,17 +472,6 @@ func (m *Space) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetContainers()) < 1 {
-		err := SpaceValidationError{
-			field:  "Containers",
-			reason: "value must contain at least 1 item(s)",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item
 
@@ -699,17 +688,6 @@ func (m *SpaceUpdate) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if len(m.GetContainers()) < 1 {
-		err := SpaceUpdateValidationError{
-			field:  "Containers",
-			reason: "value must contain at least 1 item(s)",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
 
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item
@@ -977,17 +955,6 @@ func (m *SpaceCreationRequest) validate(all bool) error {
 	}
 
 	var errors []error
-
-	if len(m.GetContainers()) < 1 {
-		err := SpaceCreationRequestValidationError{
-			field:  "Containers",
-			reason: "value must contain at least 1 item(s)",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
 
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item

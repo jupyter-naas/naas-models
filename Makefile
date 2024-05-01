@@ -1,10 +1,13 @@
 d=docker run --rm -it -v `pwd`:/data --workdir /data naas-models-builder:latest
 protoc=$(d) protoc
 
+generate: clean python go build submodules
+	docker-compose run --rm -it python
+	cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
+	cd python/naas_models/pydantic && sed -i.bak 's/common_p2p/naas_models.pydantic.common_p2p/g' *.py && rm *.bak
+
 build:
-	#@ docker buildx create --name multiarch --driver docker-container --use 2>&1 > /dev/null || true
-	#@ docker buildx build -f .docker/Dockerfile -t naas-models-builder --platform=linux/arm64,linux/amd64 .
-	@ .docker/load.sh
+	docker-compose build
 
 python: python/naas_models python/naas_models/pydantic
 
@@ -22,18 +25,6 @@ clean:
 
 submodules:
 	git submodule init && git submodule update
-
-generate: clean python go build submodules
-	$(d) bash -c 'source /venv/bin/activate && python3 -m grpc_tools.protoc \
-		-I=protos \
-		-I=lib/protoc-gen-validate/validate \
-		--protobuf-to-pydantic_out=python/naas_models/pydantic \
-		--python_out=python/naas_models \
-		--go_out=go \
-		--validate_out="lang=go:go" \
-		space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto validate.proto common.proto'
-	cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
-	cd python/naas_models/pydantic && sed -i.bak 's/..common_p2p/naas_models.pydantic.common_p2p/g' *.py && rm *.bak
 
 bash: 
 	$(d) /bin/bash
