@@ -36,11 +36,11 @@ class Object(BaseModel):
     lastmodified: typing.Optional[str] = Field(default="") 
 
 class StorageResponseError(BaseModel):
-    error: typing.Optional[StorageError] = Field(default=0) 
+    code: typing.Optional[StorageError] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class ObjectResponseError(BaseModel):
-    error: typing.Optional[ObjectError] = Field(default=0) 
+    code: typing.Optional[ObjectError] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class ObjectStorageCredentialsResponseError(BaseModel):
@@ -53,14 +53,14 @@ class StorageListRequest(BaseModel):
 
 class StorageListResponse(BaseModel):
     storage: typing.List[Storage] = Field(default_factory=list) 
-    code: typing.Optional[StorageResponseError] = Field(default=None) 
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class StorageCreateRequest(BaseModel):
     storage: typing.Optional[Storage] = Field(default=None) 
 
 class StorageCreateResponse(BaseModel):
     storage: typing.Optional[Storage] = Field(default=None) 
-    code: typing.Optional[StorageResponseError] = Field(default=None) 
+    error: typing.Optional[StorageResponseError] = Field(default=None) 
 
 class StorageDeleteRequest(BaseModel):
     storage: typing.Optional[Storage] = Field(default=None) 
