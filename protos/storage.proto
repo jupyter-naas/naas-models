@@ -52,7 +52,7 @@ enum CredentialsError {
 }
 
 message ObjectStorageCredentialsResponseError {
-    optional CredentialsError error = 1;
+    optional CredentialsError code = 1;
     optional string message = 2;
 }
 
@@ -66,7 +66,7 @@ message StorageListRequest {
 
 message StorageListResponse {
     repeated Storage storage = 1;
-    optional StorageResponseError error = 2;
+    optional StorageResponseError code = 2;
 }
 
 message StorageCreateRequest {
@@ -75,7 +75,7 @@ message StorageCreateRequest {
 
 message StorageCreateResponse {
     optional Storage storage = 1;
-    optional StorageResponseError error = 2;
+    optional StorageResponseError code = 2;
 }
 
 message StorageDeleteRequest {

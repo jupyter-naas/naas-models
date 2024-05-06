@@ -498,8 +498,8 @@ func (m *ObjectStorageCredentialsResponseError) validate(all bool) error {
 
 	var errors []error
 
-	if m.Error != nil {
-		// no validation rules for Error
+	if m.Code != nil {
+		// no validation rules for Code
 	}
 
 	if m.Message != nil {
@@ -812,14 +812,14 @@ func (m *StorageListResponse) validate(all bool) error {
 
 	}
 
-	if m.Error != nil {
+	if m.Code != nil {
 
 		if all {
-			switch v := interface{}(m.GetError()).(type) {
+			switch v := interface{}(m.GetCode()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, StorageListResponseValidationError{
-						field:  "Error",
+						field:  "Code",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -827,16 +827,16 @@ func (m *StorageListResponse) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, StorageListResponseValidationError{
-						field:  "Error",
+						field:  "Code",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetCode()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return StorageListResponseValidationError{
-					field:  "Error",
+					field:  "Code",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1115,14 +1115,14 @@ func (m *StorageCreateResponse) validate(all bool) error {
 
 	}
 
-	if m.Error != nil {
+	if m.Code != nil {
 
 		if all {
-			switch v := interface{}(m.GetError()).(type) {
+			switch v := interface{}(m.GetCode()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, StorageCreateResponseValidationError{
-						field:  "Error",
+						field:  "Code",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -1130,16 +1130,16 @@ func (m *StorageCreateResponse) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, StorageCreateResponseValidationError{
-						field:  "Error",
+						field:  "Code",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetCode()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return StorageCreateResponseValidationError{
-					field:  "Error",
+					field:  "Code",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}

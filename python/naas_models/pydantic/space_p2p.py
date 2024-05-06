@@ -38,11 +38,11 @@ class Space(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
     id: typing.Optional[UUID] = Field(default="") 
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[Container] = Field(default_factory=list) 
+    containers: typing.List[Container] = Field(default_factory=list, min_length=1) 
 
 class SpaceUpdate(BaseModel):
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[ContainerUpdate] = Field(default_factory=list) 
+    containers: typing.List[ContainerUpdate] = Field(default_factory=list, min_length=1) 
 
 class SpaceResponseError(BaseModel):
     code: typing.Optional[SpaceError] = Field(default=0) 
@@ -53,7 +53,7 @@ class SpaceResponseError(BaseModel):
 class SpaceCreationRequest(BaseModel):
     name: typing.Optional[str] = Field(default="", min_length=1, max_length=63, pattern="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[Container] = Field(default_factory=list) 
+    containers: typing.List[Container] = Field(default_factory=list, min_length=1) 
 
 class SpaceCreationResponse(BaseModel):
     space: typing.Optional[Space] = Field(default=None) 
