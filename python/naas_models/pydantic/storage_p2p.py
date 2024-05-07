@@ -12,6 +12,7 @@ class StorageError(IntEnum):
     STORAGE_NO_ERROR = 0
     STORAGE_ALREADY_EXIST = 1
     STORAGE_NOT_FOUND = 2
+    INTERNAL_SERVER_ERROR = 1000
 
 
 class ObjectError(IntEnum):
