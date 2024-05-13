@@ -1,0 +1,22 @@
+services:
+  python:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    volumes:
+      - .:/data
+      - .cache:/root/.cache
+    working_dir: /data/python
+    command:
+      - bash
+      - -c
+      - |
+          poetry install --with dev && \
+          poetry run python3 -m grpc_tools.protoc \
+          -I=../protos/ \
+          -I=../lib/protoc-gen-validate/validate/ \
+          --protobuf-to-pydantic_out=../python/naas_models/pydantic/ \
+          --python_out=../python/naas_models \
+          --go_out=../go \
+          --validate_out="lang=go:../go" \
+          space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto validate.proto common.proto

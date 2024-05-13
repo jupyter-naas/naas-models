@@ -1,0 +1,259 @@
+syntax = "proto3";
+
+package workspace;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/workspace";
+
+import "validate.proto";
+
+message Workspace {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string name = 2;
+    optional string fav_icon = 3;
+    optional string large_logo = 4;
+    optional string small_logo = 5;
+    optional string primary_color = 6;
+    optional string secondary_color = 7;
+    optional string tertiary_color = 8;
+    optional string text_primary_color = 9;
+    optional string text_secondary_color = 10;
+    optional bool is_personal = 11;
+    optional string created_at = 12;
+}
+
+message WorkspaceCreation {
+    optional string name = 1;
+    optional string fav_icon = 2;
+    optional string large_logo = 3;
+    optional string small_logo = 4;
+    optional string primary_color = 5;
+    optional string secondary_color = 6;
+    optional string tertiary_color = 7;
+    optional string text_primary_color = 8;
+    optional string text_secondary_color = 9;
+    optional bool is_personal = 10;
+}
+
+message WorkspaceUpdate {
+    optional string name = 2;
+    optional string fav_icon = 3;
+    optional string large_logo = 4;
+    optional string small_logo = 5;
+    optional string primary_color = 6;
+    optional string secondary_color = 7;
+    optional string tertiary_color = 8;
+    optional string text_primary_color = 9;
+    optional string text_secondary_color = 10;
+}
+
+message WorkspaceUser {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string role = 3 [(validate.rules).string = {in: ["owner", "admin", "member"]}];
+    optional string status = 4 [(validate.rules).string = {in: ["active", "invited", "declined"]}];
+    optional string create_at = 5;
+    optional string update_at = 6;
+}
+
+message WorkspaceUserUpdate {
+    optional string role = 1 [(validate.rules).string = {in: ["owner", "admin", "member"]}];
+    optional string status = 2 [(validate.rules).string = {in: ["active", "invited", "declined"]}];
+}
+
+message WorkspacePlugin {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string payload = 3;
+    optional string create_at = 4;
+}
+
+message WorkspacePluginUpdate {
+    optional string payload = 1;
+}
+
+
+enum WorkspaceError {
+    WORKSPACE_NO_ERROR = 0;
+    WORKSPACE_NOT_FOUND = 1;
+    WORKSPACE_USER_ALREADY_EXISTS = 2;
+    WORKSPACE_USER_NOT_FOUND = 3;
+    WORKSPACE_USER_ALREADY_ACTIVE = 4;
+    USER_ALREADY_HAVE_PERSONAL_WORKSPACE = 5;
+    WORKSPACE_PLUGIN_NOT_FOUND = 6;
+
+    INTERNAL_SERVER_ERROR = 1000;
+}
+
+message WorkspaceResponseError {
+    optional WorkspaceError code = 1;
+    optional string message = 2;
+}
+
+// Workspace List
+
+message WorkspaceListRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceListResponse {
+    repeated Workspace workspaces = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Create
+
+message WorkspaceCreateRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional WorkspaceCreation workspace = 2;
+}
+
+message WorkspaceCreateResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Get
+
+message WorkspaceGetRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceGetResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Update
+
+message WorkspaceUpdateRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional WorkspaceUpdate workspace = 2;
+}
+
+message WorkspaceUpdateResponse {
+    optional Workspace workspace = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+
+// Workspace Delete
+
+message WorkspaceDeleteRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceDeleteResponse {
+    optional WorkspaceResponseError error = 1;
+}
+
+
+// Workspace User List
+
+message WorkspaceUserListRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceUserListResponse {
+    repeated WorkspaceUser workspace_users = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace User Get
+
+message WorkspaceUserGetRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceUserGetResponse {
+    optional WorkspaceUser workspace_user = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace User Update
+
+message WorkspaceUserUpdateRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional WorkspaceUserUpdate workspace_user = 3;
+}
+
+message WorkspaceUserUpdateResponse {
+    optional WorkspaceUser workspace_user = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace User Delete
+
+message WorkspaceUserDeleteRequest {
+    optional string user_id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceUserDeleteResponse {
+    optional WorkspaceResponseError error = 1;
+}
+
+
+// Workspace Plugin Create
+
+message WorkspacePluginCreateRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string payload = 2;
+}
+
+message WorkspacePluginCreateResponse {
+    optional WorkspacePlugin workspace_plugin = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Plugin Get
+
+message WorkspacePluginGetRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string plugin_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspacePluginGetResponse {
+    optional WorkspacePlugin workspace_plugin = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+
+// Workspace Plugin List
+
+message WorkspacePluginListRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkspacePluginListResponse {
+    repeated WorkspacePlugin workspace_plugins = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Plugin Update
+
+message WorkspacePluginUpdateRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string plugin_id = 2 [(validate.rules).string.uuid = true];
+    optional WorkspacePluginUpdate workspace_plugin = 3;
+}
+
+message WorkspacePluginUpdateResponse {
+    optional WorkspacePlugin workspace_plugin = 1;
+    optional WorkspaceResponseError error = 2;
+}
+
+// Workspace Plugin Delete
+
+message WorkspacePluginDeleteRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string plugin_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message WorkspacePluginDeleteResponse {
+    optional WorkspaceResponseError error = 1;
+}
+
