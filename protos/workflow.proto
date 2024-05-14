@@ -115,13 +115,18 @@ message CronWorkflow {
 *   Argo workflow CRUD resources
 */
 
-message WorkflowCreationRequest {
+message WorkflowCreation {
     optional string name = 1;
     optional string description = 2;
-    optional string user_uid = 3;
+    optional string user_uid = 3 [(validate.rules).string.uuid = true];
     optional string namespace = 4;
     optional bool serverDryRun = 5;
     optional Workflow workflow = 6;
+}
+
+message WorkflowCreationRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional WorkflowCreation workflow_creation_request = 2;
 }
 
 message WorkflowCreationResponse {

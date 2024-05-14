@@ -35,6 +35,9 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _workflow_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on Archive with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -2339,6 +2342,179 @@ var _ interface {
 	ErrorName() string
 } = CronWorkflowValidationError{}
 
+// Validate checks the field values on WorkflowCreation with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *WorkflowCreation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkflowCreation with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkflowCreationMultiError, or nil if none found.
+func (m *WorkflowCreation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkflowCreation) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if m.UserUid != nil {
+
+		if err := m._validateUuid(m.GetUserUid()); err != nil {
+			err = WorkflowCreationValidationError{
+				field:  "UserUid",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Namespace != nil {
+		// no validation rules for Namespace
+	}
+
+	if m.ServerDryRun != nil {
+		// no validation rules for ServerDryRun
+	}
+
+	if m.Workflow != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkflow()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkflowCreationValidationError{
+						field:  "Workflow",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkflowCreationValidationError{
+						field:  "Workflow",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkflow()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkflowCreationValidationError{
+					field:  "Workflow",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkflowCreationMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkflowCreation) _validateUuid(uuid string) error {
+	if matched := _workflow_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkflowCreationMultiError is an error wrapping multiple validation errors
+// returned by WorkflowCreation.ValidateAll() if the designated constraints
+// aren't met.
+type WorkflowCreationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkflowCreationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkflowCreationMultiError) AllErrors() []error { return m }
+
+// WorkflowCreationValidationError is the validation error returned by
+// WorkflowCreation.Validate if the designated constraints aren't met.
+type WorkflowCreationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkflowCreationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkflowCreationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkflowCreationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkflowCreationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkflowCreationValidationError) ErrorName() string { return "WorkflowCreationValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WorkflowCreationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkflowCreation.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkflowCreationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkflowCreationValidationError{}
+
 // Validate checks the field values on WorkflowCreationRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2361,34 +2537,30 @@ func (m *WorkflowCreationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Name != nil {
-		// no validation rules for Name
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkflowCreationRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
-	if m.Description != nil {
-		// no validation rules for Description
-	}
-
-	if m.UserUid != nil {
-		// no validation rules for UserUid
-	}
-
-	if m.Namespace != nil {
-		// no validation rules for Namespace
-	}
-
-	if m.ServerDryRun != nil {
-		// no validation rules for ServerDryRun
-	}
-
-	if m.Workflow != nil {
+	if m.WorkflowCreationRequest != nil {
 
 		if all {
-			switch v := interface{}(m.GetWorkflow()).(type) {
+			switch v := interface{}(m.GetWorkflowCreationRequest()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, WorkflowCreationRequestValidationError{
-						field:  "Workflow",
+						field:  "WorkflowCreationRequest",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -2396,16 +2568,16 @@ func (m *WorkflowCreationRequest) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, WorkflowCreationRequestValidationError{
-						field:  "Workflow",
+						field:  "WorkflowCreationRequest",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetWorkflow()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetWorkflowCreationRequest()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return WorkflowCreationRequestValidationError{
-					field:  "Workflow",
+					field:  "WorkflowCreationRequest",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -2416,6 +2588,14 @@ func (m *WorkflowCreationRequest) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return WorkflowCreationRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkflowCreationRequest) _validateUuid(uuid string) error {
+	if matched := _workflow_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil

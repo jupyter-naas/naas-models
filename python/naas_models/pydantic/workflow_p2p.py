@@ -5,6 +5,7 @@
 from google.protobuf.message import Message  # type: ignore
 from pydantic import BaseModel
 from pydantic import Field
+from uuid import UUID
 import typing
 
 
@@ -92,13 +93,17 @@ class CronWorkflow(BaseModel):
     metadata: Metadata = Field() 
     spec: CronSpec = Field() 
 
-class WorkflowCreationRequest(BaseModel):
+class WorkflowCreation(BaseModel):
     name: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
-    user_uid: typing.Optional[str] = Field(default="") 
+    user_uid: typing.Optional[UUID] = Field(default="") 
     namespace: typing.Optional[str] = Field(default="") 
     serverDryRun: typing.Optional[bool] = Field(default=False) 
     workflow: typing.Optional[Workflow] = Field(default=None) 
+
+class WorkflowCreationRequest(BaseModel):
+    workspace_id: typing.Optional[UUID] = Field(default="") 
+    workflow_creation_request: typing.Optional[WorkflowCreation] = Field(default=None) 
 
 class WorkflowCreationResponse(BaseModel):
     name: typing.Optional[str] = Field(default="") 
