@@ -56,21 +56,30 @@ class ScriptTemplate(BaseModel):
     resources: typing.Dict[str, str] = Field(default_factory=dict) 
     source: typing.Optional[str] = Field(default="") 
 
+class ContainerTemplate(BaseModel):
+    name: str = Field(default="") 
+    image: str = Field(default="") 
+    command: typing.Dict[str, str] = Field(default_factory=dict) 
+    args: typing.Dict[str, str] = Field(default_factory=dict) 
+
 class Template(BaseModel):
-    name: typing.Optional[str] = Field(default="") 
-    container: typing.Optional[str] = Field(default="") 
-    metadata: typing.Dict[str, str] = Field(default_factory=dict) 
+    name: str = Field(default="") 
     inputs: typing.Optional[Inputs] = Field(default=None) 
     outputs: typing.Optional[Outputs] = Field(default=None) 
     dag: typing.Optional[DagTemplate] = Field(default=None) 
     script: typing.Optional[ScriptTemplate] = Field(default=None) 
+    ttlStrategy: typing.Optional[str] = Field(default="") 
+    container: typing.Optional[str] = Field(default="") 
+    podGC: typing.Optional[str] = Field(default="") 
+    metadata: typing.Dict[str, str] = Field(default_factory=dict) 
 
 class Spec(BaseModel):
-    entrypoint: str = Field(default="") 
     arguments: typing.Optional[Arguments] = Field(default=None) 
+    entrypoint: str = Field(default="") 
     templates: typing.List[Template] = Field(default_factory=list) 
 
 class Metadata(BaseModel):
+    name: typing.Optional[str] = Field(default="") 
     generateName: typing.Optional[str] = Field(default="") 
     namespace: typing.Optional[str] = Field(default="") 
     labels: typing.Dict[str, str] = Field(default_factory=dict) 

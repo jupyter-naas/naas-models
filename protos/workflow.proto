@@ -68,26 +68,36 @@ message ScriptTemplate {
     optional string source = 4;
 }
 
+message ContainerTemplate {
+    string name = 1;
+    string image = 2;
+    map<string, string> command = 3;
+    map<string, string> args = 4;
+}
+
 message Template {
-    optional string name = 1;
-    optional string container = 2;
-    map<string, string> metadata = 3;
-    optional Inputs inputs = 4;
-    optional Outputs outputs = 5;
-    optional DagTemplate dag = 6;
-    optional ScriptTemplate script = 7;
+    string name = 1;
+    optional Inputs inputs = 2;
+    optional Outputs outputs = 3;    
+    optional DagTemplate dag = 4;
+    optional ScriptTemplate script = 5;
+    optional string ttlStrategy = 6;
+    optional string container = 7;    
+    optional string podGC = 8;
+    map<string, string> metadata = 9;
 }
 
 message Spec {
-    string entrypoint = 1;
-    optional Arguments arguments  = 2;
+    optional Arguments arguments  = 1;    
+    string entrypoint = 2;
     repeated Template templates = 3;
 }
 
 message Metadata {
-    optional string generateName = 1;
-    optional string namespace = 2;
-    map<string, string> labels = 3;
+    optional string name = 1;
+    optional string generateName = 2;
+    optional string namespace = 3;
+    map<string, string> labels = 4;
 }
 
 message Workflow {

@@ -1359,6 +1359,116 @@ var _ interface {
 	ErrorName() string
 } = ScriptTemplateValidationError{}
 
+// Validate checks the field values on ContainerTemplate with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ContainerTemplate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ContainerTemplate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ContainerTemplateMultiError, or nil if none found.
+func (m *ContainerTemplate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ContainerTemplate) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Image
+
+	// no validation rules for Command
+
+	// no validation rules for Args
+
+	if len(errors) > 0 {
+		return ContainerTemplateMultiError(errors)
+	}
+
+	return nil
+}
+
+// ContainerTemplateMultiError is an error wrapping multiple validation errors
+// returned by ContainerTemplate.ValidateAll() if the designated constraints
+// aren't met.
+type ContainerTemplateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ContainerTemplateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ContainerTemplateMultiError) AllErrors() []error { return m }
+
+// ContainerTemplateValidationError is the validation error returned by
+// ContainerTemplate.Validate if the designated constraints aren't met.
+type ContainerTemplateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ContainerTemplateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ContainerTemplateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ContainerTemplateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ContainerTemplateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ContainerTemplateValidationError) ErrorName() string {
+	return "ContainerTemplateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ContainerTemplateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sContainerTemplate.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ContainerTemplateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ContainerTemplateValidationError{}
+
 // Validate checks the field values on Template with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1381,15 +1491,9 @@ func (m *Template) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Name
+
 	// no validation rules for Metadata
-
-	if m.Name != nil {
-		// no validation rules for Name
-	}
-
-	if m.Container != nil {
-		// no validation rules for Container
-	}
 
 	if m.Inputs != nil {
 
@@ -1521,6 +1625,18 @@ func (m *Template) validate(all bool) error {
 			}
 		}
 
+	}
+
+	if m.TtlStrategy != nil {
+		// no validation rules for TtlStrategy
+	}
+
+	if m.Container != nil {
+		// no validation rules for Container
+	}
+
+	if m.PodGC != nil {
+		// no validation rules for PodGC
 	}
 
 	if len(errors) > 0 {
@@ -1790,6 +1906,10 @@ func (m *Metadata) validate(all bool) error {
 	var errors []error
 
 	// no validation rules for Labels
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
 
 	if m.GenerateName != nil {
 		// no validation rules for GenerateName
