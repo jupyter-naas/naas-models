@@ -114,9 +114,8 @@ message Spec {
 
 message Metadata {
     optional string name = 1;
-    optional string generateName = 2;
-    optional string namespace = 3;
-    map<string, string> labels = 4;
+    optional string namespace = 2;
+    map<string, string> labels = 3;
 }
 
 message WorkflowStatus {
@@ -125,11 +124,11 @@ message WorkflowStatus {
     optional string startedAt = 3;
     optional string finishedAt = 4;
     optional string progress = 5;
-    optional string outputs = 6; // #TODO
+    optional string outputs = 6;
 }
 
 message Workflow {
-    Metadata metadata = 1;
+    optional Metadata metadata = 1;
     Spec spec = 2;
 }
 
@@ -144,10 +143,10 @@ message CronSpec {
     Spec workflowSpec = 8;
 }
 
-message CronWorkflow {
-    Metadata metadata = 1;
-    CronSpec spec = 2;
-}
+//message CronWorkflow {
+//    Metadata metadata = 1;
+//    CronSpec spec = 2;
+//}
 
 /**
 *   Argo workflow CRUD resources
@@ -156,16 +155,13 @@ message CronWorkflow {
 message WorkflowCreationRequest {
     optional string name = 1;
     optional string description = 2;
-    optional string user_uid = 3 [(validate.rules).string.uuid = true];
-    optional string namespace = 4;
-    optional bool serverDryRun = 5;
-    optional string token = 6;
-    optional Workflow workflow = 7;
+    optional bool serverDryRun = 3;
+    optional Workflow workflow = 4;
 }
 
 message WorkflowCreationResponse {
     optional WorkflowStatus workflow = 1;
-    optional WorkflowError error = 2;
+    optional WorkflowResponseError error = 2;
 }
 
 message WorkflowDeleteRequest {

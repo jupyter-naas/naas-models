@@ -88,7 +88,6 @@ class Spec(BaseModel):
 
 class Metadata(BaseModel):
     name: typing.Optional[str] = Field(default="") 
-    generateName: typing.Optional[str] = Field(default="") 
     namespace: typing.Optional[str] = Field(default="") 
     labels: typing.Dict[str, str] = Field(default_factory=dict) 
 
@@ -101,7 +100,7 @@ class WorkflowStatus(BaseModel):
     outputs: typing.Optional[str] = Field(default="") 
 
 class Workflow(BaseModel):
-    metadata: Metadata = Field() 
+    metadata: typing.Optional[Metadata] = Field(default=None) 
     spec: Spec = Field() 
 
 class CronSpec(BaseModel):
@@ -114,22 +113,15 @@ class CronSpec(BaseModel):
     suspend: typing.Optional[str] = Field(default="") 
     workflowSpec: Spec = Field() 
 
-class CronWorkflow(BaseModel):
-    metadata: Metadata = Field() 
-    spec: CronSpec = Field() 
-
 class WorkflowCreationRequest(BaseModel):
     name: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
-    user_uid: typing.Optional[UUID] = Field(default="") 
-    namespace: typing.Optional[str] = Field(default="") 
     serverDryRun: typing.Optional[bool] = Field(default=False) 
-    token: typing.Optional[str] = Field(default="") 
     workflow: typing.Optional[Workflow] = Field(default=None) 
 
 class WorkflowCreationResponse(BaseModel):
     workflow: typing.Optional[WorkflowStatus] = Field(default=None) 
-    error: typing.Optional[WorkflowError] = Field(default=0) 
+    error: typing.Optional[WorkflowResponseError] = Field(default=None) 
 
 class WorkflowDeleteRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
