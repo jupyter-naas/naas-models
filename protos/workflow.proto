@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/workflow";
+
+import "validate.proto";
+
+/**
+*   Errors
+*/
+message WorkflowResponseError {
+    optional WorkflowError code = 1;
+    optional string message = 2;
+}
+
+enum WorkflowError{
+    WORKFLOW_NO_ERROR = 0;
+    INTERNAL_SERVER_ERROR = 1000;    
+}
+
+/**
+*   Argo workflow custom resources
+*/
+
+message Archive {
+    map<string, string> none = 1;
+}
+
+message ArtifactS3 {
+    optional string key = 1;
+    optional string bucket = 2;
+}
+
+message Artifact {
+    optional string name = 1;
+    optional string path = 2;
+    optional int32 mode = 3;
+    optional string from = 4;
+    optional Archive archive = 5;
+    optional ArtifactS3 s3 = 6;
+}
+
+message Inputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
+}
+
+message Outputs {
+    repeated Parameter parameters = 1;
+    repeated Artifact artifacts = 2;
+}
+
+message Parameter {
+    optional string name = 1;
+    optional string value = 2;
+    optional string default = 3;
+}
+
+message Arguments {
+    //map<string, string> parameters = 1;
+    repeated Parameter parameters = 1;
+    //map<string, string> artifacts = 2;
+    repeated Artifact artifacts = 2;
+}
+
+message DagTasks {
+    string name = 1;
+    string template = 2;
+    optional string depends = 3;
+    optional Arguments arguments = 4;
+}
+
+message DagTemplate {
+    repeated DagTasks tasks = 1;
+    optional string target = 2;
+}
+
+message ScriptTemplate {
+    optional string image = 1;
+    repeated string command = 2;
+    map<string, string> resources = 3;
+    optional string source = 4;
+}
+
+message ContainerTemplate {
+    string name = 1;
+    string image = 2;
+    repeated string command = 3;
+    repeated string args = 4;
+    //map<string, string> command = 3;
+    //map<string, string> args = 4;
+    //optional string command = 3;
+    //optional string args = 4;
+}
+
+message Template {
+    string name = 1;
+    optional Inputs inputs = 2;
+    optional Outputs outputs = 3;    
+    optional DagTemplate dag = 4;
+    optional ScriptTemplate script = 5;
+    optional string ttlStrategy = 6;
+    optional ContainerTemplate container = 7;    
+    optional string podGC = 8;
+    map<string, string> metadata = 9;
+}
+
+message Spec {
+    optional Arguments arguments  = 1;    
+    optional string entrypoint = 2;
+    repeated Template templates = 3;
+}
+
+message Metadata {
+    optional string name = 1;
+    optional string namespace = 2;
+    map<string, string> labels = 3;
+}
+
+message WorkflowStatus {
+    optional string name = 1;
+    optional string phase = 2;
+    optional string startedAt = 3;
+    optional string finishedAt = 4;
+    optional string progress = 5;
+    optional string outputs = 6;
+}
+
+message Workflow {
+    optional Metadata metadata = 1;
+    Spec spec = 2;
+}
+
+message CronSpec {
+    string schedule = 1;
+    string timezone = 2;
+    optional string startingDeadlineSeconds = 3;
+    optional string concurrencyPolicy = 4;
+    optional string successfulJobsHistoryLimit = 5;
+    optional string failedJobsHistoryLimit = 6;
+    optional string suspend = 7;
+    Spec workflowSpec = 8;
+}
+
+//message CronWorkflow {
+//    Metadata metadata = 1;
+//    CronSpec spec = 2;
+//}
+
+/**
+*   Argo workflow CRUD resources
+*/
+
+message WorkflowCreationRequest {
+    optional string name = 1;
+    optional string description = 2;
+    optional bool serverDryRun = 3;
+    optional Workflow workflow = 4;
+}
+
+message WorkflowCreationResponse {
+    optional WorkflowStatus workflow = 1;
+    optional WorkflowResponseError error = 2;
+}
+
+message WorkflowDeleteRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string workflow_name = 2;
+}
+
+message WorkflowDeleteResponse {
+    optional WorkflowStatus workflow = 1;
+    optional WorkflowError error = 2;
+}
+
+message WorkflowGetRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string workflow_name = 2;
+}
+
+message WorkflowGetResponse {
+    optional WorkflowStatus workflow = 1;
+    optional WorkflowResponseError error = 2;
+}
+
+message WorkflowListRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkflowListResponse {
+    repeated WorkflowStatus workflows = 1;
+    optional WorkflowResponseError error = 2;
+}

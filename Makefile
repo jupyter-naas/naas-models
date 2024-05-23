@@ -11,7 +11,7 @@ build:
 
 python: python/naas_models python/naas_models/pydantic
 
-python/naas_models: 
+python/naas_models:
 	mkdir -p python/naas_models
 
 python/naas_models/pydantic: python/naas_models
@@ -21,10 +21,10 @@ go:
 	mkdir go
 
 clean:
-	rm -rf dist go  python/naas_models/*_pb2.py python/naas_models/pydantic/*_p2p.py 
+	rm -rf dist go  python/naas_models/*_pb2.py python/naas_models/pydantic/*_p2p.py
 
 submodules:
 	git submodule init && git submodule update
 
-bash: 
+bash:
 	$(d) /bin/bash
