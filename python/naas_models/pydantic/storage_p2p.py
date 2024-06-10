@@ -81,7 +81,7 @@ class ObjectCreateRequest(BaseModel):
     object: typing.Optional[Object] = Field(default=None) 
 
 class ObjectCreateResponse(BaseModel):
-    error: typing.Optional[StorageResponseError] = Field(default=None) 
+    error: typing.Optional[ObjectResponseError] = Field(default=None) 
 
 class ObjectListRequest(BaseModel):
     storage: typing.Optional[Storage] = Field(default=None) 
