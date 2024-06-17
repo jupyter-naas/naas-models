@@ -22,7 +22,7 @@ class Container(BaseModel):
     image: typing.Optional[str] = Field(default="", min_length=1, pattern="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
     env: typing.Dict[str, str] = Field(default_factory=dict) 
     port: typing.Optional[int] = Field(default=0, ge=0, le=65535) 
-    cpu: typing.Optional[str] = Field(default="", pattern="^[0-9]+(.[0-9]+)?[m]?$") 
+    cpu: typing.Optional[str] = Field(default="", pattern="^[1-9]+(.[1-9]+)?[m]?$") 
     memory: typing.Optional[str] = Field(default="", pattern="^[0-9]+(Mi|Gi|Ki)$") 
 
 class ContainerUpdate(BaseModel):
@@ -30,7 +30,7 @@ class ContainerUpdate(BaseModel):
     image: typing.Optional[str] = Field(default="", min_length=1, pattern="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
     env: typing.Dict[str, str] = Field(default_factory=dict) 
     port: typing.Optional[int] = Field(default=0, ge=0, le=65535) 
-    cpu: typing.Optional[str] = Field(default="", pattern="^[0-9]+(.[0-9]+)?[m]?$") 
+    cpu: typing.Optional[str] = Field(default="", pattern="^[1-9]+(.[1-9]+)?[m]?$") 
     memory: typing.Optional[str] = Field(default="", pattern="^[0-9]+(Mi|Gi|Ki)$") 
 
 class Space(BaseModel):
@@ -38,11 +38,11 @@ class Space(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
     id: typing.Optional[UUID] = Field(default="") 
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[Container] = Field(default_factory=list) 
+    containers: typing.List[Container] = Field(default_factory=list, min_length=1) 
 
 class SpaceUpdate(BaseModel):
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[ContainerUpdate] = Field(default_factory=list) 
+    containers: typing.List[ContainerUpdate] = Field(default_factory=list, min_length=1) 
 
 class SpaceResponseError(BaseModel):
     code: typing.Optional[SpaceError] = Field(default=0) 
@@ -53,7 +53,7 @@ class SpaceResponseError(BaseModel):
 class SpaceCreationRequest(BaseModel):
     name: typing.Optional[str] = Field(default="", min_length=1, max_length=63, pattern="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
     domain: typing.Optional[UriRefStr] = Field(default="") 
-    containers: typing.List[Container] = Field(default_factory=list) 
+    containers: typing.List[Container] = Field(default_factory=list, min_length=1) 
 
 class SpaceCreationResponse(BaseModel):
     space: typing.Optional[Space] = Field(default=None) 

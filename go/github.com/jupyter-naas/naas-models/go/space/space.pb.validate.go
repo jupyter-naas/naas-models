@@ -134,7 +134,7 @@ func (m *Container) validate(all bool) error {
 		if !_Container_Cpu_Pattern.MatchString(m.GetCpu()) {
 			err := ContainerValidationError{
 				field:  "Cpu",
-				reason: "value does not match regex pattern \"^[0-9]+(.[0-9]+)?[m]?$\"",
+				reason: "value does not match regex pattern \"^[1-9]+(.[1-9]+)?[m]?$\"",
 			}
 			if !all {
 				return err
@@ -240,7 +240,7 @@ var _Container_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9-]+)$")
 
 var _Container_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
 
-var _Container_Cpu_Pattern = regexp.MustCompile("^[0-9]+(.[0-9]+)?[m]?$")
+var _Container_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
 var _Container_Memory_Pattern = regexp.MustCompile("^[0-9]+(Mi|Gi|Ki)$")
 
@@ -340,7 +340,7 @@ func (m *ContainerUpdate) validate(all bool) error {
 		if !_ContainerUpdate_Cpu_Pattern.MatchString(m.GetCpu()) {
 			err := ContainerUpdateValidationError{
 				field:  "Cpu",
-				reason: "value does not match regex pattern \"^[0-9]+(.[0-9]+)?[m]?$\"",
+				reason: "value does not match regex pattern \"^[1-9]+(.[1-9]+)?[m]?$\"",
 			}
 			if !all {
 				return err
@@ -447,7 +447,7 @@ var _ContainerUpdate_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9-]+)$")
 
 var _ContainerUpdate_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
 
-var _ContainerUpdate_Cpu_Pattern = regexp.MustCompile("^[0-9]+(.[0-9]+)?[m]?$")
+var _ContainerUpdate_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
 var _ContainerUpdate_Memory_Pattern = regexp.MustCompile("^[0-9]+(Mi|Gi|Ki)$")
 
@@ -471,6 +471,17 @@ func (m *Space) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if len(m.GetContainers()) < 1 {
+		err := SpaceValidationError{
+			field:  "Containers",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item
@@ -688,6 +699,17 @@ func (m *SpaceUpdate) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if len(m.GetContainers()) < 1 {
+		err := SpaceUpdateValidationError{
+			field:  "Containers",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item
@@ -955,6 +977,17 @@ func (m *SpaceCreationRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if len(m.GetContainers()) < 1 {
+		err := SpaceCreationRequestValidationError{
+			field:  "Containers",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	for idx, item := range m.GetContainers() {
 		_, _ = idx, item
