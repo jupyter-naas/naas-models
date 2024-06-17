@@ -149,7 +149,7 @@ func (m *Container) validate(all bool) error {
 		if !_Container_Memory_Pattern.MatchString(m.GetMemory()) {
 			err := ContainerValidationError{
 				field:  "Memory",
-				reason: "value does not match regex pattern \"^[0-9]+(Mi|Gi|Ki)$\"",
+				reason: "value does not match regex pattern \"^[1-9]+(Mi|Gi|Ki)$\"",
 			}
 			if !all {
 				return err
@@ -242,7 +242,7 @@ var _Container_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA
 
 var _Container_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
-var _Container_Memory_Pattern = regexp.MustCompile("^[0-9]+(Mi|Gi|Ki)$")
+var _Container_Memory_Pattern = regexp.MustCompile("^[1-9]+(Mi|Gi|Ki)$")
 
 // Validate checks the field values on ContainerUpdate with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -355,7 +355,7 @@ func (m *ContainerUpdate) validate(all bool) error {
 		if !_ContainerUpdate_Memory_Pattern.MatchString(m.GetMemory()) {
 			err := ContainerUpdateValidationError{
 				field:  "Memory",
-				reason: "value does not match regex pattern \"^[0-9]+(Mi|Gi|Ki)$\"",
+				reason: "value does not match regex pattern \"^[1-9]+(Mi|Gi|Ki)$\"",
 			}
 			if !all {
 				return err
@@ -449,7 +449,7 @@ var _ContainerUpdate_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:
 
 var _ContainerUpdate_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
-var _ContainerUpdate_Memory_Pattern = regexp.MustCompile("^[0-9]+(Mi|Gi|Ki)$")
+var _ContainerUpdate_Memory_Pattern = regexp.MustCompile("^[1-9]+(Mi|Gi|Ki)$")
 
 // Validate checks the field values on Space with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
