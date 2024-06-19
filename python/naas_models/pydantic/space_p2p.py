@@ -22,16 +22,16 @@ class Container(BaseModel):
     image: typing.Optional[str] = Field(default="", min_length=1, pattern="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
     env: typing.Dict[str, str] = Field(default_factory=dict) 
     port: typing.Optional[int] = Field(default=0, ge=0, le=65535) 
-    cpu: typing.Optional[str] = Field(default="", pattern="^[0-9]+(.[0-9]+)?[m]?$") 
-    memory: typing.Optional[str] = Field(default="", pattern="^[0-9]+(Mi|Gi|Ki)$") 
+    cpu: typing.Optional[str] = Field(default="", pattern="^[1-9]+(.[1-9]+)?[m]?$") 
+    memory: typing.Optional[str] = Field(default="", pattern="^[1-9]+(Mi|Gi|Ki)$") 
 
 class ContainerUpdate(BaseModel):
     name: typing.Optional[str] = Field(default="", min_length=1, max_length=63, pattern="^([A-Za-z0-9-]+)$") 
     image: typing.Optional[str] = Field(default="", min_length=1, pattern="^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$") 
     env: typing.Dict[str, str] = Field(default_factory=dict) 
     port: typing.Optional[int] = Field(default=0, ge=0, le=65535) 
-    cpu: typing.Optional[str] = Field(default="", pattern="^[0-9]+(.[0-9]+)?[m]?$") 
-    memory: typing.Optional[str] = Field(default="", pattern="^[0-9]+(Mi|Gi|Ki)$") 
+    cpu: typing.Optional[str] = Field(default="", pattern="^[1-9]+(.[1-9]+)?[m]?$") 
+    memory: typing.Optional[str] = Field(default="", pattern="^[1-9]+(Mi|Gi|Ki)$") 
 
 class Space(BaseModel):
     name: typing.Optional[str] = Field(default="", min_length=1, max_length=63, pattern="^([A-Za-z0-9]+(-[A-Za-z0-9]+)+)$") 
