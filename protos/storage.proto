@@ -105,7 +105,7 @@ message ObjectCreateRequest {
 }
 
 message ObjectCreateResponse {
-    optional StorageResponseError error = 1;
+    optional ObjectResponseError error = 1;
 }
 
 message ObjectListRequest {
