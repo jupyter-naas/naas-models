@@ -12,6 +12,7 @@ class StorageError(IntEnum):
     STORAGE_NO_ERROR = 0
     STORAGE_ALREADY_EXIST = 1
     STORAGE_NOT_FOUND = 2
+    INTERNAL_SERVER_ERROR = 1000
 
 
 class ObjectError(IntEnum):
@@ -36,15 +37,15 @@ class Object(BaseModel):
     lastmodified: typing.Optional[str] = Field(default="") 
 
 class StorageResponseError(BaseModel):
-    error: typing.Optional[StorageError] = Field(default=0) 
+    code: typing.Optional[StorageError] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class ObjectResponseError(BaseModel):
-    error: typing.Optional[ObjectError] = Field(default=0) 
+    code: typing.Optional[ObjectError] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class ObjectStorageCredentialsResponseError(BaseModel):
-    error: typing.Optional[CredentialsError] = Field(default=0) 
+    code: typing.Optional[CredentialsError] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class StorageListRequest(BaseModel):

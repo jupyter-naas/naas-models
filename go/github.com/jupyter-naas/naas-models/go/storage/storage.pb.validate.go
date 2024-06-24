@@ -277,8 +277,8 @@ func (m *StorageResponseError) validate(all bool) error {
 
 	var errors []error
 
-	if m.Error != nil {
-		// no validation rules for Error
+	if m.Code != nil {
+		// no validation rules for Code
 	}
 
 	if m.Message != nil {
@@ -387,8 +387,8 @@ func (m *ObjectResponseError) validate(all bool) error {
 
 	var errors []error
 
-	if m.Error != nil {
-		// no validation rules for Error
+	if m.Code != nil {
+		// no validation rules for Code
 	}
 
 	if m.Message != nil {
@@ -498,8 +498,8 @@ func (m *ObjectStorageCredentialsResponseError) validate(all bool) error {
 
 	var errors []error
 
-	if m.Error != nil {
-		// no validation rules for Error
+	if m.Code != nil {
+		// no validation rules for Code
 	}
 
 	if m.Message != nil {
