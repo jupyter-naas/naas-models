@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package errors;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/errors";
+
+import "validate.proto";
+
+enum Error {
+    // Generic errors 0 - 199
+    
+    NO_ERROR = 0;
+    INTERNAL_SERVER_ERROR = 199;
+
+    // IAM errors 200 - 299
+
+    IAM_USER_NOT_FOUND = 200;
+
+    // Workspace errors 300 - 399
+
+    WORKSPACE_NOT_FOUND = 300;
+    WORKSPACE_USER_ALREADY_EXISTS = 302;
+    WORKSPACE_USER_NOT_FOUND = 303;
+    WORKSPACE_USER_ALREADY_ACTIVE = 304;
+    WORKSPACE_USER_ALREADY_HAVE_PERSONAL_WORKSPACE = 305;
+    WORKSPACE_PLUGIN_NOT_FOUND = 306;
+    WORKSPACE_INVITE_INVALID = 307;
+    WORKSPACE_CANNOT_INVITE_TO_PERSONAL_WORKSPACE = 308;
+
+    // Credits errors 400 - 499
+
+    CREDITS_USER_HAS_NO_PARENT = 400;
+}

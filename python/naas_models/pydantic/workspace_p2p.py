@@ -2,24 +2,18 @@
 # gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
 # Protobuf Version: 5.26.1 
 # Pydantic Version: 2.7.1 
-from enum import IntEnum
+from naas_models.pydantic.errors_p2p import Error
 from google.protobuf.message import Message  # type: ignore
+from protobuf_to_pydantic.customer_validator import check_one_of
 from protobuf_to_pydantic.customer_validator.v2 import in_validator
 from pydantic import BaseModel
 from pydantic import Field
 from pydantic import field_validator
+from pydantic import model_validator
+from pydantic.networks import EmailStr
 from uuid import UUID
 import typing
 
-class WorkspaceError(IntEnum):
-    WORKSPACE_NO_ERROR = 0
-    WORKSPACE_NOT_FOUND = 1
-    WORKSPACE_USER_ALREADY_EXISTS = 2
-    WORKSPACE_USER_NOT_FOUND = 3
-    WORKSPACE_USER_ALREADY_ACTIVE = 4
-    USER_ALREADY_HAVE_PERSONAL_WORKSPACE = 5
-    WORKSPACE_PLUGIN_NOT_FOUND = 6
-    INTERNAL_SERVER_ERROR = 1000
 
 class Workspace(BaseModel):
     id: typing.Optional[UUID] = Field(default="") 
@@ -86,13 +80,20 @@ class WorkspacePluginUpdate(BaseModel):
     payload: typing.Optional[str] = Field(default="") 
 
 class WorkspaceResponseError(BaseModel):
-    code: typing.Optional[WorkspaceError] = Field(default=0) 
+    code: typing.Optional[Error] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
 
 class WorkspaceListRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceListResponse(BaseModel):
+    workspaces: typing.List[Workspace] = Field(default_factory=list) 
+    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+
+class InvitedWorkspaceListRequest(BaseModel):
+    user_id: typing.Optional[UUID] = Field(default="") 
+
+class InvitedWorkspaceListResponse(BaseModel):
     workspaces: typing.List[Workspace] = Field(default_factory=list) 
     error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
 
@@ -125,6 +126,20 @@ class WorkspaceDeleteRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceDeleteResponse(BaseModel):
+    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+
+class WorkspaceInviteUserRequest(BaseModel):
+    _one_of_dict = {"WorkspaceInviteUserRequest.user": {"fields": {"email", "user_id"}}}
+    one_of_validator = model_validator(mode="before")(check_one_of)
+    workspace_id: typing.Optional[UUID] = Field(default="") 
+    user_id: UUID = Field(default="") 
+    email: EmailStr = Field(default="") 
+    role: typing.Optional[str] = Field(default="", in_=["owner", "admin", "member"]) 
+
+    role_in_validator = field_validator("role", mode="after",check_fields=None)(in_validator)
+
+class WorkspaceInviteUserResponse(BaseModel):
+    workspace_user: typing.Optional[WorkspaceUser] = Field(default=None) 
     error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
 
 class WorkspaceUserListRequest(BaseModel):

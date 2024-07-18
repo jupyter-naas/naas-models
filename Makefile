@@ -5,6 +5,7 @@ generate: clean python go build submodules
 	docker-compose run --rm -it python
 	cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
 	cd python/naas_models/pydantic && sed -i.bak 's/common_p2p/naas_models.pydantic.common_p2p/g' *.py && rm *.bak
+	cd python/naas_models/pydantic && sed -i.bak 's/errors_p2p/naas_models.pydantic.errors_p2p/g' *.py && rm *.bak
 
 build:
 	docker-compose build
