@@ -17,6 +17,8 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
+
+	errors "github.com/jupyter-naas/naas-models/go/errors"
 )
 
 // ensure the imports are used
@@ -33,6 +35,8 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
+
+	_ = errors.Error(0)
 )
 
 // define the regex for a UUID once up-front
@@ -1476,6 +1480,303 @@ var _ interface {
 	ErrorName() string
 } = WorkspaceListResponseValidationError{}
 
+// Validate checks the field values on InvitedWorkspaceListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *InvitedWorkspaceListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InvitedWorkspaceListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InvitedWorkspaceListRequestMultiError, or nil if none found.
+func (m *InvitedWorkspaceListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InvitedWorkspaceListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = InvitedWorkspaceListRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return InvitedWorkspaceListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *InvitedWorkspaceListRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// InvitedWorkspaceListRequestMultiError is an error wrapping multiple
+// validation errors returned by InvitedWorkspaceListRequest.ValidateAll() if
+// the designated constraints aren't met.
+type InvitedWorkspaceListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InvitedWorkspaceListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InvitedWorkspaceListRequestMultiError) AllErrors() []error { return m }
+
+// InvitedWorkspaceListRequestValidationError is the validation error returned
+// by InvitedWorkspaceListRequest.Validate if the designated constraints
+// aren't met.
+type InvitedWorkspaceListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InvitedWorkspaceListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InvitedWorkspaceListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InvitedWorkspaceListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InvitedWorkspaceListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InvitedWorkspaceListRequestValidationError) ErrorName() string {
+	return "InvitedWorkspaceListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InvitedWorkspaceListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvitedWorkspaceListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InvitedWorkspaceListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InvitedWorkspaceListRequestValidationError{}
+
+// Validate checks the field values on InvitedWorkspaceListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *InvitedWorkspaceListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InvitedWorkspaceListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InvitedWorkspaceListResponseMultiError, or nil if none found.
+func (m *InvitedWorkspaceListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InvitedWorkspaceListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetWorkspaces() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, InvitedWorkspaceListResponseValidationError{
+						field:  fmt.Sprintf("Workspaces[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, InvitedWorkspaceListResponseValidationError{
+						field:  fmt.Sprintf("Workspaces[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return InvitedWorkspaceListResponseValidationError{
+					field:  fmt.Sprintf("Workspaces[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, InvitedWorkspaceListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, InvitedWorkspaceListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return InvitedWorkspaceListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return InvitedWorkspaceListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// InvitedWorkspaceListResponseMultiError is an error wrapping multiple
+// validation errors returned by InvitedWorkspaceListResponse.ValidateAll() if
+// the designated constraints aren't met.
+type InvitedWorkspaceListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InvitedWorkspaceListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InvitedWorkspaceListResponseMultiError) AllErrors() []error { return m }
+
+// InvitedWorkspaceListResponseValidationError is the validation error returned
+// by InvitedWorkspaceListResponse.Validate if the designated constraints
+// aren't met.
+type InvitedWorkspaceListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InvitedWorkspaceListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InvitedWorkspaceListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InvitedWorkspaceListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InvitedWorkspaceListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InvitedWorkspaceListResponseValidationError) ErrorName() string {
+	return "InvitedWorkspaceListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e InvitedWorkspaceListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInvitedWorkspaceListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InvitedWorkspaceListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InvitedWorkspaceListResponseValidationError{}
+
 // Validate checks the field values on WorkspaceCreateRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -2716,6 +3017,425 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkspaceDeleteResponseValidationError{}
+
+// Validate checks the field values on WorkspaceInviteUserRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceInviteUserRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceInviteUserRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceInviteUserRequestMultiError, or nil if none found.
+func (m *WorkspaceInviteUserRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceInviteUserRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.User.(type) {
+	case *WorkspaceInviteUserRequest_UserId:
+		if v == nil {
+			err := WorkspaceInviteUserRequestValidationError{
+				field:  "User",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = WorkspaceInviteUserRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *WorkspaceInviteUserRequest_Email:
+		if v == nil {
+			err := WorkspaceInviteUserRequestValidationError{
+				field:  "User",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if err := m._validateEmail(m.GetEmail()); err != nil {
+			err = WorkspaceInviteUserRequestValidationError{
+				field:  "Email",
+				reason: "value must be a valid email address",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceInviteUserRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Role != nil {
+
+		if _, ok := _WorkspaceInviteUserRequest_Role_InLookup[m.GetRole()]; !ok {
+			err := WorkspaceInviteUserRequestValidationError{
+				field:  "Role",
+				reason: "value must be in list [owner admin member]",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceInviteUserRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceInviteUserRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *WorkspaceInviteUserRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+func (m *WorkspaceInviteUserRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceInviteUserRequestMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceInviteUserRequest.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceInviteUserRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceInviteUserRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceInviteUserRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceInviteUserRequestValidationError is the validation error returned
+// by WorkspaceInviteUserRequest.Validate if the designated constraints aren't met.
+type WorkspaceInviteUserRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceInviteUserRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceInviteUserRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceInviteUserRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceInviteUserRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceInviteUserRequestValidationError) ErrorName() string {
+	return "WorkspaceInviteUserRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceInviteUserRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceInviteUserRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceInviteUserRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceInviteUserRequestValidationError{}
+
+var _WorkspaceInviteUserRequest_Role_InLookup = map[string]struct{}{
+	"owner":  {},
+	"admin":  {},
+	"member": {},
+}
+
+// Validate checks the field values on WorkspaceInviteUserResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceInviteUserResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceInviteUserResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceInviteUserResponseMultiError, or nil if none found.
+func (m *WorkspaceInviteUserResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceInviteUserResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceUser != nil {
+
+		if all {
+			switch v := interface{}(m.GetWorkspaceUser()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceInviteUserResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceInviteUserResponseValidationError{
+						field:  "WorkspaceUser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetWorkspaceUser()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceInviteUserResponseValidationError{
+					field:  "WorkspaceUser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceInviteUserResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceInviteUserResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceInviteUserResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceInviteUserResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceInviteUserResponseMultiError is an error wrapping multiple
+// validation errors returned by WorkspaceInviteUserResponse.ValidateAll() if
+// the designated constraints aren't met.
+type WorkspaceInviteUserResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceInviteUserResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceInviteUserResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceInviteUserResponseValidationError is the validation error returned
+// by WorkspaceInviteUserResponse.Validate if the designated constraints
+// aren't met.
+type WorkspaceInviteUserResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceInviteUserResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceInviteUserResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceInviteUserResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceInviteUserResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceInviteUserResponseValidationError) ErrorName() string {
+	return "WorkspaceInviteUserResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceInviteUserResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceInviteUserResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceInviteUserResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceInviteUserResponseValidationError{}
 
 // Validate checks the field values on WorkspaceUserListRequest with the rules
 // defined in the proto definition for this message. If any rules are
