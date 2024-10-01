@@ -35,6 +35,9 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _iam_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on TokenData with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -279,3 +282,355 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ProfileValidationError{}
+
+// Validate checks the field values on ImpersonateUserRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ImpersonateUserRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ImpersonateUserRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ImpersonateUserRequestMultiError, or nil if none found.
+func (m *ImpersonateUserRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ImpersonateUserRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch v := m.User.(type) {
+	case *ImpersonateUserRequest_UserId:
+		if v == nil {
+			err := ImpersonateUserRequestValidationError{
+				field:  "User",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if err := m._validateUuid(m.GetUserId()); err != nil {
+			err = ImpersonateUserRequestValidationError{
+				field:  "UserId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *ImpersonateUserRequest_Email:
+		if v == nil {
+			err := ImpersonateUserRequestValidationError{
+				field:  "User",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if err := m._validateEmail(m.GetEmail()); err != nil {
+			err = ImpersonateUserRequestValidationError{
+				field:  "Email",
+				reason: "value must be a valid email address",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return ImpersonateUserRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *ImpersonateUserRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *ImpersonateUserRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+func (m *ImpersonateUserRequest) _validateUuid(uuid string) error {
+	if matched := _iam_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// ImpersonateUserRequestMultiError is an error wrapping multiple validation
+// errors returned by ImpersonateUserRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ImpersonateUserRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ImpersonateUserRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ImpersonateUserRequestMultiError) AllErrors() []error { return m }
+
+// ImpersonateUserRequestValidationError is the validation error returned by
+// ImpersonateUserRequest.Validate if the designated constraints aren't met.
+type ImpersonateUserRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ImpersonateUserRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ImpersonateUserRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ImpersonateUserRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ImpersonateUserRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ImpersonateUserRequestValidationError) ErrorName() string {
+	return "ImpersonateUserRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ImpersonateUserRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sImpersonateUserRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ImpersonateUserRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ImpersonateUserRequestValidationError{}
+
+// Validate checks the field values on ImpersonateUserResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ImpersonateUserResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ImpersonateUserResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ImpersonateUserResponseMultiError, or nil if none found.
+func (m *ImpersonateUserResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ImpersonateUserResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ImpersonateUserResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ImpersonateUserResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ImpersonateUserResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Token != nil {
+		// no validation rules for Token
+	}
+
+	if len(errors) > 0 {
+		return ImpersonateUserResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ImpersonateUserResponseMultiError is an error wrapping multiple validation
+// errors returned by ImpersonateUserResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ImpersonateUserResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ImpersonateUserResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ImpersonateUserResponseMultiError) AllErrors() []error { return m }
+
+// ImpersonateUserResponseValidationError is the validation error returned by
+// ImpersonateUserResponse.Validate if the designated constraints aren't met.
+type ImpersonateUserResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ImpersonateUserResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ImpersonateUserResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ImpersonateUserResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ImpersonateUserResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ImpersonateUserResponseValidationError) ErrorName() string {
+	return "ImpersonateUserResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ImpersonateUserResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sImpersonateUserResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ImpersonateUserResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ImpersonateUserResponseValidationError{}
