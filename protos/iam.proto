@@ -5,6 +5,7 @@ package iam;
 option go_package = "github.com/jupyter-naas/naas-models/go/iam";
 
 import "validate.proto";
+import "errors.proto";
 
 message TokenData {
     optional string user_id = 1;
@@ -23,4 +24,16 @@ message Profile {
     optional string targeted_use = 9;
     optional bool product_updates = 10;
     optional string phone = 11; 
+}
+
+message ImpersonateUserRequest {
+    oneof user {
+        string user_id = 1 [(validate.rules).string.uuid = true];
+        string email = 2 [(validate.rules).string.email = true];
+    }
+}
+
+message ImpersonateUserResponse {
+    optional errors.ErrorResponse error = 1;
+    optional string token = 2;
 }
