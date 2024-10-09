@@ -31,6 +31,9 @@ enum Error {
     // Credits errors 400 - 499
 
     CREDITS_USER_HAS_NO_PARENT = 400;
+
+    // Ontology errors 500 - 599
+    ONTOLOGY_NOT_FOUND = 500;
 }
 
 message ErrorResponse {

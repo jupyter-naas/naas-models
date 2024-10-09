@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package ontology;
+
+option go_package = "github.com/jupyter-naas/naas-models/go/ontology";
+
+import "validate.proto";
+import "errors.proto";
+import "common.proto";
+
+
+message Ontology {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string label = 3;
+    optional string source = 4;
+    optional string download_url = 5;
+}
+
+message OntologySummary {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string label = 3;
+    optional string download_url = 4;
+}
+
+message OntologyCreation {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string label = 2 [(validate.rules).string = {min_len: 1, max_len: 255}];
+    optional string source = 3 [(validate.rules).string = {min_len: 1}];
+    optional string download_url = 4;
+}
+
+message OntologyUpdate {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    optional string label = 3;
+    optional string source = 4;
+    optional string download_url = 5;
+
+    optional common.FieldMask field_mask = 100;
+}
+
+message OntologyListRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional int32 page_size = 2;
+    optional int32 page_number = 3;
+}
+
+message OntologyListResponse {
+    optional errors.ErrorResponse error = 1;
+    repeated OntologySummary ontologies = 2;
+}
+
+message OntologyGetRequest {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message OntologyGetResponse {
+    optional errors.ErrorResponse error = 1;
+    optional Ontology ontology = 2;
+}
+
+message OntologyCreationRequest {
+    OntologyCreation ontology = 1;
+}
+
+message OntologyCreationResponse {
+    optional errors.ErrorResponse error = 1;
+    optional Ontology ontology = 2;
+}
+
+message OntologyUpdateRequest {
+    optional OntologyUpdate ontology = 1;
+}
+
+message OntologyUpdateResponse {
+    optional errors.ErrorResponse error = 1;
+    optional Ontology ontology = 2;
+}
+
+message OntologyDeletionRequest {
+    optional string id = 1 [(validate.rules).string.uuid = true];
+    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+}
+
+message OntologyDeletionResponse {
+    optional errors.ErrorResponse error = 1;
+}
+
+// Ontology service
+service OntologyService {
+    rpc List(OntologyListRequest) returns (OntologyListResponse) {}
+    rpc Get(OntologyGetRequest) returns (OntologyGetResponse) {}
+    rpc Create(OntologyCreationRequest) returns (OntologyCreationResponse) {}
+    rpc Update(OntologyUpdateRequest) returns (OntologyUpdateResponse) {}
+    rpc Delete(OntologyDeletionRequest) returns (OntologyDeletionResponse) {}
+}

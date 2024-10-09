@@ -22,6 +22,7 @@ class Error(IntEnum):
     WORKSPACE_INVITE_INVALID = 307
     WORKSPACE_CANNOT_INVITE_TO_PERSONAL_WORKSPACE = 308
     CREDITS_USER_HAS_NO_PARENT = 400
+    ONTOLOGY_NOT_FOUND = 500
 
 class ErrorResponse(BaseModel):
     code: typing.Optional[Error] = Field(default=0) 
