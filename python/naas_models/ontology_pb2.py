@@ -13,11 +13,12 @@ _sym_db = _symbol_database.Default()
 
 
 import naas_models.validate_pb2 as validate__pb2
+import p2p_validate_pb2 as p2p__validate__pb2
 import errors_pb2 as errors__pb2
 import common_pb2 as common__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eontology.proto\x12\x08ontology\x1a\x0evalidate.proto\x1a\x0c\x65rrors.proto\x1a\x0c\x63ommon.proto\"\xcc\x01\n\x08Ontology\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x13\n\x06source\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x05 \x01(\tH\x04\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\x08\n\x06_labelB\t\n\x07_sourceB\x0f\n\r_download_url\"\xb3\x01\n\x0fOntologySummary\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\x08\n\x06_labelB\x0f\n\r_download_url\"\xc7\x01\n\x10OntologyCreation\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x1e\n\x05label\x18\x02 \x01(\tB\n\xfa\x42\x07r\x05\x10\x01\x18\xff\x01H\x01\x88\x01\x01\x12\x1c\n\x06source\x18\x03 \x01(\tB\x07\xfa\x42\x04r\x02\x10\x01H\x02\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x04 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_workspace_idB\x08\n\x06_labelB\t\n\x07_sourceB\x0f\n\r_download_url\"\x8d\x02\n\x0eOntologyUpdate\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x13\n\x06source\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x05 \x01(\tH\x04\x88\x01\x01\x12*\n\nfield_mask\x18\x64 \x01(\x0b\x32\x11.common.FieldMaskH\x05\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_idB\x08\n\x06_labelB\t\n\x07_sourceB\x0f\n\r_download_urlB\r\n\x0b_field_mask\"\x9b\x01\n\x13OntologyListRequest\x12#\n\x0cworkspace_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x16\n\tpage_size\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x18\n\x0bpage_number\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x0c\n\n_page_sizeB\x0e\n\x0c_page_number\"z\n\x14OntologyListResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12-\n\nontologies\x18\x02 \x03(\x0b\x32\x19.ontology.OntologySummaryB\x08\n\x06_error\"l\n\x12OntologyGetRequest\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_id\"\x82\x01\n\x13OntologyGetResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"G\n\x17OntologyCreationRequest\x12,\n\x08ontology\x18\x01 \x01(\x0b\x32\x1a.ontology.OntologyCreation\"\x87\x01\n\x18OntologyCreationResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"U\n\x15OntologyUpdateRequest\x12/\n\x08ontology\x18\x01 \x01(\x0b\x32\x18.ontology.OntologyUpdateH\x00\x88\x01\x01\x42\x0b\n\t_ontology\"\x85\x01\n\x16OntologyUpdateResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"q\n\x17OntologyDeletionRequest\x12\x19\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x01\x88\x01\x01\x42\x05\n\x03_idB\x0f\n\r_workspace_id\"O\n\x18OntologyDeletionResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x42\x08\n\x06_error2\x95\x03\n\x0fOntologyService\x12G\n\x04List\x12\x1d.ontology.OntologyListRequest\x1a\x1e.ontology.OntologyListResponse\"\x00\x12\x44\n\x03Get\x12\x1c.ontology.OntologyGetRequest\x1a\x1d.ontology.OntologyGetResponse\"\x00\x12Q\n\x06\x43reate\x12!.ontology.OntologyCreationRequest\x1a\".ontology.OntologyCreationResponse\"\x00\x12M\n\x06Update\x12\x1f.ontology.OntologyUpdateRequest\x1a .ontology.OntologyUpdateResponse\"\x00\x12Q\n\x06\x44\x65lete\x12!.ontology.OntologyDeletionRequest\x1a\".ontology.OntologyDeletionResponse\"\x00\x42\x31Z/github.com/jupyter-naas/naas-models/go/ontologyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eontology.proto\x12\x08ontology\x1a\x0evalidate.proto\x1a\x12p2p_validate.proto\x1a\x0c\x65rrors.proto\x1a\x0c\x63ommon.proto\"\xc0\x01\n\x08Ontology\x12\x14\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06source\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x05 \x01(\tH\x03\x88\x01\x01\x42\x0f\n\r_workspace_idB\x08\n\x06_labelB\t\n\x07_sourceB\x0f\n\r_download_url\"\xa7\x01\n\x0fOntologySummary\x12\x14\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x04 \x01(\tH\x02\x88\x01\x01\x42\x0f\n\r_workspace_idB\x08\n\x06_labelB\x0f\n\r_download_url\"\xaa\x01\n\x10OntologyCreation\x12&\n\x0cworkspace_id\x18\x01 \x01(\tB\x10\xfa\x42\x05r\x03\xb0\x01\x01\x8a\x43\x05r\x03\x98\x02\x01\x12!\n\x05label\x18\x02 \x01(\tB\x12\xfa\x42\x07r\x05\x10\x01\x18\xff\x01\x8a\x43\x05r\x03\x98\x02\x01\x12\x1f\n\x06source\x18\x03 \x01(\tB\x0f\xfa\x42\x04r\x02\x10\x01\x8a\x43\x05r\x03\x98\x02\x01\x12\x19\n\x0c\x64ownload_url\x18\x04 \x01(\tH\x00\x88\x01\x01\x42\x0f\n\r_download_url\"\xf5\x01\n\x0eOntologyUpdate\x12\x1c\n\x02id\x18\x01 \x01(\tB\x10\xfa\x42\x05r\x03\xb0\x01\x01\x8a\x43\x05r\x03\x98\x02\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x12\x12\n\x05label\x18\x03 \x01(\tH\x01\x88\x01\x01\x12\x13\n\x06source\x18\x04 \x01(\tH\x02\x88\x01\x01\x12\x19\n\x0c\x64ownload_url\x18\x05 \x01(\tH\x03\x88\x01\x01\x12%\n\nfield_mask\x18\x64 \x01(\x0b\x32\x11.common.FieldMaskB\x0f\n\r_workspace_idB\x08\n\x06_labelB\t\n\x07_sourceB\x0f\n\r_download_url\"\x89\x01\n\x13OntologyListRequest\x12&\n\x0cworkspace_id\x18\x01 \x01(\tB\x10\xfa\x42\x05r\x03\xb0\x01\x01\x8a\x43\x05r\x03\x98\x02\x01\x12$\n\tpage_size\x18\x02 \x01(\x05\x42\x11\xfa\x42\x06\x1a\x04\x18\x64(\x01\x8a\x43\x05\x1a\x03\xa8\x01\x01\x12$\n\x0bpage_number\x18\x03 \x01(\x05\x42\x0f\xfa\x42\x04\x1a\x02(\x00\x8a\x43\x05\x1a\x03\xa8\x01\x01\"z\n\x14OntologyListResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12-\n\nontologies\x18\x02 \x03(\x0b\x32\x19.ontology.OntologySummaryB\x08\n\x06_error\"`\n\x12OntologyGetRequest\x12\x14\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01\x12#\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x88\x01\x01\x42\x0f\n\r_workspace_id\"\x82\x01\n\x13OntologyGetResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"G\n\x17OntologyCreationRequest\x12,\n\x08ontology\x18\x01 \x01(\x0b\x32\x1a.ontology.OntologyCreation\"\x87\x01\n\x18OntologyCreationResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"C\n\x15OntologyUpdateRequest\x12*\n\x08ontology\x18\x01 \x01(\x0b\x32\x18.ontology.OntologyUpdate\"\x85\x01\n\x16OntologyUpdateResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12)\n\x08ontology\x18\x02 \x01(\x0b\x32\x12.ontology.OntologyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x0b\n\t_ontology\"O\n\x17OntologyDeletionRequest\x12\x14\n\x02id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01\x12\x1e\n\x0cworkspace_id\x18\x02 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01\"O\n\x18OntologyDeletionResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x42\x08\n\x06_error2\x95\x03\n\x0fOntologyService\x12G\n\x04List\x12\x1d.ontology.OntologyListRequest\x1a\x1e.ontology.OntologyListResponse\"\x00\x12\x44\n\x03Get\x12\x1c.ontology.OntologyGetRequest\x1a\x1d.ontology.OntologyGetResponse\"\x00\x12Q\n\x06\x43reate\x12!.ontology.OntologyCreationRequest\x1a\".ontology.OntologyCreationResponse\"\x00\x12M\n\x06Update\x12\x1f.ontology.OntologyUpdateRequest\x1a .ontology.OntologyUpdateResponse\"\x00\x12Q\n\x06\x44\x65lete\x12!.ontology.OntologyDeletionRequest\x1a\".ontology.OntologyDeletionResponse\"\x00\x42\x31Z/github.com/jupyter-naas/naas-models/go/ontologyb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,17 +35,21 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ONTOLOGYSUMMARY'].fields_by_name['workspace_id']._loaded_options = None
   _globals['_ONTOLOGYSUMMARY'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _globals['_ONTOLOGYCREATION'].fields_by_name['workspace_id']._loaded_options = None
-  _globals['_ONTOLOGYCREATION'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
+  _globals['_ONTOLOGYCREATION'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001\212C\005r\003\230\002\001'
   _globals['_ONTOLOGYCREATION'].fields_by_name['label']._loaded_options = None
-  _globals['_ONTOLOGYCREATION'].fields_by_name['label']._serialized_options = b'\372B\007r\005\020\001\030\377\001'
+  _globals['_ONTOLOGYCREATION'].fields_by_name['label']._serialized_options = b'\372B\007r\005\020\001\030\377\001\212C\005r\003\230\002\001'
   _globals['_ONTOLOGYCREATION'].fields_by_name['source']._loaded_options = None
-  _globals['_ONTOLOGYCREATION'].fields_by_name['source']._serialized_options = b'\372B\004r\002\020\001'
+  _globals['_ONTOLOGYCREATION'].fields_by_name['source']._serialized_options = b'\372B\004r\002\020\001\212C\005r\003\230\002\001'
   _globals['_ONTOLOGYUPDATE'].fields_by_name['id']._loaded_options = None
-  _globals['_ONTOLOGYUPDATE'].fields_by_name['id']._serialized_options = b'\372B\005r\003\260\001\001'
+  _globals['_ONTOLOGYUPDATE'].fields_by_name['id']._serialized_options = b'\372B\005r\003\260\001\001\212C\005r\003\230\002\001'
   _globals['_ONTOLOGYUPDATE'].fields_by_name['workspace_id']._loaded_options = None
   _globals['_ONTOLOGYUPDATE'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
   _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['workspace_id']._loaded_options = None
-  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
+  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001\212C\005r\003\230\002\001'
+  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['page_size']._loaded_options = None
+  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['page_size']._serialized_options = b'\372B\006\032\004\030d(\001\212C\005\032\003\250\001\001'
+  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['page_number']._loaded_options = None
+  _globals['_ONTOLOGYLISTREQUEST'].fields_by_name['page_number']._serialized_options = b'\372B\004\032\002(\000\212C\005\032\003\250\001\001'
   _globals['_ONTOLOGYGETREQUEST'].fields_by_name['id']._loaded_options = None
   _globals['_ONTOLOGYGETREQUEST'].fields_by_name['id']._serialized_options = b'\372B\005r\003\260\001\001'
   _globals['_ONTOLOGYGETREQUEST'].fields_by_name['workspace_id']._loaded_options = None
@@ -53,34 +58,34 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_ONTOLOGYDELETIONREQUEST'].fields_by_name['id']._serialized_options = b'\372B\005r\003\260\001\001'
   _globals['_ONTOLOGYDELETIONREQUEST'].fields_by_name['workspace_id']._loaded_options = None
   _globals['_ONTOLOGYDELETIONREQUEST'].fields_by_name['workspace_id']._serialized_options = b'\372B\005r\003\260\001\001'
-  _globals['_ONTOLOGY']._serialized_start=73
-  _globals['_ONTOLOGY']._serialized_end=277
-  _globals['_ONTOLOGYSUMMARY']._serialized_start=280
-  _globals['_ONTOLOGYSUMMARY']._serialized_end=459
-  _globals['_ONTOLOGYCREATION']._serialized_start=462
-  _globals['_ONTOLOGYCREATION']._serialized_end=661
-  _globals['_ONTOLOGYUPDATE']._serialized_start=664
-  _globals['_ONTOLOGYUPDATE']._serialized_end=933
-  _globals['_ONTOLOGYLISTREQUEST']._serialized_start=936
-  _globals['_ONTOLOGYLISTREQUEST']._serialized_end=1091
-  _globals['_ONTOLOGYLISTRESPONSE']._serialized_start=1093
-  _globals['_ONTOLOGYLISTRESPONSE']._serialized_end=1215
-  _globals['_ONTOLOGYGETREQUEST']._serialized_start=1217
-  _globals['_ONTOLOGYGETREQUEST']._serialized_end=1325
-  _globals['_ONTOLOGYGETRESPONSE']._serialized_start=1328
-  _globals['_ONTOLOGYGETRESPONSE']._serialized_end=1458
-  _globals['_ONTOLOGYCREATIONREQUEST']._serialized_start=1460
-  _globals['_ONTOLOGYCREATIONREQUEST']._serialized_end=1531
-  _globals['_ONTOLOGYCREATIONRESPONSE']._serialized_start=1534
-  _globals['_ONTOLOGYCREATIONRESPONSE']._serialized_end=1669
-  _globals['_ONTOLOGYUPDATEREQUEST']._serialized_start=1671
-  _globals['_ONTOLOGYUPDATEREQUEST']._serialized_end=1756
-  _globals['_ONTOLOGYUPDATERESPONSE']._serialized_start=1759
-  _globals['_ONTOLOGYUPDATERESPONSE']._serialized_end=1892
-  _globals['_ONTOLOGYDELETIONREQUEST']._serialized_start=1894
-  _globals['_ONTOLOGYDELETIONREQUEST']._serialized_end=2007
-  _globals['_ONTOLOGYDELETIONRESPONSE']._serialized_start=2009
-  _globals['_ONTOLOGYDELETIONRESPONSE']._serialized_end=2088
-  _globals['_ONTOLOGYSERVICE']._serialized_start=2091
-  _globals['_ONTOLOGYSERVICE']._serialized_end=2496
+  _globals['_ONTOLOGY']._serialized_start=93
+  _globals['_ONTOLOGY']._serialized_end=285
+  _globals['_ONTOLOGYSUMMARY']._serialized_start=288
+  _globals['_ONTOLOGYSUMMARY']._serialized_end=455
+  _globals['_ONTOLOGYCREATION']._serialized_start=458
+  _globals['_ONTOLOGYCREATION']._serialized_end=628
+  _globals['_ONTOLOGYUPDATE']._serialized_start=631
+  _globals['_ONTOLOGYUPDATE']._serialized_end=876
+  _globals['_ONTOLOGYLISTREQUEST']._serialized_start=879
+  _globals['_ONTOLOGYLISTREQUEST']._serialized_end=1016
+  _globals['_ONTOLOGYLISTRESPONSE']._serialized_start=1018
+  _globals['_ONTOLOGYLISTRESPONSE']._serialized_end=1140
+  _globals['_ONTOLOGYGETREQUEST']._serialized_start=1142
+  _globals['_ONTOLOGYGETREQUEST']._serialized_end=1238
+  _globals['_ONTOLOGYGETRESPONSE']._serialized_start=1241
+  _globals['_ONTOLOGYGETRESPONSE']._serialized_end=1371
+  _globals['_ONTOLOGYCREATIONREQUEST']._serialized_start=1373
+  _globals['_ONTOLOGYCREATIONREQUEST']._serialized_end=1444
+  _globals['_ONTOLOGYCREATIONRESPONSE']._serialized_start=1447
+  _globals['_ONTOLOGYCREATIONRESPONSE']._serialized_end=1582
+  _globals['_ONTOLOGYUPDATEREQUEST']._serialized_start=1584
+  _globals['_ONTOLOGYUPDATEREQUEST']._serialized_end=1651
+  _globals['_ONTOLOGYUPDATERESPONSE']._serialized_start=1654
+  _globals['_ONTOLOGYUPDATERESPONSE']._serialized_end=1787
+  _globals['_ONTOLOGYDELETIONREQUEST']._serialized_start=1789
+  _globals['_ONTOLOGYDELETIONREQUEST']._serialized_end=1868
+  _globals['_ONTOLOGYDELETIONRESPONSE']._serialized_start=1870
+  _globals['_ONTOLOGYDELETIONRESPONSE']._serialized_end=1949
+  _globals['_ONTOLOGYSERVICE']._serialized_start=1952
+  _globals['_ONTOLOGYSERVICE']._serialized_end=2357
 # @@protoc_insertion_point(module_scope)
