@@ -19,4 +19,4 @@ services:
           --python_out=../python/naas_models \
           --go_out=../go \
           --validate_out="lang=go:../go" \
-          space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto errors.proto validate.proto common.proto
+          space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto errors.proto validate.proto ontology.proto common.proto
