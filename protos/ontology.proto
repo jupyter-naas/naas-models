@@ -5,12 +5,13 @@ package ontology;
 option go_package = "github.com/jupyter-naas/naas-models/go/ontology";
 
 import "validate.proto";
+import "p2p_validate.proto";
 import "errors.proto";
 import "common.proto";
 
 
 message Ontology {
-    optional string id = 1 [(validate.rules).string.uuid = true];
+    string id = 1 [(validate.rules).string.uuid = true];
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
     optional string label = 3;
     optional string source = 4;
@@ -18,33 +19,33 @@ message Ontology {
 }
 
 message OntologySummary {
-    optional string id = 1 [(validate.rules).string.uuid = true];
+    string id = 1 [(validate.rules).string.uuid = true];
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
     optional string label = 3;
     optional string download_url = 4;
 }
 
 message OntologyCreation {
-    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
-    optional string label = 2 [(validate.rules).string = {min_len: 1, max_len: 255}];
-    optional string source = 3 [(validate.rules).string = {min_len: 1}];
+    string workspace_id = 1 [(validate.rules).string.uuid = true, (p2p_validate.rules).string = {required: true}];
+    string label = 2 [(validate.rules).string = {min_len: 1, max_len: 255}, (p2p_validate.rules).string = {required: true}];
+    string source = 3 [(validate.rules).string = {min_len: 1}, (p2p_validate.rules).string = {required: true}];
     optional string download_url = 4;
 }
 
 message OntologyUpdate {
-    optional string id = 1 [(validate.rules).string.uuid = true];
+    string id = 1 [(validate.rules).string.uuid = true, (p2p_validate.rules).string = {required: true}];
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
     optional string label = 3;
     optional string source = 4;
     optional string download_url = 5;
 
-    optional common.FieldMask field_mask = 100;
+    common.FieldMask field_mask = 100;
 }
 
 message OntologyListRequest {
-    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
-    optional int32 page_size = 2;
-    optional int32 page_number = 3;
+    string workspace_id = 1 [(validate.rules).string.uuid = true, (p2p_validate.rules).string = {required: true}];
+    int32 page_size = 2 [(validate.rules).int32 = {gte: 1, lte: 100}, (p2p_validate.rules).int32 = {required: true}];
+    int32 page_number = 3 [(validate.rules).int32 = {gte: 0}, (p2p_validate.rules).int32 = {required: true}];
 }
 
 message OntologyListResponse {
@@ -53,7 +54,7 @@ message OntologyListResponse {
 }
 
 message OntologyGetRequest {
-    optional string id = 1 [(validate.rules).string.uuid = true];
+    string id = 1 [(validate.rules).string.uuid = true];
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
 }
 
@@ -72,7 +73,7 @@ message OntologyCreationResponse {
 }
 
 message OntologyUpdateRequest {
-    optional OntologyUpdate ontology = 1;
+    OntologyUpdate ontology = 1;
 }
 
 message OntologyUpdateResponse {
@@ -81,8 +82,8 @@ message OntologyUpdateResponse {
 }
 
 message OntologyDeletionRequest {
-    optional string id = 1 [(validate.rules).string.uuid = true];
-    optional string workspace_id = 2 [(validate.rules).string.uuid = true];
+    string id = 1 [(validate.rules).string.uuid = true];
+    string workspace_id = 2 [(validate.rules).string.uuid = true];
 }
 
 message OntologyDeletionResponse {

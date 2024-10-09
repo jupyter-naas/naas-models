@@ -60,20 +60,16 @@ func (m *Ontology) validate(all bool) error {
 
 	var errors []error
 
-	if m.Id != nil {
-
-		if err := m._validateUuid(m.GetId()); err != nil {
-			err = OntologyValidationError{
-				field:  "Id",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = OntologyValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.WorkspaceId != nil {
@@ -211,20 +207,16 @@ func (m *OntologySummary) validate(all bool) error {
 
 	var errors []error
 
-	if m.Id != nil {
-
-		if err := m._validateUuid(m.GetId()); err != nil {
-			err = OntologySummaryValidationError{
-				field:  "Id",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = OntologySummaryValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.WorkspaceId != nil {
@@ -359,50 +351,38 @@ func (m *OntologyCreation) validate(all bool) error {
 
 	var errors []error
 
-	if m.WorkspaceId != nil {
-
-		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
-			err = OntologyCreationValidationError{
-				field:  "WorkspaceId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+		err = OntologyCreationValidationError{
+			field:  "WorkspaceId",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if m.Label != nil {
-
-		if l := utf8.RuneCountInString(m.GetLabel()); l < 1 || l > 255 {
-			err := OntologyCreationValidationError{
-				field:  "Label",
-				reason: "value length must be between 1 and 255 runes, inclusive",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if l := utf8.RuneCountInString(m.GetLabel()); l < 1 || l > 255 {
+		err := OntologyCreationValidationError{
+			field:  "Label",
+			reason: "value length must be between 1 and 255 runes, inclusive",
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if m.Source != nil {
-
-		if utf8.RuneCountInString(m.GetSource()) < 1 {
-			err := OntologyCreationValidationError{
-				field:  "Source",
-				reason: "value length must be at least 1 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if utf8.RuneCountInString(m.GetSource()) < 1 {
+		err := OntologyCreationValidationError{
+			field:  "Source",
+			reason: "value length must be at least 1 runes",
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.DownloadUrl != nil {
@@ -517,20 +497,45 @@ func (m *OntologyUpdate) validate(all bool) error {
 
 	var errors []error
 
-	if m.Id != nil {
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = OntologyUpdateValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-		if err := m._validateUuid(m.GetId()); err != nil {
-			err = OntologyUpdateValidationError{
-				field:  "Id",
-				reason: "value must be a valid UUID",
+	if all {
+		switch v := interface{}(m.GetFieldMask()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OntologyUpdateValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OntologyUpdateValidationError{
+					field:  "FieldMask",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OntologyUpdateValidationError{
+				field:  "FieldMask",
+				reason: "embedded message failed validation",
 				cause:  err,
 			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
 		}
-
 	}
 
 	if m.WorkspaceId != nil {
@@ -559,39 +564,6 @@ func (m *OntologyUpdate) validate(all bool) error {
 
 	if m.DownloadUrl != nil {
 		// no validation rules for DownloadUrl
-	}
-
-	if m.FieldMask != nil {
-
-		if all {
-			switch v := interface{}(m.GetFieldMask()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, OntologyUpdateValidationError{
-						field:  "FieldMask",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, OntologyUpdateValidationError{
-						field:  "FieldMask",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetFieldMask()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return OntologyUpdateValidationError{
-					field:  "FieldMask",
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
 	}
 
 	if len(errors) > 0 {
@@ -702,28 +674,38 @@ func (m *OntologyListRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.WorkspaceId != nil {
-
-		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
-			err = OntologyListRequestValidationError{
-				field:  "WorkspaceId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+		err = OntologyListRequestValidationError{
+			field:  "WorkspaceId",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if m.PageSize != nil {
-		// no validation rules for PageSize
+	if val := m.GetPageSize(); val < 1 || val > 100 {
+		err := OntologyListRequestValidationError{
+			field:  "PageSize",
+			reason: "value must be inside range [1, 100]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if m.PageNumber != nil {
-		// no validation rules for PageNumber
+	if m.GetPageNumber() < 0 {
+		err := OntologyListRequestValidationError{
+			field:  "PageNumber",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {
@@ -1005,20 +987,16 @@ func (m *OntologyGetRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Id != nil {
-
-		if err := m._validateUuid(m.GetId()); err != nil {
-			err = OntologyGetRequestValidationError{
-				field:  "Id",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = OntologyGetRequestValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.WorkspaceId != nil {
@@ -1614,37 +1592,33 @@ func (m *OntologyUpdateRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Ontology != nil {
-
-		if all {
-			switch v := interface{}(m.GetOntology()).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, OntologyUpdateRequestValidationError{
-						field:  "Ontology",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, OntologyUpdateRequestValidationError{
-						field:  "Ontology",
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(m.GetOntology()).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return OntologyUpdateRequestValidationError{
+	if all {
+		switch v := interface{}(m.GetOntology()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, OntologyUpdateRequestValidationError{
 					field:  "Ontology",
 					reason: "embedded message failed validation",
 					cause:  err,
-				}
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, OntologyUpdateRequestValidationError{
+					field:  "Ontology",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
 			}
 		}
-
+	} else if v, ok := interface{}(m.GetOntology()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return OntologyUpdateRequestValidationError{
+				field:  "Ontology",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {
@@ -1917,36 +1891,28 @@ func (m *OntologyDeletionRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.Id != nil {
-
-		if err := m._validateUuid(m.GetId()); err != nil {
-			err = OntologyDeletionRequestValidationError{
-				field:  "Id",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = OntologyDeletionRequestValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if m.WorkspaceId != nil {
-
-		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
-			err = OntologyDeletionRequestValidationError{
-				field:  "WorkspaceId",
-				reason: "value must be a valid UUID",
-				cause:  err,
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
+	if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+		err = OntologyDeletionRequestValidationError{
+			field:  "WorkspaceId",
+			reason: "value must be a valid UUID",
+			cause:  err,
 		}
-
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if len(errors) > 0 {

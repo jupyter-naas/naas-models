@@ -12,43 +12,43 @@ import typing
 
 
 class Ontology(BaseModel):
-    id: typing.Optional[UUID] = Field(default="") 
+    id: UUID = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
     label: typing.Optional[str] = Field(default="") 
     source: typing.Optional[str] = Field(default="") 
     download_url: typing.Optional[str] = Field(default="") 
 
 class OntologySummary(BaseModel):
-    id: typing.Optional[UUID] = Field(default="") 
+    id: UUID = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
     label: typing.Optional[str] = Field(default="") 
     download_url: typing.Optional[str] = Field(default="") 
 
 class OntologyCreation(BaseModel):
-    workspace_id: typing.Optional[UUID] = Field(default="") 
-    label: typing.Optional[str] = Field(default="", min_length=1, max_length=255) 
-    source: typing.Optional[str] = Field(default="", min_length=1) 
+    workspace_id: UUID = Field() 
+    label: str = Field(min_length=1, max_length=255) 
+    source: str = Field(min_length=1) 
     download_url: typing.Optional[str] = Field(default="") 
 
 class OntologyUpdate(BaseModel):
-    id: typing.Optional[UUID] = Field(default="") 
+    id: UUID = Field() 
     workspace_id: typing.Optional[UUID] = Field(default="") 
     label: typing.Optional[str] = Field(default="") 
     source: typing.Optional[str] = Field(default="") 
     download_url: typing.Optional[str] = Field(default="") 
-    field_mask: typing.Optional[FieldMask] = Field(default=None) 
+    field_mask: FieldMask = Field() 
 
 class OntologyListRequest(BaseModel):
-    workspace_id: typing.Optional[UUID] = Field(default="") 
-    page_size: typing.Optional[int] = Field(default=0) 
-    page_number: typing.Optional[int] = Field(default=0) 
+    workspace_id: UUID = Field() 
+    page_size: int = Field(ge=1, le=100) 
+    page_number: int = Field(ge=0) 
 
 class OntologyListResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
     ontologies: typing.List[OntologySummary] = Field(default_factory=list) 
 
 class OntologyGetRequest(BaseModel):
-    id: typing.Optional[UUID] = Field(default="") 
+    id: UUID = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class OntologyGetResponse(BaseModel):
@@ -63,15 +63,15 @@ class OntologyCreationResponse(BaseModel):
     ontology: typing.Optional[Ontology] = Field(default=None) 
 
 class OntologyUpdateRequest(BaseModel):
-    ontology: typing.Optional[OntologyUpdate] = Field(default=None) 
+    ontology: OntologyUpdate = Field() 
 
 class OntologyUpdateResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
     ontology: typing.Optional[Ontology] = Field(default=None) 
 
 class OntologyDeletionRequest(BaseModel):
-    id: typing.Optional[UUID] = Field(default="") 
-    workspace_id: typing.Optional[UUID] = Field(default="") 
+    id: UUID = Field(default="") 
+    workspace_id: UUID = Field(default="") 
 
 class OntologyDeletionResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
