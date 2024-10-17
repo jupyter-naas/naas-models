@@ -19,6 +19,7 @@ class Ontology(BaseModel):
     download_url: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
+    level: typing.Optional[str] = Field(default="") 
 
 class OntologySummary(BaseModel):
     id: UUID = Field(default="") 
@@ -27,6 +28,7 @@ class OntologySummary(BaseModel):
     download_url: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
+    level: typing.Optional[str] = Field(default="") 
 
 class OntologyCreation(BaseModel):
     workspace_id: UUID = Field() 
@@ -35,6 +37,7 @@ class OntologyCreation(BaseModel):
     download_url: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
+    level: typing.Optional[str] = Field(default="") 
 
 class OntologyUpdate(BaseModel):
     id: UUID = Field() 
@@ -44,6 +47,7 @@ class OntologyUpdate(BaseModel):
     download_url: typing.Optional[str] = Field(default="") 
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
+    level: typing.Optional[str] = Field(default="") 
     field_mask: FieldMask = Field() 
 
 class OntologyListRequest(BaseModel):

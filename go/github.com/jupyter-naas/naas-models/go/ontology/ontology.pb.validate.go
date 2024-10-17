@@ -108,6 +108,10 @@ func (m *Ontology) validate(all bool) error {
 		// no validation rules for LogoUrl
 	}
 
+	if m.Level != nil {
+		// no validation rules for Level
+	}
+
 	if len(errors) > 0 {
 		return OntologyMultiError(errors)
 	}
@@ -257,6 +261,10 @@ func (m *OntologySummary) validate(all bool) error {
 
 	if m.LogoUrl != nil {
 		// no validation rules for LogoUrl
+	}
+
+	if m.Level != nil {
+		// no validation rules for Level
 	}
 
 	if len(errors) > 0 {
@@ -411,6 +419,10 @@ func (m *OntologyCreation) validate(all bool) error {
 
 	if m.LogoUrl != nil {
 		// no validation rules for LogoUrl
+	}
+
+	if m.Level != nil {
+		// no validation rules for Level
 	}
 
 	if len(errors) > 0 {
@@ -596,6 +608,10 @@ func (m *OntologyUpdate) validate(all bool) error {
 
 	if m.LogoUrl != nil {
 		// no validation rules for LogoUrl
+	}
+
+	if m.Level != nil {
+		// no validation rules for Level
 	}
 
 	if len(errors) > 0 {
