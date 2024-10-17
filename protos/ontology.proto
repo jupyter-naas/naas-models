@@ -16,6 +16,8 @@ message Ontology {
     optional string label = 3;
     optional string source = 4;
     optional string download_url = 5;
+    optional string description = 6;
+    optional string logo_url = 7;
 }
 
 message OntologySummary {
@@ -23,6 +25,8 @@ message OntologySummary {
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
     optional string label = 3;
     optional string download_url = 4;
+    optional string description = 5;
+    optional string logo_url = 6;
 }
 
 message OntologyCreation {
@@ -30,6 +34,8 @@ message OntologyCreation {
     string label = 2 [(validate.rules).string = {min_len: 1, max_len: 255}, (p2p_validate.rules).string = {required: true}];
     string source = 3 [(validate.rules).string = {min_len: 1}, (p2p_validate.rules).string = {required: true}];
     optional string download_url = 4;
+    optional string description = 5;
+    optional string logo_url = 6;
 }
 
 message OntologyUpdate {
@@ -38,6 +44,8 @@ message OntologyUpdate {
     optional string label = 3;
     optional string source = 4;
     optional string download_url = 5;
+    optional string description = 6;
+    optional string logo_url = 7;
 
     common.FieldMask field_mask = 100;
 }
