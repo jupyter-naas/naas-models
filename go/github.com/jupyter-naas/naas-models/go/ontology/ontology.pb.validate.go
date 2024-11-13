@@ -112,6 +112,10 @@ func (m *Ontology) validate(all bool) error {
 		// no validation rules for Level
 	}
 
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
+	}
+
 	if len(errors) > 0 {
 		return OntologyMultiError(errors)
 	}
@@ -265,6 +269,10 @@ func (m *OntologySummary) validate(all bool) error {
 
 	if m.Level != nil {
 		// no validation rules for Level
+	}
+
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
 	}
 
 	if len(errors) > 0 {
@@ -423,6 +431,10 @@ func (m *OntologyCreation) validate(all bool) error {
 
 	if m.Level != nil {
 		// no validation rules for Level
+	}
+
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
 	}
 
 	if len(errors) > 0 {
@@ -612,6 +624,10 @@ func (m *OntologyUpdate) validate(all bool) error {
 
 	if m.Level != nil {
 		// no validation rules for Level
+	}
+
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
 	}
 
 	if len(errors) > 0 {
