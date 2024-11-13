@@ -19,6 +19,7 @@ message Ontology {
     optional string description = 6;
     optional string logo_url = 7;
     optional string level = 8;
+    optional bool is_public = 9;
 }
 
 message OntologySummary {
@@ -29,6 +30,7 @@ message OntologySummary {
     optional string description = 5;
     optional string logo_url = 6;
     optional string level = 7;
+    optional bool is_public = 8;
 }
 
 message OntologyCreation {
@@ -39,6 +41,7 @@ message OntologyCreation {
     optional string description = 5;
     optional string logo_url = 6;
     optional string level = 7;
+    optional bool is_public = 8;
 }
 
 message OntologyUpdate {
@@ -50,6 +53,7 @@ message OntologyUpdate {
     optional string description = 6;
     optional string logo_url = 7;
     optional string level = 8;
+    optional bool is_public = 9;
 
     common.FieldMask field_mask = 100;
 }

@@ -20,6 +20,7 @@ class Ontology(BaseModel):
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
     level: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class OntologySummary(BaseModel):
     id: UUID = Field(default="") 
@@ -29,6 +30,7 @@ class OntologySummary(BaseModel):
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
     level: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class OntologyCreation(BaseModel):
     workspace_id: UUID = Field() 
@@ -38,6 +40,7 @@ class OntologyCreation(BaseModel):
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
     level: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class OntologyUpdate(BaseModel):
     id: UUID = Field() 
@@ -48,6 +51,7 @@ class OntologyUpdate(BaseModel):
     description: typing.Optional[str] = Field(default="") 
     logo_url: typing.Optional[str] = Field(default="") 
     level: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
     field_mask: FieldMask = Field() 
 
 class OntologyListRequest(BaseModel):

@@ -2,7 +2,7 @@
 # gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
 # Protobuf Version: 5.26.1 
 # Pydantic Version: 2.7.1 
-from naas_models.pydantic.errors_p2p import Error
+from naas_models.pydantic.errors_p2p import ErrorResponse
 from google.protobuf.message import Message  # type: ignore
 from protobuf_to_pydantic.customer_validator import check_one_of
 from protobuf_to_pydantic.customer_validator.v2 import in_validator
@@ -74,28 +74,26 @@ class WorkspacePlugin(BaseModel):
     id: typing.Optional[UUID] = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
     payload: typing.Optional[str] = Field(default="") 
-    create_at: typing.Optional[str] = Field(default="") 
+    created_at: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class WorkspacePluginUpdate(BaseModel):
     payload: typing.Optional[str] = Field(default="") 
-
-class WorkspaceResponseError(BaseModel):
-    code: typing.Optional[Error] = Field(default=0) 
-    message: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class WorkspaceListRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceListResponse(BaseModel):
     workspaces: typing.List[Workspace] = Field(default_factory=list) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class InvitedWorkspaceListRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
 
 class InvitedWorkspaceListResponse(BaseModel):
     workspaces: typing.List[Workspace] = Field(default_factory=list) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceCreateRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
@@ -103,7 +101,7 @@ class WorkspaceCreateRequest(BaseModel):
 
 class WorkspaceCreateResponse(BaseModel):
     workspace: typing.Optional[Workspace] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceGetRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
@@ -111,7 +109,7 @@ class WorkspaceGetRequest(BaseModel):
 
 class WorkspaceGetResponse(BaseModel):
     workspace: typing.Optional[Workspace] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceUpdateRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -119,14 +117,14 @@ class WorkspaceUpdateRequest(BaseModel):
 
 class WorkspaceUpdateResponse(BaseModel):
     workspace: typing.Optional[Workspace] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceDeleteRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceDeleteResponse(BaseModel):
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceInviteUserRequest(BaseModel):
     _one_of_dict = {"WorkspaceInviteUserRequest.user": {"fields": {"email", "user_id"}}}
@@ -140,14 +138,14 @@ class WorkspaceInviteUserRequest(BaseModel):
 
 class WorkspaceInviteUserResponse(BaseModel):
     workspace_user: typing.Optional[WorkspaceUser] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceUserListRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceUserListResponse(BaseModel):
     workspace_users: typing.List[WorkspaceUser] = Field(default_factory=list) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceUserGetRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
@@ -155,7 +153,7 @@ class WorkspaceUserGetRequest(BaseModel):
 
 class WorkspaceUserGetResponse(BaseModel):
     workspace_user: typing.Optional[WorkspaceUser] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceUserUpdateRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
@@ -164,22 +162,23 @@ class WorkspaceUserUpdateRequest(BaseModel):
 
 class WorkspaceUserUpdateResponse(BaseModel):
     workspace_user: typing.Optional[WorkspaceUser] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspaceUserDeleteRequest(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="") 
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspaceUserDeleteResponse(BaseModel):
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspacePluginCreateRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
     payload: typing.Optional[str] = Field(default="") 
+    is_public: typing.Optional[bool] = Field(default=False) 
 
 class WorkspacePluginCreateResponse(BaseModel):
     workspace_plugin: typing.Optional[WorkspacePlugin] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspacePluginGetRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -187,14 +186,14 @@ class WorkspacePluginGetRequest(BaseModel):
 
 class WorkspacePluginGetResponse(BaseModel):
     workspace_plugin: typing.Optional[WorkspacePlugin] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspacePluginListRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspacePluginListResponse(BaseModel):
     workspace_plugins: typing.List[WorkspacePlugin] = Field(default_factory=list) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspacePluginUpdateRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -203,11 +202,17 @@ class WorkspacePluginUpdateRequest(BaseModel):
 
 class WorkspacePluginUpdateResponse(BaseModel):
     workspace_plugin: typing.Optional[WorkspacePlugin] = Field(default=None) 
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class WorkspacePluginDeleteRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
     plugin_id: typing.Optional[UUID] = Field(default="") 
 
 class WorkspacePluginDeleteResponse(BaseModel):
-    error: typing.Optional[WorkspaceResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
+
+class WorkspaceWipeRequest(BaseModel):
+    workspace_id: typing.Optional[UUID] = Field(default="") 
+
+class WorkspaceWipeResponse(BaseModel):
+    error: typing.Optional[ErrorResponse] = Field(default=None) 

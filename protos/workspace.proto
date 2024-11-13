@@ -65,11 +65,13 @@ message WorkspacePlugin {
     optional string id = 1 [(validate.rules).string.uuid = true];
     optional string workspace_id = 2 [(validate.rules).string.uuid = true];
     optional string payload = 3;
-    optional string create_at = 4;
+    optional string created_at = 4;
+    optional bool is_public = 5;
 }
 
 message WorkspacePluginUpdate {
     optional string payload = 1;
+    optional bool is_public = 2;
 }
 
 
@@ -87,11 +89,6 @@ message WorkspacePluginUpdate {
 //     INTERNAL_SERVER_ERROR = 1000;
 // }
 
-message WorkspaceResponseError {
-    optional errors.Error code = 1;
-    optional string message = 2;
-}
-
 // Workspace List
 
 message WorkspaceListRequest {
@@ -100,7 +97,7 @@ message WorkspaceListRequest {
 
 message WorkspaceListResponse {
     repeated Workspace workspaces = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Invited Workspace List
@@ -111,7 +108,7 @@ message InvitedWorkspaceListRequest {
 
 message InvitedWorkspaceListResponse {
     repeated Workspace workspaces = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Create
@@ -123,7 +120,7 @@ message WorkspaceCreateRequest {
 
 message WorkspaceCreateResponse {
     optional Workspace workspace = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Get
@@ -135,7 +132,7 @@ message WorkspaceGetRequest {
 
 message WorkspaceGetResponse {
     optional Workspace workspace = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Update
@@ -147,7 +144,7 @@ message WorkspaceUpdateRequest {
 
 message WorkspaceUpdateResponse {
     optional Workspace workspace = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 
@@ -159,7 +156,7 @@ message WorkspaceDeleteRequest {
 }
 
 message WorkspaceDeleteResponse {
-    optional WorkspaceResponseError error = 1;
+    optional errors.ErrorResponse error = 1;
 }
 
 message WorkspaceInviteUserRequest {
@@ -173,7 +170,7 @@ message WorkspaceInviteUserRequest {
 
 message WorkspaceInviteUserResponse {
     optional WorkspaceUser workspace_user = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace User List
@@ -184,7 +181,7 @@ message WorkspaceUserListRequest {
 
 message WorkspaceUserListResponse {
     repeated WorkspaceUser workspace_users = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace User Get
@@ -196,7 +193,7 @@ message WorkspaceUserGetRequest {
 
 message WorkspaceUserGetResponse {
     optional WorkspaceUser workspace_user = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace User Update
@@ -209,7 +206,7 @@ message WorkspaceUserUpdateRequest {
 
 message WorkspaceUserUpdateResponse {
     optional WorkspaceUser workspace_user = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace User Delete
@@ -220,7 +217,7 @@ message WorkspaceUserDeleteRequest {
 }
 
 message WorkspaceUserDeleteResponse {
-    optional WorkspaceResponseError error = 1;
+    optional errors.ErrorResponse error = 1;
 }
 
 
@@ -229,11 +226,12 @@ message WorkspaceUserDeleteResponse {
 message WorkspacePluginCreateRequest {
     optional string workspace_id = 1 [(validate.rules).string.uuid = true];
     optional string payload = 2;
+    optional bool is_public = 3;
 }
 
 message WorkspacePluginCreateResponse {
     optional WorkspacePlugin workspace_plugin = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Plugin Get
@@ -245,7 +243,7 @@ message WorkspacePluginGetRequest {
 
 message WorkspacePluginGetResponse {
     optional WorkspacePlugin workspace_plugin = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 
@@ -257,7 +255,7 @@ message WorkspacePluginListRequest {
 
 message WorkspacePluginListResponse {
     repeated WorkspacePlugin workspace_plugins = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Plugin Update
@@ -270,7 +268,7 @@ message WorkspacePluginUpdateRequest {
 
 message WorkspacePluginUpdateResponse {
     optional WorkspacePlugin workspace_plugin = 1;
-    optional WorkspaceResponseError error = 2;
+    optional errors.ErrorResponse error = 2;
 }
 
 // Workspace Plugin Delete
@@ -281,6 +279,16 @@ message WorkspacePluginDeleteRequest {
 }
 
 message WorkspacePluginDeleteResponse {
-    optional WorkspaceResponseError error = 1;
+    optional errors.ErrorResponse error = 1;
 }
 
+
+// Wipe Workspace
+
+message WorkspaceWipeRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+}
+
+message WorkspaceWipeResponse {
+    optional errors.ErrorResponse error = 1;
+}

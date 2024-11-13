@@ -17,8 +17,6 @@ import (
 	"unicode/utf8"
 
 	"google.golang.org/protobuf/types/known/anypb"
-
-	errors "github.com/jupyter-naas/naas-models/go/errors"
 )
 
 // ensure the imports are used
@@ -35,8 +33,6 @@ var (
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
 	_ = sort.Sort
-
-	_ = errors.Error(0)
 )
 
 // define the regex for a UUID once up-front
@@ -879,8 +875,12 @@ func (m *WorkspacePlugin) validate(all bool) error {
 		// no validation rules for Payload
 	}
 
-	if m.CreateAt != nil {
-		// no validation rules for CreateAt
+	if m.CreatedAt != nil {
+		// no validation rules for CreatedAt
+	}
+
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
 	}
 
 	if len(errors) > 0 {
@@ -995,6 +995,10 @@ func (m *WorkspacePluginUpdate) validate(all bool) error {
 		// no validation rules for Payload
 	}
 
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
+	}
+
 	if len(errors) > 0 {
 		return WorkspacePluginUpdateMultiError(errors)
 	}
@@ -1074,116 +1078,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkspacePluginUpdateValidationError{}
-
-// Validate checks the field values on WorkspaceResponseError with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *WorkspaceResponseError) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on WorkspaceResponseError with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// WorkspaceResponseErrorMultiError, or nil if none found.
-func (m *WorkspaceResponseError) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *WorkspaceResponseError) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if m.Code != nil {
-		// no validation rules for Code
-	}
-
-	if m.Message != nil {
-		// no validation rules for Message
-	}
-
-	if len(errors) > 0 {
-		return WorkspaceResponseErrorMultiError(errors)
-	}
-
-	return nil
-}
-
-// WorkspaceResponseErrorMultiError is an error wrapping multiple validation
-// errors returned by WorkspaceResponseError.ValidateAll() if the designated
-// constraints aren't met.
-type WorkspaceResponseErrorMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m WorkspaceResponseErrorMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m WorkspaceResponseErrorMultiError) AllErrors() []error { return m }
-
-// WorkspaceResponseErrorValidationError is the validation error returned by
-// WorkspaceResponseError.Validate if the designated constraints aren't met.
-type WorkspaceResponseErrorValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e WorkspaceResponseErrorValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e WorkspaceResponseErrorValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e WorkspaceResponseErrorValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e WorkspaceResponseErrorValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e WorkspaceResponseErrorValidationError) ErrorName() string {
-	return "WorkspaceResponseErrorValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e WorkspaceResponseErrorValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sWorkspaceResponseError.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = WorkspaceResponseErrorValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = WorkspaceResponseErrorValidationError{}
 
 // Validate checks the field values on WorkspaceListRequest with the rules
 // defined in the proto definition for this message. If any rules are
@@ -4706,6 +4600,10 @@ func (m *WorkspacePluginCreateRequest) validate(all bool) error {
 		// no validation rules for Payload
 	}
 
+	if m.IsPublic != nil {
+		// no validation rules for IsPublic
+	}
+
 	if len(errors) > 0 {
 		return WorkspacePluginCreateRequestMultiError(errors)
 	}
@@ -6193,3 +6091,264 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = WorkspacePluginDeleteResponseValidationError{}
+
+// Validate checks the field values on WorkspaceWipeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceWipeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceWipeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceWipeRequestMultiError, or nil if none found.
+func (m *WorkspaceWipeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceWipeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = WorkspaceWipeRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceWipeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceWipeRequest) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// WorkspaceWipeRequestMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceWipeRequest.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspaceWipeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceWipeRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceWipeRequestMultiError) AllErrors() []error { return m }
+
+// WorkspaceWipeRequestValidationError is the validation error returned by
+// WorkspaceWipeRequest.Validate if the designated constraints aren't met.
+type WorkspaceWipeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceWipeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceWipeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceWipeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceWipeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceWipeRequestValidationError) ErrorName() string {
+	return "WorkspaceWipeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceWipeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceWipeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceWipeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceWipeRequestValidationError{}
+
+// Validate checks the field values on WorkspaceWipeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *WorkspaceWipeResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on WorkspaceWipeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// WorkspaceWipeResponseMultiError, or nil if none found.
+func (m *WorkspaceWipeResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *WorkspaceWipeResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, WorkspaceWipeResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, WorkspaceWipeResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WorkspaceWipeResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return WorkspaceWipeResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// WorkspaceWipeResponseMultiError is an error wrapping multiple validation
+// errors returned by WorkspaceWipeResponse.ValidateAll() if the designated
+// constraints aren't met.
+type WorkspaceWipeResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m WorkspaceWipeResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m WorkspaceWipeResponseMultiError) AllErrors() []error { return m }
+
+// WorkspaceWipeResponseValidationError is the validation error returned by
+// WorkspaceWipeResponse.Validate if the designated constraints aren't met.
+type WorkspaceWipeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WorkspaceWipeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WorkspaceWipeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WorkspaceWipeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WorkspaceWipeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WorkspaceWipeResponseValidationError) ErrorName() string {
+	return "WorkspaceWipeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WorkspaceWipeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWorkspaceWipeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WorkspaceWipeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WorkspaceWipeResponseValidationError{}
