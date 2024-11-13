@@ -4,6 +4,7 @@
 # Pydantic Version: 2.7.1 
 from naas_models.pydantic.common_p2p import FieldMask
 from enum import IntEnum
+from naas_models.pydantic.errors_p2p import ErrorResponse
 from google.protobuf.message import Message  # type: ignore
 from pydantic import BaseModel
 from pydantic import Field
@@ -17,38 +18,10 @@ class MessageType(IntEnum):
     HUMAN = 3
 
 
-class MessageError(IntEnum):
-    MESSAGE_NO_ERROR = 0
-    MESSAGE_ALREADY_EXISTS = 1
-    MESSAGE_NOT_FOUND = 2
-    MESSAGE_NOT_UPDATED = 3
-    MESSAGE_NOT_AUTHORIZED = 4
-    MESSAGE_INTERNAL_SERVER_ERROR = 1000
-
-
 class CompletionStatus(IntEnum):
     COMPLETED = 0
     FAILED = 1
     TIMEOUT = 2
-
-
-class ChatError(IntEnum):
-    CHAT_NO_ERROR = 0
-    CHAT_ALREADY_EXISTS = 1
-    CHAT_NOT_FOUND = 2
-    CHAT_NOT_UPDATED = 3
-    CHAT_NOT_AUTHORIZED = 4
-    CHAT_COMPLETION_ADAPTOR_DOES_NOT_EXISTS = 5
-    CHAT_AIMODEL_NOT_FOUND = 6
-    CHAT_OUT_OF_CREDIT = 7
-    CHAT_CONTEXT_LENGTH_EXCEEDED = 8
-    CHAT_INTERNAL_SERVER_ERROR = 1000
-
-class MessageResponseError(BaseModel):
-    code: typing.Optional[MessageError] = Field(default=0) 
-    status: typing.Optional[str] = Field(default="") 
-    reason: typing.Optional[str] = Field(default="") 
-    message: typing.Optional[str] = Field(default="") 
 
 class Message(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
@@ -83,13 +56,7 @@ class MessageDeletionRequest(BaseModel):
     version: typing.Optional[int] = Field(default=0) 
 
 class MessageDeletionResponse(BaseModel):
-    error: typing.Optional[MessageError] = Field(default=0) 
-
-class MessageRatinResponseError(BaseModel):
-    code: typing.Optional[MessageError] = Field(default=0) 
-    status: typing.Optional[str] = Field(default="") 
-    reason: typing.Optional[str] = Field(default="") 
-    message: typing.Optional[str] = Field(default="") 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class MessageRating(BaseModel):
     message_id: typing.Optional[int] = Field(default=0) 
@@ -104,7 +71,7 @@ class MessageRatingCreationRequest(BaseModel):
     rating: typing.Optional[str] = Field(default="", pattern="^(LIKE|DISLIKE)$") 
 
 class MessageRatingCreationResponse(BaseModel):
-    error: typing.Optional[MessageRatinResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
     message_rating: typing.Optional[MessageRating] = Field(default=None) 
 
 class Chat(BaseModel):
@@ -127,39 +94,33 @@ class ChatUpdate(BaseModel):
 class ChatMessages(BaseModel):
     messages: typing.Dict[int, Messages] = Field(default_factory=dict) 
 
-class ChatResponseError(BaseModel):
-    code: typing.Optional[ChatError] = Field(default=0) 
-    status: typing.Optional[str] = Field(default="") 
-    reason: typing.Optional[str] = Field(default="") 
-    message: typing.Optional[str] = Field(default="") 
-
 class ChatCreationRequest(BaseModel):
     name: typing.Optional[str] = Field(default="") 
     is_personal_assistant: typing.Optional[bool] = Field(default=False) 
 
 class ChatCreationResponse(BaseModel):
     chat: typing.Optional[Chat] = Field(default=None) 
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatGetRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
 
 class ChatGetResponse(BaseModel):
     chat: typing.Optional[Chat] = Field(default=None) 
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatMessageGetRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
 
 class ChatMessageGetResponse(BaseModel):
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
     messages: typing.Optional[ChatMessages] = Field(default=None) 
 
 class ChatDeletionRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
 
 class ChatDeletionResponse(BaseModel):
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatUpdateRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
@@ -167,7 +128,7 @@ class ChatUpdateRequest(BaseModel):
 
 class ChatUpdateResponse(BaseModel):
     chat: typing.Optional[Chat] = Field(default=None) 
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatListRequest(BaseModel):
     page_size: typing.Optional[int] = Field(default=0) 
@@ -175,7 +136,7 @@ class ChatListRequest(BaseModel):
 
 class ChatListResponse(BaseModel):
     chat: typing.List[Chat] = Field(default_factory=list) 
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatStarRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
@@ -183,13 +144,13 @@ class ChatStarRequest(BaseModel):
 
 class ChatStarResponse(BaseModel):
     chat: typing.Optional[Chat] = Field(default=None) 
-    code: typing.Optional[ChatError] = Field(default=0) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatArchiveRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
 
 class ChatArchiveResponse(BaseModel):
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class CompletionResponse(BaseModel):
     messages: typing.List[Message] = Field(default_factory=list) 
@@ -214,8 +175,8 @@ class ChatStopCompletionRequest(BaseModel):
     id: typing.Optional[int] = Field(default=0) 
 
 class ChatStopCompletionResponse(BaseModel):
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatCompletionResponse(BaseModel):
     completion: typing.Optional[CompletionResponse] = Field(default=None) 
-    error: typing.Optional[ChatResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
