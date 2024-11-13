@@ -31,9 +31,24 @@ enum Error {
     // Credits errors 400 - 499
 
     CREDITS_USER_HAS_NO_PARENT = 400;
+    CREDITS_OUT_OF_CREDITS = 401;
 
     // Ontology errors 500 - 599
     ONTOLOGY_NOT_FOUND = 500;
+
+    // Chat errors - 600 - 699
+    CHAT_NOT_FOUND = 600;
+    CHAT_NOT_AUTHORIZED = 601;
+    CHAT_COMPLETION_ADAPTOR_DOES_NOT_EXIST = 602;
+    CHAT_CONTEXT_LENGTH_EXCEEDED = 603;
+    CHAT_MESSAGE_ALREADY_EXISTS = 604;
+    CHAT_MESSAGE_NOT_FOUND = 605;
+
+    CHAT_INTERNAL_SERVER_ERROR = 699;
+
+    // AIModel errors - 700 - 799
+    AIMODEL_NOT_FOUND = 700;
+
 }
 
 message ErrorResponse {
