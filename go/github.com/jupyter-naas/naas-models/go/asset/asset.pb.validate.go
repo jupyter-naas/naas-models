@@ -750,50 +750,74 @@ var _ interface {
 	ErrorName() string
 } = AssetUpdateValidationError{}
 
-// Validate checks the field values on AssetResponseError with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *AssetResponseError) Validate() error {
+// Validate checks the field values on AssetListRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *AssetListRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on AssetResponseError with the rules
+// ValidateAll checks the field values on AssetListRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// AssetResponseErrorMultiError, or nil if none found.
-func (m *AssetResponseError) ValidateAll() error {
+// AssetListRequestMultiError, or nil if none found.
+func (m *AssetListRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *AssetResponseError) validate(all bool) error {
+func (m *AssetListRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.Code != nil {
-		// no validation rules for Code
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = AssetListRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
-	if m.Message != nil {
-		// no validation rules for Message
+	if m.PageSize != nil {
+		// no validation rules for PageSize
+	}
+
+	if m.PageNumber != nil {
+		// no validation rules for PageNumber
 	}
 
 	if len(errors) > 0 {
-		return AssetResponseErrorMultiError(errors)
+		return AssetListRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// AssetResponseErrorMultiError is an error wrapping multiple validation errors
-// returned by AssetResponseError.ValidateAll() if the designated constraints
+func (m *AssetListRequest) _validateUuid(uuid string) error {
+	if matched := _asset_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// AssetListRequestMultiError is an error wrapping multiple validation errors
+// returned by AssetListRequest.ValidateAll() if the designated constraints
 // aren't met.
-type AssetResponseErrorMultiError []error
+type AssetListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m AssetResponseErrorMultiError) Error() string {
+func (m AssetListRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -802,11 +826,11 @@ func (m AssetResponseErrorMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m AssetResponseErrorMultiError) AllErrors() []error { return m }
+func (m AssetListRequestMultiError) AllErrors() []error { return m }
 
-// AssetResponseErrorValidationError is the validation error returned by
-// AssetResponseError.Validate if the designated constraints aren't met.
-type AssetResponseErrorValidationError struct {
+// AssetListRequestValidationError is the validation error returned by
+// AssetListRequest.Validate if the designated constraints aren't met.
+type AssetListRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -814,24 +838,22 @@ type AssetResponseErrorValidationError struct {
 }
 
 // Field function returns field value.
-func (e AssetResponseErrorValidationError) Field() string { return e.field }
+func (e AssetListRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e AssetResponseErrorValidationError) Reason() string { return e.reason }
+func (e AssetListRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e AssetResponseErrorValidationError) Cause() error { return e.cause }
+func (e AssetListRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e AssetResponseErrorValidationError) Key() bool { return e.key }
+func (e AssetListRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e AssetResponseErrorValidationError) ErrorName() string {
-	return "AssetResponseErrorValidationError"
-}
+func (e AssetListRequestValidationError) ErrorName() string { return "AssetListRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e AssetResponseErrorValidationError) Error() string {
+func (e AssetListRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -843,14 +865,14 @@ func (e AssetResponseErrorValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sAssetResponseError.%s: %s%s",
+		"invalid %sAssetListRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = AssetResponseErrorValidationError{}
+var _ error = AssetListRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -858,7 +880,176 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = AssetResponseErrorValidationError{}
+} = AssetListRequestValidationError{}
+
+// Validate checks the field values on AssetListResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *AssetListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AssetListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AssetListResponseMultiError, or nil if none found.
+func (m *AssetListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AssetListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetAssets() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AssetListResponseValidationError{
+						field:  fmt.Sprintf("Assets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AssetListResponseValidationError{
+						field:  fmt.Sprintf("Assets[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AssetListResponseValidationError{
+					field:  fmt.Sprintf("Assets[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, AssetListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, AssetListResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return AssetListResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return AssetListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AssetListResponseMultiError is an error wrapping multiple validation errors
+// returned by AssetListResponse.ValidateAll() if the designated constraints
+// aren't met.
+type AssetListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AssetListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AssetListResponseMultiError) AllErrors() []error { return m }
+
+// AssetListResponseValidationError is the validation error returned by
+// AssetListResponse.Validate if the designated constraints aren't met.
+type AssetListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AssetListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AssetListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AssetListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AssetListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AssetListResponseValidationError) ErrorName() string {
+	return "AssetListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AssetListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAssetListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AssetListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AssetListResponseValidationError{}
 
 // Validate checks the field values on AssetCreateRequest with the rules
 // defined in the proto definition for this message. If any rules are

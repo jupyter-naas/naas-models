@@ -49,6 +49,11 @@ enum Error {
     // AIModel errors - 700 - 799
     AIMODEL_NOT_FOUND = 700;
 
+    // Assets errors - 800 - 899
+    ASSET_NOT_FOUND = 800;
+    ASSET_ALREADY_EXISTS = 801;
+    ASSET_REQUEST_ERROR = 802;
+
 }
 
 message ErrorResponse {

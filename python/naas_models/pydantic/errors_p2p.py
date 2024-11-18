@@ -32,6 +32,9 @@ class Error(IntEnum):
     CHAT_MESSAGE_NOT_FOUND = 605
     CHAT_INTERNAL_SERVER_ERROR = 699
     AIMODEL_NOT_FOUND = 700
+    ASSET_NOT_FOUND = 800
+    ASSET_ALREADY_EXISTS = 801
+    ASSET_REQUEST_ERROR = 802
 
 class ErrorResponse(BaseModel):
     code: typing.Optional[Error] = Field(default=0) 
