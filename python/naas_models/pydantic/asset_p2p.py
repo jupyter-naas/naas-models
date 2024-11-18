@@ -4,6 +4,7 @@
 # Pydantic Version: 2.7.1 
 from datetime import datetime
 from enum import IntEnum
+from naas_models.pydantic.errors_p2p import ErrorResponse
 from google.protobuf.message import Message  # type: ignore
 from pydantic import BaseModel
 from pydantic import Field
@@ -61,9 +62,14 @@ class AssetUpdate(BaseModel):
     visibility: typing.Optional[str] = Field(default="") 
     content_disposition: typing.Optional[str] = Field(default="") 
 
-class AssetResponseError(BaseModel):
-    code: typing.Optional[AssetError] = Field(default=0) 
-    message: typing.Optional[str] = Field(default="") 
+class AssetListRequest(BaseModel):
+    workspace_id: typing.Optional[UUID] = Field(default="") 
+    page_size: typing.Optional[int] = Field(default=0) 
+    page_number: typing.Optional[int] = Field(default=0) 
+
+class AssetListResponse(BaseModel):
+    assets: typing.List[Asset] = Field(default_factory=list) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class AssetCreateRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -71,7 +77,7 @@ class AssetCreateRequest(BaseModel):
 
 class AssetCreateResponse(BaseModel):
     asset: typing.Optional[Asset] = Field(default=None) 
-    error: typing.Optional[AssetResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class AssetGetRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -79,7 +85,7 @@ class AssetGetRequest(BaseModel):
 
 class AssetGetResponse(BaseModel):
     asset: typing.Optional[Asset] = Field(default=None) 
-    error: typing.Optional[AssetResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class AssetGetObjectRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -87,7 +93,7 @@ class AssetGetObjectRequest(BaseModel):
 
 class AssetGetObjectResponse(BaseModel):
     url: typing.Optional[str] = Field(default="") 
-    error: typing.Optional[AssetResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class AssetUpdateRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
@@ -95,11 +101,11 @@ class AssetUpdateRequest(BaseModel):
 
 class AssetUpdateResponse(BaseModel):
     asset: typing.Optional[Asset] = Field(default=None) 
-    error: typing.Optional[AssetResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class AssetDeleteRequest(BaseModel):
     workspace_id: typing.Optional[UUID] = Field(default="") 
     asset_id: typing.Optional[UUID] = Field(default="") 
 
 class AssetDeleteResponse(BaseModel):
-    error: typing.Optional[AssetResponseError] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
