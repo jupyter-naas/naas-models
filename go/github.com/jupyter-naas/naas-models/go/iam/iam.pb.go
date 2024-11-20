@@ -576,6 +576,104 @@ func (x *CreateApiKeyResponse) GetApiKey() *ApiKey {
 	return nil
 }
 
+type ListApiKeysRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId *string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3,oneof" json:"user_id,omitempty"`
+}
+
+func (x *ListApiKeysRequest) Reset() {
+	*x = ListApiKeysRequest{}
+	mi := &file_iam_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListApiKeysRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListApiKeysRequest) ProtoMessage() {}
+
+func (x *ListApiKeysRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_iam_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListApiKeysRequest.ProtoReflect.Descriptor instead.
+func (*ListApiKeysRequest) Descriptor() ([]byte, []int) {
+	return file_iam_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ListApiKeysRequest) GetUserId() string {
+	if x != nil && x.UserId != nil {
+		return *x.UserId
+	}
+	return ""
+}
+
+type ListApiKeysResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error   *errors.ErrorResponse `protobuf:"bytes,1,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	ApiKeys []*ApiKey             `protobuf:"bytes,2,rep,name=api_keys,json=apiKeys,proto3" json:"api_keys,omitempty"`
+}
+
+func (x *ListApiKeysResponse) Reset() {
+	*x = ListApiKeysResponse{}
+	mi := &file_iam_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListApiKeysResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListApiKeysResponse) ProtoMessage() {}
+
+func (x *ListApiKeysResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_iam_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListApiKeysResponse.ProtoReflect.Descriptor instead.
+func (*ListApiKeysResponse) Descriptor() ([]byte, []int) {
+	return file_iam_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ListApiKeysResponse) GetError() *errors.ErrorResponse {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+func (x *ListApiKeysResponse) GetApiKeys() []*ApiKey {
+	if x != nil {
+		return x.ApiKeys
+	}
+	return nil
+}
+
 var File_iam_proto protoreflect.FileDescriptor
 
 var file_iam_proto_rawDesc = []byte{
@@ -678,10 +776,22 @@ var file_iam_proto_rawDesc = []byte{
 	0x32, 0x0b, 0x2e, 0x69, 0x61, 0x6d, 0x2e, 0x41, 0x70, 0x69, 0x4b, 0x65, 0x79, 0x48, 0x01, 0x52,
 	0x06, 0x61, 0x70, 0x69, 0x4b, 0x65, 0x79, 0x88, 0x01, 0x01, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x65,
 	0x72, 0x72, 0x6f, 0x72, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x61, 0x70, 0x69, 0x5f, 0x6b, 0x65, 0x79,
-	0x42, 0x2c, 0x5a, 0x2a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6a,
-	0x75, 0x70, 0x79, 0x74, 0x65, 0x72, 0x2d, 0x6e, 0x61, 0x61, 0x73, 0x2f, 0x6e, 0x61, 0x61, 0x73,
-	0x2d, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x2f, 0x67, 0x6f, 0x2f, 0x69, 0x61, 0x6d, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x3e, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x69, 0x4b, 0x65, 0x79, 0x73, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x64, 0x88, 0x01, 0x01, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64,
+	0x22, 0x79, 0x0a, 0x13, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x69, 0x4b, 0x65, 0x79, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x30, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x73, 0x2e,
+	0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52,
+	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x88, 0x01, 0x01, 0x12, 0x26, 0x0a, 0x08, 0x61, 0x70, 0x69,
+	0x5f, 0x6b, 0x65, 0x79, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x69, 0x61,
+	0x6d, 0x2e, 0x41, 0x70, 0x69, 0x4b, 0x65, 0x79, 0x52, 0x07, 0x61, 0x70, 0x69, 0x4b, 0x65, 0x79,
+	0x73, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2c, 0x5a, 0x2a, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6a, 0x75, 0x70, 0x79, 0x74, 0x65,
+	0x72, 0x2d, 0x6e, 0x61, 0x61, 0x73, 0x2f, 0x6e, 0x61, 0x61, 0x73, 0x2d, 0x6d, 0x6f, 0x64, 0x65,
+	0x6c, 0x73, 0x2f, 0x67, 0x6f, 0x2f, 0x69, 0x61, 0x6d, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -696,7 +806,7 @@ func file_iam_proto_rawDescGZIP() []byte {
 	return file_iam_proto_rawDescData
 }
 
-var file_iam_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_iam_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_iam_proto_goTypes = []any{
 	(*TokenData)(nil),               // 0: iam.TokenData
 	(*Profile)(nil),                 // 1: iam.Profile
@@ -706,18 +816,22 @@ var file_iam_proto_goTypes = []any{
 	(*ApiKeyCreation)(nil),          // 5: iam.ApiKeyCreation
 	(*CreateApiKeyRequest)(nil),     // 6: iam.CreateApiKeyRequest
 	(*CreateApiKeyResponse)(nil),    // 7: iam.CreateApiKeyResponse
-	(*errors.ErrorResponse)(nil),    // 8: errors.ErrorResponse
+	(*ListApiKeysRequest)(nil),      // 8: iam.ListApiKeysRequest
+	(*ListApiKeysResponse)(nil),     // 9: iam.ListApiKeysResponse
+	(*errors.ErrorResponse)(nil),    // 10: errors.ErrorResponse
 }
 var file_iam_proto_depIdxs = []int32{
-	8, // 0: iam.ImpersonateUserResponse.error:type_name -> errors.ErrorResponse
-	5, // 1: iam.CreateApiKeyRequest.api_key:type_name -> iam.ApiKeyCreation
-	8, // 2: iam.CreateApiKeyResponse.error:type_name -> errors.ErrorResponse
-	4, // 3: iam.CreateApiKeyResponse.api_key:type_name -> iam.ApiKey
-	4, // [4:4] is the sub-list for method output_type
-	4, // [4:4] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	10, // 0: iam.ImpersonateUserResponse.error:type_name -> errors.ErrorResponse
+	5,  // 1: iam.CreateApiKeyRequest.api_key:type_name -> iam.ApiKeyCreation
+	10, // 2: iam.CreateApiKeyResponse.error:type_name -> errors.ErrorResponse
+	4,  // 3: iam.CreateApiKeyResponse.api_key:type_name -> iam.ApiKey
+	10, // 4: iam.ListApiKeysResponse.error:type_name -> errors.ErrorResponse
+	4,  // 5: iam.ListApiKeysResponse.api_keys:type_name -> iam.ApiKey
+	6,  // [6:6] is the sub-list for method output_type
+	6,  // [6:6] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_iam_proto_init() }
@@ -736,13 +850,15 @@ func file_iam_proto_init() {
 	file_iam_proto_msgTypes[5].OneofWrappers = []any{}
 	file_iam_proto_msgTypes[6].OneofWrappers = []any{}
 	file_iam_proto_msgTypes[7].OneofWrappers = []any{}
+	file_iam_proto_msgTypes[8].OneofWrappers = []any{}
+	file_iam_proto_msgTypes[9].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_iam_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
