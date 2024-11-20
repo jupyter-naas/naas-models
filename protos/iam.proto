@@ -10,6 +10,7 @@ import "errors.proto";
 message TokenData {
     optional string user_id = 1;
     repeated string scopes = 2;
+    optional string api_key_id = 3;
 }
 
 message Profile {
@@ -37,3 +38,28 @@ message ImpersonateUserResponse {
     optional errors.ErrorResponse error = 1;
     optional string token = 2;
 }
+
+
+message ApiKey {
+    optional string id = 1;
+    optional string user_id = 2;
+    optional string api_key = 3;
+    optional string name = 4;
+    optional string description = 5;
+    optional string created_at = 6;
+}
+
+message ApiKeyCreation {
+    optional string name = 1;
+    optional string description = 2;
+}
+
+message CreateApiKeyRequest {
+    optional ApiKeyCreation api_key = 1;
+}
+
+message CreateApiKeyResponse {
+    optional errors.ErrorResponse error = 1;
+    optional ApiKey api_key = 2;
+}
+

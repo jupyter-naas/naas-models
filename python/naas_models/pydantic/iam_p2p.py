@@ -16,6 +16,7 @@ import typing
 class TokenData(BaseModel):
     user_id: typing.Optional[str] = Field(default="") 
     scopes: typing.List[str] = Field(default_factory=list) 
+    api_key_id: typing.Optional[str] = Field(default="") 
 
 class Profile(BaseModel):
     user_id: typing.Optional[str] = Field(default="") 
@@ -39,3 +40,22 @@ class ImpersonateUserRequest(BaseModel):
 class ImpersonateUserResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
     token: typing.Optional[str] = Field(default="") 
+
+class ApiKey(BaseModel):
+    id: typing.Optional[str] = Field(default="") 
+    user_id: typing.Optional[str] = Field(default="") 
+    api_key: typing.Optional[str] = Field(default="") 
+    name: typing.Optional[str] = Field(default="") 
+    description: typing.Optional[str] = Field(default="") 
+    created_at: typing.Optional[str] = Field(default="") 
+
+class ApiKeyCreation(BaseModel):
+    name: typing.Optional[str] = Field(default="") 
+    description: typing.Optional[str] = Field(default="") 
+
+class CreateApiKeyRequest(BaseModel):
+    api_key: typing.Optional[ApiKeyCreation] = Field(default=None) 
+
+class CreateApiKeyResponse(BaseModel):
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
+    api_key: typing.Optional[ApiKey] = Field(default=None) 

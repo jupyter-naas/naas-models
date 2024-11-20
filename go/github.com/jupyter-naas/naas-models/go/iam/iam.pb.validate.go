@@ -64,6 +64,10 @@ func (m *TokenData) validate(all bool) error {
 		// no validation rules for UserId
 	}
 
+	if m.ApiKeyId != nil {
+		// no validation rules for ApiKeyId
+	}
+
 	if len(errors) > 0 {
 		return TokenDataMultiError(errors)
 	}
@@ -634,3 +638,536 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ImpersonateUserResponseValidationError{}
+
+// Validate checks the field values on ApiKey with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApiKey) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApiKey with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in ApiKeyMultiError, or nil if none found.
+func (m *ApiKey) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApiKey) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Id != nil {
+		// no validation rules for Id
+	}
+
+	if m.UserId != nil {
+		// no validation rules for UserId
+	}
+
+	if m.ApiKey != nil {
+		// no validation rules for ApiKey
+	}
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if m.CreatedAt != nil {
+		// no validation rules for CreatedAt
+	}
+
+	if len(errors) > 0 {
+		return ApiKeyMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApiKeyMultiError is an error wrapping multiple validation errors returned by
+// ApiKey.ValidateAll() if the designated constraints aren't met.
+type ApiKeyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApiKeyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApiKeyMultiError) AllErrors() []error { return m }
+
+// ApiKeyValidationError is the validation error returned by ApiKey.Validate if
+// the designated constraints aren't met.
+type ApiKeyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApiKeyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApiKeyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApiKeyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApiKeyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApiKeyValidationError) ErrorName() string { return "ApiKeyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApiKeyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApiKey.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApiKeyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApiKeyValidationError{}
+
+// Validate checks the field values on ApiKeyCreation with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApiKeyCreation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApiKeyCreation with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ApiKeyCreationMultiError,
+// or nil if none found.
+func (m *ApiKeyCreation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApiKeyCreation) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Name != nil {
+		// no validation rules for Name
+	}
+
+	if m.Description != nil {
+		// no validation rules for Description
+	}
+
+	if len(errors) > 0 {
+		return ApiKeyCreationMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApiKeyCreationMultiError is an error wrapping multiple validation errors
+// returned by ApiKeyCreation.ValidateAll() if the designated constraints
+// aren't met.
+type ApiKeyCreationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApiKeyCreationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApiKeyCreationMultiError) AllErrors() []error { return m }
+
+// ApiKeyCreationValidationError is the validation error returned by
+// ApiKeyCreation.Validate if the designated constraints aren't met.
+type ApiKeyCreationValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApiKeyCreationValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApiKeyCreationValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApiKeyCreationValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApiKeyCreationValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApiKeyCreationValidationError) ErrorName() string { return "ApiKeyCreationValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApiKeyCreationValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApiKeyCreation.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApiKeyCreationValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApiKeyCreationValidationError{}
+
+// Validate checks the field values on CreateApiKeyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateApiKeyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateApiKeyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateApiKeyRequestMultiError, or nil if none found.
+func (m *CreateApiKeyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateApiKeyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.ApiKey != nil {
+
+		if all {
+			switch v := interface{}(m.GetApiKey()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateApiKeyRequestValidationError{
+						field:  "ApiKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateApiKeyRequestValidationError{
+						field:  "ApiKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApiKey()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateApiKeyRequestValidationError{
+					field:  "ApiKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return CreateApiKeyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateApiKeyRequestMultiError is an error wrapping multiple validation
+// errors returned by CreateApiKeyRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CreateApiKeyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateApiKeyRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateApiKeyRequestMultiError) AllErrors() []error { return m }
+
+// CreateApiKeyRequestValidationError is the validation error returned by
+// CreateApiKeyRequest.Validate if the designated constraints aren't met.
+type CreateApiKeyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateApiKeyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateApiKeyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateApiKeyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateApiKeyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateApiKeyRequestValidationError) ErrorName() string {
+	return "CreateApiKeyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateApiKeyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateApiKeyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateApiKeyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateApiKeyRequestValidationError{}
+
+// Validate checks the field values on CreateApiKeyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateApiKeyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateApiKeyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateApiKeyResponseMultiError, or nil if none found.
+func (m *CreateApiKeyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateApiKeyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateApiKeyResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateApiKeyResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateApiKeyResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.ApiKey != nil {
+
+		if all {
+			switch v := interface{}(m.GetApiKey()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateApiKeyResponseValidationError{
+						field:  "ApiKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateApiKeyResponseValidationError{
+						field:  "ApiKey",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetApiKey()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateApiKeyResponseValidationError{
+					field:  "ApiKey",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return CreateApiKeyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateApiKeyResponseMultiError is an error wrapping multiple validation
+// errors returned by CreateApiKeyResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CreateApiKeyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateApiKeyResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateApiKeyResponseMultiError) AllErrors() []error { return m }
+
+// CreateApiKeyResponseValidationError is the validation error returned by
+// CreateApiKeyResponse.Validate if the designated constraints aren't met.
+type CreateApiKeyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateApiKeyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateApiKeyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateApiKeyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateApiKeyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateApiKeyResponseValidationError) ErrorName() string {
+	return "CreateApiKeyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateApiKeyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateApiKeyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateApiKeyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateApiKeyResponseValidationError{}

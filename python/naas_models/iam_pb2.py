@@ -16,7 +16,7 @@ import naas_models.validate_pb2 as validate__pb2
 import errors_pb2 as errors__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tiam.proto\x12\x03iam\x1a\x0evalidate.proto\x1a\x0c\x65rrors.proto\"=\n\tTokenData\x12\x14\n\x07user_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x0e\n\x06scopes\x18\x02 \x03(\tB\n\n\x08_user_id\"\xc7\x03\n\x07Profile\x12\x14\n\x07user_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x17\n\nfirst_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tlast_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x14\n\x07\x63ompany\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x11\n\x04role\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x15\n\x08timezone\x18\x06 \x01(\tH\x05\x88\x01\x01\x12 \n\x13profile_picture_url\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x1e\n\x11user_presentation\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x19\n\x0ctargeted_use\x18\t \x01(\tH\x08\x88\x01\x01\x12\x1c\n\x0fproduct_updates\x18\n \x01(\x08H\t\x88\x01\x01\x12\x12\n\x05phone\x18\x0b \x01(\tH\n\x88\x01\x01\x42\n\n\x08_user_idB\r\n\x0b_first_nameB\x0c\n\n_last_nameB\n\n\x08_companyB\x07\n\x05_roleB\x0b\n\t_timezoneB\x16\n\x14_profile_picture_urlB\x14\n\x12_user_presentationB\x0f\n\r_targeted_useB\x12\n\x10_product_updatesB\x08\n\x06_phone\"W\n\x16ImpersonateUserRequest\x12\x1b\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x12\x18\n\x05\x65mail\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02`\x01H\x00\x42\x06\n\x04user\"l\n\x17ImpersonateUserResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x08\n\x06_tokenB,Z*github.com/jupyter-naas/naas-models/go/iamb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tiam.proto\x12\x03iam\x1a\x0evalidate.proto\x1a\x0c\x65rrors.proto\"e\n\tTokenData\x12\x14\n\x07user_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x0e\n\x06scopes\x18\x02 \x03(\t\x12\x17\n\napi_key_id\x18\x03 \x01(\tH\x01\x88\x01\x01\x42\n\n\x08_user_idB\r\n\x0b_api_key_id\"\xc7\x03\n\x07Profile\x12\x14\n\x07user_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x17\n\nfirst_name\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x16\n\tlast_name\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x14\n\x07\x63ompany\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x11\n\x04role\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x15\n\x08timezone\x18\x06 \x01(\tH\x05\x88\x01\x01\x12 \n\x13profile_picture_url\x18\x07 \x01(\tH\x06\x88\x01\x01\x12\x1e\n\x11user_presentation\x18\x08 \x01(\tH\x07\x88\x01\x01\x12\x19\n\x0ctargeted_use\x18\t \x01(\tH\x08\x88\x01\x01\x12\x1c\n\x0fproduct_updates\x18\n \x01(\x08H\t\x88\x01\x01\x12\x12\n\x05phone\x18\x0b \x01(\tH\n\x88\x01\x01\x42\n\n\x08_user_idB\r\n\x0b_first_nameB\x0c\n\n_last_nameB\n\n\x08_companyB\x07\n\x05_roleB\x0b\n\t_timezoneB\x16\n\x14_profile_picture_urlB\x14\n\x12_user_presentationB\x0f\n\r_targeted_useB\x12\n\x10_product_updatesB\x08\n\x06_phone\"W\n\x16ImpersonateUserRequest\x12\x1b\n\x07user_id\x18\x01 \x01(\tB\x08\xfa\x42\x05r\x03\xb0\x01\x01H\x00\x12\x18\n\x05\x65mail\x18\x02 \x01(\tB\x07\xfa\x42\x04r\x02`\x01H\x00\x42\x06\n\x04user\"l\n\x17ImpersonateUserResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12\x12\n\x05token\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_errorB\x08\n\x06_token\"\xd2\x01\n\x06\x41piKey\x12\x0f\n\x02id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x14\n\x07user_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x14\n\x07\x61pi_key\x18\x03 \x01(\tH\x02\x88\x01\x01\x12\x11\n\x04name\x18\x04 \x01(\tH\x03\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x05 \x01(\tH\x04\x88\x01\x01\x12\x17\n\ncreated_at\x18\x06 \x01(\tH\x05\x88\x01\x01\x42\x05\n\x03_idB\n\n\x08_user_idB\n\n\x08_api_keyB\x07\n\x05_nameB\x0e\n\x0c_descriptionB\r\n\x0b_created_at\"V\n\x0e\x41piKeyCreation\x12\x11\n\x04name\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x18\n\x0b\x64\x65scription\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\x07\n\x05_nameB\x0e\n\x0c_description\"L\n\x13\x43reateApiKeyRequest\x12)\n\x07\x61pi_key\x18\x01 \x01(\x0b\x32\x13.iam.ApiKeyCreationH\x00\x88\x01\x01\x42\n\n\x08_api_key\"z\n\x14\x43reateApiKeyResponse\x12)\n\x05\x65rror\x18\x01 \x01(\x0b\x32\x15.errors.ErrorResponseH\x00\x88\x01\x01\x12!\n\x07\x61pi_key\x18\x02 \x01(\x0b\x32\x0b.iam.ApiKeyH\x01\x88\x01\x01\x42\x08\n\x06_errorB\n\n\x08_api_keyB,Z*github.com/jupyter-naas/naas-models/go/iamb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -29,11 +29,19 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_IMPERSONATEUSERREQUEST'].fields_by_name['email']._loaded_options = None
   _globals['_IMPERSONATEUSERREQUEST'].fields_by_name['email']._serialized_options = b'\372B\004r\002`\001'
   _globals['_TOKENDATA']._serialized_start=48
-  _globals['_TOKENDATA']._serialized_end=109
-  _globals['_PROFILE']._serialized_start=112
-  _globals['_PROFILE']._serialized_end=567
-  _globals['_IMPERSONATEUSERREQUEST']._serialized_start=569
-  _globals['_IMPERSONATEUSERREQUEST']._serialized_end=656
-  _globals['_IMPERSONATEUSERRESPONSE']._serialized_start=658
-  _globals['_IMPERSONATEUSERRESPONSE']._serialized_end=766
+  _globals['_TOKENDATA']._serialized_end=149
+  _globals['_PROFILE']._serialized_start=152
+  _globals['_PROFILE']._serialized_end=607
+  _globals['_IMPERSONATEUSERREQUEST']._serialized_start=609
+  _globals['_IMPERSONATEUSERREQUEST']._serialized_end=696
+  _globals['_IMPERSONATEUSERRESPONSE']._serialized_start=698
+  _globals['_IMPERSONATEUSERRESPONSE']._serialized_end=806
+  _globals['_APIKEY']._serialized_start=809
+  _globals['_APIKEY']._serialized_end=1019
+  _globals['_APIKEYCREATION']._serialized_start=1021
+  _globals['_APIKEYCREATION']._serialized_end=1107
+  _globals['_CREATEAPIKEYREQUEST']._serialized_start=1109
+  _globals['_CREATEAPIKEYREQUEST']._serialized_end=1185
+  _globals['_CREATEAPIKEYRESPONSE']._serialized_start=1187
+  _globals['_CREATEAPIKEYRESPONSE']._serialized_end=1309
 # @@protoc_insertion_point(module_scope)
