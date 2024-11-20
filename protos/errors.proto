@@ -16,6 +16,7 @@ enum Error {
 
     IAM_USER_NOT_FOUND = 200;
     IAM_USER_NOT_AUTHORIZED = 201;
+    IAM_API_KEY_ALREADY_EXISTS = 202;
 
     // Workspace errors 300 - 399
 
