@@ -1171,3 +1171,278 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateApiKeyResponseValidationError{}
+
+// Validate checks the field values on ListApiKeysRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListApiKeysRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListApiKeysRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListApiKeysRequestMultiError, or nil if none found.
+func (m *ListApiKeysRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApiKeysRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.UserId != nil {
+		// no validation rules for UserId
+	}
+
+	if len(errors) > 0 {
+		return ListApiKeysRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListApiKeysRequestMultiError is an error wrapping multiple validation errors
+// returned by ListApiKeysRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ListApiKeysRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApiKeysRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApiKeysRequestMultiError) AllErrors() []error { return m }
+
+// ListApiKeysRequestValidationError is the validation error returned by
+// ListApiKeysRequest.Validate if the designated constraints aren't met.
+type ListApiKeysRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApiKeysRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListApiKeysRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListApiKeysRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListApiKeysRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApiKeysRequestValidationError) ErrorName() string {
+	return "ListApiKeysRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApiKeysRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApiKeysRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApiKeysRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApiKeysRequestValidationError{}
+
+// Validate checks the field values on ListApiKeysResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListApiKeysResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListApiKeysResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListApiKeysResponseMultiError, or nil if none found.
+func (m *ListApiKeysResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListApiKeysResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetApiKeys() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListApiKeysResponseValidationError{
+						field:  fmt.Sprintf("ApiKeys[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListApiKeysResponseValidationError{
+						field:  fmt.Sprintf("ApiKeys[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListApiKeysResponseValidationError{
+					field:  fmt.Sprintf("ApiKeys[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Error != nil {
+
+		if all {
+			switch v := interface{}(m.GetError()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListApiKeysResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListApiKeysResponseValidationError{
+						field:  "Error",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListApiKeysResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListApiKeysResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListApiKeysResponseMultiError is an error wrapping multiple validation
+// errors returned by ListApiKeysResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ListApiKeysResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListApiKeysResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListApiKeysResponseMultiError) AllErrors() []error { return m }
+
+// ListApiKeysResponseValidationError is the validation error returned by
+// ListApiKeysResponse.Validate if the designated constraints aren't met.
+type ListApiKeysResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListApiKeysResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListApiKeysResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListApiKeysResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListApiKeysResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListApiKeysResponseValidationError) ErrorName() string {
+	return "ListApiKeysResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListApiKeysResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListApiKeysResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListApiKeysResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListApiKeysResponseValidationError{}

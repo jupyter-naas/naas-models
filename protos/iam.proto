@@ -63,3 +63,11 @@ message CreateApiKeyResponse {
     optional ApiKey api_key = 2;
 }
 
+message ListApiKeysRequest {
+    optional string user_id = 1;
+}
+
+message ListApiKeysResponse {
+    optional errors.ErrorResponse error = 1;
+    repeated ApiKey api_keys = 2;
+}

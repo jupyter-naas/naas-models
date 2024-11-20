@@ -59,3 +59,10 @@ class CreateApiKeyRequest(BaseModel):
 class CreateApiKeyResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
     api_key: typing.Optional[ApiKey] = Field(default=None) 
+
+class ListApiKeysRequest(BaseModel):
+    user_id: typing.Optional[str] = Field(default="") 
+
+class ListApiKeysResponse(BaseModel):
+    error: typing.Optional[ErrorResponse] = Field(default=None) 
+    api_keys: typing.List[ApiKey] = Field(default_factory=list) 
