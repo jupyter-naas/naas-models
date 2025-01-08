@@ -16,6 +16,8 @@ class MessageType(IntEnum):
     SYSTEM = 1
     AI = 2
     HUMAN = 3
+    TOOL_USAGE = 5
+    TOOL_ANSWER = 6
 
 
 class CompletionStatus(IntEnum):
