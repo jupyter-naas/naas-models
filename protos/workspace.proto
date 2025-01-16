@@ -54,6 +54,10 @@ message WorkspaceUser {
     optional string status = 4 [(validate.rules).string = {in: ["active", "invited", "declined"]}];
     optional string create_at = 5;
     optional string update_at = 6;
+    optional string first_name = 7;
+    optional string last_name = 8;
+    optional string email = 9;
+    optional string profile_picture_url = 10;
 }
 
 message WorkspaceUserUpdate {

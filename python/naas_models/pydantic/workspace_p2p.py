@@ -59,6 +59,10 @@ class WorkspaceUser(BaseModel):
     status: typing.Optional[str] = Field(default="", in_=["active", "invited", "declined"]) 
     create_at: typing.Optional[str] = Field(default="") 
     update_at: typing.Optional[str] = Field(default="") 
+    first_name: typing.Optional[str] = Field(default="") 
+    last_name: typing.Optional[str] = Field(default="") 
+    email: typing.Optional[str] = Field(default="") 
+    profile_picture_url: typing.Optional[str] = Field(default="") 
 
     role_in_validator = field_validator("role", mode="after",check_fields=None)(in_validator)
     status_in_validator = field_validator("status", mode="after",check_fields=None)(in_validator)

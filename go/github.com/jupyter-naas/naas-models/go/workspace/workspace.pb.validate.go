@@ -575,6 +575,22 @@ func (m *WorkspaceUser) validate(all bool) error {
 		// no validation rules for UpdateAt
 	}
 
+	if m.FirstName != nil {
+		// no validation rules for FirstName
+	}
+
+	if m.LastName != nil {
+		// no validation rules for LastName
+	}
+
+	if m.Email != nil {
+		// no validation rules for Email
+	}
+
+	if m.ProfilePictureUrl != nil {
+		// no validation rules for ProfilePictureUrl
+	}
+
 	if len(errors) > 0 {
 		return WorkspaceUserMultiError(errors)
 	}
