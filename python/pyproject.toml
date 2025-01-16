@@ -6,6 +6,9 @@ authors = ["Maxime Jublou <maxime@naas.ai>"]
 readme = "README.md"
 packages = [{include = "naas_models"}]
 license = "MIT"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
