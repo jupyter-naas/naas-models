@@ -5,6 +5,7 @@ description = "Library containing all models used in the naas ecosystem. You can
 authors = ["Maxime Jublou <maxime@naas.ai>"]
 readme = "README.md"
 packages = [{include = "naas_models"}]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.9"
