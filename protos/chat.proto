@@ -110,14 +110,13 @@ message Chat {
     optional string name = 4;
     optional string deleted_at = 5;
     optional bool is_group = 6;
-    optional bool is_personal_assistant = 7;
-    optional string starred_at = 8;
+    optional string starred_at = 7;
+    optional string workspace_id = 8 [(validate.rules).string.uuid = true];
 }
 
 message ChatUpdate {
     optional string name = 1;
     optional bool is_group = 2;
-    optional bool is_personal_assistant = 3;
     optional string starred_at = 4;
 
     optional common.FieldMask field_mask = 100;
@@ -131,7 +130,7 @@ message ChatMessages {
 
 message ChatCreationRequest {
     optional string name = 1;
-    optional bool is_personal_assistant = 2;
+    optional string workspace_id = 8 [(validate.rules).string.uuid = true];
 }
 
 message ChatCreationResponse {
@@ -184,8 +183,7 @@ message ChatUpdateResponse {
 // List
 
 message ChatListRequest {
-    optional int32 page_size = 1;
-    optional int32 page_number = 2;
+    optional string workspace_id = 8 [(validate.rules).string.uuid = true];
 }
 
 message ChatListResponse {

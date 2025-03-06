@@ -83,13 +83,12 @@ class Chat(BaseModel):
     name: typing.Optional[str] = Field(default="") 
     deleted_at: typing.Optional[str] = Field(default="") 
     is_group: typing.Optional[bool] = Field(default=False) 
-    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
     starred_at: typing.Optional[str] = Field(default="") 
+    workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class ChatUpdate(BaseModel):
     name: typing.Optional[str] = Field(default="") 
     is_group: typing.Optional[bool] = Field(default=False) 
-    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
     starred_at: typing.Optional[str] = Field(default="") 
     field_mask: typing.Optional[FieldMask] = Field(default=None) 
 
@@ -98,7 +97,7 @@ class ChatMessages(BaseModel):
 
 class ChatCreationRequest(BaseModel):
     name: typing.Optional[str] = Field(default="") 
-    is_personal_assistant: typing.Optional[bool] = Field(default=False) 
+    workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class ChatCreationResponse(BaseModel):
     chat: typing.Optional[Chat] = Field(default=None) 
@@ -133,8 +132,7 @@ class ChatUpdateResponse(BaseModel):
     error: typing.Optional[ErrorResponse] = Field(default=None) 
 
 class ChatListRequest(BaseModel):
-    page_size: typing.Optional[int] = Field(default=0) 
-    page_number: typing.Optional[int] = Field(default=0) 
+    workspace_id: typing.Optional[UUID] = Field(default="") 
 
 class ChatListResponse(BaseModel):
     chat: typing.List[Chat] = Field(default_factory=list) 
