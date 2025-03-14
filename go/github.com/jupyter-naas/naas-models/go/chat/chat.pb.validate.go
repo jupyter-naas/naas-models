@@ -1234,16 +1234,36 @@ func (m *Chat) validate(all bool) error {
 		// no validation rules for IsGroup
 	}
 
-	if m.IsPersonalAssistant != nil {
-		// no validation rules for IsPersonalAssistant
-	}
-
 	if m.StarredAt != nil {
 		// no validation rules for StarredAt
 	}
 
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = ChatValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return ChatMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *Chat) _validateUuid(uuid string) error {
+	if matched := _chat_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1347,10 +1367,6 @@ func (m *ChatUpdate) validate(all bool) error {
 
 	if m.IsGroup != nil {
 		// no validation rules for IsGroup
-	}
-
-	if m.IsPersonalAssistant != nil {
-		// no validation rules for IsPersonalAssistant
 	}
 
 	if m.StarredAt != nil {
@@ -1638,12 +1654,32 @@ func (m *ChatCreationRequest) validate(all bool) error {
 		// no validation rules for Name
 	}
 
-	if m.IsPersonalAssistant != nil {
-		// no validation rules for IsPersonalAssistant
+	if m.WorkspaceId != nil {
+
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = ChatCreationRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if len(errors) > 0 {
 		return ChatCreationRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *ChatCreationRequest) _validateUuid(uuid string) error {
+	if matched := _chat_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -3004,16 +3040,32 @@ func (m *ChatListRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.PageSize != nil {
-		// no validation rules for PageSize
-	}
+	if m.WorkspaceId != nil {
 
-	if m.PageNumber != nil {
-		// no validation rules for PageNumber
+		if err := m._validateUuid(m.GetWorkspaceId()); err != nil {
+			err = ChatListRequestValidationError{
+				field:  "WorkspaceId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
 	}
 
 	if len(errors) > 0 {
 		return ChatListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *ChatListRequest) _validateUuid(uuid string) error {
+	if matched := _chat_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
