@@ -20,6 +20,14 @@ class MessageType(IntEnum):
     TOOL_ANSWER = 6
 
 
+class MessageStatus(IntEnum):
+    MESSAGE_STATUS_UNSPECIFIED = 0
+    MESSAGE_STATUS_PENDING = 1
+    MESSAGE_STATUS_COMPLETED = 2
+    MESSAGE_STATUS_FAILED = 3
+    MESSAGE_STATUS_CANCELLED = 4
+
+
 class CompletionStatus(IntEnum):
     COMPLETED = 0
     FAILED = 1
@@ -40,6 +48,7 @@ class Message(BaseModel):
     deleted_at: typing.Optional[str] = Field(default="") 
     selected: typing.Optional[bool] = Field(default=False) 
     archived_at: typing.Optional[str] = Field(default="") 
+    status: typing.Optional[MessageStatus] = Field(default=0) 
 
 class MessageUpdate(BaseModel):
     message: typing.Optional[str] = Field(default="") 

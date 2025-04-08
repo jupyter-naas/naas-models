@@ -135,6 +135,10 @@ func (m *Message) validate(all bool) error {
 
 	}
 
+	if m.Status != nil {
+		// no validation rules for Status
+	}
+
 	if len(errors) > 0 {
 		return MessageMultiError(errors)
 	}
