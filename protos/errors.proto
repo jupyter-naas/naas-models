@@ -5,7 +5,7 @@ package errors;
 option go_package = "github.com/jupyter-naas/naas-models/go/errors";
 
 import "validate.proto";
-
+import "google/protobuf/any.proto";
 enum Error {
     // Generic errors 0 - 199
     
@@ -61,4 +61,5 @@ enum Error {
 message ErrorResponse {
     optional Error code = 1;
     optional string message = 2;
+    optional string context = 3;
 }

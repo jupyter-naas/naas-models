@@ -41,3 +41,4 @@ class Error(IntEnum):
 class ErrorResponse(BaseModel):
     code: typing.Optional[Error] = Field(default=0) 
     message: typing.Optional[str] = Field(default="") 
+    context: typing.Optional[str] = Field(default="") 

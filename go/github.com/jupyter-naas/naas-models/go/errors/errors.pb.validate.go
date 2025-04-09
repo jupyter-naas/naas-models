@@ -65,6 +65,10 @@ func (m *ErrorResponse) validate(all bool) error {
 		// no validation rules for Message
 	}
 
+	if m.Context != nil {
+		// no validation rules for Context
+	}
+
 	if len(errors) > 0 {
 		return ErrorResponseMultiError(errors)
 	}
