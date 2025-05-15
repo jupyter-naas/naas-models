@@ -17,6 +17,7 @@ class TokenData(BaseModel):
     user_id: typing.Optional[str] = Field(default="") 
     scopes: typing.List[str] = Field(default_factory=list) 
     api_key_id: typing.Optional[str] = Field(default="") 
+    jwt_token: typing.Optional[str] = Field(default="") 
 
 class Profile(BaseModel):
     user_id: typing.Optional[str] = Field(default="") 

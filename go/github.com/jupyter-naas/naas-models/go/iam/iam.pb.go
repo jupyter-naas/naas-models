@@ -28,6 +28,7 @@ type TokenData struct {
 	UserId        *string                `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3,oneof" json:"user_id,omitempty"`
 	Scopes        []string               `protobuf:"bytes,2,rep,name=scopes,proto3" json:"scopes,omitempty"`
 	ApiKeyId      *string                `protobuf:"bytes,3,opt,name=api_key_id,json=apiKeyId,proto3,oneof" json:"api_key_id,omitempty"`
+	JwtToken      *string                `protobuf:"bytes,4,opt,name=jwt_token,json=jwtToken,proto3,oneof" json:"jwt_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -79,6 +80,13 @@ func (x *TokenData) GetScopes() []string {
 func (x *TokenData) GetApiKeyId() string {
 	if x != nil && x.ApiKeyId != nil {
 		return *x.ApiKeyId
+	}
+	return ""
+}
+
+func (x *TokenData) GetJwtToken() string {
+	if x != nil && x.JwtToken != nil {
+		return *x.JwtToken
 	}
 	return ""
 }
@@ -673,15 +681,18 @@ var File_iam_proto protoreflect.FileDescriptor
 
 const file_iam_proto_rawDesc = "" +
 	"\n" +
-	"\tiam.proto\x12\x03iam\x1a\x0evalidate.proto\x1a\ferrors.proto\"\x7f\n" +
+	"\tiam.proto\x12\x03iam\x1a\x0evalidate.proto\x1a\ferrors.proto\"\xaf\x01\n" +
 	"\tTokenData\x12\x1c\n" +
 	"\auser_id\x18\x01 \x01(\tH\x00R\x06userId\x88\x01\x01\x12\x16\n" +
 	"\x06scopes\x18\x02 \x03(\tR\x06scopes\x12!\n" +
 	"\n" +
-	"api_key_id\x18\x03 \x01(\tH\x01R\bapiKeyId\x88\x01\x01B\n" +
+	"api_key_id\x18\x03 \x01(\tH\x01R\bapiKeyId\x88\x01\x01\x12 \n" +
+	"\tjwt_token\x18\x04 \x01(\tH\x02R\bjwtToken\x88\x01\x01B\n" +
 	"\n" +
 	"\b_user_idB\r\n" +
-	"\v_api_key_id\"\xc6\x04\n" +
+	"\v_api_key_idB\f\n" +
+	"\n" +
+	"_jwt_token\"\xc6\x04\n" +
 	"\aProfile\x12\x1c\n" +
 	"\auser_id\x18\x01 \x01(\tH\x00R\x06userId\x88\x01\x01\x12\"\n" +
 	"\n" +

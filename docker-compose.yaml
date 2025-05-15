@@ -19,4 +19,10 @@ services:
           --python_out=../python/naas_models \
           --go_out=../go \
           --validate_out="lang=go:../go" \
-          space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto errors.proto validate.proto ontology.proto common.proto p2p_validate.proto
+          space.proto registry.proto iam.proto aimodel.proto chat.proto credit.proto secret.proto storage.proto workspace.proto asset.proto errors.proto validate.proto ontology.proto common.proto p2p_validate.proto && \
+          poetry run python3 -m grpc_tools.protoc \
+          -I=../protos/ \
+          -I=../lib/protoc-gen-validate/validate/ \
+          --pyi_out=../python/naas_models \
+          --grpc_python_out=../python/naas_models \
+          workspace.proto

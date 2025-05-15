@@ -296,3 +296,7 @@ message WorkspaceWipeRequest {
 message WorkspaceWipeResponse {
     optional errors.ErrorResponse error = 1;
 }
+
+service WorkspaceService {
+    rpc ListUser (WorkspaceUserListRequest) returns (WorkspaceUserListResponse);
+}
