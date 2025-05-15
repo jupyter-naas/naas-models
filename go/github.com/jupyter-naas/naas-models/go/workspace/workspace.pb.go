@@ -2755,7 +2755,9 @@ const file_workspace_proto_rawDesc = "" +
 	"\r_workspace_id\"S\n" +
 	"\x15WorkspaceWipeResponse\x120\n" +
 	"\x05error\x18\x01 \x01(\v2\x15.errors.ErrorResponseH\x00R\x05error\x88\x01\x01B\b\n" +
-	"\x06_errorB2Z0github.com/jupyter-naas/naas-models/go/workspaceb\x06proto3"
+	"\x06_error2i\n" +
+	"\x10WorkspaceService\x12U\n" +
+	"\bListUser\x12#.workspace.WorkspaceUserListRequest\x1a$.workspace.WorkspaceUserListResponseB2Z0github.com/jupyter-naas/naas-models/go/workspaceb\x06proto3"
 
 var (
 	file_workspace_proto_rawDescOnce sync.Once
@@ -2849,8 +2851,10 @@ var file_workspace_proto_depIdxs = []int32{
 	41, // 31: workspace.WorkspacePluginUpdateResponse.error:type_name -> errors.ErrorResponse
 	41, // 32: workspace.WorkspacePluginDeleteResponse.error:type_name -> errors.ErrorResponse
 	41, // 33: workspace.WorkspaceWipeResponse.error:type_name -> errors.ErrorResponse
-	34, // [34:34] is the sub-list for method output_type
-	34, // [34:34] is the sub-list for method input_type
+	21, // 34: workspace.WorkspaceService.ListUser:input_type -> workspace.WorkspaceUserListRequest
+	22, // 35: workspace.WorkspaceService.ListUser:output_type -> workspace.WorkspaceUserListResponse
+	35, // [35:36] is the sub-list for method output_type
+	34, // [34:35] is the sub-list for method input_type
 	34, // [34:34] is the sub-list for extension type_name
 	34, // [34:34] is the sub-list for extension extendee
 	0,  // [0:34] is the sub-list for field type_name
@@ -2913,7 +2917,7 @@ func file_workspace_proto_init() {
 			NumEnums:      0,
 			NumMessages:   41,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_workspace_proto_goTypes,
 		DependencyIndexes: file_workspace_proto_depIdxs,

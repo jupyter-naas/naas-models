@@ -68,6 +68,10 @@ func (m *TokenData) validate(all bool) error {
 		// no validation rules for ApiKeyId
 	}
 
+	if m.JwtToken != nil {
+		// no validation rules for JwtToken
+	}
+
 	if len(errors) > 0 {
 		return TokenDataMultiError(errors)
 	}
