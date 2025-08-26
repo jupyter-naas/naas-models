@@ -1,82 +1,43 @@
 # NAAS Models
 
-Protocol Buffer definitions and generated client libraries for the [NAAS.ai](https://naas.ai) API ecosystem.
+Protocol Buffer definitions and generated client libraries for the [NAAS.ai](https://naas.ai) ecosystem.
 
-## Overview
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Python Package](https://img.shields.io/pypi/v/naas-models)](https://pypi.org/project/naas-models/)
 
-This repository contains the Protocol Buffer (`.proto`) definitions that define the data contracts for all NAAS.ai microservices and APIs. It automatically generates client libraries in multiple programming languages, enabling consistent and type-safe communication across the entire NAAS platform.
+## What is this?
 
-## Purpose
+Type-safe API contracts for NAAS.ai services. Uses Protocol Buffers for fast, validated communication between services and clients.
 
-- **Single Source of Truth**: All API contracts are defined once in `.proto` files
-- **Multi-Language Support**: Automatically generates client libraries for Python, Go, and other languages
-- **Type Safety**: Ensures consistent data structures across all services
-- **Validation**: Built-in validation rules using protoc-gen-validate
+## Installation
 
-## Project Structure
-
-```
-naas-models/
-├── protos/              # Protocol Buffer definitions
-│   ├── aimodel.proto    # AI model management
-│   ├── asset.proto      # Asset management
-│   ├── chat.proto       # Chat messaging system
-│   ├── common.proto     # Common shared types
-│   ├── credit.proto     # Credit system
-│   ├── errors.proto     # Error definitions
-│   ├── iam.proto        # Identity and Access Management
-│   ├── ontology.proto   # Ontology definitions
-│   ├── registry.proto   # Service registry
-│   ├── secret.proto     # Secret management
-│   ├── space.proto      # Space management
-│   ├── storage.proto    # Storage services
-│   └── workspace.proto  # Workspace management
-│
-├── python/              # Python generated code
-│   └── naas_models/
-│       ├── *_pb2.py    # Generated protobuf classes
-│       └── pydantic/    # Pydantic models for validation
-│
-├── go/                  # Go generated code
-│   └── github.com/jupyter-naas/naas-models/go/
-│       └── */          # Generated Go packages
-│
-└── lib/                 # Dependencies and tools
-    └── protoc-gen-validate/  # Validation plugin
-```
-
-## Usage
-
-### For Python Projects
-
-Install the package:
+**Python:**
 ```bash
 pip install naas-models
 ```
 
-Use in your code:
+**Go:**
+```bash
+go get github.com/jupyter-naas/naas-models/go
+```
+
+## Usage
+
+**Python:**
 ```python
 from naas_models import chat_pb2
-from naas_models.pydantic import chat_p2p
 
-# Create a message
 message = chat_pb2.Message(
     chat_id=123,
     message="Hello, World!",
     type=chat_pb2.MessageType.HUMAN
 )
-
-# Use Pydantic models for validation
-pydantic_message = chat_p2p.Message.from_protobuf(message)
 ```
 
-### For Go Projects
-
-Import the package:
+**Go:**
 ```go
 import "github.com/jupyter-naas/naas-models/go/chat"
 
-// Use the generated types
 message := &chat.Message{
     ChatId:  123,
     Message: "Hello, World!",
@@ -86,101 +47,81 @@ message := &chat.Message{
 
 ## Available APIs
 
-The following domain APIs are available:
+- **Chat** - Messaging system
+- **IAM** - Authentication & authorization  
+- **AIModel** - AI model management
+- **Asset** - File management
+- **Storage** - Object storage
+- **Workspace** - Multi-tenant workspaces
+- **Credit** - Usage & billing
+- **Secret** - Credential storage
+- **Registry** - Service discovery
+- **Ontology** - Knowledge graphs
+- **Space** - Collaborative environments
+- **Errors** - Error handling
+- **Common** - Shared utilities
 
-- **AIModel**: AI model registration and management
-- **Asset**: Digital asset management
-- **Chat**: Real-time messaging and conversation management
-- **Credit**: Usage credits and billing
-- **Errors**: Standardized error responses
-- **IAM**: User authentication and authorization
-- **Ontology**: Knowledge graph and data relationships
-- **Registry**: Service discovery and registration
-- **Secret**: Secure credential storage
-- **Space**: Collaborative workspace management
-- **Storage**: File and object storage
-- **Workspace**: User workspace configuration
+## Common Examples
+
+**Authentication:**
+```python
+from naas_models import iam_pb2
+
+profile = iam_pb2.Profile(
+    user_id="550e8400-e29b-41d4-a716-446655440000",
+    first_name="John",
+    last_name="Doe",
+    email="john.doe@example.com"
+)
+```
+
+**AI Model Request:**
+```python
+from naas_models import aimodel_pb2
+
+request = aimodel_pb2.AIModelCompletionRequest(
+    id="gpt-4",
+    payload='{"messages": [{"role": "user", "content": "Hello"}]}'
+)
+```
+
+**Asset Management:**
+```python
+from naas_models import asset_pb2
+
+asset = asset_pb2.AssetCreation(
+    workspace_id="ws-123",
+    storage_name="my-storage",
+    object_name="document.pdf"
+)
+```
+
+**Workspace Creation:**
+```python
+from naas_models import workspace_pb2
+
+workspace = workspace_pb2.WorkspaceCreation(
+    name="My Team",
+    primary_color="#1f2937",
+    is_personal=False
+)
+```
+
+
 
 ## Development
 
-### Prerequisites
-
-- Docker and Docker Compose
-- Make
-- Git with submodules support
-
-### Building from Source
-
-1. Clone the repository with submodules:
 ```bash
+# Clone and build
 git clone --recursive https://github.com/jupyter-naas/naas-models.git
 cd naas-models
-```
-
-2. Generate all language bindings:
-```bash
 make generate
 ```
 
-This will:
-- Build the Docker container with protoc and plugins
-- Generate Python protobuf classes and Pydantic models
-- Generate Go packages with validation
-- Apply necessary import patches
-
-### Adding New Proto Definitions
-
-1. Create your `.proto` file in the `protos/` directory
-2. Follow the existing naming conventions and include validation rules
-3. Run `make generate` to update all language bindings
-4. Commit both the `.proto` file and generated code
-
-### Docker Development Environment
-
-For interactive development:
-```bash
-make bash
-```
-
-This gives you a shell with all necessary tools pre-installed.
-
-## Validation
-
-All messages include validation rules using [protoc-gen-validate](https://github.com/envoyproxy/protoc-gen-validate). These rules are automatically enforced in the generated code:
-
-```protobuf
-message User {
-    string email = 1 [(validate.rules).string.email = true];
-    int32 age = 2 [(validate.rules).int32 = {gte: 0, lte: 120}];
-}
-```
-
-## Integration with NAAS.ai Services
-
-This library is a core dependency for:
-- NAAS.ai API Gateway
-- All NAAS microservices
-- Client SDKs and applications
-- Third-party integrations
-
-When the API contracts are updated here, all dependent services can update their dependency to get the latest types and validation rules.
-
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes to the `.proto` files
-4. Run `make generate` to update generated code
-5. Test your changes
-6. Submit a pull request
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For questions and support:
-- Open an issue on GitHub
-- Contact the NAAS.ai team
-- Check the [NAAS.ai documentation](https://docs.naas.ai)
+AGPL v3.0 - see [LICENSE](LICENSE)
