@@ -5,9 +5,9 @@ description = "Library containing all models used in the naas ecosystem. You can
 authors = ["Maxime Jublou <maxime@naas.ai>"]
 readme = "README.md"
 packages = [{include = "naas_models"}]
-license = "MIT"
+license = "AGPL-3.0-or-later"
 classifiers = [
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
 ]
 
 [tool.poetry.dependencies]
