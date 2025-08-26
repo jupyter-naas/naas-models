@@ -1,6 +1,6 @@
 # NAAS Models
 
-Protocol Buffer definitions and generated client libraries for the [NAAS.ai](https://naas.ai) ecosystem.
+Protocol Buffer definitions and generated client libraries for the [NaasAI](https://naas.ai) ecosystem.
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python Package](https://img.shields.io/pypi/v/naas-models)](https://pypi.org/project/naas-models/)
