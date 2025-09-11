@@ -14,7 +14,7 @@ message Container {
         pattern: "^([A-Za-z0-9-]+)$",
     }];
     optional string image = 2 [(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:@][a-zA-Z0-9\\.\\/:_-]*)?$";
         min_len: 1;
         ignore_empty: false;
     }];
@@ -38,7 +38,7 @@ message ContainerUpdate {
         pattern: "^([A-Za-z0-9-]+)$",
     }];
     optional string image = 2 [(validate.rules).string = {
-        pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+        pattern: "^[a-zA-Z0-9\\.\\/-]+([:@][a-zA-Z0-9\\.\\/:_-]*)?$";
         min_len: 1;
         ignore_empty: false;
     }];
@@ -62,7 +62,7 @@ message ContainerUpdate {
 //         pattern: "^([A-Za-z0-9-]+)$",
 //     }];
 //     optional string image = 2 [(validate.rules).string = {
-//         pattern: "^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$";
+//         pattern: "^[a-zA-Z0-9\\.\\/-]+([:@][a-zA-Z0-9\\.\\/:_-]*)?$";
 //         min_len: 1;
 //         ignore_empty: false;
 //     }];

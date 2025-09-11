@@ -104,7 +104,7 @@ func (m *Container) validate(all bool) error {
 		if !_Container_Image_Pattern.MatchString(m.GetImage()) {
 			err := ContainerValidationError{
 				field:  "Image",
-				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:][a-zA-Z0-9\\\\.\\\\/-]*)?$\"",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:@][a-zA-Z0-9\\\\.\\\\/:_-]*)?$\"",
 			}
 			if !all {
 				return err
@@ -238,7 +238,7 @@ var _ interface {
 
 var _Container_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9-]+)$")
 
-var _Container_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
+var _Container_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:@][a-zA-Z0-9\\.\\/:_-]*)?$")
 
 var _Container_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
@@ -310,7 +310,7 @@ func (m *ContainerUpdate) validate(all bool) error {
 		if !_ContainerUpdate_Image_Pattern.MatchString(m.GetImage()) {
 			err := ContainerUpdateValidationError{
 				field:  "Image",
-				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:][a-zA-Z0-9\\\\.\\\\/-]*)?$\"",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9\\\\.\\\\/-]+([:@][a-zA-Z0-9\\\\.\\\\/:_-]*)?$\"",
 			}
 			if !all {
 				return err
@@ -445,7 +445,7 @@ var _ interface {
 
 var _ContainerUpdate_Name_Pattern = regexp.MustCompile("^([A-Za-z0-9-]+)$")
 
-var _ContainerUpdate_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:][a-zA-Z0-9\\.\\/-]*)?$")
+var _ContainerUpdate_Image_Pattern = regexp.MustCompile("^[a-zA-Z0-9\\.\\/-]+([:@][a-zA-Z0-9\\.\\/:_-]*)?$")
 
 var _ContainerUpdate_Cpu_Pattern = regexp.MustCompile("^[1-9]+(.[1-9]+)?[m]?$")
 
