@@ -165,3 +165,19 @@ message ObjectStorageCredentialsResponse {
     optional ObjectStorageCredentials credentials = 1;
     optional ObjectStorageCredentialsResponseError error = 2;
 }
+
+message StorageObjectPublicUrlRequest {
+    optional string workspace_id = 1 [(validate.rules).string.uuid = true];
+    optional string storage_name = 2;
+    optional string prefix = 3;
+    optional string object_name = 4;
+}
+
+message StorageObjectPublicUrlResponse {
+    optional string url = 1;
+    optional ObjectStorageCredentialsResponseError error = 2;
+}
+
+service StorageService {
+    rpc GetObjectPublicUrl (StorageObjectPublicUrlRequest) returns (StorageObjectPublicUrlResponse);
+}

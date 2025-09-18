@@ -1518,6 +1518,126 @@ func (x *ObjectStorageCredentialsResponse) GetError() *ObjectStorageCredentialsR
 	return nil
 }
 
+type StorageObjectPublicUrlRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WorkspaceId   *string                `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3,oneof" json:"workspace_id,omitempty"`
+	StorageName   *string                `protobuf:"bytes,2,opt,name=storage_name,json=storageName,proto3,oneof" json:"storage_name,omitempty"`
+	Prefix        *string                `protobuf:"bytes,3,opt,name=prefix,proto3,oneof" json:"prefix,omitempty"`
+	ObjectName    *string                `protobuf:"bytes,4,opt,name=object_name,json=objectName,proto3,oneof" json:"object_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StorageObjectPublicUrlRequest) Reset() {
+	*x = StorageObjectPublicUrlRequest{}
+	mi := &file_storage_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StorageObjectPublicUrlRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StorageObjectPublicUrlRequest) ProtoMessage() {}
+
+func (x *StorageObjectPublicUrlRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storage_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StorageObjectPublicUrlRequest.ProtoReflect.Descriptor instead.
+func (*StorageObjectPublicUrlRequest) Descriptor() ([]byte, []int) {
+	return file_storage_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *StorageObjectPublicUrlRequest) GetWorkspaceId() string {
+	if x != nil && x.WorkspaceId != nil {
+		return *x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *StorageObjectPublicUrlRequest) GetStorageName() string {
+	if x != nil && x.StorageName != nil {
+		return *x.StorageName
+	}
+	return ""
+}
+
+func (x *StorageObjectPublicUrlRequest) GetPrefix() string {
+	if x != nil && x.Prefix != nil {
+		return *x.Prefix
+	}
+	return ""
+}
+
+func (x *StorageObjectPublicUrlRequest) GetObjectName() string {
+	if x != nil && x.ObjectName != nil {
+		return *x.ObjectName
+	}
+	return ""
+}
+
+type StorageObjectPublicUrlResponse struct {
+	state         protoimpl.MessageState                 `protogen:"open.v1"`
+	Url           *string                                `protobuf:"bytes,1,opt,name=url,proto3,oneof" json:"url,omitempty"`
+	Error         *ObjectStorageCredentialsResponseError `protobuf:"bytes,2,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StorageObjectPublicUrlResponse) Reset() {
+	*x = StorageObjectPublicUrlResponse{}
+	mi := &file_storage_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StorageObjectPublicUrlResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StorageObjectPublicUrlResponse) ProtoMessage() {}
+
+func (x *StorageObjectPublicUrlResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storage_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StorageObjectPublicUrlResponse.ProtoReflect.Descriptor instead.
+func (*StorageObjectPublicUrlResponse) Descriptor() ([]byte, []int) {
+	return file_storage_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *StorageObjectPublicUrlResponse) GetUrl() string {
+	if x != nil && x.Url != nil {
+		return *x.Url
+	}
+	return ""
+}
+
+func (x *StorageObjectPublicUrlResponse) GetError() *ObjectStorageCredentialsResponseError {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
 var File_storage_proto protoreflect.FileDescriptor
 
 const file_storage_proto_rawDesc = "" +
@@ -1663,6 +1783,21 @@ const file_storage_proto_rawDesc = "" +
 	"\vcredentials\x18\x01 \x01(\v2!.storage.ObjectStorageCredentialsH\x00R\vcredentials\x88\x01\x01\x12I\n" +
 	"\x05error\x18\x02 \x01(\v2..storage.ObjectStorageCredentialsResponseErrorH\x01R\x05error\x88\x01\x01B\x0e\n" +
 	"\f_credentialsB\b\n" +
+	"\x06_error\"\xf9\x01\n" +
+	"\x1dStorageObjectPublicUrlRequest\x120\n" +
+	"\fworkspace_id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\x00R\vworkspaceId\x88\x01\x01\x12&\n" +
+	"\fstorage_name\x18\x02 \x01(\tH\x01R\vstorageName\x88\x01\x01\x12\x1b\n" +
+	"\x06prefix\x18\x03 \x01(\tH\x02R\x06prefix\x88\x01\x01\x12$\n" +
+	"\vobject_name\x18\x04 \x01(\tH\x03R\n" +
+	"objectName\x88\x01\x01B\x0f\n" +
+	"\r_workspace_idB\x0f\n" +
+	"\r_storage_nameB\t\n" +
+	"\a_prefixB\x0e\n" +
+	"\f_object_name\"\x94\x01\n" +
+	"\x1eStorageObjectPublicUrlResponse\x12\x15\n" +
+	"\x03url\x18\x01 \x01(\tH\x00R\x03url\x88\x01\x01\x12I\n" +
+	"\x05error\x18\x02 \x01(\v2..storage.ObjectStorageCredentialsResponseErrorH\x01R\x05error\x88\x01\x01B\x06\n" +
+	"\x04_urlB\b\n" +
 	"\x06_error*r\n" +
 	"\fStorageError\x12\x14\n" +
 	"\x10STORAGE_NO_ERROR\x10\x00\x12\x19\n" +
@@ -1676,7 +1811,9 @@ const file_storage_proto_rawDesc = "" +
 	"\x10OBJECT_NOT_FOUND\x10\x03\x12\x18\n" +
 	"\x14OBJECT_DIR_NOT_EMPTY\x10\x04*,\n" +
 	"\x10CredentialsError\x12\x18\n" +
-	"\x14CREDENTIALS_NO_ERROR\x10\x00B0Z.github.com/jupyter-naas/naas-models/go/storageb\x06proto3"
+	"\x14CREDENTIALS_NO_ERROR\x10\x002w\n" +
+	"\x0eStorageService\x12e\n" +
+	"\x12GetObjectPublicUrl\x12&.storage.StorageObjectPublicUrlRequest\x1a'.storage.StorageObjectPublicUrlResponseB0Z.github.com/jupyter-naas/naas-models/go/storageb\x06proto3"
 
 var (
 	file_storage_proto_rawDescOnce sync.Once
@@ -1691,7 +1828,7 @@ func file_storage_proto_rawDescGZIP() []byte {
 }
 
 var file_storage_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_storage_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_storage_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_storage_proto_goTypes = []any{
 	(StorageError)(0),                             // 0: storage.StorageError
 	(ObjectError)(0),                              // 1: storage.ObjectError
@@ -1722,6 +1859,8 @@ var file_storage_proto_goTypes = []any{
 	(*ObjectStorageCredentials)(nil),              // 26: storage.ObjectStorageCredentials
 	(*ObjectStorageCredentialsRequest)(nil),       // 27: storage.ObjectStorageCredentialsRequest
 	(*ObjectStorageCredentialsResponse)(nil),      // 28: storage.ObjectStorageCredentialsResponse
+	(*StorageObjectPublicUrlRequest)(nil),         // 29: storage.StorageObjectPublicUrlRequest
+	(*StorageObjectPublicUrlResponse)(nil),        // 30: storage.StorageObjectPublicUrlResponse
 }
 var file_storage_proto_depIdxs = []int32{
 	0,  // 0: storage.StorageResponseError.code:type_name -> storage.StorageError
@@ -1757,11 +1896,14 @@ var file_storage_proto_depIdxs = []int32{
 	3,  // 30: storage.ObjectStorageCredentialsRequest.storage:type_name -> storage.Storage
 	26, // 31: storage.ObjectStorageCredentialsResponse.credentials:type_name -> storage.ObjectStorageCredentials
 	7,  // 32: storage.ObjectStorageCredentialsResponse.error:type_name -> storage.ObjectStorageCredentialsResponseError
-	33, // [33:33] is the sub-list for method output_type
-	33, // [33:33] is the sub-list for method input_type
-	33, // [33:33] is the sub-list for extension type_name
-	33, // [33:33] is the sub-list for extension extendee
-	0,  // [0:33] is the sub-list for field type_name
+	7,  // 33: storage.StorageObjectPublicUrlResponse.error:type_name -> storage.ObjectStorageCredentialsResponseError
+	29, // 34: storage.StorageService.GetObjectPublicUrl:input_type -> storage.StorageObjectPublicUrlRequest
+	30, // 35: storage.StorageService.GetObjectPublicUrl:output_type -> storage.StorageObjectPublicUrlResponse
+	35, // [35:36] is the sub-list for method output_type
+	34, // [34:35] is the sub-list for method input_type
+	34, // [34:34] is the sub-list for extension type_name
+	34, // [34:34] is the sub-list for extension extendee
+	0,  // [0:34] is the sub-list for field type_name
 }
 
 func init() { file_storage_proto_init() }
@@ -1794,15 +1936,17 @@ func file_storage_proto_init() {
 	file_storage_proto_msgTypes[22].OneofWrappers = []any{}
 	file_storage_proto_msgTypes[24].OneofWrappers = []any{}
 	file_storage_proto_msgTypes[25].OneofWrappers = []any{}
+	file_storage_proto_msgTypes[26].OneofWrappers = []any{}
+	file_storage_proto_msgTypes[27].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_storage_proto_rawDesc), len(file_storage_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   26,
+			NumMessages:   28,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_storage_proto_goTypes,
 		DependencyIndexes: file_storage_proto_depIdxs,
