@@ -25,4 +25,4 @@ services:
           -I=../lib/protoc-gen-validate/validate/ \
           --pyi_out=../python/naas_models \
           --grpc_python_out=../python/naas_models \
-          workspace.proto
+          workspace.proto storage.proto

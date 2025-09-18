@@ -6,6 +6,7 @@ from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
 from pydantic import BaseModel
 from pydantic import Field
+from uuid import UUID
 import typing
 
 class StorageError(IntEnum):
@@ -127,4 +128,14 @@ class ObjectStorageCredentialsRequest(BaseModel):
 
 class ObjectStorageCredentialsResponse(BaseModel):
     credentials: typing.Optional[ObjectStorageCredentials] = Field(default=None) 
+    error: typing.Optional[ObjectStorageCredentialsResponseError] = Field(default=None) 
+
+class StorageObjectPublicUrlRequest(BaseModel):
+    workspace_id: typing.Optional[UUID] = Field(default="") 
+    storage_name: typing.Optional[str] = Field(default="") 
+    prefix: typing.Optional[str] = Field(default="") 
+    object_name: typing.Optional[str] = Field(default="") 
+
+class StorageObjectPublicUrlResponse(BaseModel):
+    url: typing.Optional[str] = Field(default="") 
     error: typing.Optional[ObjectStorageCredentialsResponseError] = Field(default=None) 
