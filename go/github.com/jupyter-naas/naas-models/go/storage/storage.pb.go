@@ -1587,9 +1587,9 @@ func (x *StorageObjectPublicUrlRequest) GetObjectName() string {
 }
 
 type StorageObjectPublicUrlResponse struct {
-	state         protoimpl.MessageState                 `protogen:"open.v1"`
-	Url           *string                                `protobuf:"bytes,1,opt,name=url,proto3,oneof" json:"url,omitempty"`
-	Error         *ObjectStorageCredentialsResponseError `protobuf:"bytes,2,opt,name=error,proto3,oneof" json:"error,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           *string                `protobuf:"bytes,1,opt,name=url,proto3,oneof" json:"url,omitempty"`
+	Error         *ObjectResponseError   `protobuf:"bytes,2,opt,name=error,proto3,oneof" json:"error,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1631,7 +1631,7 @@ func (x *StorageObjectPublicUrlResponse) GetUrl() string {
 	return ""
 }
 
-func (x *StorageObjectPublicUrlResponse) GetError() *ObjectStorageCredentialsResponseError {
+func (x *StorageObjectPublicUrlResponse) GetError() *ObjectResponseError {
 	if x != nil {
 		return x.Error
 	}
@@ -1793,10 +1793,10 @@ const file_storage_proto_rawDesc = "" +
 	"\r_workspace_idB\x0f\n" +
 	"\r_storage_nameB\t\n" +
 	"\a_prefixB\x0e\n" +
-	"\f_object_name\"\x94\x01\n" +
+	"\f_object_name\"\x82\x01\n" +
 	"\x1eStorageObjectPublicUrlResponse\x12\x15\n" +
-	"\x03url\x18\x01 \x01(\tH\x00R\x03url\x88\x01\x01\x12I\n" +
-	"\x05error\x18\x02 \x01(\v2..storage.ObjectStorageCredentialsResponseErrorH\x01R\x05error\x88\x01\x01B\x06\n" +
+	"\x03url\x18\x01 \x01(\tH\x00R\x03url\x88\x01\x01\x127\n" +
+	"\x05error\x18\x02 \x01(\v2\x1c.storage.ObjectResponseErrorH\x01R\x05error\x88\x01\x01B\x06\n" +
 	"\x04_urlB\b\n" +
 	"\x06_error*r\n" +
 	"\fStorageError\x12\x14\n" +
@@ -1896,7 +1896,7 @@ var file_storage_proto_depIdxs = []int32{
 	3,  // 30: storage.ObjectStorageCredentialsRequest.storage:type_name -> storage.Storage
 	26, // 31: storage.ObjectStorageCredentialsResponse.credentials:type_name -> storage.ObjectStorageCredentials
 	7,  // 32: storage.ObjectStorageCredentialsResponse.error:type_name -> storage.ObjectStorageCredentialsResponseError
-	7,  // 33: storage.StorageObjectPublicUrlResponse.error:type_name -> storage.ObjectStorageCredentialsResponseError
+	6,  // 33: storage.StorageObjectPublicUrlResponse.error:type_name -> storage.ObjectResponseError
 	29, // 34: storage.StorageService.GetObjectPublicUrl:input_type -> storage.StorageObjectPublicUrlRequest
 	30, // 35: storage.StorageService.GetObjectPublicUrl:output_type -> storage.StorageObjectPublicUrlResponse
 	35, // [35:36] is the sub-list for method output_type

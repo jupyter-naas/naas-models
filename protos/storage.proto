@@ -175,7 +175,7 @@ message StorageObjectPublicUrlRequest {
 
 message StorageObjectPublicUrlResponse {
     optional string url = 1;
-    optional ObjectStorageCredentialsResponseError error = 2;
+    optional ObjectResponseError error = 2;
 }
 
 service StorageService {
