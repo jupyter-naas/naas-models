@@ -17,7 +17,8 @@
         [
             "semantic-release-pypi",
             {
-                "srcDir": "./python"
+                "srcDir": "./python",
+                "distDir": "./python/dist"
             }
         ]
     ]
