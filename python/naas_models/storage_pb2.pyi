@@ -259,5 +259,5 @@ class StorageObjectPublicUrlResponse(_message.Message):
     URL_FIELD_NUMBER: _ClassVar[int]
     ERROR_FIELD_NUMBER: _ClassVar[int]
     url: str
-    error: ObjectStorageCredentialsResponseError
-    def __init__(self, url: _Optional[str] = ..., error: _Optional[_Union[ObjectStorageCredentialsResponseError, _Mapping]] = ...) -> None: ...
+    error: ObjectResponseError
+    def __init__(self, url: _Optional[str] = ..., error: _Optional[_Union[ObjectResponseError, _Mapping]] = ...) -> None: ...

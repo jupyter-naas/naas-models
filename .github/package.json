@@ -2,8 +2,8 @@
     "name": "naas-models",
     "version": "0.0.1",
     "devDependencies": {
-      "semantic-release": "24.2.1",
-      "semantic-release-pypi": "4.1.1"
+      "semantic-release": "24.2.9",
+      "semantic-release-pypi": "5.1.2"
     }
   }
   

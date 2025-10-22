@@ -147,4 +147,4 @@ class StorageObjectPublicUrlRequest(BaseModel):
 
 class StorageObjectPublicUrlResponse(BaseModel):
     url: typing.Optional[str] = Field(default="")
-    error: typing.Optional[ObjectStorageCredentialsResponseError] = Field(default_factory=ObjectStorageCredentialsResponseError)
+    error: typing.Optional[ObjectResponseError] = Field(default_factory=ObjectResponseError)
