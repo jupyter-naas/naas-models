@@ -104,7 +104,7 @@ type RegistryMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -214,7 +214,7 @@ type RegistryCredentialsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCredentialsMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -342,7 +342,7 @@ type RegistryCreationRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCreationRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -479,7 +479,7 @@ type RegistryCreationResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCreationResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -589,7 +589,7 @@ type RegistryCreationResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCreationResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -700,7 +700,7 @@ type RegistryListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -836,7 +836,7 @@ type RegistryListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -964,7 +964,7 @@ type RegistryGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1101,7 +1101,7 @@ type RegistryGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1211,7 +1211,7 @@ type RegistryGetResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryGetResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1317,7 +1317,7 @@ type RegistryDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1427,7 +1427,7 @@ type RegistryDeleteResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryDeleteResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1556,7 +1556,7 @@ type RegistryCredentialsRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCredentialsRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1719,7 +1719,7 @@ type RegistryCredentialsResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCredentialsResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1834,7 +1834,7 @@ type RegistryCredentialsResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m RegistryCredentialsResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

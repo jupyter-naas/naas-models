@@ -141,7 +141,7 @@ type WorkspaceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -281,7 +281,7 @@ type WorkspaceCreationMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceCreationMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -419,7 +419,7 @@ type WorkspaceUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -613,7 +613,7 @@ type WorkspaceUserMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -755,7 +755,7 @@ type WorkspaceUserUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -921,7 +921,7 @@ type WorkspacePluginMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1029,7 +1029,7 @@ type WorkspacePluginUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1155,7 +1155,7 @@ type WorkspaceListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1324,7 +1324,7 @@ type WorkspaceListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1450,7 +1450,7 @@ type InvitedWorkspaceListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m InvitedWorkspaceListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1620,7 +1620,7 @@ type InvitedWorkspaceListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m InvitedWorkspaceListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1780,7 +1780,7 @@ type WorkspaceCreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceCreateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1948,7 +1948,7 @@ type WorkspaceCreateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceCreateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2090,7 +2090,7 @@ type WorkspaceGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2258,7 +2258,7 @@ type WorkspaceGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2417,7 +2417,7 @@ type WorkspaceUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2585,7 +2585,7 @@ type WorkspaceUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2727,7 +2727,7 @@ type WorkspaceDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2862,7 +2862,7 @@ type WorkspaceDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3106,7 +3106,7 @@ type WorkspaceInviteUserRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceInviteUserRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3280,7 +3280,7 @@ type WorkspaceInviteUserResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceInviteUserResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3407,7 +3407,7 @@ type WorkspaceUserListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3576,7 +3576,7 @@ type WorkspaceUserListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3718,7 +3718,7 @@ type WorkspaceUserGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3886,7 +3886,7 @@ type WorkspaceUserGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4061,7 +4061,7 @@ type WorkspaceUserUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4229,7 +4229,7 @@ type WorkspaceUserUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4372,7 +4372,7 @@ type WorkspaceUserDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4507,7 +4507,7 @@ type WorkspaceUserDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceUserDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4642,7 +4642,7 @@ type WorkspacePluginCreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginCreateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4811,7 +4811,7 @@ type WorkspacePluginCreateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginCreateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -4954,7 +4954,7 @@ type WorkspacePluginGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5122,7 +5122,7 @@ type WorkspacePluginGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5248,7 +5248,7 @@ type WorkspacePluginListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5417,7 +5417,7 @@ type WorkspacePluginListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5593,7 +5593,7 @@ type WorkspacePluginUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5762,7 +5762,7 @@ type WorkspacePluginUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -5905,7 +5905,7 @@ type WorkspacePluginDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -6041,7 +6041,7 @@ type WorkspacePluginDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspacePluginDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -6168,7 +6168,7 @@ type WorkspaceWipeRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceWipeRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -6303,7 +6303,7 @@ type WorkspaceWipeResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m WorkspaceWipeResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

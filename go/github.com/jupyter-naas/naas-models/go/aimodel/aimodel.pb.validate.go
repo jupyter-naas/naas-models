@@ -128,7 +128,7 @@ type AIModelMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -268,7 +268,7 @@ type CompletionResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CompletionResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -386,7 +386,7 @@ type AIModelResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -496,7 +496,7 @@ type AIModelListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -669,7 +669,7 @@ type AIModelListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -795,7 +795,7 @@ type AIModelGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -963,7 +963,7 @@ type AIModelGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1093,7 +1093,7 @@ type AIModelCompletionRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelCompletionRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1261,7 +1261,7 @@ type AIModelCompletionResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelCompletionResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1391,7 +1391,7 @@ type AIModelAdminCreationRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelAdminCreationRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1560,7 +1560,7 @@ type AIModelAdminCreationResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelAdminCreationResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1687,7 +1687,7 @@ type AIModelAdminDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelAdminDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1822,7 +1822,7 @@ type AIModelAdminDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AIModelAdminDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

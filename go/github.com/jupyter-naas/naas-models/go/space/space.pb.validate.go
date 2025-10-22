@@ -172,7 +172,7 @@ type ContainerMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ContainerMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -379,7 +379,7 @@ type ContainerUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ContainerUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -612,7 +612,7 @@ type SpaceMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -774,7 +774,7 @@ type SpaceUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -890,7 +890,7 @@ type SpaceResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1079,7 +1079,7 @@ type SpaceCreationRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceCreationRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1220,7 +1220,7 @@ type SpaceCreationResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceCreationResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1348,7 +1348,7 @@ type SpaceGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1487,7 +1487,7 @@ type SpaceGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1613,7 +1613,7 @@ type SpaceDeletionRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceDeletionRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1721,7 +1721,7 @@ type SpaceDeletionResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceDeletionResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1831,7 +1831,7 @@ type SpaceListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1965,7 +1965,7 @@ type SpaceListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2126,7 +2126,7 @@ type SpaceUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2267,7 +2267,7 @@ type SpaceUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m SpaceUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

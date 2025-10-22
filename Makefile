@@ -7,6 +7,8 @@ generate: clean python go build submodules
 	sed -i.bak -r 's/^(import )([a-zA-Z]*_pb2)/import naas_models.\2/g' python/naas_models/*.py && rm python/naas_models/*.bak
 	sed -i.bak -r 's/^(import )([a-zA-Z]*_pb2)/import naas_models.pydantic.\2/g' python/naas_models/pydantic/*.py && rm python/naas_models/pydantic/*.bak
 	sed -i.bak -r 's/^(from )([a-zA-Z]*_p2p)/from naas_models.pydantic.\2/g' python/naas_models/pydantic/*.py && rm python/naas_models/pydantic/*.bak
+	sed -i.bak -r 's/^ *repeated/#repeated/g' python/naas_models/pydantic/*.py && rm python/naas_models/pydantic/*.bak
+	
 	# cd python/naas_models && sed -i.bak  's/import validate_pb2/import naas_models.validate_pb2/g' *.py && rm *.bak
 	# cd python/naas_models/pydantic && sed -i.bak 's/common_p2p/naas_models.pydantic.common_p2p/g' *.py && rm *.bak
 	# cd python/naas_models/pydantic && sed -i.bak 's/errors_p2p/naas_models.pydantic.errors_p2p/g' *.py && rm *.bak
@@ -33,3 +35,6 @@ submodules:
 
 bash: 
 	$(d) /bin/bash
+
+lock:
+	docker compose run --rm -it python poetry lock

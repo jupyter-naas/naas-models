@@ -137,7 +137,7 @@ type OntologyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -297,7 +297,7 @@ type OntologySummaryMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologySummaryMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -459,7 +459,7 @@ type OntologyCreationMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyCreationMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -652,7 +652,7 @@ type OntologyUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -794,7 +794,7 @@ type OntologyListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -963,7 +963,7 @@ type OntologyListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1101,7 +1101,7 @@ type OntologyGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1269,7 +1269,7 @@ type OntologyGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1400,7 +1400,7 @@ type OntologyCreationRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyCreationRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1568,7 +1568,7 @@ type OntologyCreationResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyCreationResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1699,7 +1699,7 @@ type OntologyUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1867,7 +1867,7 @@ type OntologyUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2001,7 +2001,7 @@ type OntologyDeletionRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyDeletionRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2136,7 +2136,7 @@ type OntologyDeletionResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m OntologyDeletionResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

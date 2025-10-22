@@ -167,7 +167,7 @@ type ObjectMetadataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectMetadataMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -431,7 +431,7 @@ type AssetMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -579,7 +579,7 @@ type AssetCreationMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetCreationMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -686,7 +686,7 @@ type AssetUpdateMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetUpdateMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -818,7 +818,7 @@ type AssetListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -985,7 +985,7 @@ type AssetListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1144,7 +1144,7 @@ type AssetCreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetCreateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1312,7 +1312,7 @@ type AssetCreateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetCreateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1454,7 +1454,7 @@ type AssetGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1620,7 +1620,7 @@ type AssetGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1760,7 +1760,7 @@ type AssetGetObjectRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetGetObjectRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1899,7 +1899,7 @@ type AssetGetObjectResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetGetObjectResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2058,7 +2058,7 @@ type AssetUpdateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetUpdateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2226,7 +2226,7 @@ type AssetUpdateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetUpdateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2368,7 +2368,7 @@ type AssetDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2503,7 +2503,7 @@ type AssetDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m AssetDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

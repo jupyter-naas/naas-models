@@ -10,7 +10,7 @@ ADD .docker/install-protoc.sh /tmp/
 RUN chmod +x /tmp/install-protoc.sh
 RUN /tmp/install-protoc.sh
 
-ENV PROTOC_GEN_VALIDATE_VERSION=0.9.1
+ENV PROTOC_GEN_VALIDATE_VERSION=1.2.1
 ADD .docker/install-protoc-gen-validate.sh /tmp/
 RUN chmod +x /tmp/install-protoc-gen-validate.sh
 RUN /tmp/install-protoc-gen-validate.sh

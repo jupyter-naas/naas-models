@@ -85,7 +85,7 @@ type TokenDataMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m TokenDataMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -227,7 +227,7 @@ type ProfileMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ProfileMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -438,7 +438,7 @@ type ImpersonateUserRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ImpersonateUserRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -577,7 +577,7 @@ type ImpersonateUserResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ImpersonateUserResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -701,7 +701,7 @@ type ApiKeyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ApiKeyMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -809,7 +809,7 @@ type ApiKeyCreationMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ApiKeyCreationMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -942,7 +942,7 @@ type CreateApiKeyRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CreateApiKeyRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1110,7 +1110,7 @@ type CreateApiKeyResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m CreateApiKeyResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1216,7 +1216,7 @@ type ListApiKeysRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListApiKeysRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1385,7 +1385,7 @@ type ListApiKeysResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ListApiKeysResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}

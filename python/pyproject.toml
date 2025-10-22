@@ -12,9 +12,9 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-protobuf-to-pydantic = {version = "0.2.6.2", extras = ["mypy-protobuf"]}
+protobuf-to-pydantic = {version = "0.3.3.1", extras = ["mypy-protobuf"]}
 protobuf = "^5.26.1"
-pydantic = "^2.0"
+pydantic = "^2.10.6"
 
 
 [tool.poetry.group.dev.dependencies]

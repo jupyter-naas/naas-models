@@ -1,14 +1,15 @@
 # This is an automatically generated file, please do not change
-# gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
+# gen by protobuf_to_pydantic[v0.3.3.1](https://github.com/so1n/protobuf_to_pydantic)
 # Protobuf Version: 5.26.1 
-# Pydantic Version: 2.7.1 
+# Pydantic Version: 2.12.3 
 from enum import IntEnum
 from google.protobuf.message import Message  # type: ignore
 from pydantic import BaseModel
+from pydantic import ConfigDict
 from pydantic import Field
 import typing
 
-class Error(IntEnum):
+class Error(IntEnum):#  Generic errors 0 - 199
     NO_ERROR = 0
     INTERNAL_SERVER_ERROR = 199
     IAM_USER_NOT_FOUND = 200
@@ -39,6 +40,7 @@ class Error(IntEnum):
     ASSET_REQUEST_ERROR = 802
 
 class ErrorResponse(BaseModel):
-    code: typing.Optional[Error] = Field(default=0) 
-    message: typing.Optional[str] = Field(default="") 
-    context: typing.Optional[str] = Field(default="") 
+    model_config = ConfigDict(validate_default=True)
+    code: typing.Optional[Error] = Field(default=0)
+    message: typing.Optional[str] = Field(default="")
+    context: typing.Optional[str] = Field(default="")

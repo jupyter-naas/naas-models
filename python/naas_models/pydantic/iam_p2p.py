@@ -1,8 +1,8 @@
 # This is an automatically generated file, please do not change
-# gen by protobuf_to_pydantic[v0.2.6.2](https://github.com/so1n/protobuf_to_pydantic)
+# gen by protobuf_to_pydantic[v0.3.3.1](https://github.com/so1n/protobuf_to_pydantic)
 # Protobuf Version: 5.26.1 
-# Pydantic Version: 2.7.1 
-from naas_models.pydantic.errors_p2p import ErrorResponse
+# Pydantic Version: 2.12.3 
+from .errors_p2p import ErrorResponse
 from google.protobuf.message import Message  # type: ignore
 from protobuf_to_pydantic.customer_validator import check_one_of
 from pydantic import BaseModel
@@ -14,56 +14,56 @@ import typing
 
 
 class TokenData(BaseModel):
-    user_id: typing.Optional[str] = Field(default="") 
-    scopes: typing.List[str] = Field(default_factory=list) 
-    api_key_id: typing.Optional[str] = Field(default="") 
-    jwt_token: typing.Optional[str] = Field(default="") 
+    user_id: typing.Optional[str] = Field(default="")
+    scopes: typing.List[str] = Field(default_factory=list)
+    api_key_id: typing.Optional[str] = Field(default="")
+    jwt_token: typing.Optional[str] = Field(default="")
 
 class Profile(BaseModel):
-    user_id: typing.Optional[str] = Field(default="") 
-    first_name: typing.Optional[str] = Field(default="") 
-    last_name: typing.Optional[str] = Field(default="") 
-    company: typing.Optional[str] = Field(default="") 
-    role: typing.Optional[str] = Field(default="") 
-    timezone: typing.Optional[str] = Field(default="") 
-    profile_picture_url: typing.Optional[str] = Field(default="") 
-    user_presentation: typing.Optional[str] = Field(default="") 
-    targeted_use: typing.Optional[str] = Field(default="") 
-    product_updates: typing.Optional[bool] = Field(default=False) 
-    phone: typing.Optional[str] = Field(default="") 
+    user_id: typing.Optional[str] = Field(default="")
+    first_name: typing.Optional[str] = Field(default="")
+    last_name: typing.Optional[str] = Field(default="")
+    company: typing.Optional[str] = Field(default="")
+    role: typing.Optional[str] = Field(default="")
+    timezone: typing.Optional[str] = Field(default="")
+    profile_picture_url: typing.Optional[str] = Field(default="")
+    user_presentation: typing.Optional[str] = Field(default="")
+    targeted_use: typing.Optional[str] = Field(default="")
+    product_updates: typing.Optional[bool] = Field(default=False)
+    phone: typing.Optional[str] = Field(default="")
 
 class ImpersonateUserRequest(BaseModel):
     _one_of_dict = {"ImpersonateUserRequest.user": {"fields": {"email", "user_id"}}}
     one_of_validator = model_validator(mode="before")(check_one_of)
-    user_id: UUID = Field(default="") 
-    email: EmailStr = Field(default="") 
+    user_id: UUID = Field(default="")
+    email: EmailStr = Field(default="")
 
 class ImpersonateUserResponse(BaseModel):
-    error: typing.Optional[ErrorResponse] = Field(default=None) 
-    token: typing.Optional[str] = Field(default="") 
+    error: typing.Optional[ErrorResponse] = Field(default_factory=ErrorResponse)
+    token: typing.Optional[str] = Field(default="")
 
 class ApiKey(BaseModel):
-    id: typing.Optional[str] = Field(default="") 
-    user_id: typing.Optional[str] = Field(default="") 
-    api_key: typing.Optional[str] = Field(default="") 
-    name: typing.Optional[str] = Field(default="") 
-    description: typing.Optional[str] = Field(default="") 
-    created_at: typing.Optional[str] = Field(default="") 
+    id: typing.Optional[str] = Field(default="")
+    user_id: typing.Optional[str] = Field(default="")
+    api_key: typing.Optional[str] = Field(default="")
+    name: typing.Optional[str] = Field(default="")
+    description: typing.Optional[str] = Field(default="")
+    created_at: typing.Optional[str] = Field(default="")
 
 class ApiKeyCreation(BaseModel):
-    name: typing.Optional[str] = Field(default="") 
-    description: typing.Optional[str] = Field(default="") 
+    name: typing.Optional[str] = Field(default="")
+    description: typing.Optional[str] = Field(default="")
 
 class CreateApiKeyRequest(BaseModel):
-    api_key: typing.Optional[ApiKeyCreation] = Field(default=None) 
+    api_key: typing.Optional[ApiKeyCreation] = Field(default_factory=ApiKeyCreation)
 
 class CreateApiKeyResponse(BaseModel):
-    error: typing.Optional[ErrorResponse] = Field(default=None) 
-    api_key: typing.Optional[ApiKey] = Field(default=None) 
+    error: typing.Optional[ErrorResponse] = Field(default_factory=ErrorResponse)
+    api_key: typing.Optional[ApiKey] = Field(default_factory=ApiKey)
 
 class ListApiKeysRequest(BaseModel):
-    user_id: typing.Optional[str] = Field(default="") 
+    user_id: typing.Optional[str] = Field(default="")
 
 class ListApiKeysResponse(BaseModel):
-    error: typing.Optional[ErrorResponse] = Field(default=None) 
-    api_keys: typing.List[ApiKey] = Field(default_factory=list) 
+    error: typing.Optional[ErrorResponse] = Field(default_factory=ErrorResponse)
+    api_keys: typing.List[ApiKey] = Field(default_factory=list)

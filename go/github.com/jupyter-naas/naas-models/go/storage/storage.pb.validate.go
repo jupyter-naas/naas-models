@@ -76,7 +76,7 @@ type StorageMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -194,7 +194,7 @@ type ObjectMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -302,7 +302,7 @@ type StorageResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -412,7 +412,7 @@ type ObjectResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -524,7 +524,7 @@ type ObjectStorageCredentialsResponseErrorMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageCredentialsResponseErrorMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -693,7 +693,7 @@ type StorageListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -862,7 +862,7 @@ type StorageListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -997,7 +997,7 @@ type StorageCreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageCreateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1165,7 +1165,7 @@ type StorageCreateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageCreateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1300,7 +1300,7 @@ type StorageDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1435,7 +1435,7 @@ type StorageDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1603,7 +1603,7 @@ type StorageListObjectRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageListObjectRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1772,7 +1772,7 @@ type StorageListObjectResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageListObjectResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -1940,7 +1940,7 @@ type ObjectCreateRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectCreateRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2075,7 +2075,7 @@ type ObjectCreateResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectCreateResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2243,7 +2243,7 @@ type ObjectListRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectListRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2412,7 +2412,7 @@ type ObjectListResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectListResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2580,7 +2580,7 @@ type ObjectGetRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectGetRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2746,7 +2746,7 @@ type ObjectGetResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectGetResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -2881,7 +2881,7 @@ type ObjectDeleteRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectDeleteRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3016,7 +3016,7 @@ type ObjectDeleteResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectDeleteResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3142,7 +3142,7 @@ type ObjectStorageS3CredentialsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageS3CredentialsMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3256,7 +3256,7 @@ type ObjectStorageAzureCredentialsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageAzureCredentialsMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3388,7 +3388,7 @@ type ObjectStorageCredentialsMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageCredentialsMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3523,7 +3523,7 @@ type ObjectStorageCredentialsRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageCredentialsRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3694,7 +3694,7 @@ type ObjectStorageCredentialsResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m ObjectStorageCredentialsResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3833,7 +3833,7 @@ type StorageObjectPublicUrlRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageObjectPublicUrlRequestMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
@@ -3973,7 +3973,7 @@ type StorageObjectPublicUrlResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
 func (m StorageObjectPublicUrlResponseMultiError) Error() string {
-	var msgs []string
+	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
 	}
