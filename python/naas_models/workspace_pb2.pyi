@@ -8,7 +8,7 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Workspace(_message.Message):
-    __slots__ = ("id", "name", "fav_icon", "large_logo", "small_logo", "primary_color", "secondary_color", "tertiary_color", "text_primary_color", "text_secondary_color", "is_personal", "created_at")
+    __slots__ = ("id", "name", "fav_icon", "large_logo", "small_logo", "primary_color", "secondary_color", "tertiary_color", "text_primary_color", "text_secondary_color", "is_personal", "created_at", "default_plugin_id")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     FAV_ICON_FIELD_NUMBER: _ClassVar[int]
@@ -21,6 +21,7 @@ class Workspace(_message.Message):
     TEXT_SECONDARY_COLOR_FIELD_NUMBER: _ClassVar[int]
     IS_PERSONAL_FIELD_NUMBER: _ClassVar[int]
     CREATED_AT_FIELD_NUMBER: _ClassVar[int]
+    DEFAULT_PLUGIN_ID_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     fav_icon: str
@@ -33,7 +34,8 @@ class Workspace(_message.Message):
     text_secondary_color: str
     is_personal: bool
     created_at: str
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., fav_icon: _Optional[str] = ..., large_logo: _Optional[str] = ..., small_logo: _Optional[str] = ..., primary_color: _Optional[str] = ..., secondary_color: _Optional[str] = ..., tertiary_color: _Optional[str] = ..., text_primary_color: _Optional[str] = ..., text_secondary_color: _Optional[str] = ..., is_personal: bool = ..., created_at: _Optional[str] = ...) -> None: ...
+    default_plugin_id: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., fav_icon: _Optional[str] = ..., large_logo: _Optional[str] = ..., small_logo: _Optional[str] = ..., primary_color: _Optional[str] = ..., secondary_color: _Optional[str] = ..., tertiary_color: _Optional[str] = ..., text_primary_color: _Optional[str] = ..., text_secondary_color: _Optional[str] = ..., is_personal: bool = ..., created_at: _Optional[str] = ..., default_plugin_id: _Optional[str] = ...) -> None: ...
 
 class WorkspaceCreation(_message.Message):
     __slots__ = ("name", "fav_icon", "large_logo", "small_logo", "primary_color", "secondary_color", "tertiary_color", "text_primary_color", "text_secondary_color", "is_personal")
@@ -60,7 +62,7 @@ class WorkspaceCreation(_message.Message):
     def __init__(self, name: _Optional[str] = ..., fav_icon: _Optional[str] = ..., large_logo: _Optional[str] = ..., small_logo: _Optional[str] = ..., primary_color: _Optional[str] = ..., secondary_color: _Optional[str] = ..., tertiary_color: _Optional[str] = ..., text_primary_color: _Optional[str] = ..., text_secondary_color: _Optional[str] = ..., is_personal: bool = ...) -> None: ...
 
 class WorkspaceUpdate(_message.Message):
-    __slots__ = ("name", "fav_icon", "large_logo", "small_logo", "primary_color", "secondary_color", "tertiary_color", "text_primary_color", "text_secondary_color")
+    __slots__ = ("name", "fav_icon", "large_logo", "small_logo", "primary_color", "secondary_color", "tertiary_color", "text_primary_color", "text_secondary_color", "default_plugin_id")
     NAME_FIELD_NUMBER: _ClassVar[int]
     FAV_ICON_FIELD_NUMBER: _ClassVar[int]
     LARGE_LOGO_FIELD_NUMBER: _ClassVar[int]
@@ -70,6 +72,7 @@ class WorkspaceUpdate(_message.Message):
     TERTIARY_COLOR_FIELD_NUMBER: _ClassVar[int]
     TEXT_PRIMARY_COLOR_FIELD_NUMBER: _ClassVar[int]
     TEXT_SECONDARY_COLOR_FIELD_NUMBER: _ClassVar[int]
+    DEFAULT_PLUGIN_ID_FIELD_NUMBER: _ClassVar[int]
     name: str
     fav_icon: str
     large_logo: str
@@ -79,7 +82,8 @@ class WorkspaceUpdate(_message.Message):
     tertiary_color: str
     text_primary_color: str
     text_secondary_color: str
-    def __init__(self, name: _Optional[str] = ..., fav_icon: _Optional[str] = ..., large_logo: _Optional[str] = ..., small_logo: _Optional[str] = ..., primary_color: _Optional[str] = ..., secondary_color: _Optional[str] = ..., tertiary_color: _Optional[str] = ..., text_primary_color: _Optional[str] = ..., text_secondary_color: _Optional[str] = ...) -> None: ...
+    default_plugin_id: str
+    def __init__(self, name: _Optional[str] = ..., fav_icon: _Optional[str] = ..., large_logo: _Optional[str] = ..., small_logo: _Optional[str] = ..., primary_color: _Optional[str] = ..., secondary_color: _Optional[str] = ..., tertiary_color: _Optional[str] = ..., text_primary_color: _Optional[str] = ..., text_secondary_color: _Optional[str] = ..., default_plugin_id: _Optional[str] = ...) -> None: ...
 
 class WorkspaceUser(_message.Message):
     __slots__ = ("user_id", "workspace_id", "role", "status", "create_at", "update_at", "first_name", "last_name", "email", "profile_picture_url")
