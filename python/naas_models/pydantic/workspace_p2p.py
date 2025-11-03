@@ -28,6 +28,7 @@ class Workspace(BaseModel):
     text_secondary_color: typing.Optional[str] = Field(default="")
     is_personal: typing.Optional[bool] = Field(default=False)
     created_at: typing.Optional[str] = Field(default="")
+    default_plugin_id: typing.Optional[UUID] = Field(default="")
 
 class WorkspaceCreation(BaseModel):
     name: typing.Optional[str] = Field(default="")
@@ -51,6 +52,7 @@ class WorkspaceUpdate(BaseModel):
     tertiary_color: typing.Optional[str] = Field(default="")
     text_primary_color: typing.Optional[str] = Field(default="")
     text_secondary_color: typing.Optional[str] = Field(default="")
+    default_plugin_id: typing.Optional[UUID] = Field(default="")
 
 class WorkspaceUser(BaseModel):
     user_id: typing.Optional[UUID] = Field(default="")

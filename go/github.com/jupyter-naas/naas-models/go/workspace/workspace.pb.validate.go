@@ -120,6 +120,22 @@ func (m *Workspace) validate(all bool) error {
 		// no validation rules for CreatedAt
 	}
 
+	if m.DefaultPluginId != nil {
+
+		if err := m._validateUuid(m.GetDefaultPluginId()); err != nil {
+			err = WorkspaceValidationError{
+				field:  "DefaultPluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return WorkspaceMultiError(errors)
 	}
@@ -405,8 +421,32 @@ func (m *WorkspaceUpdate) validate(all bool) error {
 		// no validation rules for TextSecondaryColor
 	}
 
+	if m.DefaultPluginId != nil {
+
+		if err := m._validateUuid(m.GetDefaultPluginId()); err != nil {
+			err = WorkspaceUpdateValidationError{
+				field:  "DefaultPluginId",
+				reason: "value must be a valid UUID",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
 	if len(errors) > 0 {
 		return WorkspaceUpdateMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *WorkspaceUpdate) _validateUuid(uuid string) error {
+	if matched := _workspace_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil

@@ -37,6 +37,7 @@ type Workspace struct {
 	TextSecondaryColor *string                `protobuf:"bytes,10,opt,name=text_secondary_color,json=textSecondaryColor,proto3,oneof" json:"text_secondary_color,omitempty"`
 	IsPersonal         *bool                  `protobuf:"varint,11,opt,name=is_personal,json=isPersonal,proto3,oneof" json:"is_personal,omitempty"`
 	CreatedAt          *string                `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	DefaultPluginId    *string                `protobuf:"bytes,13,opt,name=default_plugin_id,json=defaultPluginId,proto3,oneof" json:"default_plugin_id,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -151,6 +152,13 @@ func (x *Workspace) GetIsPersonal() bool {
 func (x *Workspace) GetCreatedAt() string {
 	if x != nil && x.CreatedAt != nil {
 		return *x.CreatedAt
+	}
+	return ""
+}
+
+func (x *Workspace) GetDefaultPluginId() string {
+	if x != nil && x.DefaultPluginId != nil {
+		return *x.DefaultPluginId
 	}
 	return ""
 }
@@ -282,6 +290,7 @@ type WorkspaceUpdate struct {
 	TertiaryColor      *string                `protobuf:"bytes,8,opt,name=tertiary_color,json=tertiaryColor,proto3,oneof" json:"tertiary_color,omitempty"`
 	TextPrimaryColor   *string                `protobuf:"bytes,9,opt,name=text_primary_color,json=textPrimaryColor,proto3,oneof" json:"text_primary_color,omitempty"`
 	TextSecondaryColor *string                `protobuf:"bytes,10,opt,name=text_secondary_color,json=textSecondaryColor,proto3,oneof" json:"text_secondary_color,omitempty"`
+	DefaultPluginId    *string                `protobuf:"bytes,11,opt,name=default_plugin_id,json=defaultPluginId,proto3,oneof" json:"default_plugin_id,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -375,6 +384,13 @@ func (x *WorkspaceUpdate) GetTextPrimaryColor() string {
 func (x *WorkspaceUpdate) GetTextSecondaryColor() string {
 	if x != nil && x.TextSecondaryColor != nil {
 		return *x.TextSecondaryColor
+	}
+	return ""
+}
+
+func (x *WorkspaceUpdate) GetDefaultPluginId() string {
+	if x != nil && x.DefaultPluginId != nil {
+		return *x.DefaultPluginId
 	}
 	return ""
 }
@@ -2445,7 +2461,7 @@ var File_workspace_proto protoreflect.FileDescriptor
 
 const file_workspace_proto_rawDesc = "" +
 	"\n" +
-	"\x0fworkspace.proto\x12\tworkspace\x1a\x0evalidate.proto\x1a\ferrors.proto\"\xa6\x05\n" +
+	"\x0fworkspace.proto\x12\tworkspace\x1a\x0evalidate.proto\x1a\ferrors.proto\"\xf7\x05\n" +
 	"\tWorkspace\x12\x1d\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\x00R\x02id\x88\x01\x01\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x01R\x04name\x88\x01\x01\x12\x1e\n" +
@@ -2464,7 +2480,8 @@ const file_workspace_proto_rawDesc = "" +
 	"R\n" +
 	"isPersonal\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"created_at\x18\f \x01(\tH\vR\tcreatedAt\x88\x01\x01B\x05\n" +
+	"created_at\x18\f \x01(\tH\vR\tcreatedAt\x88\x01\x01\x129\n" +
+	"\x11default_plugin_id\x18\r \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\fR\x0fdefaultPluginId\x88\x01\x01B\x05\n" +
 	"\x03_idB\a\n" +
 	"\x05_nameB\v\n" +
 	"\t_fav_iconB\r\n" +
@@ -2476,7 +2493,8 @@ const file_workspace_proto_rawDesc = "" +
 	"\x13_text_primary_colorB\x17\n" +
 	"\x15_text_secondary_colorB\x0e\n" +
 	"\f_is_personalB\r\n" +
-	"\v_created_at\"\xd5\x04\n" +
+	"\v_created_atB\x14\n" +
+	"\x12_default_plugin_id\"\xd5\x04\n" +
 	"\x11WorkspaceCreation\x12\x17\n" +
 	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1e\n" +
 	"\bfav_icon\x18\x02 \x01(\tH\x01R\afavIcon\x88\x01\x01\x12\"\n" +
@@ -2501,7 +2519,7 @@ const file_workspace_proto_rawDesc = "" +
 	"\x0f_tertiary_colorB\x15\n" +
 	"\x13_text_primary_colorB\x17\n" +
 	"\x15_text_secondary_colorB\x0e\n" +
-	"\f_is_personal\"\x9d\x04\n" +
+	"\f_is_personal\"\xee\x04\n" +
 	"\x0fWorkspaceUpdate\x12\x17\n" +
 	"\x04name\x18\x02 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1e\n" +
 	"\bfav_icon\x18\x03 \x01(\tH\x01R\afavIcon\x88\x01\x01\x12\"\n" +
@@ -2514,7 +2532,8 @@ const file_workspace_proto_rawDesc = "" +
 	"\x0etertiary_color\x18\b \x01(\tH\x06R\rtertiaryColor\x88\x01\x01\x121\n" +
 	"\x12text_primary_color\x18\t \x01(\tH\aR\x10textPrimaryColor\x88\x01\x01\x125\n" +
 	"\x14text_secondary_color\x18\n" +
-	" \x01(\tH\bR\x12textSecondaryColor\x88\x01\x01B\a\n" +
+	" \x01(\tH\bR\x12textSecondaryColor\x88\x01\x01\x129\n" +
+	"\x11default_plugin_id\x18\v \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\tR\x0fdefaultPluginId\x88\x01\x01B\a\n" +
 	"\x05_nameB\v\n" +
 	"\t_fav_iconB\r\n" +
 	"\v_large_logoB\r\n" +
@@ -2523,7 +2542,8 @@ const file_workspace_proto_rawDesc = "" +
 	"\x10_secondary_colorB\x11\n" +
 	"\x0f_tertiary_colorB\x15\n" +
 	"\x13_text_primary_colorB\x17\n" +
-	"\x15_text_secondary_color\"\xc4\x04\n" +
+	"\x15_text_secondary_colorB\x14\n" +
+	"\x12_default_plugin_id\"\xc4\x04\n" +
 	"\rWorkspaceUser\x12&\n" +
 	"\auser_id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\x00R\x06userId\x88\x01\x01\x120\n" +
 	"\fworkspace_id\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01H\x01R\vworkspaceId\x88\x01\x01\x124\n" +

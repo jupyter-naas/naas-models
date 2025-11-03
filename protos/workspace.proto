@@ -20,6 +20,7 @@ message Workspace {
     optional string text_secondary_color = 10;
     optional bool is_personal = 11;
     optional string created_at = 12;
+    optional string default_plugin_id = 13 [(validate.rules).string.uuid = true];
 }
 
 message WorkspaceCreation {
@@ -45,6 +46,7 @@ message WorkspaceUpdate {
     optional string tertiary_color = 8;
     optional string text_primary_color = 9;
     optional string text_secondary_color = 10;
+    optional string default_plugin_id = 11 [(validate.rules).string.uuid = true];
 }
 
 message WorkspaceUser {
