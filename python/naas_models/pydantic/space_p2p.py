@@ -17,6 +17,7 @@ class SpaceError(IntEnum):
     SPACE_NOT_FOUND = 2
     SPACE_NOT_UPDATED = 3
     SPACE_MUST_HAVE_ONE_CONTAINER_PORT = 4
+    SPACE_SUBSCRIPTION_REQUIRED = 5
 
 class Container(BaseModel):
     name: typing.Optional[str] = Field(default="", min_length=1, max_length=63, pattern="^([A-Za-z0-9-]+)$")

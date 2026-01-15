@@ -107,6 +107,7 @@ enum SpaceError {
     SPACE_NOT_FOUND = 2;
     SPACE_NOT_UPDATED = 3;
     SPACE_MUST_HAVE_ONE_CONTAINER_PORT = 4;
+    SPACE_SUBSCRIPTION_REQUIRED = 5;
 }
 
 message SpaceResponseError {
